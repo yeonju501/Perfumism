@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class PerfumeRestController {
+
     private PerfumeService perfumeService;
 
     public PerfumeRestController(PerfumeService perfumeService) {
@@ -18,8 +19,7 @@ public class PerfumeRestController {
     }
 
     @GetMapping("/perfumes/{perfume_id}")
-    public ResponseEntity<PerfumeDetailResponse> viewDetailPerfume(@PathVariable(value = "perfume_id") Long perfumeId){
+    public ResponseEntity<PerfumeDetailResponse> viewDetailPerfume(@PathVariable(value = "perfume_id") Long perfumeId) {
         return ResponseEntity.ok().body(perfumeService.viewDetailPerfume(perfumeId));
     }
-
 }
