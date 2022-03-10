@@ -31,6 +31,13 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
+    @Transactional
+    public void resignMember(String email) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        member.saveDeletedTime();
+    }
+
     private void checkDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
