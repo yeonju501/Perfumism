@@ -9,8 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import lombok.Builder;
+import lombok.Getter;
+import org.hibernate.annotations.Where;
 
 @Entity
+@Getter
+@Where(clause = "deleted_at is null")
 public class Article extends BaseEntity {
 
     @Id @GeneratedValue
