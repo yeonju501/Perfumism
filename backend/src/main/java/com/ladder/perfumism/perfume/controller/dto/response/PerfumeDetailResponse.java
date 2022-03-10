@@ -12,6 +12,9 @@ public class PerfumeDetailResponse {
     @JsonProperty("perfume_id")
     private Long id;
 
+    @JsonProperty("perfume_name")
+    private String name;
+
     @JsonProperty("brand")
     private BrandResponse brand;
 
@@ -42,7 +45,7 @@ public class PerfumeDetailResponse {
     @JsonProperty("sillage")
     private String sillage;
 
-    @JsonProperty("Accords")
+    @JsonProperty("accords")
     private List<AccordResponse> accordResponse;
 
     @JsonProperty("similar_perfume")
@@ -51,10 +54,12 @@ public class PerfumeDetailResponse {
     public PerfumeDetailResponse() {
     }
 
-    public PerfumeDetailResponse(Long id, BrandResponse brand, String image, Integer launchYear, Double averageGrade,
-        String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage,
-        List<AccordResponse> accordResponse, List<SimilarPerfumeResponse> similarPerfumeResponses) {
+    public PerfumeDetailResponse(Long id, String name, BrandResponse brand, String image, Integer launchYear,
+        Double averageGrade, String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity,
+        String sillage, List<AccordResponse> accordResponse,
+        List<SimilarPerfumeResponse> similarPerfumeResponse) {
         this.id = id;
+        this.name = name;
         this.brand = brand;
         this.image = image;
         this.launchYear = launchYear;
@@ -66,13 +71,14 @@ public class PerfumeDetailResponse {
         this.longevity = longevity;
         this.sillage = sillage;
         this.accordResponse = accordResponse;
-        this.similarPerfumeResponse = similarPerfumeResponses;
+        this.similarPerfumeResponse = similarPerfumeResponse;
     }
 
     public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords,
         List<SimilarPerfume> similarPerfumes) {
         return new PerfumeDetailResponse(
             perfume.getId(),
+            perfume.getName(),
             BrandResponse.from(perfume.getBrandId()),
             perfume.getImage(),
             perfume.getLaunchYear(),
