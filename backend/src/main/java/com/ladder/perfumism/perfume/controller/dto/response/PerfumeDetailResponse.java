@@ -3,6 +3,7 @@ package com.ladder.perfumism.perfume.controller.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
+import com.ladder.perfumism.perfume.domain.SimilarPerfume;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +45,15 @@ public class PerfumeDetailResponse {
     @JsonProperty("Accords")
     private List<AccordResponse> accordResponse;
 
+    @JsonProperty("similar_perfume")
+    private List<SimilarPerfumeResponse> similarPerfumeResponse;
+
     public PerfumeDetailResponse() {
     }
 
     public PerfumeDetailResponse(Long id, BrandResponse brand, String image, Integer launchYear, Double averageGrade,
         String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage,
-        List<AccordResponse> accordResponse) {
+        List<AccordResponse> accordResponse, List<SimilarPerfumeResponse> similarPerfumeResponses) {
         this.id = id;
         this.brand = brand;
         this.image = image;
@@ -62,9 +66,11 @@ public class PerfumeDetailResponse {
         this.longevity = longevity;
         this.sillage = sillage;
         this.accordResponse = accordResponse;
+        this.similarPerfumeResponse = similarPerfumeResponses;
     }
 
-    public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords) {
+    public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords,
+        List<SimilarPerfume> similarPerfumes) {
         return new PerfumeDetailResponse(
             perfume.getId(),
             BrandResponse.from(perfume.getBrandId()),
@@ -79,6 +85,9 @@ public class PerfumeDetailResponse {
             perfume.getSillage(),
             perfumeAccords.stream()
                 .map(AccordResponse::from)
+                .collect(Collectors.toList()),
+            similarPerfumes.stream()
+                .map(SimilarPerfumeResponse::from)
                 .collect(Collectors.toList())
         );
     }
