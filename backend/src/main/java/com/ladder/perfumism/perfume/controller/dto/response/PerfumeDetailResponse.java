@@ -64,7 +64,7 @@ public class PerfumeDetailResponse {
         this.accordResponse = accordResponse;
     }
 
-    public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords){
+    public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords) {
         return new PerfumeDetailResponse(
             perfume.getId(),
             BrandResponse.from(perfume.getBrandId()),

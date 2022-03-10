@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 
 public class AccordResponse {
+
     @JsonProperty("accord_id")
     private Long accordId;
 
@@ -22,7 +23,7 @@ public class AccordResponse {
         this.engName = engName;
     }
 
-    public static AccordResponse from(PerfumeAccord perfumeAccord){
+    public static AccordResponse from(PerfumeAccord perfumeAccord) {
         return new AccordResponse(
             perfumeAccord.getAccordId().getId(),
             perfumeAccord.getAccordId().getKorName(),
