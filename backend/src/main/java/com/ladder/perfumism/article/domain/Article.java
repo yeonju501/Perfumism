@@ -18,18 +18,18 @@ import org.hibernate.annotations.Where;
 public class Article extends BaseEntity {
 
     @Id @GeneratedValue
-//    @Column(name = "article_id")
+    @Column(name = "article_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-//    @Column(name = "subject", nullable = false)
+    @Column(name = "subject", nullable = false)
     private ArticleSubject subject;
 
-//    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Lob
-//    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false)
     private String content;
 
     protected Article(){
