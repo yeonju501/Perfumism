@@ -2,7 +2,6 @@ package com.ladder.perfumism.perfume.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,10 @@ public class Perfume {
     @Column(name = "perfume_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Brand.class, fetch = FetchType.LAZY)
+    @Column(name = "name")
+    private String name;
+
+    @ManyToOne(targetEntity = Brand.class)
     @JoinColumn(name = "brand_id")
     private Brand brandId;
 
