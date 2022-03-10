@@ -24,7 +24,7 @@ public class AccordResponse {
 
     public static AccordResponse from(PerfumeAccord perfumeAccord){
         return new AccordResponse(
-            perfumeAccord.getId(),
+            perfumeAccord.getAccordId().getId(),
             perfumeAccord.getAccordId().getKorName(),
             perfumeAccord.getAccordId().getEngName()
         );
