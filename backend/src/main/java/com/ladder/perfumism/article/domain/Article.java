@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import lombok.Builder;
 
 @Entity
 public class Article extends BaseEntity {
@@ -17,15 +18,24 @@ public class Article extends BaseEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-//    @Column(name = "subject")
+//    @Column(name = "subject", nullable = false)
     private ArticleSubject subject;
 
-//    @Column(name = "title")
+//    @Column(name = "title", nullable = false)
     private String title;
 
     @Lob
-//    @Column(name = "content")
+//    @Column(name = "content", nullable = false)
     private String content;
 
+    protected Article(){
 
+    }
+
+    @Builder
+    private Article(ArticleSubject subject, String title, String content){
+        this.subject = subject;
+        this.title = title;
+        this.content = content;
+    }
 }
