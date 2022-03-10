@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(POST, "/api/members/join").permitAll()
             .antMatchers("/swagger-resources/**").permitAll()
-            .anyRequest().authenticated()
+//            .anyRequest().authenticated()
             .and()
             .formLogin()
             .disable()
