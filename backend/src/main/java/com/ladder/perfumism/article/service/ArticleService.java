@@ -20,7 +20,7 @@ public class ArticleService {
     public void articleCreate(ArticleCreateRequest request) {
         Article article = Article.builder()
             .title(request.getTitle())
-            .content(request.getTitle())
+            .content(request.getContent())
             .subject(request.getSubject())
             .build();
 
