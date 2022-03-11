@@ -7,3 +7,11 @@ export const validatePassword = (password: string) => {
 	const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,20}$/;
 	return regExp.test(password);
 };
+
+export const validatenameEmpty = (nickname: string) => {
+	return nickname ? true : false;
+};
+
+export const validateNicknameLength = (nickname: string) => {
+	return nickname.length > 2 && nickname.length < 10 ? true : false;
+};
