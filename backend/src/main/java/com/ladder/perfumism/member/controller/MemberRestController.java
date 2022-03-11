@@ -1,6 +1,8 @@
 package com.ladder.perfumism.member.controller;
 
+import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
+import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,5 +39,17 @@ public class MemberRestController {
     public ResponseEntity<Void> resignMember(@AuthenticationPrincipal String email) {
         memberService.resignMember(email);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/members/exist-email")
+    @ApiOperation(value = "이메일 중복검사", notes = "이메일 중복 검사 api")
+    public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(@RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(memberService.checkDuplicateEmail(request));
+    }
+
+    @PostMapping("/members/exist-name")
+    @ApiOperation(value = "유저네임 중복검사", notes = "유저네임 중복 검사 api")
+    public ResponseEntity<CheckDuplicateResponse> checkDulicateUsername(@RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
     }
 }
