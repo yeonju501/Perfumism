@@ -3,9 +3,17 @@ export const validateEmailForm = (email: string) => {
 	return regExp.test(email);
 };
 
+export const validateEmailEmpty = (email: string) => {
+	return email ? true : false;
+};
+
 export const validatePassword = (password: string) => {
 	const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,20}$/;
 	return regExp.test(password);
+};
+
+export const validatePasswordEmpty = (password: string) => {
+	return password ? true : false;
 };
 
 export const validatenameEmpty = (nickname: string) => {
