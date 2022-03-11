@@ -30,6 +30,16 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND_BY_EMAIL(HttpStatus.NOT_FOUND, "존재하지 않는 유저의 이메일입니다.", "C01"),
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 이메일 입니다.", "C04"),
     MEMBER_USERNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 닉네임 입니다.", "11"),
+
+    // article
+    ARTICLE_NOT_FOUNT_MY_ARTICLE_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
+
+    // comment
+
+    // vote
+
+    // perfume
+
     ;
     private final HttpStatus httpStatus;
     private final String message;

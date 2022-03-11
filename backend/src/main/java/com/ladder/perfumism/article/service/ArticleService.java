@@ -1,9 +1,13 @@
 package com.ladder.perfumism.article.service;
 
 import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
+import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailResponse;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleRepository;
+import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,5 +39,12 @@ public class ArticleService {
         Page<Article> articleList = articleRepository.findAll(pageable);
 
         return ArticleReadListResponse.from(articleList);
+    }
+
+    @Transactional
+    public ArticleReadDetailResponse showArticleDetail(Long article_Id) {
+        Article article = articleRepository.findById(article_Id)
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+        return ArticleReadDetailResponse.from(article);
     }
 }
