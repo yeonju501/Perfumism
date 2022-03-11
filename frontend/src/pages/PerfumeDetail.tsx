@@ -2,6 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function PerfumeDetail() {
+	const URL = process.env.REACT_APP_MAIN_URL;
+	const [perfumeData, setPerfumeData] = useState({});
+
+	useEffect(() => {
+		getPerfumeData();
+	});
+
+	const getPerfumeData = () => {
+		axios({
+			url: `${URL}/api/perfumes/1`,
+			method: "GET",
+		}).then((res) => setPerfumeData(res));
+	};
+
 	return (
 		<div>
 			<div>
