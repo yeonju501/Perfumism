@@ -9,15 +9,15 @@ import lombok.Getter;
 public class ArticleCreateRequest {
 
     @JsonProperty("subject")
-    @ApiModelProperty(required = true, notes = "말머리", example = "TALK")
+    @ApiModelProperty(required = true, position = 0, notes = "말머리", example = "TALK")
     private ArticleSubject subject;
 
     @JsonProperty("title")
-    @ApiModelProperty(required = true, notes = "제목", example = "반가워 나는 제목이라고해")
+    @ApiModelProperty(required = true, position = 1, notes = "제목", example = "반가워 나는 제목이라고해")
     private String title;
 
     @JsonProperty("content")
-    @ApiModelProperty(required = true, notes = "내용", example = "아 그래? 나는 내용이라고해! 우리 잘 지내보자 ^_^")
+    @ApiModelProperty(required = true, position = 2, notes = "내용", example = "아 그래? 나는 내용이라고해! 우리 잘 지내보자 ^_^")
     private String content;
 
     protected ArticleCreateRequest(){
