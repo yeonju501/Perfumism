@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/static/**", "/templates/**", "/h2/**", "/h2-console/**", "/resources/**",
-            "/swagger-ui/**", "/swagger-resources", "/swagger/**", "/v3/api-docs");
+            "/swagger-ui/**", "/swagger-resources/**", "/swagger/**", "/v2/api-docs", "/webjars/**", "/swagger/**");
     }
 
     @Override
