@@ -8,15 +8,15 @@ import lombok.Getter;
 @Getter
 public class MemberSaveRequest {
 
-    @ApiModelProperty(name = "email", example = "loling3@naver.com")
+    @ApiModelProperty(name = "email", position = 0, example = "loling3@naver.com")
     @JsonProperty("email")
     private String email;
 
-    @ApiModelProperty(name = "password", example = "dkjghdfkjhdkjh")
+    @ApiModelProperty(name = "password", position = 1, example = "dkjghdfkjhdkjh")
     @JsonProperty("password")
     private String password;
 
-    @ApiModelProperty(name = "username", example = "연주")
+    @ApiModelProperty(name = "username", position = 2, example = "연주")
     @JsonProperty("username")
     private String username;
 
