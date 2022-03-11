@@ -45,4 +45,9 @@ public class ArticleRestController {
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
         return ResponseEntity.ok().body(articleService.showArticleList(pageable));
     }
+
+    @GetMapping("/{article_id}")
+    public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(@PathVariable(value = "article_id") Long articleId) {
+        return ResponseEntity.ok().body(articleService.showArticleDetail(articleId));
+    }
 }
