@@ -1,5 +1,7 @@
 package com.ladder.perfumism.perfume.service;
 
+import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
@@ -28,7 +30,8 @@ public class PerfumeService {
 
     @Transactional(readOnly = true)
     public PerfumeDetailResponse viewDetailPerfume(Long perfumeId) {
-        Perfume perfume = perfumeRepository.getById(perfumeId);
+        Perfume perfume = perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
 
         List<PerfumeAccord> perfumeAccords = perfumeAccordRepository.findByPerfumeId(perfume);
 

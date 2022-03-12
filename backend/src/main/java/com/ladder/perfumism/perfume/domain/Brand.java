@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -20,5 +21,11 @@ public class Brand {
     private String name;
 
     public Brand() {
+    }
+
+    @Builder
+    public Brand(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 }
