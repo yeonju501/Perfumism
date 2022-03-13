@@ -58,4 +58,11 @@ public class ArticleService {
         article.changeContent(request.getContent());
 
     }
+
+    public void deleteArticle(Long articeId) {
+        Article article = articleRepository.findById(articeId)
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+
+        articleRepository.delete(article);
+    }
 }
