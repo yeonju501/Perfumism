@@ -1,6 +1,7 @@
 package com.ladder.perfumism.article.domain;
 
 import com.ladder.perfumism.global.domain.BaseEntity;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.persistence.Lob;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
+import org.yaml.snakeyaml.util.EnumUtils;
 
 @Entity
 @Getter
@@ -41,5 +43,23 @@ public class Article extends BaseEntity {
         this.subject = subject;
         this.title = title;
         this.content = content;
+    }
+
+    public void changeSubject(ArticleSubject subject){
+        if(!Objects.isNull(subject)){
+            this.subject = subject;
+        }
+    }
+
+    public void changeTitle(String title){
+        if (!Objects.isNull(title)){
+            this.title = title;
+        }
+    }
+
+    public  void changeContent(String content){
+        if (!Objects.isNull(content)){
+            this.content = content;
+        }
     }
 }
