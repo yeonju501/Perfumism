@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,15 @@ public class ArticleRestController {
     public ResponseEntity<Void> updateArticle(@PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
 
         articleService.updateArticle(articleId, request);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{article_id}")
+    @ApiOperation(value = "게시글 (임시) 삭제", notes = "게시글 삭제 요청 API (회원 연결 후 로직 변경 예정)")
+    @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
+    public ResponseEntity<Void> deleteArticle(@PathVariable(value = "article_id") Long articleId){
+        articleService.deleteArticle(articleId);
 
         return ResponseEntity.noContent().build();
     }
