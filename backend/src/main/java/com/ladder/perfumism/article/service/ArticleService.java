@@ -59,8 +59,8 @@ public class ArticleService {
 
     }
 
-    public void deleteArticle(Long articeId) {
-        Article article = articleRepository.findById(articeId)
+    public void deleteArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
 
         articleRepository.delete(article);
