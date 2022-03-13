@@ -27,7 +27,7 @@ public class ArticleReadDetailResponse  {
     private LocalDateTime createdAt;
 
     @JsonProperty("updated_at")
-    @ApiModelProperty(position = 4, notes = "생성 시간", example = "2022-03-11")
+    @ApiModelProperty(position = 4, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
     private LocalDateTime updatedAt;
 
     public ArticleReadDetailResponse(){
