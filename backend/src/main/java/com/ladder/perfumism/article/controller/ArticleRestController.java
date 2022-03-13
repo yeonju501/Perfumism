@@ -4,7 +4,6 @@ import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailResponse;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
 import com.ladder.perfumism.article.service.ArticleService;
-import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,5 +53,13 @@ public class ArticleRestController {
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(@PathVariable(value = "article_id") Long articleId) {
         return ResponseEntity.ok().body(articleService.showArticleDetail(articleId));
+    }
+
+    @PutMapping("/{article_id}")
+    public ResponseEntity<Void> updateArticle(@PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
+
+        articleService.updateArticle(articleId, request);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -47,4 +47,15 @@ public class ArticleService {
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
         return ArticleReadDetailResponse.from(article);
     }
+
+    @Transactional
+    public void updateArticle(Long articleId, ArticleCreateRequest request) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+
+        article.changeSubject(request.getSubject());
+        article.changeTitle(request.getTitle());
+        article.changeContent(request.getContent());
+
+    }
 }
