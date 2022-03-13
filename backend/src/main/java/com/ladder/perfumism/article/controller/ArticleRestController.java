@@ -6,6 +6,7 @@ import com.ladder.perfumism.article.controller.dto.response.ArticleReadListRespo
 import com.ladder.perfumism.article.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,12 @@ public class ArticleRestController {
 
     @GetMapping
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 받아오는 API")
+    @ApiImplicitParams(
+        {
+            @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
+            @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
+        }
+    )
     public ResponseEntity<ArticleReadListResponse> getArticleList(
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
         return ResponseEntity.ok().body(articleService.showArticleList(pageable));
