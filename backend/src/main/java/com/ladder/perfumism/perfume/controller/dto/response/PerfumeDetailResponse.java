@@ -7,7 +7,9 @@ import com.ladder.perfumism.perfume.domain.SimilarPerfume;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Getter;
 
+@Getter
 public class PerfumeDetailResponse {
 
     @ApiModelProperty(example = "1")
