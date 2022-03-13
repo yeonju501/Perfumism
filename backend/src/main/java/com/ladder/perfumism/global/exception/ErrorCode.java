@@ -39,7 +39,7 @@ public enum ErrorCode {
     // vote
 
     // perfume
-
+    PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),
     ;
     private final HttpStatus httpStatus;
     private final String message;
