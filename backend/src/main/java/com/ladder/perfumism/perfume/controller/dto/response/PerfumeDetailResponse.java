@@ -12,57 +12,60 @@ import lombok.Getter;
 @Getter
 public class PerfumeDetailResponse {
 
-    @ApiModelProperty(example = "1")
     @JsonProperty("perfume_id")
+    @ApiModelProperty(position = 0, notes = "향수 id", example = "1")
     private Long id;
 
-    @ApiModelProperty(example = "Sweet Tobacco Spirits")
     @JsonProperty("perfume_name")
+    @ApiModelProperty(position = 1, notes = "향수 이름", example = "Sweet Tobacco Spirits")
     private String name;
 
     @JsonProperty("brand")
+    @ApiModelProperty(position = 2, notes = "브랜드 정보")
     private BrandResponse brand;
 
-    @ApiModelProperty(example = "o.37691.jpg")
     @JsonProperty("image")
+    @ApiModelProperty(position = 3, notes = "향수 이미지", example = "o.37691.jpg")
     private String image;
 
-    @ApiModelProperty(example = "2016")
     @JsonProperty("launch_year")
+    @ApiModelProperty(position = 4, notes = "출시년도", example = "2016")
     private Integer launchYear;
 
-    @ApiModelProperty(example = "3.4")
     @JsonProperty("average_grade")
+    @ApiModelProperty(position = 5, notes = "평균 평점", example = "3.4")
     private Double averageGrade;
 
-    @ApiModelProperty(example = "Citruses")
     @JsonProperty("top_notes")
+    @ApiModelProperty(position = 6, notes = "탑 노트", example = "Citruses")
     private String topNotes;
 
-    @ApiModelProperty(example = "Saffron")
     @JsonProperty("middle_notes")
+    @ApiModelProperty(position = 7, notes = "미들 노트", example = "Saffron")
     private String middleNotes;
 
-    @ApiModelProperty(example = "Tonka Bean")
     @JsonProperty("base_notes")
+    @ApiModelProperty(position = 8, notes = "베이스 노트", example = "Tonka Bean")
     private String baseNotes;
 
-    @ApiModelProperty(example = "126")
     @JsonProperty("total_survey")
+    @ApiModelProperty(position = 9, notes = "설문자 수", example = "126")
     private Long totalSurvey;
 
-    @ApiModelProperty(example = "moderate")
     @JsonProperty("longevity")
+    @ApiModelProperty(position = 10, notes = "지속력", example = "moderate")
     private String longevity;
 
-    @ApiModelProperty(example = "strong")
     @JsonProperty("sillage")
+    @ApiModelProperty(position = 11, notes = "시야주", example = "strong")
     private String sillage;
 
     @JsonProperty("accords")
+    @ApiModelProperty(position = 12, notes = "향 특징 정보")
     private List<AccordResponse> accordResponse;
 
     @JsonProperty("similar_perfume")
+    @ApiModelProperty(position = 13, notes = "비슷한 향수 정보")
     private List<SimilarPerfumeResponse> similarPerfumeResponse;
 
     public PerfumeDetailResponse() {

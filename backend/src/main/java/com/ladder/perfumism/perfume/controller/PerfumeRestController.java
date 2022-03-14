@@ -3,6 +3,7 @@ package com.ladder.perfumism.perfume.controller;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.service.PerfumeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,9 @@ public class PerfumeRestController {
         this.perfumeService = perfumeService;
     }
 
-    @ApiOperation(value = "향수 상세 정보", notes = "단일 향수 상세 정보를 조회하는 API 입니다.")
     @GetMapping("/perfumes/{perfume_id}")
+    @ApiOperation(value = "향수 상세 정보", notes = "단일 향수 상세 정보를 조회하는 API 입니다.")
+    @ApiImplicitParam(name = "perfume_id", value = "향수 ID", required = true)
     public ResponseEntity<PerfumeDetailResponse> viewDetailPerfume(@PathVariable(value = "perfume_id") Long perfumeId) {
         return ResponseEntity.ok().body(perfumeService.viewDetailPerfume(perfumeId));
     }

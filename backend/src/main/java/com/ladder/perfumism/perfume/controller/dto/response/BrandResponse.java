@@ -6,12 +6,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class BrandResponse {
 
-    @ApiModelProperty(example = "0")
     @JsonProperty("brand_id")
+    @ApiModelProperty(position = 0, notes = "브랜드 id", example = "0")
     private Long brandId;
 
-    @ApiModelProperty(example = "18 21 Man Made")
     @JsonProperty("brand_name")
+    @ApiModelProperty(position = 1, notes = "브랜드 이름", example = "18 21 Man Made")
     private String name;
 
     public BrandResponse(Long brandId, String name) {

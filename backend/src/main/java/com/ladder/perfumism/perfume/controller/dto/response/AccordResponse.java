@@ -6,16 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class AccordResponse {
 
-    @ApiModelProperty(example = "1")
     @JsonProperty("accord_id")
+    @ApiModelProperty(position = 0, notes = "향 특징 id", example = "1")
     private Long accordId;
 
-    @ApiModelProperty(example = "보드카")
     @JsonProperty("kor_name")
+    @ApiModelProperty(position = 1, notes = "한글 이름", example = "보드카")
     private String korName;
 
-    @ApiModelProperty(example = "vodka")
     @JsonProperty("eng_name")
+    @ApiModelProperty(position = 2, notes = "영어 이름", example = "vodka")
     private String engName;
 
     public AccordResponse() {
