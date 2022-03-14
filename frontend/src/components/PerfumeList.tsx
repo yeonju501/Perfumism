@@ -1,3 +1,7 @@
+type PerfumeList = {
+	perfumes: [];
+};
+
 type Perfume = {
 	perfume_id: number;
 	perfume_name: string;
@@ -5,16 +9,16 @@ type Perfume = {
 	image: string;
 };
 
-function PerfumeList({ perfumeList }) {
+function PerfumeList({ perfumes }: PerfumeList) {
 	return (
-		<div>
-			{perfumeList.map((perfume: Perfume) => (
-				<div>
+		<ul>
+			{perfumes.map((perfume: Perfume) => (
+				<li>
 					<img src={perfume.image} alt="perfume image" />
 					<p>{perfume.perfume_name}</p>
-				</div>
+				</li>
 			))}
-		</div>
+		</ul>
 	);
 }
 
