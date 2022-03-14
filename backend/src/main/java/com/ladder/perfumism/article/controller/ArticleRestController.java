@@ -3,6 +3,7 @@ package com.ladder.perfumism.article.controller;
 import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailResponse;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
+import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.article.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -43,27 +44,30 @@ public class ArticleRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping
+    @GetMapping(value = {"/{subject}","/"})
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 받아오는 API")
     @ApiImplicitParams(
         {
             @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
             @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
+            @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null"),
         }
     )
     public ResponseEntity<ArticleReadListResponse> getArticleList(
-        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
-        return ResponseEntity.ok().body(articleService.showArticleList(pageable));
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
+        @PathVariable(required = false) ArticleSubject subject){
+        return ResponseEntity.ok().body(articleService.showArticleList(pageable,subject));
+
     }
 
-    @GetMapping("/{article_id}")
+    @GetMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 상세 조회", notes = "게시글을 선택했을 때 선택한 게시글을 받아오는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(@PathVariable(value = "article_id") Long articleId) {
         return ResponseEntity.ok().body(articleService.showArticleDetail(articleId));
     }
 
-    @PutMapping("/{article_id}")
+    @PutMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 수정", notes = "게시글 수정요청을 하는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> updateArticle(@PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
@@ -73,7 +77,7 @@ public class ArticleRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{article_id}")
+    @DeleteMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 (임시) 삭제", notes = "게시글 삭제 요청 API (회원 연결 후 로직 변경 예정)")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> deleteArticle(@PathVariable(value = "article_id") Long articleId){

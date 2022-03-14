@@ -5,6 +5,7 @@ import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailRes
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleRepository;
+import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import java.util.Optional;
@@ -35,8 +36,14 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadListResponse showArticleList(Pageable pageable) {
-        Page<Article> articleList = articleRepository.findAll(pageable);
+    public ArticleReadListResponse showArticleList(Pageable pageable, ArticleSubject subject) {
+        Page<Article> articleList;
+        if (subject != null){
+            articleList = articleRepository.findBySubject(subject,pageable);
+
+        } else{
+            articleList = articleRepository.findAll(pageable);
+        }
 
         return ArticleReadListResponse.from(articleList);
     }
@@ -59,6 +66,7 @@ public class ArticleService {
 
     }
 
+    @Transactional
     public void deleteArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
