@@ -1,7 +1,7 @@
-package com.ladder.perfumism.perfume.controller.dto.response;
+package com.ladder.perfumism.review.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ladder.perfumism.perfume.domain.Review;
+import com.ladder.perfumism.review.domain.Review;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;

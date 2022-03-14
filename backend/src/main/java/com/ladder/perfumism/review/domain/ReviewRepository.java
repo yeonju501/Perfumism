@@ -1,5 +1,6 @@
-package com.ladder.perfumism.perfume.domain;
+package com.ladder.perfumism.review.domain;
 
+import com.ladder.perfumism.perfume.domain.Perfume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

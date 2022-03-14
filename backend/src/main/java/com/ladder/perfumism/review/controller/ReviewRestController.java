@@ -1,8 +1,8 @@
-package com.ladder.perfumism.perfume.controller;
+package com.ladder.perfumism.review.controller;
 
-import com.ladder.perfumism.perfume.controller.dto.request.ReviewWriteRequest;
-import com.ladder.perfumism.perfume.controller.dto.response.ReviewPageResponse;
-import com.ladder.perfumism.perfume.service.ReviewService;
+import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
+import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
+import com.ladder.perfumism.review.service.ReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

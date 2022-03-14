@@ -1,10 +1,11 @@
-package com.ladder.perfumism.perfume.domain;
+package com.ladder.perfumism.review.domain;
 
 import com.ladder.perfumism.global.domain.BaseEntity;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
-import com.ladder.perfumism.perfume.controller.dto.request.ReviewWriteRequest;
+import com.ladder.perfumism.perfume.domain.Perfume;
+import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
