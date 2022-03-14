@@ -1,6 +1,8 @@
 package com.ladder.perfumism.perfume.domain;
 
 import com.ladder.perfumism.global.domain.BaseEntity;
+import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.perfume.controller.dto.request.ReviewWriteRequest;
 import javax.persistence.Column;
@@ -20,6 +22,9 @@ import org.hibernate.annotations.Where;
 @Entity
 @Where(clause = "deleted_at is null")
 public class Review extends BaseEntity {
+
+    private static final int MAX_GRADE = 5;
+    private static final int MIN_GRADE = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,11 +58,26 @@ public class Review extends BaseEntity {
     }
 
     public static Review createReview(Perfume perfume, Member member, ReviewWriteRequest request) {
+        overGrade(request.getGrade());
+        underGrade(request.getGrade());
+
         return Review.builder()
             .perfumeId(perfume)
             .memberId(member)
             .grade(request.getGrade())
             .content(request.getContent())
             .build();
+    }
+
+    static void overGrade(Integer grade) {
+        if (grade > MAX_GRADE) {
+            throw new BusinessException(ErrorCode.REVIEW_OVER_GRADE);
+        }
+    }
+
+    static void underGrade(Integer grade) {
+        if (grade < MIN_GRADE) {
+            throw new BusinessException(ErrorCode.REVIEW_UNDER_GRADE);
+        }
     }
 }
