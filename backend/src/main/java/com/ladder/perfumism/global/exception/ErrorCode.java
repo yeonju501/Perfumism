@@ -40,6 +40,10 @@ public enum ErrorCode {
 
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),
+
+    //review
+    REVIEW_OVER_GRADE(HttpStatus.BAD_REQUEST, "평점은 5점을 넘어설 수 없습니다.", "V01"),
+    REVIEW_UNDER_GRADE(HttpStatus.BAD_REQUEST, "평점은 0점보다 낮을 수 없습니다.", "V02"),
     ;
     private final HttpStatus httpStatus;
     private final String message;

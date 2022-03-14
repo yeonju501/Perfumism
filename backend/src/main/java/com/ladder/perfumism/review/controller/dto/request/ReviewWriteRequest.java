@@ -1,4 +1,4 @@
-package com.ladder.perfumism.perfume.controller.dto.request;
+package com.ladder.perfumism.review.controller.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +8,7 @@ import lombok.Getter;
 public class ReviewWriteRequest {
 
     @JsonProperty("grade")
-    @ApiModelProperty(required = true, position = 0, notes = "평점", example = "1~5")
+    @ApiModelProperty(required = true, position = 0, notes = "평점", example = "5")
     private Integer grade;
 
     @JsonProperty("content")
