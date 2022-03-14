@@ -5,10 +5,13 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.perfume.controller.dto.request.ReviewWriteRequest;
+import com.ladder.perfumism.perfume.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import com.ladder.perfumism.perfume.domain.Review;
 import com.ladder.perfumism.perfume.domain.ReviewRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +42,15 @@ public class ReviewService {
         // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
 
         return review.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewPageResponse getReviewPage(Long perfumeId, Pageable pageable){
+        Perfume perfume = perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+
+        Page<Review> reviewList = reviewRepository.findByPerfumeId(perfume, pageable);
+
+        return ReviewPageResponse.from(reviewList);
     }
 }
