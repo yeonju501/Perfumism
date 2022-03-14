@@ -6,20 +6,20 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class SimilarPerfumeResponse {
 
-    @ApiModelProperty(example = "2")
     @JsonProperty("perfume_id")
+    @ApiModelProperty(position = 0, notes = "향수 ID", example = "2")
     private Long perfumeId;
 
-    @ApiModelProperty(example = "2")
     @JsonProperty("perfume_name")
+    @ApiModelProperty(position = 1, notes = "향수 이름", example = "2")
     private String perfumeName;
 
-    @ApiModelProperty(example = "40 Notes Perfume")
     @JsonProperty("brand_name")
+    @ApiModelProperty(position = 2, notes = "브랜드 이름", example = "40 Notes Perfume")
     private String brandName;
 
-    @ApiModelProperty(example = "o.15537.jpg")
     @JsonProperty("image")
+    @ApiModelProperty(position = 3, notes = "향수 이미지", example = "o.15537.jpg")
     private String image;
 
     public SimilarPerfumeResponse() {
