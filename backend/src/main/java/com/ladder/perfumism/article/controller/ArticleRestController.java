@@ -3,6 +3,7 @@ package com.ladder.perfumism.article.controller;
 import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailResponse;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
+import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.article.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -43,17 +44,20 @@ public class ArticleRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping
+    @GetMapping(value = {"/{subject}","/"})
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 받아오는 API")
     @ApiImplicitParams(
         {
             @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
             @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
+            @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null"),
         }
     )
     public ResponseEntity<ArticleReadListResponse> getArticleList(
-        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
-        return ResponseEntity.ok().body(articleService.showArticleList(pageable));
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
+        @PathVariable(required = false) ArticleSubject subject){
+        return ResponseEntity.ok().body(articleService.showArticleList(pageable,subject));
+
     }
 
     @GetMapping("/{article_id}")
