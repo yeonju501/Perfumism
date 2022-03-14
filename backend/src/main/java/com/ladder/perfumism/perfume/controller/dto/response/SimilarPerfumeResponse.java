@@ -11,7 +11,7 @@ public class SimilarPerfumeResponse {
     private Long perfumeId;
 
     @JsonProperty("perfume_name")
-    @ApiModelProperty(position = 1, notes = "향수 이름", example = "2")
+    @ApiModelProperty(position = 1, notes = "향수 이름", example = "Cashmere Musk")
     private String perfumeName;
 
     @JsonProperty("brand_name")
