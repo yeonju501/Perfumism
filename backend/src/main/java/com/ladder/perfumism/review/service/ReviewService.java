@@ -30,7 +30,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public Long writeReview(ReviewWriteRequest request, String email, Long perfumeId) {
+    public Long writeReview(String email, Long perfumeId, ReviewWriteRequest request) {
         Member member = memberRepository.findByEmail(email)
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         Perfume perfume = perfumeRepository.findById(perfumeId)
@@ -45,12 +45,38 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public ReviewPageResponse getReviewPage(Long perfumeId, Pageable pageable){
+    public ReviewPageResponse getReviewPage(Long perfumeId, Pageable pageable) {
         Perfume perfume = perfumeRepository.findById(perfumeId)
             .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
 
         Page<Review> reviewList = reviewRepository.findByPerfumeId(perfume, pageable);
 
         return ReviewPageResponse.from(reviewList);
+    }
+
+    @Transactional
+    public void changeReview(String email, Long reviewId, ReviewWriteRequest request) {
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        isYourReview(email, review);
+
+        if (!request.getGrade().equals(review.getGrade())) {
+            review.changeGrade(request.getGrade());
+
+            //TODO:평점 평균 구하는 로직
+            // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
+
+        }
+
+        review.changeContent(request.getContent());
+
+        reviewRepository.save(review);
+    }
+
+    private void isYourReview(String email, Review review) {
+        if (!review.getMemberId().getEmail().equals(email)) {
+            throw new BusinessException(ErrorCode.REVIEW_NOT_YOUR_REVIEW);
+        }
     }
 }

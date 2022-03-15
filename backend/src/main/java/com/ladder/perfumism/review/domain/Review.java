@@ -81,4 +81,12 @@ public class Review extends BaseEntity {
             throw new BusinessException(ErrorCode.REVIEW_UNDER_GRADE);
         }
     }
+
+    public void changeGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 }
