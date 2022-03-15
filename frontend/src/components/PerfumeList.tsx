@@ -14,7 +14,10 @@ function PerfumeList({ perfumes }: PerfumeList) {
 		<ul>
 			{perfumes.map((perfume: Perfume) => (
 				<li>
-					<img src={perfume.image} alt="perfume image" />
+					<div>
+						<img src={perfume.image} alt="perfume image" />
+						<button>🤍</button>
+					</div>
 					<p>{perfume.perfume_name}</p>
 				</li>
 			))}
