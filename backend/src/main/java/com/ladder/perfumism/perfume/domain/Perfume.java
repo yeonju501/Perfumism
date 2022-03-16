@@ -80,4 +80,8 @@ public class Perfume {
     public void decreaseTotalSurvey() {
         this.totalSurvey--;
     }
+
+    public void saveGrade(Double avgGrade){
+        this.averageGrade = avgGrade;
+    }
 }
