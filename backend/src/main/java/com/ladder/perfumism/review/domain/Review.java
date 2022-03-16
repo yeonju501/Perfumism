@@ -83,6 +83,8 @@ public class Review extends BaseEntity {
     }
 
     public void changeGrade(Integer grade) {
+        overGrade(grade);
+        underGrade(grade);
         this.grade = grade;
     }
 

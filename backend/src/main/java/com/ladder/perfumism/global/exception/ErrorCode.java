@@ -48,6 +48,7 @@ public enum ErrorCode {
     REVIEW_OVER_GRADE(HttpStatus.CONFLICT, "평점은 5점을 넘어설 수 없습니다.", "V02"),
     REVIEW_UNDER_GRADE(HttpStatus.CONFLICT, "평점은 0점보다 낮을 수 없습니다.", "V03"),
     REVIEW_NOT_YOUR_REVIEW(HttpStatus.BAD_REQUEST, "본인의 리뷰가 아닙니다. 당신 누구야", "V04"),
+    REVIEW_ALREADY_WRITTEN(HttpStatus.CONFLICT, "이미 이 향수에 리뷰를 작성하셨습니다.", "V05"),
     ;
     private final HttpStatus httpStatus;
     private final String message;

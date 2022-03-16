@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReviewService {
 
-    private ReviewRepository reviewRepository;
-    private PerfumeRepository perfumeRepository;
-    private MemberRepository memberRepository;
+    private final ReviewRepository reviewRepository;
+    private final PerfumeRepository perfumeRepository;
+    private final MemberRepository memberRepository;
 
     public ReviewService(ReviewRepository reviewRepository, PerfumeRepository perfumeRepository,
         MemberRepository memberRepository) {
@@ -36,12 +36,24 @@ public class ReviewService {
         Perfume perfume = perfumeRepository.findById(perfumeId)
             .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
 
+        alreadyWritten(member, perfume);
+
         Review review = reviewRepository.save(Review.createReview(perfume, member, request));
 
-        //TODO:평점 평균 구하는 로직
-        // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
+        averageGrade(perfume);
+        perfume.increaseTotalSurvey();
 
         return review.getId();
+    }
+
+    private void averageGrade(Perfume perfume) {
+        perfume.saveGrade(reviewRepository.avgGradeByPerfumeId(perfume.getId()));
+    }
+
+    private void alreadyWritten(Member member, Perfume perfume) {
+        if (reviewRepository.existsByMemberIdAndPerfumeId(member, perfume)) {
+            throw new BusinessException(ErrorCode.REVIEW_ALREADY_WRITTEN);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -64,8 +76,7 @@ public class ReviewService {
         if (!request.getGrade().equals(review.getGrade())) {
             review.changeGrade(request.getGrade());
 
-            //TODO:평점 평균 구하는 로직
-            // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
+            averageGrade(review.getPerfumeId());
 
         }
 
@@ -78,5 +89,17 @@ public class ReviewService {
         if (!review.getMemberId().getEmail().equals(email)) {
             throw new BusinessException(ErrorCode.REVIEW_NOT_YOUR_REVIEW);
         }
+    }
+
+    @Transactional
+    public void removeReview(String email, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        isYourReview(email, review);
+
+        review.saveDeletedTime();
+        averageGrade(review.getPerfumeId());
+        review.getPerfumeId().decreaseTotalSurvey();
     }
 }
