@@ -7,7 +7,7 @@ function RecommendPage() {
 				<h1>Find your signature scent</h1>
 			</div>
 			<div>
-				<Link to={"/recommend/survey"}>
+				<Link to={"/survey"}>
 					<button>누구나 자신만의 향기가 있습니다.</button>
 				</Link>
 			</div>
