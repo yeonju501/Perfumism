@@ -72,4 +72,12 @@ public class Perfume {
         this.longevity = longevity;
         this.sillage = sillage;
     }
+
+    public void increaseTotalSurvey() {
+        this.totalSurvey++;
+    }
+
+    public void decreaseTotalSurvey() {
+        this.totalSurvey--;
+    }
 }

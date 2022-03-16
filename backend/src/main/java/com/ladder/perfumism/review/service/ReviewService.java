@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReviewService {
 
-    private ReviewRepository reviewRepository;
-    private PerfumeRepository perfumeRepository;
-    private MemberRepository memberRepository;
+    private final ReviewRepository reviewRepository;
+    private final PerfumeRepository perfumeRepository;
+    private final MemberRepository memberRepository;
 
     public ReviewService(ReviewRepository reviewRepository, PerfumeRepository perfumeRepository,
         MemberRepository memberRepository) {
@@ -40,12 +40,13 @@ public class ReviewService {
 
         Review review = reviewRepository.save(Review.createReview(perfume, member, request));
 
-        averageGrade();
+        averageGrade(perfume);
+        perfume.increaseTotalSurvey();
 
         return review.getId();
     }
 
-    private void averageGrade() {
+    private void averageGrade(Perfume perfume) {
         //TODO: 향수 평균 평점 구하는 로직
         // 데이터가 모두 삽입되면 구현할 예정
     }
@@ -76,7 +77,7 @@ public class ReviewService {
         if (!request.getGrade().equals(review.getGrade())) {
             review.changeGrade(request.getGrade());
 
-            averageGrade();
+            averageGrade(review.getPerfumeId());
 
         }
 
@@ -99,7 +100,7 @@ public class ReviewService {
         isYourReview(email, review);
 
         review.saveDeletedTime();
-
-        averageGrade();
+        averageGrade(review.getPerfumeId());
+        review.getPerfumeId().decreaseTotalSurvey();
     }
 }
