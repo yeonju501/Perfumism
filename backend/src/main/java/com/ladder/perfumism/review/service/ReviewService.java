@@ -36,12 +36,24 @@ public class ReviewService {
         Perfume perfume = perfumeRepository.findById(perfumeId)
             .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
 
+        alreadyWritten(member, perfume);
+
         Review review = reviewRepository.save(Review.createReview(perfume, member, request));
 
-        //TODO:평점 평균 구하는 로직
-        // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
+        averageGrade();
 
         return review.getId();
+    }
+
+    private void averageGrade() {
+        //TODO: 향수 평균 평점 구하는 로직
+        // 데이터가 모두 삽입되면 구현할 예정
+    }
+
+    private void alreadyWritten(Member member, Perfume perfume) {
+        if (reviewRepository.existsByMemberIdAndPerfumeId(member, perfume)) {
+            throw new BusinessException(ErrorCode.REVIEW_ALREADY_WRITTEN);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -64,8 +76,7 @@ public class ReviewService {
         if (!request.getGrade().equals(review.getGrade())) {
             review.changeGrade(request.getGrade());
 
-            //TODO:평점 평균 구하는 로직
-            // 해당 로직은 데이터가 모두 들어왔을 때 작성 예정
+            averageGrade();
 
         }
 
