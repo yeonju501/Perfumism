@@ -47,8 +47,7 @@ public class ReviewService {
     }
 
     private void averageGrade(Perfume perfume) {
-        //TODO: 향수 평균 평점 구하는 로직
-        // 데이터가 모두 삽입되면 구현할 예정
+        perfume.saveGrade(reviewRepository.avgGradeByPerfumeId(perfume.getId()));
     }
 
     private void alreadyWritten(Member member, Perfume perfume) {
