@@ -47,7 +47,12 @@ public class ReviewService {
     }
 
     private void averageGrade(Perfume perfume) {
-        perfume.saveGrade(reviewRepository.avgGradeByPerfumeId(perfume.getId()));
+        Double avgGrade = reviewRepository.avgGradeByPerfumeId(perfume.getId());
+        if (avgGrade == null) {
+            perfume.saveGrade(0.0);
+            return;
+        }
+        perfume.saveGrade(avgGrade);
     }
 
     private void alreadyWritten(Member member, Perfume perfume) {
