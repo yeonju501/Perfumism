@@ -16,6 +16,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Query(nativeQuery = true, value = "select avg(cast(r.grade as float)) from Review r "
         + "where r.perfume_id in (:ids) "
-        + "and r.deleted_at is null")
+        + "and r.deleted_at is null "
+        + "and r.grade > 0")
     Double avgGradeByPerfumeId(@Param("ids") Long perfumeId);
 }
