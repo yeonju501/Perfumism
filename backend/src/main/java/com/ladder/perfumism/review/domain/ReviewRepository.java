@@ -5,10 +5,17 @@ import com.ladder.perfumism.perfume.domain.Perfume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Page<Review> findByPerfumeId(Perfume perfume, Pageable pageable);
 
     Boolean existsByMemberIdAndPerfumeId(Member member, Perfume perfume);
+
+    @Query(nativeQuery = true, value = "select avg(cast(r.grade as float)) from Review r "
+        + "where r.perfume_id in (:ids) "
+        + "and r.deleted_at is null")
+    Double avgGradeByPerfumeId(@Param("ids") Long perfumeId);
 }
