@@ -10,7 +10,7 @@ function Router() {
 				<Route path="/" />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/recommend" element={<RecommendPage />} />
-				<Route path="/recommend/survey" element={<FirstSurveyPage />} />
+				<Route path="/survey" element={<FirstSurveyPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
