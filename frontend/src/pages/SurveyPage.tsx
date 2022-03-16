@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-function FirstSurveyPage() {
+function SurveyPage() {
 	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
@@ -41,4 +41,4 @@ function FirstSurveyPage() {
 	);
 }
 
-export default FirstSurveyPage;
+export default SurveyPage;
