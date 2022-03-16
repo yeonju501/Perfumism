@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,15 @@ public class ReviewRestController {
     public ResponseEntity<Void> updateReview(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "review_id") Long reviewId, @RequestBody ReviewWriteRequest request) {
         reviewService.changeReview(email, reviewId, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/auth/reviews/{review_id}")
+    @ApiOperation(value = "리뷰 삭제", notes = "<b>(로그인 필요)</b> 특정 리뷰를 삭제하는 API 입니다.")
+    @ApiImplicitParam(name = "review_id", value = "삭제할 리뷰 ID", required = true)
+    public ResponseEntity<Void> DeleteReview(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "review_id") Long reviewId) {
+        reviewService.removeReview(email, reviewId);
         return ResponseEntity.noContent().build();
     }
 }
