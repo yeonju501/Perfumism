@@ -1,6 +1,6 @@
 import PerfumeDetail from "pages/PerfumeDetail";
 import RecommendPage from "pages/RecommendPage";
-import FirstSurveyPage from "pages/FirstSurveyPage";
+import FirstSurveyPage from "pages/SurveyPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function Router() {
