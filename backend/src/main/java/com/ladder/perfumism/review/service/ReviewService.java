@@ -90,4 +90,16 @@ public class ReviewService {
             throw new BusinessException(ErrorCode.REVIEW_NOT_YOUR_REVIEW);
         }
     }
+
+    @Transactional
+    public void removeReview(String email, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        isYourReview(email, review);
+
+        review.saveDeletedTime();
+
+        averageGrade();
+    }
 }
