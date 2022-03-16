@@ -12,8 +12,8 @@ type Perfume = {
 function PerfumeList({ perfumes }: PerfumeList) {
 	return (
 		<ul>
-			{perfumes.map((perfume: Perfume) => (
-				<li>
+			{perfumes.map((perfume: Perfume, idx: number) => (
+				<li key={idx}>
 					<div>
 						<img src={perfume.image} alt="perfume image" />
 						<button>🤍</button>
