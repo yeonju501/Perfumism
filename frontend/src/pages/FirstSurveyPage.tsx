@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function FirstSurveyPage() {
 	const navigate = useNavigate();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const page = searchParams.get("page");
 
 	return (
 		<div>
@@ -27,6 +29,7 @@ function FirstSurveyPage() {
 			>
 				다음페이지
 			</button>
+			<p>페이지 : {page}</p>
 		</div>
 	);
 }
