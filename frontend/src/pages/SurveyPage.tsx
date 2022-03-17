@@ -1,4 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
+import SurveyItem from "components/SurveyItem";
 
 function SurveyPage() {
 	const navigate = useNavigate();
@@ -7,21 +8,7 @@ function SurveyPage() {
 
 	return (
 		<div>
-			{page === "1" ? (
-				<div>
-					<h1>첫 번째 항목</h1>
-					<button
-						onClick={() => {
-							navigate({
-								pathname: "/survey",
-								search: "?page=2&a1=1",
-							});
-						}}
-					>
-						다음페이지
-					</button>
-				</div>
-			) : null}
+			{page === "1" ? <SurveyItem /> : null}
 			{page === "2" ? (
 				<div>
 					<h1>두 번째 항목</h1>
