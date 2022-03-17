@@ -12,6 +12,21 @@ function SignUp() {
 			password: "",
 			username: "",
 		},
+
+		onSubmit: async ({ email, username, password }) => {
+			try {
+				await authApi
+					.signup({
+						email,
+						password,
+						username,
+					})
+					.then(() => navigate("/sign-in"));
+			} catch (error) {
+				// 에러 추후에 토스티파이로 변경
+				console.log(error);
+			}
+		},
 	});
 }
 
