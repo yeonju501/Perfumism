@@ -28,6 +28,11 @@ public class RefreshToken {
         this.value = value;
     }
 
+    public RefreshToken updateToken(String token) {
+        this.value = token;
+        return this;
+    }
+
     public void validateValue(String refreshToken) {
         if(!value.equals(refreshToken)) {
             throw new BusinessException(ErrorCode.INVALID_NOT_MATCH_BY_REFRESH_TOKEN);
