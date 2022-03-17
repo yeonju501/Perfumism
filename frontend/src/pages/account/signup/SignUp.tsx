@@ -40,7 +40,7 @@ function SignUp() {
 
 	return (
 		<Container>
-			<h1>회원 가입</h1>
+			<Header>회원 가입</Header>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="">이메일</label>
 				<input name="email" type="text" onChange={handleChange} />
@@ -60,6 +60,11 @@ function SignUp() {
 		</Container>
 	);
 }
+
+const Header = styled.p`
+	font-size: 3rem;
+	font-weight: 800;
+`;
 
 const Container = styled.div`
 	display: flex;
