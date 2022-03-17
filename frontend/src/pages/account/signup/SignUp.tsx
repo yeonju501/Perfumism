@@ -1,6 +1,7 @@
 import { authApi } from "apis";
 import LoginButton from "components/account/LoginButton";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
 import useForm from "./hooks/useForm";
 
 function SignUp() {
@@ -38,7 +39,7 @@ function SignUp() {
 	});
 
 	return (
-		<div>
+		<Container>
 			<h1>회원 가입</h1>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="">이메일</label>
@@ -56,8 +57,15 @@ function SignUp() {
 			</div>
 			{/* 로그인 페이지 구현후 link로 구현하기 */}
 			<p>로그인하기</p>
-		</div>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
 
 export default SignUp;
