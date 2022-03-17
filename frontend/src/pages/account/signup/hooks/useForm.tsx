@@ -6,3 +6,13 @@ interface UseFormArgs {
 	onSubmit: (values: { [key: string]: string }) => Promise<void>;
 	onBlur: (name: string, value: string) => Promise<boolean | undefined>;
 }
+
+const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
+	const [isValid, setIsValid] = useState({
+		email: false,
+		username: false,
+		password: false,
+	});
+
+	const [values, setValues] = useState(initialValues);
+};
