@@ -66,6 +66,7 @@ const Container = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	height: 100vh;
 `;
 
 export default SignUp;
