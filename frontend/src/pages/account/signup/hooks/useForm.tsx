@@ -26,4 +26,17 @@ const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
 		event.preventDefault();
 		await onSubmit(values);
 	};
+
+	const checkDuplicate = async (name: string, value: string) => {
+		if (name === "password") {
+			checkValid(name, value);
+			return;
+		} else {
+			const result = await onBlur(name, value);
+			const isValidForm = checkValid(name, value);
+			if (!result && isValidForm) {
+				setIsValid({ ...isValid, [name]: true });
+			}
+		}
+	};
 };
