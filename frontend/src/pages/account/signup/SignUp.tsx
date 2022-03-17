@@ -1,6 +1,9 @@
-import { authApi } from "apis";
-import LoginButton from "components/account/LoginButton";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { authApi } from "apis";
+import Button from "components/account/AccountButton";
+import Input from "components/account/Input";
+import Label from "components/account/Label";
 import styled from "styled-components";
 import useForm from "./hooks/useForm";
 
@@ -43,18 +46,34 @@ function SignUp() {
 			<Header>회원 가입</Header>
 			<FormContainer onSubmit={handleSubmit}>
 				<Label htmlFor="email">이메일</Label>
-				<input name="email" type="text" onChange={handleChange} />
+				<Input
+					name="email"
+					type="text"
+					onChange={handleChange}
+					placeholder="이메일을 입력해주세요"
+				/>{" "}
 				<Label htmlFor="username">닉네임</Label>
-				<input name="username" type="text" onChange={handleChange} />
+				<Input
+					name="username"
+					type="text"
+					onChange={handleChange}
+					placeholder="닉네임을 입력해주세요"
+				/>{" "}
 				<Label htmlFor="password">비밀번호</Label>
-				<input name="password" type="password" onChange={handleChange} />
-				<LoginButton label="로그인" />
+				<Input
+					name="password"
+					type="password"
+					onChange={handleChange}
+					placeholder="비밀번호를 입력해주세요"
+				/>{" "}
+				<Button backgroundColor="black" color="#ffff">
+					회원가입
+				</Button>
 			</FormContainer>
-			<div>
-				<button>구글로 로그인하기</button>
-				<button>네이버로 로그인하기</button>
-			</div>
-			{/* 로그인 페이지 구현후 link로 구현하기 */}
+			<Button backgroundColor="#00c73c" color="#ffff">
+				네이버로 로그인하기
+			</Button>
+			<Button backgroundColor="#f8f8f9">구글로 로그인하기</Button>
 			<Paragraph to="/signin">로그인하기</Paragraph>
 		</Container>
 	);
