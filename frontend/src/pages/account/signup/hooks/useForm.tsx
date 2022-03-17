@@ -15,4 +15,10 @@ const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
 	});
 
 	const [values, setValues] = useState(initialValues);
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = event.target;
+		setValues({ ...values, [name]: value.trim() });
+		checkDuplicate(name, value);
+	};
 };
