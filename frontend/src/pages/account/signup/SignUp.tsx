@@ -55,7 +55,7 @@ function SignUp() {
 				<button>네이버로 로그인하기</button>
 			</div>
 			{/* 로그인 페이지 구현후 link로 구현하기 */}
-			<p>로그인하기</p>
+			<Paragraph to="/signin">로그인하기</Paragraph>
 		</Container>
 	);
 }
@@ -78,6 +78,14 @@ const FormContainer = styled.form`
 	width: 50rem;
 	flex-direction: column;
 	justify-content: center;
+`;
+
+const Paragraph = styled(Link)`
+	font-size: 1.4rem;
+	font-weight: 700;
+	text-decoration: none;
+	margin-top: 3rem;
+	color: black;
 `;
 
 export default SignUp;
