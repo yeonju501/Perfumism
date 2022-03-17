@@ -1,3 +1,4 @@
+import SignUp from "pages/account/signup/SignUp";
 import PerfumeDetail from "pages/PerfumeDetail";
 import RecommendPage from "pages/RecommendPage";
 import SurveyPage from "pages/SurveyPage";
@@ -11,6 +12,7 @@ function Router() {
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/recommend" element={<RecommendPage />} />
 				<Route path="/survey" element={<SurveyPage />} />
+				<Route path="/signup" element={<SignUp />} />
 			</Routes>
 		</BrowserRouter>
 	);
