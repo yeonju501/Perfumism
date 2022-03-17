@@ -42,11 +42,11 @@ function SignUp() {
 		<Container>
 			<Header>회원 가입</Header>
 			<FormContainer onSubmit={handleSubmit}>
-				<label htmlFor="">이메일</label>
+				<Label htmlFor="email">이메일</Label>
 				<input name="email" type="text" onChange={handleChange} />
-				<label htmlFor="username">닉네임</label>
+				<Label htmlFor="username">닉네임</Label>
 				<input name="username" type="text" onChange={handleChange} />
-				<label htmlFor="password">비밀번호</label>
+				<Label htmlFor="password">비밀번호</Label>
 				<input name="password" type="password" onChange={handleChange} />
 				<LoginButton label="로그인" />
 			</FormContainer>
