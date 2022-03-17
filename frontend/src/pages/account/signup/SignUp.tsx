@@ -36,6 +36,28 @@ function SignUp() {
 			}
 		},
 	});
+
+	return (
+		<div>
+			<h1>회원 가입</h1>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="">이메일</label>
+				<input name="email" type="text" onChange={handleChange} />
+				<label htmlFor="username">닉네임</label>
+				<input name="username" type="text" onChange={handleChange} />
+				<label htmlFor="password">비밀번호</label>
+				<input name="password" type="password" onChange={handleChange} />
+				<LoginButton label="로그인" />
+			</form>
+			<br />
+			<div>
+				<button>구글로 로그인하기</button>
+				<button>네이버로 로그인하기</button>
+			</div>
+			{/* 로그인 페이지 구현후 link로 구현하기 */}
+			<p>로그인하기</p>
+		</div>
+	);
 }
 
 export default SignUp;
