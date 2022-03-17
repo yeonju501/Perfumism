@@ -41,7 +41,7 @@ function SignUp() {
 	return (
 		<Container>
 			<Header>회원 가입</Header>
-			<form onSubmit={handleSubmit}>
+			<FormContainer onSubmit={handleSubmit}>
 				<label htmlFor="">이메일</label>
 				<input name="email" type="text" onChange={handleChange} />
 				<label htmlFor="username">닉네임</label>
@@ -49,8 +49,7 @@ function SignUp() {
 				<label htmlFor="password">비밀번호</label>
 				<input name="password" type="password" onChange={handleChange} />
 				<LoginButton label="로그인" />
-			</form>
-			<br />
+			</FormContainer>
 			<div>
 				<button>구글로 로그인하기</button>
 				<button>네이버로 로그인하기</button>
@@ -72,6 +71,13 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+`;
+
+const FormContainer = styled.form`
+	display: flex;
+	width: 50rem;
+	flex-direction: column;
+	justify-content: center;
 `;
 
 export default SignUp;
