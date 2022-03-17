@@ -21,4 +21,9 @@ const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
 		setValues({ ...values, [name]: value.trim() });
 		checkDuplicate(name, value);
 	};
+
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		await onSubmit(values);
+	};
 };
