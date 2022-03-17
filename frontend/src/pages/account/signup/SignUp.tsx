@@ -27,6 +27,14 @@ function SignUp() {
 				console.log(error);
 			}
 		},
+		onBlur: async (name, value) => {
+			try {
+				const isExist = await authApi.isExist(name, value);
+				return isExist.data.result;
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	});
 }
 
