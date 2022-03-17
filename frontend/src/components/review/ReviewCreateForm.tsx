@@ -2,11 +2,17 @@ import { useState } from "react";
 import StarRating from "./StarRating";
 
 function ReviewCreateForm() {
-	const [rating, setRating] = useState(0);
+	const [grade, setGrade] = useState(0);
+	const [content, setContent] = useState("");
+
+	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setContent("");
+	};
 
 	return (
-		<form>
-			<StarRating setRating={setRating} />
+		<form onSubmit={handleFormSubmit}>
+			<StarRating setGrade={setGrade} />
 			<textarea></textarea>
 			<button>작성</button>
 		</form>
