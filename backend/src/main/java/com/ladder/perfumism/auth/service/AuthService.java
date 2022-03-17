@@ -1,6 +1,7 @@
 package com.ladder.perfumism.auth.service;
 
 import com.ladder.perfumism.auth.controller.dto.request.LoginRequest;
+import com.ladder.perfumism.auth.controller.dto.request.TokenRequest;
 import com.ladder.perfumism.auth.controller.dto.response.TokenResponse;
 import com.ladder.perfumism.auth.domain.RefreshToken;
 import com.ladder.perfumism.auth.domain.RefreshTokenRepository;
@@ -9,6 +10,7 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,5 +49,28 @@ public class AuthService {
             .value(tokenResponse.getRefreshToken())
             .build();
         refreshTokenRepository.save(refreshToken);
+    }
+
+    @Transactional
+    public TokenResponse reissue(TokenRequest request) {
+        // Refresh Token 검증
+        jwtTokenProvider.validateRefreshToken(request.getRefreshToken());
+
+        Authentication authentication = jwtTokenProvider.getAuthentication(request.getAccessToken());
+
+        // 저장소에서 Email로 refresh token 가져옴
+        RefreshToken refreshToken = refreshTokenRepository.findById(authentication.getName())
+            .orElseThrow(() -> new BusinessException(ErrorCode.INVALID_LOGOUT_USER_JWT));
+
+        // refresh token 일치하는지 검사
+        refreshToken.validateValue(request.getRefreshToken());
+
+        // 새로운 토큰 생성
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(authentication.getName(),
+            jwtTokenProvider.getAuthority(authentication));
+
+        // 새로운 refresh token
+        refreshToken.updateToken(tokenResponse.getRefreshToken());
+        return tokenResponse;
     }
 }
