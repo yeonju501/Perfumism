@@ -39,4 +39,12 @@ const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
 			}
 		}
 	};
+
+	const checkValid = (name: string, value: string): boolean | void => {
+		if (name === "email") return formValidator.validateEmailForm(value);
+		if (name === "username") return formValidator.validateNickname(value);
+		if (name === "password") {
+			setIsValid({ ...isValid, password: formValidator.validatePassword(value) });
+		}
+	};
 };
