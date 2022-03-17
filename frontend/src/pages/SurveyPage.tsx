@@ -9,21 +9,7 @@ function SurveyPage() {
 	return (
 		<div>
 			{page === "1" ? <SurveyItem /> : null}
-			{page === "2" ? (
-				<div>
-					<h1>두 번째 항목</h1>
-					<button
-						onClick={() => {
-							navigate({
-								pathname: "/survey",
-								search: "?page=3&a1=1&a2=3",
-							});
-						}}
-					>
-						다음페이지
-					</button>
-				</div>
-			) : null}
+			{page === "2" ? <SurveyItem /> : null}
 		</div>
 	);
 }
