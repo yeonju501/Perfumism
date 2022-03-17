@@ -5,6 +5,14 @@ import useForm from "./hooks/useForm";
 
 function SignUp() {
 	const navigate = useNavigate();
+
+	const { handleChange, handleSubmit, isValid } = useForm({
+		initialValues: {
+			email: "",
+			password: "",
+			username: "",
+		},
+	});
 }
 
 export default SignUp;
