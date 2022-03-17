@@ -18,3 +18,14 @@ const setInterceptors = (instance: AxiosInstance) => {
 	);
 	return instance;
 };
+
+const createInstance = () => {
+	const instance = axios.create({
+		baseURL: process.env.REACT_APP_MAIN_URL,
+		timeout: 3000,
+		headers: { "Content-Type": "application/json" },
+	});
+	return setInterceptors(instance);
+};
+
+export const request = createInstance();
