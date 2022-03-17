@@ -1,58 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 
 function StarRating() {
-	const starRatingState: Array<string> = [];
+	const [starRatingOnOff, setStarRatingOnOff] = useState([
+		{ color: "#a0a0a0", cursor: "pointer" },
+		{ color: "#a0a0a0", cursor: "pointer" },
+		{ color: "#a0a0a0", cursor: "pointer" },
+		{ color: "#a0a0a0", cursor: "pointer" },
+		{ color: "#a0a0a0", cursor: "pointer" },
+	]);
 
-	const [starRatingOnOff, setStarRatingOnOff] = useState(starRatingState);
-
-	function mouseOverStarRating(inx: number) {
-		const tempStarRating: Array<string> = [];
+	function handleStarClick(idx: number) {
+		const tempStarRating: { color: string; cursor: string }[] = [];
 		for (let i = 0; i < 5; i++) {
-			if (i < inx) {
-				tempStarRating.push("item-rating pointer zmdi zmdi-star");
+			if (i <= idx) {
+				tempStarRating.push({ color: "#ffcb14", cursor: "pointer" });
 			} else {
-				tempStarRating.push("item-rating pointer zmdi zmdi-star-outline");
+				tempStarRating.push({ color: "#a0a0a0", cursor: "pointer" });
 			}
 		}
-		setStarRatingOnOff(tempStarRating); //새로운 state를 세팅한다.
+		setStarRatingOnOff(tempStarRating);
 	}
-
-	useEffect(() => {
-		for (let i = 0; i < 5; i++) {
-			starRatingState.push("item-rating pointer zmdi zmdi-star-outline");
-		}
-		setStarRatingOnOff(starRatingState);
-	}, []);
 
 	return (
 		<div>
-			<FontAwesomeIcon
-				icon={faStar}
-				className={starRatingOnOff[0]}
-				onClick={() => mouseOverStarRating(0)}
-			/>
-			<FontAwesomeIcon
-				icon={faStar}
-				className={starRatingOnOff[1]}
-				onClick={() => mouseOverStarRating(1)}
-			/>
-			<FontAwesomeIcon
-				icon={faStar}
-				className={starRatingOnOff[2]}
-				onClick={() => mouseOverStarRating(2)}
-			/>
-			<FontAwesomeIcon
-				icon={faStar}
-				className={starRatingOnOff[3]}
-				onClick={() => mouseOverStarRating(3)}
-			/>
-			<FontAwesomeIcon
-				icon={faStar}
-				className={starRatingOnOff[4]}
-				onClick={() => mouseOverStarRating(4)}
-			/>
+			<FontAwesomeIcon icon={star} style={starRatingOnOff[0]} onClick={() => handleStarClick(0)} />
+			<FontAwesomeIcon icon={star} style={starRatingOnOff[1]} onClick={() => handleStarClick(1)} />
+			<FontAwesomeIcon icon={star} style={starRatingOnOff[2]} onClick={() => handleStarClick(2)} />
+			<FontAwesomeIcon icon={star} style={starRatingOnOff[3]} onClick={() => handleStarClick(3)} />
+			<FontAwesomeIcon icon={star} style={starRatingOnOff[4]} onClick={() => handleStarClick(4)} />
 		</div>
 	);
 }
