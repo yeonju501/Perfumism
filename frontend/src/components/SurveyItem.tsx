@@ -8,7 +8,7 @@ function SurveyItem() {
 	const nextPage = () => {
 		navigate({
 			pathname: "/survey",
-			search: "?page=2&a1=1",
+			search: "?page=2&a1=" + answer,
 		});
 	};
 
