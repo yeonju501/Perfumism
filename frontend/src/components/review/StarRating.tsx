@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 
-function StarRating() {
+interface StarRatingProps {
+	setRating: Dispatch<SetStateAction<number>>;
+}
+
+function StarRating({ setRating }: StarRatingProps) {
 	const [starRatingOnOff, setStarRatingOnOff] = useState([
 		{ color: "#a0a0a0", cursor: "pointer" },
 		{ color: "#a0a0a0", cursor: "pointer" },
@@ -20,6 +24,7 @@ function StarRating() {
 				tempStarRating.push({ color: "#a0a0a0", cursor: "pointer" });
 			}
 		}
+		setRating(idx + 1);
 		setStarRatingOnOff(tempStarRating);
 	}
 
