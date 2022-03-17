@@ -47,4 +47,13 @@ const useForm = ({ initialValues, onSubmit, onBlur }: UseFormArgs) => {
 			setIsValid({ ...isValid, password: formValidator.validatePassword(value) });
 		}
 	};
+
+	return {
+		values,
+		isValid,
+		handleChange,
+		handleSubmit,
+	};
 };
+
+export default useForm;
