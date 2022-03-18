@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SurveyItem: React.FC<{ queryString: string }> = (props) => {
+function SurveyItem({ queryString }: any) {
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
 
 	const nextPage = () => {
 		navigate({
 			pathname: "/survey",
-			search: props.queryString + "&a1=" + answer,
+			search: queryString + "&a1=" + answer,
 		});
 	};
 
@@ -38,6 +38,6 @@ const SurveyItem: React.FC<{ queryString: string }> = (props) => {
 			<button onClick={nextPage}>다음페이지</button>
 		</div>
 	);
-};
+}
 
 export default SurveyItem;
