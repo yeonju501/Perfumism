@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SurveyItem({ queryString }: any) {
@@ -6,10 +6,19 @@ function SurveyItem({ queryString }: any) {
 	const [answer, setAnswer] = useState("");
 
 	const nextPage = () => {
+		const nextUrl = getNextUrl();
 		navigate({
 			pathname: "/survey",
-			search: queryString + "&a1=" + answer,
+			search: nextUrl + answer,
 		});
+	};
+
+	const getNextUrl = () => {
+		const nowPage = queryString.slice(6, 7);
+		const nextPage = Number(queryString.slice(6, 7)) + 1;
+		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
+		console.log(newUrl);
+		return newUrl;
 	};
 
 	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
