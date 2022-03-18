@@ -17,7 +17,6 @@ function SurveyItem({ queryString }: any) {
 		const nowPage = queryString.slice(6, 7);
 		const nextPage = Number(queryString.slice(6, 7)) + 1;
 		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
-		console.log(newUrl);
 		return newUrl;
 	};
 
