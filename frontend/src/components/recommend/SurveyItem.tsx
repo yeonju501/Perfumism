@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface SurveyItemProps {
 	queryString: string;
@@ -7,6 +7,7 @@ interface SurveyItemProps {
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
 
@@ -34,8 +35,20 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	};
 
 	const getRecommendData = () => {
-		console.log("데이터 요청");
+		const answerData = getAnswerData();
+		console.log(answerData);
 		navigate("/survey/result");
+	};
+
+	const getAnswerData = () => {
+		const answerData = {
+			a1: searchParams.get("a1"),
+			a2: searchParams.get("a2"),
+			a3: searchParams.get("a3"),
+			a4: searchParams.get("a4"),
+			a5: searchParams.get("a5"),
+		};
+		return answerData;
 	};
 
 	return (
