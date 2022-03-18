@@ -28,6 +28,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 	const checkDuplicate = async (event: React.FocusEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		const result = await onBlur(name, value);
+		if (!result) setErrors({ ...errors, [name]: "" });
 		if (result && name === "email") setErrors({ ...errors, [name]: "이미 존재하는 이메일입니다." });
 		if (result && name === "username")
 			setErrors({ ...errors, [name]: "이미 존재하는 유저네임입니다." });
