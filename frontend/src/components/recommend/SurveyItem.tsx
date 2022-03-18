@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function SurveyItem({ queryString }: any) {
+interface SurveyItemProps {
+	queryString: string;
+	surveyListItem: { 질문: string; 답변: string[] };
+}
+
+function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
 
@@ -26,23 +31,13 @@ function SurveyItem({ queryString }: any) {
 
 	return (
 		<div>
-			<h1>질문</h1>
-			<label>
-				<input type="radio" name="answer" value="1" onChange={answerHandleChange} />
-				1번
-			</label>
-			<label>
-				<input type="radio" name="answer" value="2" onChange={answerHandleChange} />
-				2번
-			</label>
-			<label>
-				<input type="radio" name="answer" value="3" onChange={answerHandleChange} />
-				3번
-			</label>
-			<label>
-				<input type="radio" name="answer" value="4" onChange={answerHandleChange} />
-				4번
-			</label>
+			<h1>{surveyListItem["질문"]}</h1>
+			{surveyListItem["답변"].map((answer: string, idx: number) => (
+				<label key={idx}>
+					<input type="radio" name="answer" value={idx} onChange={answerHandleChange} />
+					{answer}
+				</label>
+			))}
 			<button onClick={nextPage}>다음페이지</button>
 		</div>
 	);
