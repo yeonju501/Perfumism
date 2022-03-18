@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { authApi } from "apis";
-import Button from "components/account/AccountButton";
+import Button from "components/account/Button";
 import Input from "components/account/Input";
 import Label from "components/account/Label";
 import styled from "styled-components";
