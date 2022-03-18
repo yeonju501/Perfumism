@@ -51,21 +51,21 @@ function SignUp() {
 					type="text"
 					onChange={handleChange}
 					placeholder="이메일을 입력해주세요"
-				/>{" "}
+				/>
 				<Label htmlFor="username">닉네임</Label>
 				<Input
 					name="username"
 					type="text"
 					onChange={handleChange}
 					placeholder="닉네임을 입력해주세요"
-				/>{" "}
+				/>
 				<Label htmlFor="password">비밀번호</Label>
 				<Input
 					name="password"
 					type="password"
 					onChange={handleChange}
 					placeholder="비밀번호를 입력해주세요"
-				/>{" "}
+				/>
 				<Button backgroundColor="black" color="#ffff">
 					회원가입
 				</Button>
