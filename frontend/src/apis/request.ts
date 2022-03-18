@@ -11,7 +11,6 @@ const setInterceptors = (instance: AxiosInstance) => {
 
 	instance.interceptors.response.use(
 		(response) => {
-			// console.log(response);
 			return response;
 		},
 		(error) => Promise.reject(console.log(error.response)),

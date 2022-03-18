@@ -6,11 +6,12 @@ import Input from "components/account/Input";
 import Label from "components/account/Label";
 import styled from "styled-components";
 import useForm from "./hooks/useForm";
-
+import { formValidator } from "utils";
+import ErrorText from "components/account/ErrorsText";
 function SignUp() {
 	const navigate = useNavigate();
 
-	const { handleChange, handleSubmit, isValid } = useForm({
+	const { handleChange, handleSubmit, checkDuplicate, errors } = useForm({
 		initialValues: {
 			email: "",
 			password: "",
@@ -25,7 +26,7 @@ function SignUp() {
 						password,
 						username,
 					})
-					.then(() => navigate("/sign-in"));
+					.then(() => navigate("/signin"));
 			} catch (error) {
 				// 에러 추후에 토스티파이로 변경
 				console.log(error);
@@ -39,6 +40,15 @@ function SignUp() {
 				console.log(error);
 			}
 		},
+		validate: ({ email, username, password }) => {
+			const errors: { [key: string]: string } = {};
+			if (!formValidator.validateEmailForm(email)) errors.email = "올바른 이메일을 입력해주세요.";
+			if (!formValidator.validateUsername(username)) errors.username = "이름을 입력해주세요.";
+			if (!formValidator.validatePassword(password))
+				errors.password = "대문자와 특수문자를 포함해주세요.";
+
+			return errors;
+		},
 	});
 
 	return (
@@ -50,22 +60,29 @@ function SignUp() {
 					name="email"
 					type="text"
 					onChange={handleChange}
+					onBlur={checkDuplicate}
 					placeholder="이메일을 입력해주세요"
-				/>{" "}
+				/>
+				<ErrorText>{errors.email}</ErrorText>
 				<Label htmlFor="username">닉네임</Label>
 				<Input
 					name="username"
 					type="text"
 					onChange={handleChange}
+					onBlur={checkDuplicate}
 					placeholder="닉네임을 입력해주세요"
-				/>{" "}
+				/>
+				<ErrorText>{errors.username}</ErrorText>
+
 				<Label htmlFor="password">비밀번호</Label>
 				<Input
 					name="password"
 					type="password"
 					onChange={handleChange}
 					placeholder="비밀번호를 입력해주세요"
-				/>{" "}
+				/>
+				<ErrorText>{errors.password}</ErrorText>
+
 				<Button backgroundColor="black" color="#ffff">
 					회원가입
 				</Button>
