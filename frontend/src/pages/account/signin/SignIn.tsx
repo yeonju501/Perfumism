@@ -59,6 +59,10 @@ function SignIn() {
 					로그인하기
 				</Button>
 			</FormContainer>
+			<Button backgroundColor="#00c73c" color="#ffff">
+				네이버로 로그인하기
+			</Button>
+			<Button backgroundColor="#f8f8f9">구글로 로그인하기</Button>
 		</Container>
 	);
 }
