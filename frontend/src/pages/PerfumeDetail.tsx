@@ -1,3 +1,4 @@
+import perfumeApi from "apis/perfume";
 import axios from "axios";
 import PerfumeList from "components/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
@@ -38,17 +39,11 @@ function PerfumeDetail() {
 	const [perfumeData, setPerfumeData] = useState<perfumeDataType | null>(null);
 
 	useEffect(() => {
-		getPerfumeData();
+		getPerfume();
 	}, []);
 
-	const getPerfumeData = () => {
-		axios({
-			url: `${URL}/perfumes/${perfumeId}`,
-			method: "GET",
-		}).then((res) => {
-			console.log(res.data);
-			setPerfumeData(res.data);
-		});
+	const getPerfume = async () => {
+		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));
 	};
 
 	return (
