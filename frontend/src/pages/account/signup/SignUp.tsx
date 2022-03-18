@@ -28,7 +28,6 @@ function SignUp() {
 					})
 					.then(() => navigate("/signin"));
 			} catch (error) {
-				// 에러 추후에 토스티파이로 변경
 				console.log(error);
 			}
 		},
