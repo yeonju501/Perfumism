@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { authApi } from "apis";
 import { formValidator } from "utils";
-import useForm from "./hooks/useForm";
+import useForm from "../hooks/useForm";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 
