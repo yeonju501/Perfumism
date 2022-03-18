@@ -2,6 +2,7 @@ package com.ladder.perfumism.auth.service;
 
 import com.ladder.perfumism.auth.controller.dto.request.LoginRequest;
 import com.ladder.perfumism.auth.controller.dto.request.TokenRequest;
+import com.ladder.perfumism.auth.controller.dto.response.AccessTokenResponse;
 import com.ladder.perfumism.auth.controller.dto.response.TokenResponse;
 import com.ladder.perfumism.auth.domain.RefreshToken;
 import com.ladder.perfumism.auth.domain.RefreshTokenRepository;
@@ -10,6 +11,8 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,14 +36,24 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenResponse login(LoginRequest request) {
+    public AccessTokenResponse login(LoginRequest request, HttpServletResponse response) {
         Member member = memberRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.login(passwordEncoder, request.getPassword());
 
+
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
+
+        Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
+        cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
         saveRefreshToken(member, tokenResponse);
-        return tokenResponse;
+        return AccessTokenResponse.builder()
+            .accessToken(tokenResponse.getAccessToken())
+            .build();
     }
 
     private void saveRefreshToken(Member member, TokenResponse tokenResponse) {
@@ -52,7 +65,7 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenResponse reissue(TokenRequest request) {
+    public AccessTokenResponse reissue(TokenRequest request, HttpServletResponse response) {
         // Refresh Token 검증
         jwtTokenProvider.validateRefreshToken(request.getRefreshToken());
 
@@ -69,8 +82,16 @@ public class AuthService {
         TokenResponse tokenResponse = jwtTokenProvider.createToken(authentication.getName(),
             jwtTokenProvider.getAuthority(authentication));
 
+        Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
+        cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
         // 새로운 refresh token
         refreshToken.updateToken(tokenResponse.getRefreshToken());
-        return tokenResponse;
+        return AccessTokenResponse.builder()
+            .accessToken(tokenResponse.getAccessToken())
+            .build();
     }
 }
