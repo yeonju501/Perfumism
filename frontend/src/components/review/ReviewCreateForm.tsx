@@ -1,7 +1,12 @@
+import reviewApi from "apis/review";
 import { useState } from "react";
 import StarRating from "./StarRating";
 
-function ReviewCreateForm() {
+interface ReviewCreateFormProp {
+	perfumeId: number;
+}
+
+function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {
 	const [grade, setGrade] = useState(0);
 	const [content, setContent] = useState("");
 
@@ -9,8 +14,9 @@ function ReviewCreateForm() {
 		setContent(e.target.value);
 	};
 
-	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		await reviewApi.createReview({ grade, content }, perfumeId);
 		setContent("");
 		setGrade(0);
 	};
