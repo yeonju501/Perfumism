@@ -1,8 +1,5 @@
 import { useSearchParams, useLocation } from "react-router-dom";
 import SurveyItem from "components/recommend/SurveyItem";
-interface queryProps {
-	queryString: string;
-}
 
 function Survey() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -11,9 +8,9 @@ function Survey() {
 	const surveyList = [
 		{ "질문 1": ["a1", "a2", "a3", "a4"] },
 		{ "질문 2": ["a1", "a2", "a3", "a4"] },
-		{ "질문 3": ["a1", "a2", "a3", "a4"] },
+		{ "질문 3": ["a1", "a2", "a3", "a4", "a5"] },
 		{ "질문 4": ["a1", "a2", "a3", "a4"] },
-		{ "질문 5": ["a1", "a2", "a3", "a4"] },
+		{ "질문 5": ["a1", "a2", "a3", "a4", "a5"] },
 	];
 
 	return (
