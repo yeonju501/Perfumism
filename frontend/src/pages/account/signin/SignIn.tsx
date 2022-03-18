@@ -63,6 +63,8 @@ function SignIn() {
 				네이버로 로그인하기
 			</Button>
 			<Button backgroundColor="#f8f8f9">구글로 로그인하기</Button>
+			<LinkParagraph to="/signup">회원가입하러 가기</LinkParagraph>
+			<LinkParagraph to="/find-password">비밀번호 찾기</LinkParagraph>
 		</Container>
 	);
 }
