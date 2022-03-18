@@ -28,7 +28,6 @@ function SignUp() {
 					})
 					.then(() => navigate("/signin"));
 			} catch (error) {
-				// 에러 추후에 토스티파이로 변경
 				console.log(error);
 			}
 		},
@@ -43,9 +42,9 @@ function SignUp() {
 		validate: ({ email, username, password }) => {
 			const errors: { [key: string]: string } = {};
 			if (!formValidator.validateEmailForm(email)) errors.email = "올바른 이메일을 입력해주세요.";
-			if (!formValidator.validateUsername(username)) errors.username = "이름을 입력해주세요.";
+			if (!formValidator.validateUsername(username)) errors.username = "유저네임을 입력해주세요.";
 			if (!formValidator.validatePassword(password))
-				errors.password = "대문자와 특수문자를 포함해주세요.";
+				errors.password = "대문자와 특수문자를 1자 이상 포함해주세요.";
 
 			return errors;
 		},
@@ -64,13 +63,13 @@ function SignUp() {
 					placeholder="이메일을 입력해주세요"
 				/>
 				<ErrorText>{errors.email}</ErrorText>
-				<Label htmlFor="username">닉네임</Label>
+				<Label htmlFor="username">유저네임</Label>
 				<Input
 					name="username"
 					type="text"
 					onChange={handleChange}
 					onBlur={checkDuplicate}
-					placeholder="닉네임을 입력해주세요"
+					placeholder="유저네임을 입력해주세요"
 				/>
 				<ErrorText>{errors.username}</ErrorText>
 
