@@ -8,6 +8,13 @@ function Survey() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
 	const queryString = useLocation().search;
+	const surveyList = [
+		{ "질문 1": ["a1", "a2", "a3", "a4"] },
+		{ "질문 2": ["a1", "a2", "a3", "a4"] },
+		{ "질문 3": ["a1", "a2", "a3", "a4"] },
+		{ "질문 4": ["a1", "a2", "a3", "a4"] },
+		{ "질문 5": ["a1", "a2", "a3", "a4"] },
+	];
 
 	return (
 		<div>
