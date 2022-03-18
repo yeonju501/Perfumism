@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import { authApi } from "apis";
-import Button from "components/account/AccountButton";
-import Input from "components/account/Input";
-import Label from "components/account/Label";
-import styled from "styled-components";
-import useForm from "./hooks/useForm";
 import { formValidator } from "utils";
-import ErrorText from "components/account/ErrorsText";
+import useForm from "./hooks/useForm";
+import { Container, FormContainer } from "components/account/Container";
+import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
+
 function SignUp() {
 	const navigate = useNavigate();
 
@@ -90,37 +87,9 @@ function SignUp() {
 				네이버로 로그인하기
 			</Button>
 			<Button backgroundColor="#f8f8f9">구글로 로그인하기</Button>
-			<Paragraph to="/signin">로그인하기</Paragraph>
+			<LinkParagraph to="/signin">로그인하기</LinkParagraph>
 		</Container>
 	);
 }
-
-const Header = styled.p`
-	font-size: 3rem;
-	font-weight: 800;
-`;
-
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-`;
-
-const FormContainer = styled.form`
-	display: flex;
-	width: 50rem;
-	flex-direction: column;
-	justify-content: center;
-`;
-
-const Paragraph = styled(Link)`
-	font-size: 1.4rem;
-	font-weight: 700;
-	text-decoration: none;
-	margin-top: 3rem;
-	color: black;
-`;
 
 export default SignUp;
