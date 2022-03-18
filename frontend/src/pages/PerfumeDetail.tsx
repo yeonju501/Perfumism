@@ -1,6 +1,8 @@
 import axios from "axios";
 import PerfumeList from "components/PerfumeList";
+import ReviewCreateForm from "components/review/ReviewCreateForm";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 type perfumeDataType = {
 	perfume_id: number;
@@ -29,6 +31,9 @@ type accordType = {
 };
 
 function PerfumeDetail() {
+	const location = useLocation();
+	const perfumeId = 1;
+	// const perfumeId = location.state.perfumeId;
 	const URL = process.env.REACT_APP_MAIN_URL;
 	const [perfumeData, setPerfumeData] = useState<perfumeDataType | null>(null);
 
@@ -38,7 +43,7 @@ function PerfumeDetail() {
 
 	const getPerfumeData = () => {
 		axios({
-			url: `${URL}/api/perfumes/1`,
+			url: `${URL}/perfumes/${perfumeId}`,
 			method: "GET",
 		}).then((res) => {
 			console.log(res.data);
@@ -75,7 +80,7 @@ function PerfumeDetail() {
 					<p>브랜드의 다른 향수</p>
 				</div>
 				<div>
-					<p>Review 컴포넌트</p>
+					<ReviewCreateForm perfumeId={perfumeId} />
 				</div>
 			</div>
 		)
