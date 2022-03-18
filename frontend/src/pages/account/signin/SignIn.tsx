@@ -38,6 +38,27 @@ function SignIn() {
 	return (
 		<Container>
 			<Header>로그인</Header>
+			<FormContainer onSubmit={handleSubmit}>
+				<Label htmlFor="email">이메일</Label>
+				<Input
+					name="email"
+					type="text"
+					onChange={handleChange}
+					placeholder="이메일을 입력해주세요"
+				/>
+				<ErrorText>{errors.email}</ErrorText>
+				<Label htmlFor="password">비밀번호</Label>
+				<Input
+					name="password"
+					type="password"
+					onChange={handleChange}
+					placeholder="비밀번호를 입력해주세요"
+				/>
+				<ErrorText>{errors.password}</ErrorText>
+				<Button backgroundColor="black" color="#ffff">
+					로그인하기
+				</Button>
+			</FormContainer>
 		</Container>
 	);
 }
