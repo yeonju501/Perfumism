@@ -2,7 +2,7 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import SurveyItem from "components/recommend/SurveyItem";
 
 function Survey() {
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams, withSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
 	const queryString = useLocation().search;
 	const surveyList = [
