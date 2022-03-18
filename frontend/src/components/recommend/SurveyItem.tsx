@@ -46,7 +46,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 			a2: searchParams.get("a2"),
 			a3: searchParams.get("a3"),
 			a4: searchParams.get("a4"),
-			a5: searchParams.get("a5"),
+			a5: answer,
 		};
 		return answerData;
 	};
