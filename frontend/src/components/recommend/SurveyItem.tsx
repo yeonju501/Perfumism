@@ -10,17 +10,22 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
 
+	const nowPage = queryString.slice(6, 7);
 	const nextPage = () => {
-		const nextUrl = getNextUrl();
-		navigate({
-			pathname: "/survey",
-			search: nextUrl + answer,
-		});
+		const nextUrl = getNextUrl() + answer;
+		if (nowPage === "5") {
+			navigate("/survey/result");
+			console.log(nextUrl);
+		} else {
+			navigate({
+				pathname: "/survey",
+				search: nextUrl,
+			});
+		}
 	};
 
 	const getNextUrl = () => {
-		const nowPage = queryString.slice(6, 7);
-		const nextPage = Number(queryString.slice(6, 7)) + 1;
+		const nextPage = Number(nowPage) + 1;
 		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
 		return newUrl;
 	};
