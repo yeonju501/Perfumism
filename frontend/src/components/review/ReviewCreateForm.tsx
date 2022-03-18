@@ -12,11 +12,12 @@ function ReviewCreateForm() {
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setContent("");
+		setGrade(0);
 	};
 
 	return (
 		<form onSubmit={handleFormSubmit}>
-			<StarRating setGrade={setGrade} />
+			<StarRating grade={grade} setGrade={setGrade} />
 			<textarea
 				value={content}
 				onChange={handleInputChange}
