@@ -75,10 +75,14 @@ WSGI_APPLICATION = 'perfumism.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': { 
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'perfume', 
+        'USER': 'root', 
+        'PASSWORD': 'perfume', 
+        'HOST': 'j6d105.p.ssafy.io', 
+        'PORT': '3306', 
+     } 
 }
 
 
