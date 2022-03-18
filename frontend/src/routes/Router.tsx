@@ -1,3 +1,4 @@
+import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
 import PerfumeDetail from "pages/PerfumeDetail";
 import Recommend from "pages/recommend/Recommend";
@@ -13,6 +14,7 @@ function Router() {
 				<Route path="/recommend" element={<Recommend />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/signup" element={<SignUp />} />
+				<Route path="/signin" element={<SignIn />} />
 			</Routes>
 		</BrowserRouter>
 	);
