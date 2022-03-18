@@ -11,11 +11,16 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const [answer, setAnswer] = useState("");
 
 	const nowPage = queryString.slice(6, 7);
+	const getNextUrl = () => {
+		const nextPage = Number(nowPage) + 1;
+		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
+		return newUrl;
+	};
+
+	const nextUrl = getNextUrl() + answer;
 	const nextPage = () => {
-		const nextUrl = getNextUrl() + answer;
 		if (nowPage === "5") {
-			navigate("/survey/result");
-			console.log(nextUrl);
+			getRecommendData();
 		} else {
 			navigate({
 				pathname: "/survey",
@@ -24,14 +29,13 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		}
 	};
 
-	const getNextUrl = () => {
-		const nextPage = Number(nowPage) + 1;
-		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
-		return newUrl;
-	};
-
 	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setAnswer(e.target.value);
+	};
+
+	const getRecommendData = () => {
+		console.log("데이터 요청");
+		navigate("/survey/result");
 	};
 
 	return (
