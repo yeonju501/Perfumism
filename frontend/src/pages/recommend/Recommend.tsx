@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function RecommendPage() {
+function Recommend() {
 	return (
 		<div>
 			<div>
@@ -18,4 +18,4 @@ function RecommendPage() {
 	);
 }
 
-export default RecommendPage;
+export default Recommend;

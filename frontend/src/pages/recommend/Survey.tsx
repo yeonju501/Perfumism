@@ -1,7 +1,7 @@
 import { useSearchParams, useLocation } from "react-router-dom";
-import SurveyItem from "components/SurveyItem";
+import SurveyItem from "components/recommend/SurveyItem";
 
-function SurveyPage() {
+function Survey() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
 	const queryString = useLocation().search;
@@ -17,4 +17,4 @@ function SurveyPage() {
 	);
 }
 
-export default SurveyPage;
+export default Survey;
