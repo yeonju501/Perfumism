@@ -30,17 +30,22 @@ public class ReviewResponse {
     @ApiModelProperty(position = 5, notes = "리뷰 내용", example = "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...")
     private String content;
 
+    @JsonProperty("likes")
+    @ApiModelProperty(position = 6, notes = "좋아요 수", example = "222")
+    private Integer likes;
+
     public ReviewResponse() {
     }
 
     public ReviewResponse(Long reviewId, Long memberId, String memberName, String memberImage, Integer grade,
-        String content) {
+        String content, Integer likes) {
         this.reviewId = reviewId;
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberImage = memberImage;
         this.grade = grade;
         this.content = content;
+        this.likes = likes;
     }
 
     public static ReviewResponse from(Review review) {
@@ -50,7 +55,8 @@ public class ReviewResponse {
             review.getMemberId().getUsername(),
             review.getMemberId().getImage(),
             review.getGrade(),
-            review.getContent()
+            review.getContent(),
+            review.getTotalLike()
         );
     }
 
