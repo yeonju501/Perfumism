@@ -90,7 +90,6 @@ public class ReviewRestController {
         return ResponseEntity.ok().body(reviewService.getMyReviewPage(email, pageable));
     }
 
-    // 나의 특정 향수 리뷰 목록 가져오기
     @GetMapping("/auth/reviews/my-reviews/perfumes/{perfume_id}")
     @ApiOperation(value = "내가 쓴 특정 향수의 리뷰 조회", notes = "<b>(로그인 필요)</b> 내가 썼던 특정 향수의 리뷰를 조회하는 API 입니다.")
     @ApiImplicitParam(name = "perfume_id", value = "리뷰를 불러올 향수 ID", required = true)
