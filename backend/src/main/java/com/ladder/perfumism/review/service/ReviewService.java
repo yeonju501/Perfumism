@@ -107,4 +107,14 @@ public class ReviewService {
         averageGrade(review.getPerfumeId());
         review.getPerfumeId().decreaseTotalSurvey();
     }
+
+    @Transactional
+    public ReviewPageResponse getMyReviewPage(String email, Pageable pageable){
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Page<Review> reviewList = reviewRepository.findByMemberId(member, pageable);
+
+        return ReviewPageResponse.from(reviewList);
+    }
 }
