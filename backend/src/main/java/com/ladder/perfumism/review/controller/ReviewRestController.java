@@ -75,4 +75,25 @@ public class ReviewRestController {
         reviewService.removeReview(email, reviewId);
         return ResponseEntity.noContent().build();
     }
+
+    // 나의 리뷰 목록 가져오기
+    @GetMapping("/auth/reviews/my-reviews")
+    @ApiOperation(value = "내가 쓴 리뷰 목록", notes = "<b>(로그인 필요)</b> 지금까지 내가 썼던 향수 리뷰 목록을 조회하는 API 입니다.")
+    @ApiImplicitParams(
+        {
+            @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
+            @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
+        }
+    )
+    public ResponseEntity<ReviewPageResponse> viewMyReviewPage(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(reviewService.getMyReviewPage(email, pageable));
+    }
+
+    // 나의 특정 향수 리뷰 목록 가져오기
+
+    // 리뷰 좋아요 누르기
+
+    // 리뷰 좋아요 취소하기
+
 }
