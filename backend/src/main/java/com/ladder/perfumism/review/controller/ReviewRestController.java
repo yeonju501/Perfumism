@@ -98,8 +98,17 @@ public class ReviewRestController {
         return ResponseEntity.ok().body(reviewService.getMyPerfumeReview(email, perfumeId));
     }
 
-    // 리뷰 좋아요 누르기
+    @PostMapping("/auth/reviews/likes/{review_id}")
+    @ApiOperation(value = "리뷰 좋아요 누르기", notes = "<b>(로그인 필요)</b> 특정 리뷰에 좋아요를 할 수 있는 API 입니다.")
+    @ApiImplicitParam(name = "review_id", value = "좋아할 리뷰 ID", required = true)
+    public ResponseEntity<Void> likeReview(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "review_id") Long reviewId) {
+        Long newReviewLikeId = reviewService.likeReview(email, reviewId);
+        URI uri = URI.create("/api/reviews/" + reviewId + "/" + newReviewLikeId);
+        return ResponseEntity.created(uri).build();
+    }
 
-    // 리뷰 좋아요 취소하기
+    // 리뷰 좋아요 조회
+    // 리뷰 좋아요 취소
 
 }

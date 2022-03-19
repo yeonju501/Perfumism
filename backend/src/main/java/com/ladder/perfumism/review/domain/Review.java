@@ -47,15 +47,19 @@ public class Review extends BaseEntity {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "total_like")
+    private Integer totalLike;
+
     public Review() {
     }
 
     @Builder
-    public Review(Perfume perfumeId, Member memberId, Integer grade, String content) {
+    public Review(Perfume perfumeId, Member memberId, Integer grade, String content, Integer totalLike) {
         this.perfumeId = perfumeId;
         this.memberId = memberId;
         this.grade = grade;
         this.content = content;
+        this.totalLike = totalLike;
     }
 
     public static Review createReview(Perfume perfume, Member member, ReviewWriteRequest request) {
@@ -67,6 +71,7 @@ public class Review extends BaseEntity {
             .memberId(member)
             .grade(request.getGrade())
             .content(request.getContent())
+            .totalLike(0)
             .build();
     }
 
@@ -88,7 +93,11 @@ public class Review extends BaseEntity {
         this.grade = grade;
     }
 
-    public void changeContent(String content){
+    public void changeContent(String content) {
         this.content = content;
+    }
+
+    public void saveLike(Integer totalLike) {
+        this.totalLike = totalLike;
     }
 }

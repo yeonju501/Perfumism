@@ -10,6 +10,8 @@ import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.domain.Review;
+import com.ladder.perfumism.review.domain.ReviewLike;
+import com.ladder.perfumism.review.domain.ReviewLikeRepository;
 import com.ladder.perfumism.review.domain.ReviewRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,12 +24,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final PerfumeRepository perfumeRepository;
     private final MemberRepository memberRepository;
+    private final ReviewLikeRepository reviewLikeRepository;
 
     public ReviewService(ReviewRepository reviewRepository, PerfumeRepository perfumeRepository,
-        MemberRepository memberRepository) {
+        MemberRepository memberRepository, ReviewLikeRepository reviewLikeRepository) {
         this.reviewRepository = reviewRepository;
         this.perfumeRepository = perfumeRepository;
         this.memberRepository = memberRepository;
+        this.reviewLikeRepository = reviewLikeRepository;
     }
 
     @Transactional
@@ -130,5 +134,34 @@ public class ReviewService {
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_WRITTEN_THIS_PERFUME));
 
         return ReviewResponse.from(review);
+    }
+
+    @Transactional
+    public Long likeReview(String email, Long reviewId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        doNotLikeYourReview(member, review);
+        alreadyLikeReview(member, review);
+
+        ReviewLike reviewLike = reviewLikeRepository.save(ReviewLike.createReviewLike(review, member));
+
+        review.saveLike(reviewLikeRepository.countByReviewId(review));
+
+        return reviewLike.getId();
+    }
+
+    private void alreadyLikeReview(Member member, Review review) {
+        if (reviewLikeRepository.existsByMemberIdAndReviewId(member, review)) {
+            throw new BusinessException(ErrorCode.REVIEW_ALREADY_LIKE);
+        }
+    }
+
+    private void doNotLikeYourReview(Member member, Review review) {
+        if (member.getId().equals(review.getMemberId().getId())){
+            throw new BusinessException(ErrorCode.REVIEW_NO_LIKE_YOURSELF);
+        }
     }
 }
