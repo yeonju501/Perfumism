@@ -12,6 +12,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Page<Review> findByPerfumeId(Perfume perfume, Pageable pageable);
 
+    Page<Review> findByMemberId(Member member, Pageable pageable);
+
     Boolean existsByMemberIdAndPerfumeId(Member member, Perfume perfume);
 
     @Query(nativeQuery = true, value = "select avg(cast(r.grade as float)) from Review r "
