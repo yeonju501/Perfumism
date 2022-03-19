@@ -2,6 +2,7 @@ package com.ladder.perfumism.review.controller;
 
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
+import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.service.ReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -76,9 +77,8 @@ public class ReviewRestController {
         return ResponseEntity.noContent().build();
     }
 
-    // 나의 리뷰 목록 가져오기
     @GetMapping("/auth/reviews/my-reviews")
-    @ApiOperation(value = "내가 쓴 리뷰 목록", notes = "<b>(로그인 필요)</b> 지금까지 내가 썼던 향수 리뷰 목록을 조회하는 API 입니다.")
+    @ApiOperation(value = "내가 쓴 리뷰 목록 조회", notes = "<b>(로그인 필요)</b> 지금까지 내가 썼던 향수 리뷰 목록을 조회하는 API 입니다.")
     @ApiImplicitParams(
         {
             @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
@@ -91,6 +91,13 @@ public class ReviewRestController {
     }
 
     // 나의 특정 향수 리뷰 목록 가져오기
+    @GetMapping("/auth/reviews/my-reviews/perfumes/{perfume_id}")
+    @ApiOperation(value = "내가 쓴 특정 향수의 리뷰 조회", notes = "<b>(로그인 필요)</b> 내가 썼던 특정 향수의 리뷰를 조회하는 API 입니다.")
+    @ApiImplicitParam(name = "perfume_id", value = "리뷰를 불러올 향수 ID", required = true)
+    public ResponseEntity<ReviewResponse> viewMyReviewPage(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "perfume_id") Long perfumeId) {
+        return ResponseEntity.ok().body(reviewService.getMyPerfumeReview(email, perfumeId));
+    }
 
     // 리뷰 좋아요 누르기
 
