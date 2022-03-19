@@ -143,7 +143,7 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId)
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
 
-        notLikeYourReview(member, review);
+        doNotLikeYourReview(member, review);
         alreadyLikeReview(member, review);
 
         ReviewLike reviewLike = reviewLikeRepository.save(ReviewLike.createReviewLike(review, member));
@@ -159,9 +159,9 @@ public class ReviewService {
         }
     }
 
-    private void notLikeYourReview(Member member, Review review) {
-        if (member.getId().equals(review.getMemberId())){
-            throw new BusinessException(ErrorCode.REVIEW_NOT_ALLOW_TO_LIKE_YOURSELF);
+    private void doNotLikeYourReview(Member member, Review review) {
+        if (member.getId().equals(review.getMemberId().getId())){
+            throw new BusinessException(ErrorCode.REVIEW_NO_LIKE_YOURSELF);
         }
     }
 }
