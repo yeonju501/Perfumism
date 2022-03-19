@@ -8,6 +8,7 @@ import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
+import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.domain.Review;
 import com.ladder.perfumism.review.domain.ReviewRepository;
 import org.springframework.data.domain.Page;
@@ -108,13 +109,26 @@ public class ReviewService {
         review.getPerfumeId().decreaseTotalSurvey();
     }
 
-    @Transactional
-    public ReviewPageResponse getMyReviewPage(String email, Pageable pageable){
+    @Transactional(readOnly = true)
+    public ReviewPageResponse getMyReviewPage(String email, Pageable pageable) {
         Member member = memberRepository.findByEmail(email)
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
         Page<Review> reviewList = reviewRepository.findByMemberId(member, pageable);
 
         return ReviewPageResponse.from(reviewList);
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewResponse getMyPerfumeReview(String email, Long perfumeId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Perfume perfume = perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+
+        Review review = reviewRepository.findByMemberIdAndPerfumeId(member, perfume)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_WRITTEN_THIS_PERFUME));
+
+        return ReviewResponse.from(review);
     }
 }
