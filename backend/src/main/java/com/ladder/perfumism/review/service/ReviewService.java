@@ -5,6 +5,7 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
@@ -160,8 +161,20 @@ public class ReviewService {
     }
 
     private void doNotLikeYourReview(Member member, Review review) {
-        if (member.getId().equals(review.getMemberId().getId())){
+        if (member.getId().equals(review.getMemberId().getId())) {
             throw new BusinessException(ErrorCode.REVIEW_NO_LIKE_YOURSELF);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewLikeResponse isLikeThisReview(String email, Long reviewId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        Boolean liked = reviewLikeRepository.existsByMemberIdAndReviewId(member,review);
+
+        return ReviewLikeResponse.from(liked);
     }
 }
