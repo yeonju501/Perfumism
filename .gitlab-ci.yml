@@ -1,0 +1,57 @@
+stages:
+    - build
+    - deploy
+
+build-back:
+    stage : build
+    only :
+        - master
+        - develop
+    script : 
+        - cd $CI_PROJECT_DIR/backend
+        - chmod +x gradlew
+        # - ./gradlew build
+        # cp 배포 파일 옮기기
+    tages :
+        - prd
+
+build-front:
+    stage : build
+    cache :
+        key : ${CI_COMMIT_REF_SLUG}
+        paths : 
+            - S06P22D105/frontend/node_modules
+    only : 
+        - master
+        - develop
+    script :
+        - cd $CI_PROJECT_DIR/frontend
+        - rm -rf package-lock.json
+        - npm install
+        - npm run build
+        - rm -rf ~/S06P22D105/frontend/build
+        - cp -rf ~/S06P22D105/frontend
+        
+    tags : 
+        - prd
+
+    
+deploy-back:
+    stage: deploy
+    only : 
+        - master
+        - develop
+    script : 
+        # 백엔드 재시작 스크립트 작성
+    tags:
+        - prd
+
+deploy-front:
+    stage: deploy
+    only :
+        - master
+        - develop
+    script:
+        # 프론트 재시작 스크립트 작성
+    tages :
+        - prd
