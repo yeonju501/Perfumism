@@ -17,6 +17,7 @@ build-back:
         - ls
         - cd ./resources
         - echo $APPLICATION
+        - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./application.yml
         - ls
         
         # cp 배포 파일 옮기기
