@@ -1,3 +1,8 @@
+import LikeButton from "./perfume/LikeButton";
+import PerfumeImage from "./perfume/PerfumeImage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
+
 type PerfumeList = {
 	perfumes: [];
 };
@@ -15,8 +20,13 @@ function PerfumeList({ perfumes }: PerfumeList) {
 			{perfumes.map((perfume: Perfume, idx: number) => (
 				<li key={idx}>
 					<div>
-						<img src={perfume.image} alt="perfume image" />
-						<button>🤍</button>
+						<PerfumeImage
+							src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image.slice(2)}`}
+							alt="perfume image"
+						/>
+						<LikeButton>
+							<FontAwesomeIcon icon={heart} />
+						</LikeButton>
 					</div>
 					<p>{perfume.perfume_name}</p>
 				</li>
