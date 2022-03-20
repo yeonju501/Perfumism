@@ -109,7 +109,6 @@ public class ReviewRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    // 리뷰 좋아요 조회
     @GetMapping("/auth/reviews/likes/{review_id}")
     @ApiOperation(value = "리뷰 좋아요 여부 조회", notes = "<b>(로그인 필요)</b> 자신이 특정 리뷰에 좋아요 했는지 확인하는 API 입니다.")
     @ApiImplicitParam(name = "review_id", value = "좋아요 여부를 확인할 리뷰 ID", required = true)
@@ -118,7 +117,12 @@ public class ReviewRestController {
         return ResponseEntity.ok().body(reviewService.isLikeThisReview(email, reviewId));
     }
 
-    // 리뷰 좋아요 취소
-    // @DeleteMapping("/auth/reviews/likes/{review_id}")
-
+    @DeleteMapping("/auth/reviews/likes/{review_id}")
+    @ApiOperation(value = "리뷰 좋아요 취소", notes = "<b>(로그인 필요)</b> 특정 리뷰에 좋아요를 취소하는 API 입니다.")
+    @ApiImplicitParam(name = "review_id", value = "좋아요 취소할 ID", required = true)
+    public ResponseEntity<Void> notLikeThisReviewAnymore(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "review_id") Long reviewId) {
+        reviewService.notLikeThisReviewAnymore(email, reviewId);
+        return ResponseEntity.noContent().build();
+    }
 }
