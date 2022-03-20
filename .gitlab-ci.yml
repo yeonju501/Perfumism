@@ -43,6 +43,7 @@ deploy-back:
         - develop
     script : 
         # 백엔드 재시작 스크립트 작성
+        - ls
     tags:
         - prd
 
@@ -53,5 +54,6 @@ deploy-front:
         - develop
     script:
         # 프론트 재시작 스크립트 작성
+        - ls
     tags :
         - prd
