@@ -39,10 +39,10 @@ build-front:
         - ls
         - npm install
         - CI=false npm run build
-        - cd ./build
+        # - cd ./build
         - ls
         - pwd
-        - rm -rf ~/S06P22D105/frontend/build
+        # - rm -rf ~/S06P22D105/frontend/build
         - cp -rf build ~/S06P22D105/frontend
         
     tags : 
