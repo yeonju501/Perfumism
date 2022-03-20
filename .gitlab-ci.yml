@@ -10,8 +10,8 @@ build-back:
     script : 
         - cd $CI_PROJECT_DIR/backend
         - ls
-        # - chmod +x gradlew
-        # - ./gradlew build
+        - chmod +x gradlew
+        - ./gradlew build
         # cp 배포 파일 옮기기
     tags :
         - prd
