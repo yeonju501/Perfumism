@@ -16,11 +16,11 @@ build-back:
         - mkdir resources
         - ls
         - cd ./resources
-        - echo $APPLICATION
+        # - echo $APPLICATION
         - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./application.yml
         - ls
-        
         # cp 배포 파일 옮기기
+
     tags :
         - prd
 
@@ -64,6 +64,6 @@ deploy-front:
         - develop
     script:
         # 프론트 재시작 스크립트 작성
-        - ls
+        - ls -al ~/project/S06P22D105/front/build
     tags :
         - prd
