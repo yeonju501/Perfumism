@@ -1,6 +1,7 @@
 package com.ladder.perfumism.review.controller;
 
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.service.ReviewService;
@@ -109,6 +110,15 @@ public class ReviewRestController {
     }
 
     // 리뷰 좋아요 조회
+    @GetMapping("/auth/reviews/likes/{review_id}")
+    @ApiOperation(value = "리뷰 좋아요 여부 조회", notes = "<b>(로그인 필요)</b> 자신이 특정 리뷰에 좋아요 했는지 확인하는 API 입니다.")
+    @ApiImplicitParam(name = "review_id", value = "좋아요 여부를 확인할 리뷰 ID", required = true)
+    public ResponseEntity<ReviewLikeResponse> isLikeThisReview(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "review_id") Long reviewId) {
+        return ResponseEntity.ok().body(reviewService.isLikeThisReview(email, reviewId));
+    }
+
     // 리뷰 좋아요 취소
+    // @DeleteMapping("/auth/reviews/likes/{review_id}")
 
 }
