@@ -16,7 +16,7 @@ build-back:
         - mkdir resources
         - ls
         - cd ./resources
-        - cat $APPLICATION
+        - echo $APPLICATION
         - ls
         
         # cp 배포 파일 옮기기
