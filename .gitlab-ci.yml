@@ -12,7 +12,7 @@ build-back:
         - chmod +x gradlew
         # - ./gradlew build
         # cp 배포 파일 옮기기
-    tages :
+    tags :
         - prd
 
 build-front:
@@ -53,5 +53,5 @@ deploy-front:
         - develop
     script:
         # 프론트 재시작 스크립트 작성
-    tages :
+    tags :
         - prd
