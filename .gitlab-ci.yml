@@ -29,7 +29,7 @@ build-front:
         - cd $CI_PROJECT_DIR/frontend
         - rm -rf package-lock.json
         - npm install
-        - npm run build
+        - CI=false npm run build
         # - rm -rf ~/S06P22D105/frontend/build
         # - cp -rf ~/S06P22D105/frontend
         
