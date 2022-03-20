@@ -10,8 +10,6 @@ build-back:
     script : 
         - cd $CI_PROJECT_DIR/backend
         - ls
-        - cd ./src/main/
-        - ls
         # - chmod +x gradlew
         # - ./gradlew build
         # cp 배포 파일 옮기기
