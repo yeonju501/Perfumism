@@ -12,7 +12,7 @@ build-back:
         - ls
         - chmod +x gradlew
         # - ./gradlew build
-        - cd ./main
+        - cd ./src/main
         - mkdir resources
         - ls
         - cd ./resources
