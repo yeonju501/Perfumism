@@ -9,6 +9,7 @@ build-back:
         - develop
     script : 
         - cd $CI_PROJECT_DIR/backend
+        - echo "$DATABASE_PASSWORD"
         - ls
         - chmod +x gradlew
         - ./gradlew build
