@@ -9,7 +9,6 @@ build-back:
         - develop
     script : 
         - cd $CI_PROJECT_DIR/backend
-        - echo "$DATABASE_PASSWORD"
         - ls
         - chmod +x gradlew
         - ./gradlew build
@@ -31,8 +30,8 @@ build-front:
         - rm -rf package-lock.json
         - npm install
         - npm run build
-        - rm -rf ~/S06P22D105/frontend/build
-        - cp -rf ~/S06P22D105/frontend
+        # - rm -rf ~/S06P22D105/frontend/build
+        # - cp -rf ~/S06P22D105/frontend
         
     tags : 
         - prd
