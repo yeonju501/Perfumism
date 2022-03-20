@@ -12,6 +12,11 @@ build-back:
         - ls
         - chmod +x gradlew
         # - ./gradlew build
+        - cd ./main
+        - mkdir resources
+        - ls
+        - cd ./resources
+        
         # cp 배포 파일 옮기기
     tags :
         - prd
