@@ -109,6 +109,8 @@ public class ReviewService {
 
         isYourReview(email, review);
 
+        // TODO: 이 리뷰에 모든 좋아요 삭제
+
         review.saveDeletedTime();
         averageGrade(review.getPerfumeId());
         review.getPerfumeId().decreaseTotalSurvey();
@@ -176,5 +178,20 @@ public class ReviewService {
         Boolean liked = reviewLikeRepository.existsByMemberIdAndReviewId(member,review);
 
         return ReviewLikeResponse.from(liked);
+    }
+
+    @Transactional
+    public void notLikeThisReviewAnymore(String email, Long reviewId){
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
+
+        ReviewLike reviewLike = reviewLikeRepository.findByMemberIdAndReviewId(member, review)
+            .orElseThrow(()-> new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_REVIEW));
+
+        reviewLike.saveDeletedTime();
+
+        review.saveLike(reviewLikeRepository.countByReviewId(review));
     }
 }
