@@ -1,6 +1,7 @@
 package com.ladder.perfumism.auth.service;
 
 import com.ladder.perfumism.auth.controller.dto.request.LoginRequest;
+import com.ladder.perfumism.auth.controller.dto.request.RefreshTokenRequest;
 import com.ladder.perfumism.auth.controller.dto.request.TokenRequest;
 import com.ladder.perfumism.auth.controller.dto.response.AccessTokenResponse;
 import com.ladder.perfumism.auth.controller.dto.response.TokenResponse;
@@ -65,11 +66,11 @@ public class AuthService {
     }
 
     @Transactional
-    public AccessTokenResponse reissue(TokenRequest request, HttpServletResponse response) {
+    public AccessTokenResponse reissue(RefreshTokenRequest request, String accessToken, HttpServletResponse response) {
         // Refresh Token 검증
         jwtTokenProvider.validateRefreshToken(request.getRefreshToken());
 
-        Authentication authentication = jwtTokenProvider.getAuthentication(request.getAccessToken());
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 
         // 저장소에서 Email로 refresh token 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findById(authentication.getName())
@@ -84,8 +85,9 @@ public class AuthService {
 
         Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
         cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
+//        cookie.setSecure(true);
+//        cookie.setHttpOnly(true);
+        cookie.setPath("/");
         response.addCookie(cookie);
 
         // 새로운 refresh token
