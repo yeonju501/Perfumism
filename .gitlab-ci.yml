@@ -43,7 +43,8 @@ build-front:
         # - cd ./build
         - ls
         - pwd
-        # - rm -rf ~/S06P22D105/frontend/build
+        - rm -rf ~/S06P22D105/frontend/build
+        - ls ~/S06P22D105/frontend
         # - cp -rf build ~/S06P22D105/frontend
         
     tags : 
