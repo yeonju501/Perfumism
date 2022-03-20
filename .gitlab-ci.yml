@@ -34,6 +34,7 @@ build-front:
         - master
         - develop
     script :
+        - pwd
         - cd $CI_PROJECT_DIR/frontend
         - pwd
         - rm -rf package-lock.json
@@ -43,9 +44,6 @@ build-front:
         # - cd ./build
         - ls
         - pwd
-        - ls ~/S06P22D105/frontend
-        - rm -rf ~/S06P22D105/frontend/build
-        # - cp -rf build ~/S06P22D105/frontend
         
     tags : 
         - prd
