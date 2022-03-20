@@ -36,12 +36,14 @@ build-front:
     script :
         - cd $CI_PROJECT_DIR/frontend
         - rm -rf package-lock.json
+        - ls
         - npm install
         - CI=false npm run build
+        - cd ./build
         - ls
         - pwd
-        - rm -rf ~/S06P22D105/frontend/build
-        - cp -rf build ~/S06P22D105/frontend
+        # - rm -rf ~/S06P22D105/frontend/build
+        # - cp -rf build ~/S06P22D105/frontend
         
     tags : 
         - prd
