@@ -1,6 +1,7 @@
 package com.ladder.perfumism.member.controller;
 
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
+import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.service.MemberService;
@@ -41,6 +42,11 @@ public class MemberRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/members/find-pw")
+    public ResponseEntity<Void> findPassword(@RequestBody FindPasswordRequest request) {
+        memberService.findPassword(request);
+        return ResponseEntity.ok().build();
+    }
     @PostMapping("/members/exist-email")
     @ApiOperation(value = "이메일 중복검사", notes = "이메일 중복 검사 api")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(@RequestBody CheckDuplicateRequest request) {
