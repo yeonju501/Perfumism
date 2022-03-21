@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import recommendApi from "apis/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
@@ -10,6 +11,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
+	const [recommendData, setRecommendData] = useState({});
 
 	const nowPage = queryString.slice(6, 7);
 	const getNextUrl = () => {
@@ -30,14 +32,20 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		}
 	};
 
-	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAnswer(e.target.value);
+	const getRecommendData = async () => {
+		const answerData = getAnswerData();
+		try {
+			await recommendApi.createSurveyRecommend(answerData).then((res) => {
+				setRecommendData(res.data);
+				navigate("/survey/result");
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	const getRecommendData = () => {
-		const answerData = getAnswerData();
-		console.log(answerData);
-		navigate("/survey/result");
+	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setAnswer(e.target.value);
 	};
 
 	const getAnswerData = () => {
