@@ -13,7 +13,8 @@ build-back:
     - chmod +x gradlew
     - mkdir ./src/main/resources
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
-    - ./gradlew build
+    - cat ./src/main/resources/application.yml
+    # - ./gradlew build
     # cp 배포 파일 옮기기
 
 
