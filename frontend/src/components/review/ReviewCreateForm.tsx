@@ -1,6 +1,9 @@
 import reviewApi from "apis/review";
+import { CreateButton } from "components/button/Button";
 import { useState } from "react";
+import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
+import Textarea from "./Textarea";
 
 interface ReviewCreateFormProp {
 	perfumeId: number;
@@ -22,15 +25,15 @@ function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<StarRating grade={grade} setGrade={setGrade} />
-			<textarea
+			<Textarea
 				value={content}
 				onChange={handleInputChange}
 				placeholder="리뷰를 입력하세요"
-			></textarea>
-			<button>작성</button>
-		</form>
+			></Textarea>
+			<CreateButton>작성</CreateButton>
+		</FormContainer>
 	);
 }
 
