@@ -53,16 +53,20 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<h1>{perfumeData.perfume_name}</h1>
-					<h3>{perfumeData.launch_year}</h3>
-					<h3>{perfumeData.brand.brand_name}</h3>
-					<h3>{perfumeData.average_grade}</h3>
-					<p>main accords</p>
-					<ul>
-						{perfumeData.accords.map((accord) => (
-							<li key={accord.accord_id}>{accord.eng_name}</li>
-						))}
-					</ul>
+					<div>
+						<h1>
+							{perfumeData.perfume_name}
+							<span>({perfumeData.launch_year})</span>
+						</h1>
+						<h3>{perfumeData.brand.brand_name}</h3>
+						<h3>{perfumeData.average_grade}</h3>
+						<p>main accords</p>
+						<ul>
+							{perfumeData.accords.map((accord) => (
+								<li key={accord.accord_id}>{accord.eng_name}</li>
+							))}
+						</ul>
+					</div>
 				</PerfumeMainInfo>
 				<PerfumeSubInfo>
 					<p>{perfumeData.top_notes}</p>
@@ -72,9 +76,9 @@ function PerfumeDetail() {
 					<p>{perfumeData.sillage}</p>
 				</PerfumeSubInfo>
 				<Recommendation>
-					<p>000과 비슷한 향수</p>
+					<p>{perfumeData.perfume_name}과 비슷한 향수</p>
 					<PerfumeList perfumes={perfumeData.similar_perfume} />
-					<p>브랜드의 다른 향수</p>
+					<p>{perfumeData.brand.brand_name}의 다른 향수</p>
 				</Recommendation>
 				<ReviewCreateForm perfumeId={perfumeId} />
 				<ReviewList perfumeId={perfumeId} />
@@ -84,6 +88,7 @@ function PerfumeDetail() {
 }
 
 const Container = styled.div``;
+
 const PerfumeMainInfo = styled.div``;
 const PerfumeSubInfo = styled.div``;
 const Recommendation = styled.div``;
