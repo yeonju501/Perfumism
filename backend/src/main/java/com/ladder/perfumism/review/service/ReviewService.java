@@ -188,7 +188,7 @@ public class ReviewService {
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
 
         ReviewLike reviewLike = reviewLikeRepository.findByMemberIdAndReviewId(member, review)
-            .orElseThrow(()-> new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_REVIEW));
+            .orElseThrow(()-> new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_BEFORE));
 
         reviewLike.saveDeletedTime();
 
