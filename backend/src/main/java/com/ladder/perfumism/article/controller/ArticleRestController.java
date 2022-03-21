@@ -84,10 +84,12 @@ public class ArticleRestController {
     }
 
     @DeleteMapping("/detail/{article_id}")
-    @ApiOperation(value = "게시글 (임시) 삭제", notes = "게시글 삭제 요청 API (회원 연결 후 로직 변경 예정)")
+    @ApiOperation(value = "게시글 삭제", notes = "게시글 삭제 요청 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
-    public ResponseEntity<Void> deleteArticle(@PathVariable(value = "article_id") Long articleId){
-        articleService.deleteArticle(articleId);
+    public ResponseEntity<Void> deleteArticle(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId){
+        articleService.deleteArticle(email,articleId);
 
         return ResponseEntity.noContent().build();
     }
