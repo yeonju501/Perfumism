@@ -9,6 +9,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
   }
+  ul{
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;

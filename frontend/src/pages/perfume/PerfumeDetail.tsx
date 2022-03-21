@@ -1,10 +1,13 @@
 import perfumeApi from "apis/perfume";
+import { LikeButton } from "components/button/Button";
 import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -39,13 +42,25 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
+	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
 		getPerfume();
+		// isPerfumeLiked();
 	}, [perfumeId]);
 
 	const getPerfume = async () => {
 		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));
+	};
+
+	const isPerfumeLiked = async () => {
+		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
+	};
+
+	const handleHeartClick = async () => {
+		isLiked
+			? await perfumeApi.deleteFavoritePerfume(perfumeId)
+			: await perfumeApi.addFavoritePerfume(perfumeId);
 	};
 
 	return (
@@ -53,16 +68,23 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<h1>{perfumeData.perfume_name}</h1>
-					<h3>{perfumeData.launch_year}</h3>
-					<h3>{perfumeData.brand.brand_name}</h3>
-					<h3>{perfumeData.average_grade}</h3>
-					<p>main accords</p>
-					<ul>
-						{perfumeData.accords.map((accord) => (
-							<li key={accord.accord_id}>{accord.eng_name}</li>
-						))}
-					</ul>
+					<LikeButton isLiked={isLiked} onClick={handleHeartClick}>
+						<FontAwesomeIcon icon={heart} />
+					</LikeButton>
+					<div>
+						<h1>
+							{perfumeData.perfume_name}
+							<span>({perfumeData.launch_year})</span>
+						</h1>
+						<h3>{perfumeData.brand.brand_name}</h3>
+						<h3>{perfumeData.average_grade}</h3>
+						<p>main accords</p>
+						<ul>
+							{perfumeData.accords.map((accord) => (
+								<li key={accord.accord_id}>{accord.eng_name}</li>
+							))}
+						</ul>
+					</div>
 				</PerfumeMainInfo>
 				<PerfumeSubInfo>
 					<p>{perfumeData.top_notes}</p>
@@ -72,9 +94,9 @@ function PerfumeDetail() {
 					<p>{perfumeData.sillage}</p>
 				</PerfumeSubInfo>
 				<Recommendation>
-					<p>000과 비슷한 향수</p>
+					<p>{perfumeData.perfume_name}과 비슷한 향수</p>
 					<PerfumeList perfumes={perfumeData.similar_perfume} />
-					<p>브랜드의 다른 향수</p>
+					<p>{perfumeData.brand.brand_name}의 다른 향수</p>
 				</Recommendation>
 				<ReviewCreateForm perfumeId={perfumeId} />
 				<ReviewList perfumeId={perfumeId} />
@@ -84,7 +106,10 @@ function PerfumeDetail() {
 }
 
 const Container = styled.div``;
-const PerfumeMainInfo = styled.div``;
+
+const PerfumeMainInfo = styled.div`
+	display: flex;
+`;
 const PerfumeSubInfo = styled.div``;
 const Recommendation = styled.div``;
 
