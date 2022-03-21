@@ -44,7 +44,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadListResponse showArticleList(Pageable pageable, ArticleSubject subject) {
+    public ArticleReadListResponse showArticleList(String email,Pageable pageable, ArticleSubject subject) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
         Page<Article> articleList;
         if (subject != null){
             articleList = articleRepository.findBySubject(subject,pageable);
@@ -57,16 +60,18 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadDetailResponse showArticleDetail(Long article_Id) {
+    public ArticleReadDetailResponse showArticleDetail(String email, Long article_Id) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         Article article = articleRepository.findById(article_Id)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
         return ArticleReadDetailResponse.from(article);
     }
 
     @Transactional
     public void updateArticle(Long articleId, ArticleCreateRequest request) {
         Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
@@ -77,7 +82,7 @@ public class ArticleService {
     @Transactional
     public void deleteArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUNT_MY_ARTICLE_ID));
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
         articleRepository.delete(article);
     }
