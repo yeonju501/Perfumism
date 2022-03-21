@@ -3,6 +3,7 @@ package com.ladder.perfumism.global.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+import com.ladder.perfumism.auth.domain.Authority;
 import com.ladder.perfumism.auth.infrastructure.JwtTokenProvider;
 import com.ladder.perfumism.global.security.JwtAccessDeniedHandler;
 import com.ladder.perfumism.global.security.JwtAuthenticationEntryPoint;
@@ -75,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(POST, "/api/members/join").permitAll()
             .antMatchers("/swagger-resources/**").permitAll()
-//            .anyRequest().authenticated()
+            .antMatchers("/api/auth/**").hasAnyAuthority(Authority.ROLE_MEMBER.getAuthorityCode(), Authority.ROLE_ADMIN.getAuthorityCode())
             .and()
             .formLogin()
             .disable()
