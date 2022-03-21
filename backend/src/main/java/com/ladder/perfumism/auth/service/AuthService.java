@@ -48,7 +48,7 @@ public class AuthService {
         Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
         cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
         cookie.setSecure(true);
-        cookie.setHttpOnly(true);
+//        cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
 
