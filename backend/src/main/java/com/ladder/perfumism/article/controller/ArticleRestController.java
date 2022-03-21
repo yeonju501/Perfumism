@@ -55,17 +55,20 @@ public class ArticleRestController {
         }
     )
     public ResponseEntity<ArticleReadListResponse> getArticleList(
+        @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
         @PathVariable(required = false) ArticleSubject subject){
-        return ResponseEntity.ok().body(articleService.showArticleList(pageable,subject));
+        return ResponseEntity.ok().body(articleService.showArticleList(email,pageable,subject));
 
     }
 
     @GetMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 상세 조회", notes = "게시글을 선택했을 때 선택한 게시글을 받아오는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
-    public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(@PathVariable(value = "article_id") Long articleId) {
-        return ResponseEntity.ok().body(articleService.showArticleDetail(articleId));
+    public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId) {
+        return ResponseEntity.ok().body(articleService.showArticleDetail(email,articleId));
     }
 
     @PutMapping("/detail/{article_id}")
