@@ -17,8 +17,8 @@ public class PerfumeJdbcRepository implements PerfumeRepository {
         PreparedStatement pstmt = null;
         try (Connection conn = DBConnection.getConnection()) {
             String sql =
-                "insert into perfume (perfume_id, brand_id, name, image, launch_year, average_grade, top_notes, middle_notes, base_notes, total_survey, longevity, sillage) "
-                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "insert into perfume (perfume_id, brand_id, name, image, launch_year, average_grade, top_notes, middle_notes, base_notes, total_survey, total_like, longevity, sillage) "
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, perfume.getPerfumeId());
             pstmt.setLong(2, perfume.getBrandId());
@@ -30,8 +30,9 @@ public class PerfumeJdbcRepository implements PerfumeRepository {
             pstmt.setString(8, perfume.getMiddleNotes());
             pstmt.setString(9, perfume.getBaseNotes());
             pstmt.setInt(10, perfume.getTotalSurvey());
-            pstmt.setString(11, perfume.getLongevity());
-            pstmt.setString(12, perfume.getSillage());
+            pstmt.setInt(11, perfume.getTotalLike());
+            pstmt.setString(12, perfume.getLongevity());
+            pstmt.setString(13, perfume.getSillage());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,11 +64,10 @@ public class PerfumeJdbcRepository implements PerfumeRepository {
     public void saveMainAccord(MainAccord mainAccord) {
         PreparedStatement pstmt = null;
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "insert into perfume_accord (perfume_id, accord_id, value) values (?, ?, ?)";
+            String sql = "insert into perfume_accord (perfume_id, accord_id) values (?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, mainAccord.getPerfumeId());
             pstmt.setLong(2, mainAccord.getAccordId());
-            pstmt.setInt(3, mainAccord.getValue());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
