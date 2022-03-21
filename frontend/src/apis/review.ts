@@ -4,9 +4,9 @@ import { request } from "./request";
 interface ReviewApiType {
 	createReview: (
 		review: { grade: number; content: string },
-		perfumeId: number,
+		perfumeId: string,
 	) => Promise<AxiosResponse>;
-	getReviews: (perfumeId: number, currentPage: number) => Promise<AxiosResponse>;
+	getReviews: (perfumeId: string, currentPage: number) => Promise<AxiosResponse>;
 }
 
 const reviewApi: ReviewApiType = {

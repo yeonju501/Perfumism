@@ -6,7 +6,7 @@ import StarRating from "./StarRating";
 import Textarea from "./Textarea";
 
 interface ReviewCreateFormProp {
-	perfumeId: number;
+	perfumeId: string;
 }
 
 function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {

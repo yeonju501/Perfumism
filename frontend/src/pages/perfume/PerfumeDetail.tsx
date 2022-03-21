@@ -3,10 +3,10 @@ import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-type PerfumeDataType = {
+interface PerfumeDataType {
 	perfume_id: number;
 	perfume_name: string;
 	brand: {
@@ -24,23 +24,25 @@ type PerfumeDataType = {
 	sillage: string;
 	accords: AccordType[];
 	similar_perfume: [];
-};
+}
 
-type AccordType = {
+interface AccordType {
 	accord_id: number;
 	kor_name: string;
 	eng_name: string;
+}
+
+type Params = {
+	perfumeId: string;
 };
 
 function PerfumeDetail() {
-	const location = useLocation();
-	const perfumeId = 1;
-	// const perfumeId = location.state.perfumeId;
+	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
 
 	useEffect(() => {
 		getPerfume();
-	}, []);
+	}, [perfumeId]);
 
 	const getPerfume = async () => {
 		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));

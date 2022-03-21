@@ -1,10 +1,9 @@
 import reviewApi from "apis/review";
 import { ShowMoreButton } from "components/button/Button";
 import { useEffect, useState } from "react";
-import { Container } from "./Container";
 
 interface ReviewListPropType {
-	perfumeId: number;
+	perfumeId: string;
 }
 
 interface ReviewType {
@@ -45,6 +44,7 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 			{reviews.map((review) => (
 				<li key={review.review_id}>{review.content}</li>
 			))}
+			{/* current랑 total page 체크해서 두개가 같다면 display none으로 주기 */}
 			<ShowMoreButton>Show More</ShowMoreButton>
 		</ul>
 	) : (
