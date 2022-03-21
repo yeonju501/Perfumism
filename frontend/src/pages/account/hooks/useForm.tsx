@@ -9,6 +9,7 @@ interface UseFormArgs {
 
 const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => {
 	const [errors, setErrors] = useState<{ [key: string]: string }>({});
+	const [isDuplicate, setIsDuplicate] = useState<{ [key: string]: string }>({});
 	const [values, setValues] = useState(initialValues);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +19,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const newErrors = validate ? validate(values) : {};
+		const newErrors = validate(values) ? validate(values) : {};
 		if (Object.keys(newErrors).length === 0) {
 			await onSubmit(values);
 		}
@@ -29,11 +30,15 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 		const { name, value } = event.target;
 		if (onBlur) {
 			const result = await onBlur(name, value);
-			if (!result) setErrors({ ...errors, [name]: "" });
+			if (!result) {
+				delete isDuplicate[name];
+				setIsDuplicate({ ...isDuplicate });
+			}
 			if (result && name === "email")
-				setErrors({ ...errors, [name]: "이미 존재하는 이메일입니다." });
+				setIsDuplicate({ ...isDuplicate, [name]: "이미 존재하는 이메일입니다." });
+
 			if (result && name === "username")
-				setErrors({ ...errors, [name]: "이미 존재하는 유저네임입니다." });
+				setIsDuplicate({ ...isDuplicate, [name]: "이미 존재하는 유저네임입니다." });
 		}
 	};
 
@@ -43,6 +48,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 		handleChange,
 		handleSubmit,
 		checkDuplicate,
+		isDuplicate,
 	};
 };
 
