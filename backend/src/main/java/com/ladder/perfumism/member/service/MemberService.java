@@ -3,6 +3,7 @@ package com.ladder.perfumism.member.service;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
+import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.domain.Member;
@@ -50,6 +51,17 @@ public class MemberService {
         if (memberRepository.existsByUsername(username)) {
             throw new BusinessException(ErrorCode.MEMBER_USERNAME_DUPLICATED);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    }
+
+    @Transactional
+    public void findPassword(FindPasswordRequest request) {
+        Member member = findByEmail(request.getEmail());
     }
 
     @Transactional(readOnly = true)
