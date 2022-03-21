@@ -7,6 +7,10 @@ import lombok.Getter;
 @Getter
 public class ChangePasswordRequest {
 
+    @JsonProperty("email")
+    @ApiModelProperty(name = "email", example = "loling3@naver.com")
+    private String email;
+
     @JsonProperty("password")
     @ApiModelProperty(name = "password", example = "vkdlxld1234!")
     private String password;
@@ -14,7 +18,8 @@ public class ChangePasswordRequest {
     public ChangePasswordRequest(){
     }
 
-    public ChangePasswordRequest(String password) {
+    public ChangePasswordRequest(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 }
