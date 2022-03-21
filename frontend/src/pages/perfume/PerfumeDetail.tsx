@@ -1,5 +1,5 @@
 import perfumeApi from "apis/perfume";
-import PerfumeList from "components/PerfumeList";
+import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
