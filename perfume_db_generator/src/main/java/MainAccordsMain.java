@@ -19,14 +19,7 @@ public class MainAccordsMain {
                 JSONArray mainAccordsJson = (JSONArray) perfume.get("main_accords");
                 for(int j = 0; j < mainAccordsJson.size(); j++) {
                     Long accordId = perfumeRepository.findAccord((String) mainAccordsJson.get(j));
-                    MainAccord mainAccord = null;
-                    if (j == 0) {
-                        mainAccord = MainAccord.toMainAccord(id, accordId, 5);
-                    } else if (j == mainAccordsJson.size()-1) {
-                        mainAccord = MainAccord.toMainAccord(id, accordId, 1);
-                    } else {
-                        mainAccord = MainAccord.toMainAccord(id, accordId, 3);
-                    }
+                    MainAccord mainAccord = MainAccord.toMainAccord(id, accordId);
                     perfumeRepository.saveMainAccord(mainAccord);
                 }
             }
