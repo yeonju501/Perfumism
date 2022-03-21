@@ -74,9 +74,11 @@ public class ArticleRestController {
     @PutMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 수정", notes = "게시글 수정요청을 하는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
-    public ResponseEntity<Void> updateArticle(@PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
+    public ResponseEntity<Void> updateArticle(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
 
-        articleService.updateArticle(articleId, request);
+        articleService.updateArticle(email,articleId, request);
 
         return ResponseEntity.noContent().build();
     }
