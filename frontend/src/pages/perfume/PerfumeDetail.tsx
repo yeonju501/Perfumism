@@ -1,4 +1,5 @@
 import perfumeApi from "apis/perfume";
+import { LikeButton } from "components/button/Button";
 import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
@@ -39,6 +40,7 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
+	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
 		getPerfume();
@@ -53,6 +55,7 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
+					<LikeButton />
 					<div>
 						<h1>
 							{perfumeData.perfume_name}
