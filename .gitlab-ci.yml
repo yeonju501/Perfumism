@@ -26,9 +26,7 @@ build-back:
   after_script:
     - cd $CI_PROJECT_DIR/backend
     - sudo rm -rf /home/ubuntu/S06P22D105/backend/build/libs/perfumism-0.0.1-SNAPSHOT.jar
-    - sudo cp ./build/libs/perfumism-0.0.1-SNAPSHOT.jar /home/ubuntu/S06P22D105/backend/build/libs/ 
-
-
+    - sudo cp ./build/libs/perfumism-0.0.1-SNAPSHOT.jar /home/ubuntu/S06P22D105/backend/build/libs/
 
   tags:
     - prd
@@ -42,7 +40,7 @@ build-front:
   only:
     - master
     - develop
-    
+
   before_script:
     - cd $CI_PROJECT_DIR/frontend
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/FRONTEND_ENV ./.env
@@ -52,10 +50,9 @@ build-front:
     - cd $CI_PROJECT_DIR/frontend
     - npm install
     - CI=false npm run build
-    - ls -al | grep dist
 
   after_script:
-    - cd $CI_PROJECT_DIR/frontend  
+    - cd $CI_PROJECT_DIR/frontend
     - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
 
