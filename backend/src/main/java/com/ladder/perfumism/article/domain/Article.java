@@ -1,15 +1,19 @@
 package com.ladder.perfumism.article.domain;
 
 import com.ladder.perfumism.global.domain.BaseEntity;
+import com.ladder.perfumism.member.domain.Member;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
@@ -24,6 +28,10 @@ public class Article extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
+
+    @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "subject", nullable = false)
@@ -41,7 +49,8 @@ public class Article extends BaseEntity {
     }
 
     @Builder
-    private Article(ArticleSubject subject, String title, String content){
+    private Article(Member member, ArticleSubject subject, String title, String content){
+        this.member = member;
         this.subject = subject;
         this.title = title;
         this.content = content;
