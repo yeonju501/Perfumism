@@ -89,7 +89,9 @@ function PerfumeDetail() {
 
 const Container = styled.div``;
 
-const PerfumeMainInfo = styled.div``;
+const PerfumeMainInfo = styled.div`
+	display: flex;
+`;
 const PerfumeSubInfo = styled.div``;
 const Recommendation = styled.div``;
 
