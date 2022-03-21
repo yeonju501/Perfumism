@@ -2,10 +2,12 @@ package com.ladder.perfumism.member.service;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
+import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +19,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     public MemberService(MemberRepository memberRepository,
-        PasswordEncoder passwordEncoder) {
+        PasswordEncoder passwordEncoder, MailService mailService) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -59,9 +63,18 @@ public class MemberService {
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
     }
 
-    @Transactional
-    public void findPassword(FindPasswordRequest request) {
+    @Transactional(readOnly = true)
+    public CodeResponse findPassword(FindPasswordRequest request) {
         Member member = findByEmail(request.getEmail());
+        String code = mailService.randomCode();
+        mailService.sendMailChangePassword(member, code);
+        return CodeResponse.from(code);
+    }
+
+    @Transactional
+    public void changePassword(ChangePasswordRequest request) {
+        Member member = findByEmail(request.getEmail());
+        member.changePassword(passwordEncoder, request.getPassword());
     }
 
     @Transactional(readOnly = true)
