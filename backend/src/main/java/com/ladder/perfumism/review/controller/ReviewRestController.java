@@ -119,7 +119,7 @@ public class ReviewRestController {
 
     @DeleteMapping("/auth/reviews/likes/{review_id}")
     @ApiOperation(value = "리뷰 좋아요 취소", notes = "<b>(로그인 필요)</b> 특정 리뷰에 좋아요를 취소하는 API 입니다.")
-    @ApiImplicitParam(name = "review_id", value = "좋아요 취소할 ID", required = true)
+    @ApiImplicitParam(name = "review_id", value = "좋아요 취소할 리뷰 ID", required = true)
     public ResponseEntity<Void> notLikeThisReviewAnymore(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "review_id") Long reviewId) {
         reviewService.notLikeThisReviewAnymore(email, reviewId);
