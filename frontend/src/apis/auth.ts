@@ -10,7 +10,7 @@ interface UserApiType {
 	isExist: (name: string, value: string) => Promise<AxiosResponse<{ result: boolean }>>;
 	signin: (userInfo: { email: string; password: string }) => Promise<AxiosResponse>;
 	reissue: (refreshToken: string) => Promise<AxiosResponse>;
-	findPassword:(email:string) => Promise<AxiosResponse<{code:string}>
+	findPassword: (email: string) => Promise<AxiosResponse<{ code: string }>>;
 }
 
 const authApi: UserApiType = {
