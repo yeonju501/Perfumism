@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authApi } from "apis";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
@@ -32,6 +32,7 @@ function FindPassword() {
 			<FormContainer onSubmit={handleSubmit}>
 				<Label htmlFor="email">이메일</Label>
 				<Input name="email" onChange={handleChange} />
+				<ErrorText>{errors.email}</ErrorText>
 				<br />
 				<Button backgroundColor="black" color="#fff">
 					비밀번호 찾기

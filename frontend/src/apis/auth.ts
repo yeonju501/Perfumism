@@ -1,4 +1,4 @@
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { request } from "./request";
 
 interface UserApiType {
