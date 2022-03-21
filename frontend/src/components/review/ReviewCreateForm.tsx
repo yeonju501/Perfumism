@@ -1,4 +1,5 @@
 import reviewApi from "apis/review";
+import CreateButton from "components/button/CreateButton";
 import { useState } from "react";
 import StarRating from "./StarRating";
 
@@ -29,7 +30,7 @@ function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {
 				onChange={handleInputChange}
 				placeholder="리뷰를 입력하세요"
 			></textarea>
-			<button>작성</button>
+			<CreateButton>작성</CreateButton>
 		</form>
 	);
 }
