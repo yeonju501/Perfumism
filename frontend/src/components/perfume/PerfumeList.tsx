@@ -1,8 +1,8 @@
-import LikeButton from "./LikeButton";
 import PerfumeImage from "./PerfumeImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { LikeButton } from "components/button/Button";
 
 type PerfumeList = {
 	perfumes: [];
