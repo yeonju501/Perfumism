@@ -1,5 +1,5 @@
 import reviewApi from "apis/review";
-import CreateButton from "components/button/CreateButton";
+import { CreateButton } from "components/button/CreateButton";
 import { useState } from "react";
 import StarRating from "./StarRating";
 
