@@ -4,6 +4,7 @@ import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "componen
 import { formValidator } from "utils";
 import { authApi } from "apis";
 import useForm from "../hooks/useForm";
+import { toast } from "react-toastify";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -20,7 +21,9 @@ function SignIn() {
 						email,
 						password,
 					})
-					.then(() => navigate("/"));
+					.then((res) => {
+						res.status === 200 ? navigate("/") : null;
+					});
 			} catch (error) {
 				console.log(error);
 			}
