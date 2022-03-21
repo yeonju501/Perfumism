@@ -77,7 +77,6 @@ deploy-front:
     - master
     - develop
   script:
-    # 프론트 재시작 스크립트 작성
     - ls -al /home/ubuntu/S06P22D105/frontend/build
   tags:
     - prd
