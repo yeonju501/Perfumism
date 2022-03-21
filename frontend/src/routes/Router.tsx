@@ -1,6 +1,6 @@
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
-import PerfumeDetail from "pages/PerfumeDetail";
+import PerfumeDetail from "pages/perfume/PerfumeDetail";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
