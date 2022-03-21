@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+interface ReviewListPropType {
+	perfumeId: number;
+}
+
 interface ReviewsType {
 	review_id: number;
 	member_id: number;
@@ -10,12 +14,12 @@ interface ReviewsType {
 	likes: number;
 }
 
-function ReviewList() {
+function ReviewList({ perfumeId }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewsType | null>(null);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
-	return;
+	return <div></div>;
 }
 
 export default ReviewList;
