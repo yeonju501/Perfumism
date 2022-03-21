@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
@@ -47,6 +48,15 @@ public class OAuthService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
+    @Transactional
+    public AccessTokenResponse oauth2AuthorizationGoogle(String code) {
+        AuthorizationGoogle authorization = callTokenApiGoogle(code);
+        GoogleUserInfoResponse userInfoResponse = callGoogleUserInfoByAccessToken(authorization.getAccess_token());
+        return AccessTokenResponse.builder()
+            .accessToken("")
+            .build();
+    }
+
     private AuthorizationGoogle callTokenApiGoogle(String code) {
         String grantType = "authorization_code";
         HttpHeaders headers = new HttpHeaders();
@@ -70,7 +80,7 @@ public class OAuthService {
         }
     }
 
-    private GoogleUserInfoResponse callGoogleUserIfoByAccessToken(String accessToken) {
+    private GoogleUserInfoResponse callGoogleUserInfoByAccessToken(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -79,9 +89,9 @@ public class OAuthService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
         try {
-            ResponseEntity<GoogleUserInfoResponse> response = restTemplate.postForEntity(GOOGLE_USERINFO_URL, request,
-                GoogleUserInfoResponse.class);
-            return response.getBody();
+            ResponseEntity<String> response = restTemplate.postForEntity(GOOGLE_USERINFO_URL, request, String.class);
+            System.out.println(response.getBody());
+            return new GoogleUserInfoResponse();
         } catch (RestClientException e) {
             e.printStackTrace();
             throw new BusinessException(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR);
