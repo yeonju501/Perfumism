@@ -44,6 +44,7 @@ public enum ErrorCode {
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),
     PERFUME_ALREADY_LIKE(HttpStatus.CONFLICT, "이미 향수에 좋아요를 하셨습니다.", "S02"),
+    PERFUME_NOT_LIKE_THIS_BEFORE(HttpStatus.NOT_FOUND, "이 향수를 좋아한 적이 없습니다.", "S03"),
 
     //review
     REVIEW_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 리뷰 ID 입니다", "V01"),
@@ -54,7 +55,7 @@ public enum ErrorCode {
     REVIEW_NOT_WRITTEN_THIS_PERFUME(HttpStatus.NOT_FOUND, "이 향수에 리뷰를 쓰지 않았습니다.", "V06"),
     REVIEW_ALREADY_LIKE(HttpStatus.CONFLICT, "이미 리뷰에 좋아요를 하셨습니다.", "V07"),
     REVIEW_NO_LIKE_YOURSELF(HttpStatus.CONFLICT, "본인의 리뷰에 좋아요를 할 수 없습니다. 자추추", "V08"),
-    REVIEW_NOT_LIKE_THIS_REVIEW(HttpStatus.NOT_FOUND, "이 리뷰를 좋아한 적이 없습니다.", "V09"),
+    REVIEW_NOT_LIKE_THIS_BEFORE(HttpStatus.NOT_FOUND, "이 리뷰를 좋아한 적이 없습니다.", "V09"),
     ;
     private final HttpStatus httpStatus;
     private final String message;

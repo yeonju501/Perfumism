@@ -83,4 +83,19 @@ public class PerfumeService {
 
         return PerfumeLikeResponse.from(liked);
     }
+
+    @Transactional
+    public void notLikeThisPerfumeAnymore(String email, Long perfumeId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Perfume perfume = perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+
+        PerfumeLike perfumeLike = perfumeLikeRepository.findByPerfumeIdAndMemberId(perfume, member)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_LIKE_THIS_BEFORE));
+
+        perfumeLike.saveDeletedTime();
+
+        perfume.saveLike(perfumeLikeRepository.countByPerfumeId(perfume));
+    }
 }

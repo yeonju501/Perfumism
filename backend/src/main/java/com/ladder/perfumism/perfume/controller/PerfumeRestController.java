@@ -3,7 +3,6 @@ package com.ladder.perfumism.perfume.controller;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
 import com.ladder.perfumism.perfume.service.PerfumeService;
-import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +53,14 @@ public class PerfumeRestController {
         return ResponseEntity.ok().body(perfumeService.isLikeThisPerfume(email, perfumeId));
     }
 
-    // 좋아요 취소
+    @DeleteMapping("/auth/perfumes/likes/{perfume_id}")
+    @ApiOperation(value = "리뷰 좋아요 취소", notes = "<b>(로그인 필요)</b> 특정 향수에 좋아요를 취소하는 API 입니다.")
+    @ApiImplicitParam(name = "perfume_id", value = "좋아요 취소할 향수 ID", required = true)
+    public ResponseEntity<Void> notLikeThisPerfumeAnymore(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "perfume_id") Long perfumeId) {
+        perfumeService.notLikeThisPerfumeAnymore(email, perfumeId);
+        return ResponseEntity.noContent().build();
+    }
 
-    // 내가 좋아요 누른 향수 목록록
+    // 내가 좋아요 누른 향수 목록
 }
