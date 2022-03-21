@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String SERVER_ADDRESS_PORT = "localhost:3306";
-    private static final String DATABASE_NAME = "perfumism";
-    private static final String USER_ID = "ladder";
-    private static final String USER_PASSWORD = "ladder1234";
+    private static final String SERVER_ADDRESS_PORT = "j6d105.p.ssafy.io:3306";
+    private static final String DATABASE_NAME = "perfume";
+    private static final String USER_ID = "root";
+    private static final String USER_PASSWORD = "perfume";
 
     private DBConnection() {
     }

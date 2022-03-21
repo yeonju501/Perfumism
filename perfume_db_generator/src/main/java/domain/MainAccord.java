@@ -10,20 +10,17 @@ public class MainAccord {
 
     private final Long accordId;
 
-    private final int value;
 
     @Builder
-    private MainAccord(Long perfumeId, Long accordId, int value) {
+    private MainAccord(Long perfumeId, Long accordId) {
         this.perfumeId = perfumeId;
         this.accordId = accordId;
-        this.value = value;
     }
 
-    public static MainAccord toMainAccord(Long perfumeId, Long accordId, int value) {
+    public static MainAccord toMainAccord(Long perfumeId, Long accordId) {
         return MainAccord.builder()
             .perfumeId(perfumeId)
             .accordId(accordId)
-            .value(value)
             .build();
     }
 }

@@ -53,9 +53,10 @@ public class PerfumeMain {
                 String sillage = (String) perfume.get("sillage");
                 Long totalSurveyLong = (Long) perfume.get("total_survey");
                 Integer totalSurvey = totalSurveyLong.intValue();
+                int totalLike = 0;
 
                 Perfume p = Perfume.toPerfume(id, brandId, perfumeName, image, launchYear, average_grade, topNotes, middleNotes, baseNotes,
-                    totalSurvey, longevity, sillage);
+                    totalSurvey, totalLike, longevity, sillage);
                 perfumeRepository.save(p);
             }
         } catch (Exception e) {

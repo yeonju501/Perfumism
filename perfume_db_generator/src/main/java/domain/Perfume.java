@@ -26,13 +26,15 @@ public class Perfume {
 
     private final Integer totalSurvey;
 
+    private final Integer totalLike;
+
     private final String longevity;
 
     private final String sillage;
 
     @Builder
     private Perfume(Long perfumeId, Long brandId, String name, String image, Integer launchYear, Double averageGrade, String topNotes,
-        String middleNotes, String baseNotes, Integer totalSurvey, String longevity, String sillage) {
+        String middleNotes, String baseNotes, Integer totalSurvey, Integer totalLike, String longevity, String sillage) {
         this.perfumeId = perfumeId;
         this.brandId = brandId;
         this.name = name;
@@ -43,12 +45,13 @@ public class Perfume {
         this.middleNotes = middleNotes;
         this.baseNotes = baseNotes;
         this.totalSurvey = totalSurvey;
+        this.totalLike = totalLike;
         this.longevity = longevity;
         this.sillage = sillage;
     }
 
     public static Perfume toPerfume(Long perfumeId, Long brandId, String name, String image, Integer launchYear, Double averageGrade,
-        String topNotes, String middleNotes, String baseNotes, Integer totalSurvey, String longevity, String sillage) {
+        String topNotes, String middleNotes, String baseNotes, Integer totalSurvey, Integer totalLike, String longevity, String sillage) {
         return Perfume.builder()
             .perfumeId(perfumeId)
             .brandId(brandId)
@@ -60,6 +63,7 @@ public class Perfume {
             .middleNotes(middleNotes)
             .baseNotes(baseNotes)
             .totalSurvey(totalSurvey)
+            .totalLike(totalLike)
             .longevity(longevity)
             .sillage(sillage)
             .build();
