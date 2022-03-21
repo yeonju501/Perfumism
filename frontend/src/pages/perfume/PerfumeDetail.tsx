@@ -50,6 +50,10 @@ function PerfumeDetail() {
 		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));
 	};
 
+	const isPerfumeLiked = async () => {
+		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
+	};
+
 	return (
 		perfumeData && (
 			<Container>
