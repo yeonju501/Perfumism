@@ -1,10 +1,9 @@
 import reviewApi from "apis/review";
 import { ShowMoreButton } from "components/button/Button";
 import { useEffect, useState } from "react";
-import { Container } from "./Container";
 
 interface ReviewListPropType {
-	perfumeId: number;
+	perfumeId: string;
 }
 
 interface ReviewType {

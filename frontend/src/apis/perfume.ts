@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { request } from "./request";
 
 interface PerfumeApiType {
-	getPerfume: (perfumeId: number) => Promise<AxiosResponse>;
+	getPerfume: (perfumeId: string) => Promise<AxiosResponse>;
 }
 
 const perfumeApi: PerfumeApiType = {
