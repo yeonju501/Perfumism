@@ -3,11 +3,11 @@ import { request } from "./request";
 
 interface RecommendApiType {
 	createSurveyRecommend: (answer: {
-		a1: string;
-		a2: string;
-		a3: string;
-		a4: string;
-		a5: string;
+		a1: string | null;
+		a2: string | null;
+		a3: string | null;
+		a4: string | null;
+		a5: string | null;
 	}) => Promise<AxiosResponse>;
 }
 
