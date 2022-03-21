@@ -18,7 +18,7 @@ interface ReviewType {
 }
 
 function ReviewList({ perfumeId }: ReviewListPropType) {
-	const [reviews, setReviews] = useState([]);
+	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
@@ -28,7 +28,7 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 
 	const getReviews = async () => {
 		await reviewApi.getReviews(perfumeId, currentPage).then((res) => {
-			setReviews(res.data.reviews);
+			setReviews([...reviews, ...res.data.reviews]);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count);
 		});
@@ -40,9 +40,9 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 	// 	getReviews();
 	// };
 
-	return reviews.length > 0 ? (
+	return reviews ? (
 		<ul>
-			{reviews.map((review: ReviewType) => (
+			{reviews.map((review) => (
 				<li key={review.review_id}>{review.content}</li>
 			))}
 			<ShowMoreButton>Show More</ShowMoreButton>
