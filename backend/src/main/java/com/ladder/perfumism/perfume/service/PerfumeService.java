@@ -6,6 +6,8 @@ import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeSimpleResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeAccordRepository;
@@ -15,6 +17,8 @@ import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import com.ladder.perfumism.perfume.domain.SimilarPerfume;
 import com.ladder.perfumism.perfume.domain.SimilarPerfumeRepository;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,5 +101,15 @@ public class PerfumeService {
         perfumeLike.saveDeletedTime();
 
         perfume.saveLike(perfumeLikeRepository.countByPerfumeId(perfume));
+    }
+
+    @Transactional(readOnly = true)
+    public PerfumeListResponse myFavoritePerfumeList(String email, Pageable pageable) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Page<PerfumeLike> perfumeLikeList = perfumeLikeRepository.findByMemberId(member, pageable);
+
+        return PerfumeListResponse.from(perfumeLikeList);
     }
 }
