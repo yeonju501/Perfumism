@@ -18,40 +18,12 @@ interface ReviewType {
 }
 
 function ReviewList({ perfumeId }: ReviewListPropType) {
-	const [reviews, setReviews] = useState([
-		{
-			review_id: 1,
-			member_id: 1,
-			member_name: "이승기",
-			member_image: "eocnddlalwlvkdlfdlfma.jpg",
-			grade: 4,
-			content: "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...",
-			likes: 222,
-		},
-		{
-			review_id: 2,
-			member_id: 1,
-			member_name: "이승기",
-			member_image: "eocnddlalwlvkdlfdlfma.jpg",
-			grade: 4,
-			content: "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...",
-			likes: 222,
-		},
-		{
-			review_id: 3,
-			member_id: 1,
-			member_name: "이승기",
-			member_image: "eocnddlalwlvkdlfdlfma.jpg",
-			grade: 4,
-			content: "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...",
-			likes: 222,
-		},
-	]);
+	const [reviews, setReviews] = useState([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
 	useEffect(() => {
-		// getReviews();
+		getReviews();
 	}, []);
 
 	const getReviews = async () => {
@@ -61,6 +33,12 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 			setCurrentPage(res.data.current_page_count);
 		});
 	};
+
+	// const handleShowMoreClick = () => {
+	// 	setCurrentPage((prev) => prev + 1);
+	// 	console.log(currentPage);
+	// 	getReviews();
+	// };
 
 	return reviews.length > 0 ? (
 		<ul>
