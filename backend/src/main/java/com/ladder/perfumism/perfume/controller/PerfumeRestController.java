@@ -5,9 +5,13 @@ import com.ladder.perfumism.perfume.service.PerfumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import java.net.URI;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +31,15 @@ public class PerfumeRestController {
     @ApiImplicitParam(name = "perfume_id", value = "향수 ID", required = true)
     public ResponseEntity<PerfumeDetailResponse> viewDetailPerfume(@PathVariable(value = "perfume_id") Long perfumeId) {
         return ResponseEntity.ok().body(perfumeService.viewDetailPerfume(perfumeId));
+    }
+
+    @PostMapping("/auth/perfumes/likes/{perfume_id}")
+    @ApiOperation(value = "향수 좋아요 누르기", notes = "<b>(로그인 필요)</b> 특정 향수에 좋아요를 할 수 있는 API 입니다.")
+    @ApiImplicitParam(name = "perfume_id", value = "좋아할 향수 ID", required = true)
+    public ResponseEntity<Void> likePerfume(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "perfume_id") Long perfumeId) {
+        Long newPerfumeLikeId = perfumeService.likePerfume(email, perfumeId);
+        URI uri = URI.create("/api/perfumes/" + perfumeId + "/" + newPerfumeLikeId);
+        return ResponseEntity.created(uri).build();
     }
 }
