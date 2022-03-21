@@ -1,7 +1,9 @@
 package com.ladder.perfumism.perfume.controller;
 
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
 import com.ladder.perfumism.perfume.service.PerfumeService;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -42,4 +44,16 @@ public class PerfumeRestController {
         URI uri = URI.create("/api/perfumes/" + perfumeId + "/" + newPerfumeLikeId);
         return ResponseEntity.created(uri).build();
     }
+
+    @GetMapping("/auth/perfumes/likes/{perfume_id}")
+    @ApiOperation(value = "향수 좋아요 여부 조회", notes = "<b>(로그인 필요)</b> 자신이 특정 향수에 좋아요 했는지 확인하는 API 입니다.")
+    @ApiImplicitParam(name = "perfume_id", value = "좋아요 여부를 확인할 향수 ID", required = true)
+    public ResponseEntity<PerfumeLikeResponse> isLikeThisPerfume(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "perfume_id") Long perfumeId) {
+        return ResponseEntity.ok().body(perfumeService.isLikeThisPerfume(email, perfumeId));
+    }
+
+    // 좋아요 취소
+
+    // 내가 좋아요 누른 향수 목록록
 }
