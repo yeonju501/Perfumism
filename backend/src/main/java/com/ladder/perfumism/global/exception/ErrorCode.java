@@ -43,6 +43,7 @@ public enum ErrorCode {
 
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),
+    PERFUME_ALREADY_LIKE(HttpStatus.CONFLICT, "이미 향수에 좋아요를 하셨습니다.", "S02"),
 
     //review
     REVIEW_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 리뷰 ID 입니다", "V01"),
