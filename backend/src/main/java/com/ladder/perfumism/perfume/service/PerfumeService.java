@@ -5,6 +5,7 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeAccordRepository;
@@ -65,9 +66,21 @@ public class PerfumeService {
         return (perfumeLike.getId());
     }
 
-    private void alreadyLikeThisPerfume(Member member, Perfume perfume){
-        if (perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)){
+    private void alreadyLikeThisPerfume(Member member, Perfume perfume) {
+        if (perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)) {
             throw new BusinessException(ErrorCode.PERFUME_ALREADY_LIKE);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public PerfumeLikeResponse isLikeThisPerfume(String email, Long perfumeId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Perfume perfume = perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+
+        Boolean liked = perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume);
+
+        return PerfumeLikeResponse.from(liked);
     }
 }
