@@ -8,7 +8,7 @@ function App() {
 		<>
 			<GlobalStyle />
 			<Router />
-			<ToastContainer />
+			<ToastContainer style={{ fontSize: "1.4rem" }} />
 		</>
 	);
 }
