@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import recommendApi from "apis/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
@@ -7,22 +8,51 @@ interface SurveyItemProps {
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [answer, setAnswer] = useState("");
+	const [recommendData, setRecommendData] = useState({});
 
-	const nextPage = () => {
-		const nextUrl = getNextUrl();
-		navigate({
-			pathname: "/survey",
-			search: nextUrl + answer,
-		});
-	};
-
+	const nowPage = queryString.slice(6, 7);
 	const getNextUrl = () => {
-		const nowPage = queryString.slice(6, 7);
-		const nextPage = Number(queryString.slice(6, 7)) + 1;
+		const nextPage = Number(nowPage) + 1;
 		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
 		return newUrl;
+	};
+
+	const nextUrl = getNextUrl() + answer;
+	const nextPage = () => {
+		if (nowPage === "5") {
+			getRecommendData();
+		} else {
+			navigate({
+				pathname: "/survey",
+				search: nextUrl,
+			});
+		}
+	};
+
+	const getRecommendData = async () => {
+		const answerData = getAnswerData();
+		try {
+			await recommendApi.createSurveyRecommend(answerData).then((res) => {
+				setRecommendData(res.data);
+				navigate("/survey/result");
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getAnswerData = () => {
+		const answerData = {
+			a1: searchParams.get("a1"),
+			a2: searchParams.get("a2"),
+			a3: searchParams.get("a3"),
+			a4: searchParams.get("a4"),
+			a5: answer,
+		};
+		return answerData;
 	};
 
 	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
