@@ -33,7 +33,7 @@ tfidfv = TfidfVectorizer().fit(df['main_accords'])
 dd = tfidfv.transform(df['main_accords']).toarray()
 data = pd.DataFrame(dd)
 
-model = DBSCAN(eps=0.43, min_samples=13)
+model = DBSCAN(eps=0.431, min_samples=13)
 predict = pd.DataFrame(model.fit_predict(data))
 predict.columns=['predict']
-print(predict['predict'])
+print(predict['predict'].value_counts())
