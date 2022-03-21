@@ -4,6 +4,7 @@ import com.ladder.perfumism.auth.domain.Authority;
 import com.ladder.perfumism.global.domain.BaseEntity;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -72,6 +73,12 @@ public class Member extends BaseEntity {
     public void login(PasswordEncoder passwordEncoder, String password) {
         if (!passwordEncoder.matches(password, this.password)) {
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_ERROR_BY_PASSWORD);
+        }
+    }
+
+    public void changePassword(PasswordEncoder passwordEncoder, String password) {
+        if(!Objects.isNull(password)) {
+            this.password = passwordEncoder.encode(password);
         }
     }
 }

@@ -5,16 +5,21 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
 @Getter
-public class FindPasswordRequest {
+public class ChangePasswordRequest {
 
     @JsonProperty("email")
     @ApiModelProperty(name = "email", example = "loling3@naver.com")
     private String email;
 
-    public FindPasswordRequest() {
+    @JsonProperty("password")
+    @ApiModelProperty(name = "password", example = "vkdlxld1234!")
+    private String password;
+
+    public ChangePasswordRequest(){
     }
 
-    public FindPasswordRequest(String email) {
+    public ChangePasswordRequest(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 }
