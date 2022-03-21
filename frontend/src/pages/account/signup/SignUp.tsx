@@ -8,7 +8,7 @@ import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "componen
 function SignUp() {
 	const navigate = useNavigate();
 
-	const { handleChange, handleSubmit, checkDuplicate, errors } = useForm({
+	const { handleChange, handleSubmit, checkDuplicate, errors, isDuplicate } = useForm({
 		initialValues: {
 			email: "",
 			password: "",
@@ -42,7 +42,8 @@ function SignUp() {
 			if (!formValidator.validateUsername(username)) errors.username = "유저네임을 입력해주세요.";
 			if (!formValidator.validatePassword(password))
 				errors.password = "대문자와 특수문자를 1자 이상 포함해주세요.";
-
+			if (isDuplicate["email"]) errors.email = "이미 사용중인 이메일입니다";
+			if (isDuplicate["username"]) errors.username = "이미 사용중인 유저네임입니다";
 			return errors;
 		},
 	});

@@ -20,7 +20,9 @@ function SignIn() {
 						email,
 						password,
 					})
-					.then(() => navigate("/"));
+					.then((res) => {
+						res.status === 200 ? navigate("/") : null;
+					});
 			} catch (error) {
 				console.log(error);
 			}
