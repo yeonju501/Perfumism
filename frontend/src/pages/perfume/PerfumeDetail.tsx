@@ -1,6 +1,7 @@
 import perfumeApi from "apis/perfume";
 import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
+import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -74,6 +75,7 @@ function PerfumeDetail() {
 					<p>브랜드의 다른 향수</p>
 				</Recommendation>
 				<ReviewCreateForm perfumeId={perfumeId} />
+				<ReviewList perfumeId={perfumeId} />
 			</Container>
 		)
 	);
