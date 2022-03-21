@@ -28,6 +28,12 @@ public class ArticleService {
         this.memberRepository = memberRepository;
     }
 
+    private void checkArticleOwner(String email, Article article){
+        if(!article.getMember().getEmail().equals(email)){
+            throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
+        }
+    }
+
     @Transactional
     public void articleCreate(String email, ArticleCreateRequest request) {
         Member member = memberRepository.findByEmail(email)
@@ -73,9 +79,10 @@ public class ArticleService {
         Member member = memberRepository.findByEmail(email)
             .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
-
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        checkArticleOwner(email, article);
 
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
