@@ -29,9 +29,9 @@ function FindPassword() {
 	return (
 		<Container>
 			<Header>비밀번호 찾기</Header>
-			<FormContainer>
+			<FormContainer onSubmit={handleSubmit}>
 				<Label htmlFor="email">이메일</Label>
-				<Input name="email" />
+				<Input name="email" onChange={handleChange} />
 				<br />
 				<Button backgroundColor="black" color="#fff">
 					비밀번호 찾기
