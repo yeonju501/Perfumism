@@ -6,6 +6,7 @@ interface LikeButtonProps {
 
 export const LikeButton = styled.button<LikeButtonProps>`
 	color: ${({ isLiked }) => (isLiked ? "red" : "gray")};
+	font-size: 2rem;
 	background-color: inherit;
 	border: none;
 	cursor: pointer;
