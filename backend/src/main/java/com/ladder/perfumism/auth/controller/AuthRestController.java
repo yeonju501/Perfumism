@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthRestController {
 
     private final AuthService authService;
+    private final OAuthService oAuthService;
 
-    public AuthRestController(AuthService authService) {
+    public AuthRestController(AuthService authService, OAuthService oAuthService) {
         this.authService = authService;
+        this.oAuthService = oAuthService;
     }
 
     @PostMapping("/members/login")
@@ -43,8 +45,8 @@ public class AuthRestController {
         return ResponseEntity.ok().body(authService.reissue(tokenRequest, accessToken, response));
     }
 
-//    @GetMapping("/oauth2/authorization/google")
-//    public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code) {
-//        return ResponseEntity.ok().body(OAuthService.oauth2AuthorizationGoogle(code));
-//    }
+    @GetMapping("/oauth2/authorization/google")
+    public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code) {
+        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationGoogle(code));
+    }
 }
