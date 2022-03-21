@@ -60,8 +60,10 @@ public class Perfume {
     }
 
     @Builder
-    public Perfume(String name, Brand brandId, String image, Integer launchYear, Double averageGrade, String topNotes,
-        String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage, Integer totalLike) {
+    public Perfume(Long id, String name, Brand brandId, String image, Integer launchYear, Double averageGrade,
+        String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage,
+        Integer totalLike) {
+        this.id = id;
         this.name = name;
         this.brandId = brandId;
         this.image = image;
