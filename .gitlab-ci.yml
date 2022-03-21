@@ -13,8 +13,7 @@ build-back:
     - chmod +x gradlew
     - mkdir ./src/main/resources
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
-    - cat ./src/main/resources/application.yml
-    # - ./gradlew build
+    - ./gradlew build
     # cp 배포 파일 옮기기
 
 
@@ -31,17 +30,13 @@ build-front:
     - master
     - develop
   script:
-    - pwd
     - cd $CI_PROJECT_DIR/frontend
-    - pwd
+    - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/FRONTEND_ENV ./.env
     - rm -rf package-lock.json
-    - ls
     - npm install
     - CI=false npm run build
     - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
-    # - mkdir ~/project/S06P22D105/frontend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
-    # - sudo cp -rf build ~/project/S06P22D105/frontend/
 
   tags:
     - prd
