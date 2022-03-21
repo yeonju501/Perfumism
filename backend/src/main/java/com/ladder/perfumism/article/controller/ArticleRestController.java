@@ -36,7 +36,7 @@ public class ArticleRestController {
     }
 
     @PostMapping
-    @ApiOperation(value = "게시글 작성", notes = "게시글을 작성 API")
+    @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
         public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleCreateRequest request){
 
         articleService.articleCreate(email,request);
@@ -46,7 +46,7 @@ public class ArticleRestController {
     }
 
     @GetMapping(value = {"/{subject}","/"})
-    @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 받아오는 API")
+    @ApiOperation(value = "게시글 목록 조회", notes = "<b>(로그인 필요)</b> 게시글 목록을 받아오는 API")
     @ApiImplicitParams(
         {
             @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
@@ -63,7 +63,7 @@ public class ArticleRestController {
     }
 
     @GetMapping("/detail/{article_id}")
-    @ApiOperation(value = "게시글 상세 조회", notes = "게시글을 선택했을 때 선택한 게시글을 받아오는 API")
+    @ApiOperation(value = "게시글 상세 조회", notes = "<b>(로그인 필요)</b> 게시글을 선택했을 때 선택한 게시글을 받아오는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
         @AuthenticationPrincipal String email,
@@ -72,7 +72,7 @@ public class ArticleRestController {
     }
 
     @PutMapping("/detail/{article_id}")
-    @ApiOperation(value = "게시글 수정", notes = "게시글 수정요청을 하는 API")
+    @ApiOperation(value = "게시글 수정", notes = "<b>(로그인 필요)</b> 게시글 수정요청을 하는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> updateArticle(
         @AuthenticationPrincipal String email,
@@ -84,7 +84,7 @@ public class ArticleRestController {
     }
 
     @DeleteMapping("/detail/{article_id}")
-    @ApiOperation(value = "게시글 삭제", notes = "게시글 삭제 요청 API")
+    @ApiOperation(value = "게시글 삭제", notes = "<b>(로그인 필요)</b> 게시글 삭제 요청 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> deleteArticle(
         @AuthenticationPrincipal String email,
