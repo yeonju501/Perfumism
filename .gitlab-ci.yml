@@ -26,7 +26,7 @@ build-back:
   after_script:
     - cd $CI_PROJECT_DIR/backend
     - sudo rm -rf /home/ubuntu/S06P22D105/backend/build/libs/perfumism-0.0.1-SNAPSHOT.jar
-    - sudo cp ~/build/libs/perfumism-0.0.1-SNAPSHOT.jar /home/ubuntu/S06P22D105/backend/build/libs/ 
+    - sudo cp ./build/libs/perfumism-0.0.1-SNAPSHOT.jar /home/ubuntu/S06P22D105/backend/build/libs/ 
 
 
 
