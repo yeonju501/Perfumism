@@ -18,7 +18,7 @@ const authApi: UserApiType = {
 	isExist: (name, value) => request.post(`members/exist-${name}`, value),
 	signin: (userInfo) => request.post("members/login", userInfo),
 	reissue: (refreshToken) => request.post("members/reissue", { refresh_token: refreshToken }),
-	findPassword: (email) => request.post("/members/find-pw", email),
+	findPassword: (email) => request.post("members/find-pw", email),
 };
 
 export default authApi;

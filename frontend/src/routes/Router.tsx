@@ -1,6 +1,7 @@
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
+import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
@@ -19,6 +20,7 @@ function Router() {
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/find-password" element={<FindPassword />} />
+				<Route path="/login/oauth2/code/kakao" element={<KaKaoLoginPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
