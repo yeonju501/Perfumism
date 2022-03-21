@@ -21,6 +21,7 @@ build-back:
     - ls
     - chmod +x gradlew
     - ./gradlew build
+    - ls -al ./build/libs
 
   after_script:
     - cd $CI_PROJECT_DIR/backend
