@@ -4,6 +4,7 @@ import { formValidator } from "utils";
 import useForm from "../hooks/useForm";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
+import socialLogin from "apis/socialLogin";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -84,10 +85,12 @@ function SignUp() {
 					회원가입
 				</Button>
 			</FormContainer>
-			<Button backgroundColor="#00c73c" color="#ffff">
-				네이버로 로그인하기
+			<Button backgroundColor="#FEE500" color="black" onClick={socialLogin.kakao}>
+				카카오로 시작하기
 			</Button>
-			<Button backgroundColor="#f8f8f9">구글로 로그인하기</Button>
+			<Button backgroundColor="#f8f8f9" onClick={socialLogin.google}>
+				구글로 시작하기
+			</Button>
 			<LinkParagraph to="/signin">로그인하기</LinkParagraph>
 		</Container>
 	);
