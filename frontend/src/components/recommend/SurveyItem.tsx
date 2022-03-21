@@ -44,10 +44,6 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		}
 	};
 
-	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAnswer(e.target.value);
-	};
-
 	const getAnswerData = () => {
 		const answerData = {
 			a1: searchParams.get("a1"),
@@ -57,6 +53,10 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 			a5: answer,
 		};
 		return answerData;
+	};
+
+	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setAnswer(e.target.value);
 	};
 
 	return (
