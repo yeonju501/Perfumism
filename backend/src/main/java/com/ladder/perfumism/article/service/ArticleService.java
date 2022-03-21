@@ -91,9 +91,14 @@ public class ArticleService {
     }
 
     @Transactional
-    public void deleteArticle(Long articleId) {
+    public void deleteArticle(String email,Long articleId) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        checkArticleOwner(email, article);
 
         articleRepository.delete(article);
     }
