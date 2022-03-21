@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
+axios.defaults.withCredentials = true;
+
 const setInterceptors = (instance: AxiosInstance) => {
 	instance.interceptors.request.use(
 		(config) => {
