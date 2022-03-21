@@ -69,7 +69,11 @@ public class ArticleService {
     }
 
     @Transactional
-    public void updateArticle(Long articleId, ArticleCreateRequest request) {
+    public void updateArticle(String email, Long articleId, ArticleCreateRequest request) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
