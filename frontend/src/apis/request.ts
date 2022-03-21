@@ -5,7 +5,6 @@ axios.defaults.withCredentials = true;
 const setInterceptors = (instance: AxiosInstance) => {
 	instance.interceptors.request.use(
 		(config) => {
-			config.headers = { ...config.headers };
 			return config;
 		},
 		(error) => Promise.reject(console.log(error)),
@@ -13,11 +12,16 @@ const setInterceptors = (instance: AxiosInstance) => {
 
 	instance.interceptors.response.use(
 		(response) => {
+			if (response.data.access_token) setHeadersAuthroization(response.data.access_token);
 			return response;
 		},
 		(error) => Promise.reject(console.log(error.response)),
 	);
 	return instance;
+};
+
+const setHeadersAuthroization = (token: string) => {
+	axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
 const createInstance = () => {
