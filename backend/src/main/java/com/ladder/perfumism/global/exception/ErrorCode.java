@@ -35,7 +35,7 @@ public enum ErrorCode {
     MEMBER_USERNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 닉네임 입니다.", "C11"),
 
     // article
-    ARTICLE_NOT_FOUNT_MY_ARTICLE_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
+    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
 
     // comment
 
