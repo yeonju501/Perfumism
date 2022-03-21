@@ -16,7 +16,7 @@ public class ReviewLikeResponse {
         this.isLiked = isLiked;
     }
 
-    public static ReviewLikeResponse from(Boolean isLiked){
+    public static ReviewLikeResponse from(Boolean isLiked) {
         return new ReviewLikeResponse(isLiked);
     }
 }
