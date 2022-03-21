@@ -1,11 +1,12 @@
 import reviewApi from "apis/review";
 import { useEffect, useState } from "react";
+import { Container } from "./Container";
 
 interface ReviewListPropType {
 	perfumeId: number;
 }
 
-interface ReviewsType {
+interface ReviewType {
 	review_id: number;
 	member_id: number;
 	member_name: string;
@@ -16,7 +17,7 @@ interface ReviewsType {
 }
 
 function ReviewList({ perfumeId }: ReviewListPropType) {
-	const [reviews, setReviews] = useState<ReviewsType | null>(null);
+	const [reviews, setReviews] = useState([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
@@ -32,7 +33,15 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 		});
 	};
 
-	return <div></div>;
+	return reviews.length > 0 ? (
+		<Container>
+			{reviews.map((review: ReviewType) => (
+				<p>{review.content}</p>
+			))}
+		</Container>
+	) : (
+		<p>작성된 리뷰가 없습니다</p>
+	);
 }
 
 export default ReviewList;
