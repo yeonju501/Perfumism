@@ -53,13 +53,15 @@ public class Perfume {
     @Column(name = "sillage")
     private String sillage;
 
+    @Column(name = "total_like")
+    private Integer totalLike;
+
     public Perfume() {
     }
 
     @Builder
-    public Perfume(Long id, String name, Brand brandId, String image, Integer launchYear, Double averageGrade,
-        String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage) {
-        this.id = id;
+    public Perfume(String name, Brand brandId, String image, Integer launchYear, Double averageGrade, String topNotes,
+        String middleNotes, String baseNotes, Long totalSurvey, String longevity, String sillage, Integer totalLike) {
         this.name = name;
         this.brandId = brandId;
         this.image = image;
@@ -71,6 +73,7 @@ public class Perfume {
         this.totalSurvey = totalSurvey;
         this.longevity = longevity;
         this.sillage = sillage;
+        this.totalLike = totalLike;
     }
 
     public void increaseTotalSurvey() {
@@ -81,7 +84,11 @@ public class Perfume {
         this.totalSurvey--;
     }
 
-    public void saveGrade(Double avgGrade){
+    public void saveGrade(Double avgGrade) {
         this.averageGrade = avgGrade;
+    }
+
+    public void saveLike(Integer totalLike) {
+        this.totalLike = totalLike;
     }
 }
