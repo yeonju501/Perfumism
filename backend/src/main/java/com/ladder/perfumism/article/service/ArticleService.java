@@ -8,6 +8,8 @@ import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.domain.Member;
+import com.ladder.perfumism.member.domain.MemberRepository;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,15 +20,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final MemberRepository memberRepository;
 
 
-    public ArticleService(ArticleRepository articleRepository){
+    public ArticleService(ArticleRepository articleRepository, MemberRepository memberRepository){
         this.articleRepository = articleRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
-    public void articleCreate(ArticleCreateRequest request) {
+    public void articleCreate(String email, ArticleCreateRequest request) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()-> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
         Article article = Article.builder()
+            .member(member)
             .title(request.getTitle())
             .content(request.getContent())
             .subject(request.getSubject())
