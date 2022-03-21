@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/api/auth/articles")
 @Api(tags = {"게시글"})
 public class ArticleRestController {
 
@@ -36,9 +37,9 @@ public class ArticleRestController {
 
     @PostMapping
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성 API")
-        public ResponseEntity<Void> createArticle(@RequestBody ArticleCreateRequest request){
+        public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleCreateRequest request){
 
-        articleService.articleCreate(request);
+        articleService.articleCreate(email,request);
         URI uri = URI.create("api/articles/create");
 
         return ResponseEntity.created(uri).build();
