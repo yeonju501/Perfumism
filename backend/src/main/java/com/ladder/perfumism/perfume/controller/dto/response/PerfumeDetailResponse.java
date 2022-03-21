@@ -68,13 +68,17 @@ public class PerfumeDetailResponse {
     @ApiModelProperty(position = 13, notes = "비슷한 향수 정보")
     private List<SimilarPerfumeResponse> similarPerfumeResponse;
 
+    @JsonProperty("likes")
+    @ApiModelProperty(position = 14, notes = "좋아요 수", example = "222")
+    private Integer likes;
+
     public PerfumeDetailResponse() {
     }
 
     public PerfumeDetailResponse(Long id, String name, BrandResponse brand, String image, Integer launchYear,
         Double averageGrade, String topNotes, String middleNotes, String baseNotes, Long totalSurvey, String longevity,
         String sillage, List<AccordResponse> accordResponse,
-        List<SimilarPerfumeResponse> similarPerfumeResponse) {
+        List<SimilarPerfumeResponse> similarPerfumeResponse, Integer likes) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -89,6 +93,7 @@ public class PerfumeDetailResponse {
         this.sillage = sillage;
         this.accordResponse = accordResponse;
         this.similarPerfumeResponse = similarPerfumeResponse;
+        this.likes = likes;
     }
 
     public static PerfumeDetailResponse from(Perfume perfume, List<PerfumeAccord> perfumeAccords,
@@ -111,7 +116,8 @@ public class PerfumeDetailResponse {
                 .collect(Collectors.toList()),
             similarPerfumes.stream()
                 .map(SimilarPerfumeResponse::from)
-                .collect(Collectors.toList())
+                .collect(Collectors.toList()),
+            perfume.getTotalLike()
         );
     }
 }
