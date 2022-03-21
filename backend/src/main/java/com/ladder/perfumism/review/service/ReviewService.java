@@ -109,7 +109,7 @@ public class ReviewService {
 
         isYourReview(email, review);
 
-        // TODO: 이 리뷰에 모든 좋아요 삭제
+        reviewLikeRepository.updateDeletedAtByReviewId(reviewId);
 
         review.saveDeletedTime();
         averageGrade(review.getPerfumeId());
