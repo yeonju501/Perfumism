@@ -6,6 +6,8 @@ import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -59,7 +61,9 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<LikeButton isLiked={isLiked} />
+					<LikeButton isLiked={isLiked}>
+						<FontAwesomeIcon icon={heart} />
+					</LikeButton>
 					<div>
 						<h1>
 							{perfumeData.perfume_name}
