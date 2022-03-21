@@ -52,6 +52,7 @@ build-front:
     - cd $CI_PROJECT_DIR/frontend
     - npm install
     - CI=false npm run build
+    - ls -al | grep dist
 
   after_script:
     - cd $CI_PROJECT_DIR/frontend  
