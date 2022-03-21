@@ -67,8 +67,7 @@ deploy-back:
     - master
     - develop
   script:
-    # 백엔드 재시작 스크립트 작성
-    - ls
+    - /home/ubuntu/restart_backend.sh
   tags:
     - prd
 
