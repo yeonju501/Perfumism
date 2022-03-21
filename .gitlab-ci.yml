@@ -7,6 +7,7 @@ build-back:
   only:
     - master
     - develop
+
   before_script:
     - cd $CI_PROJECT_DIR/backend
     - rm -rf build.gradle
@@ -20,7 +21,12 @@ build-back:
     - ls
     - chmod +x gradlew
     - ./gradlew build
-    # cp 배포 파일 옮기기
+
+  after_script:
+    - cd $CI_PROJECT_DIR/backend
+    - rm -rf /home/ubuntu/S06P22D105/backend/build/libs/perfumism-0.0.1-SNAPSHOT.jar
+    - cp ~/backend/build/libs/perfumism-0.0.1-SNAPSHOT.jar /home/ubuntu/S06P22D105/backend/build/libs/ 
+
 
 
   tags:
@@ -35,12 +41,19 @@ build-front:
   only:
     - master
     - develop
-  script:
+    
+  before_script:
     - cd $CI_PROJECT_DIR/frontend
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/FRONTEND_ENV ./.env
     - rm -rf package-lock.json
+
+  script:
+    - cd $CI_PROJECT_DIR/frontend
     - npm install
     - CI=false npm run build
+
+  after_script:
+    - cd $CI_PROJECT_DIR/frontend  
     - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
 
@@ -65,6 +78,6 @@ deploy-front:
     - develop
   script:
     # 프론트 재시작 스크립트 작성
-    - ls -al ~/project/S06P22D105/frontend/build
+    - ls -al /home/ubuntu/S06P22D105/frontend/build
   tags:
     - prd
