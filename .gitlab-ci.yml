@@ -15,8 +15,7 @@ build-back:
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
     - ./gradlew build
     # cp 배포 파일 옮기기
-    - sudo rm -rf /home/ubuntu/S06P22D105/backend/build
-    - sudo cp -rf build /home/ubuntu/S06P22D105/backend/
+
 
   tags:
     - prd
@@ -38,10 +37,8 @@ build-front:
     - ls
     - npm install
     - CI=false npm run build
-    - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
-    - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
-    - ls
-    - pwd
+    - rm -rf ~/project/S06P22D105/frontend/build
+    - cp -rf build ~/project/S06P22D105/backend/
 
   tags:
     - prd
@@ -64,6 +61,6 @@ deploy-front:
     - develop
   script:
     # 프론트 재시작 스크립트 작성
-    - ls -al /home/ubuntu/S06P22D105/frontend/build
+    - ls -al ~/project/S06P22D105/frontend/build
   tags:
     - prd
