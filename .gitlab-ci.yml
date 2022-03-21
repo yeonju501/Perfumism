@@ -37,10 +37,10 @@ build-front:
     - ls
     - npm install
     - CI=false npm run build
-    - rm -rf ~/project/S06P22D105/frontend/build
-    - mkdir ~/project/S06P22D105/frontend/build
-    - cp -rf build ~/project/S06P22D105/frontend/
-    - sudo cp -rf build ~/project/S06P22D105/frontend/
+    - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
+    # - mkdir ~/project/S06P22D105/frontend/build
+    - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
+    # - sudo cp -rf build ~/project/S06P22D105/frontend/
 
   tags:
     - prd
