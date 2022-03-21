@@ -46,6 +46,7 @@ function PerfumeDetail() {
 
 	useEffect(() => {
 		getPerfume();
+		// isPerfumeLiked();
 	}, [perfumeId]);
 
 	const getPerfume = async () => {
@@ -56,12 +57,18 @@ function PerfumeDetail() {
 		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
 	};
 
+	const handleHeartClick = async () => {
+		isLiked
+			? await perfumeApi.deleteFavoritePerfume(perfumeId)
+			: await perfumeApi.addFavoritePerfume(perfumeId);
+	};
+
 	return (
 		perfumeData && (
 			<Container>
 				<PerfumeMainInfo>
 					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<LikeButton isLiked={isLiked}>
+					<LikeButton isLiked={isLiked} onClick={handleHeartClick}>
 						<FontAwesomeIcon icon={heart} />
 					</LikeButton>
 					<div>
