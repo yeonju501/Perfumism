@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 
 
 interface NavProps {
@@ -65,5 +66,14 @@ const Head = styled(Link)`
 	display: flex;
 	justify-content: center;
 	color: inherit;
+`;
+
+
+
+const FontAwesome = styled(FontAwesomeIcon)`
+	width: 1.8rem;
+	height: 1.8rem;
+	margin-left: 2rem;
+	cursor: pointer;
 `;
 export default Navbar;
