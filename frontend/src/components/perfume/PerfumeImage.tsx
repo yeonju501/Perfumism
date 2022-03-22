@@ -4,7 +4,7 @@ const PerfumeImage = styled.img`
 	background-color: none;
 	border: none;
 	&:hover {
-		filter: brightness(75%);
+		filter: brightness(85%);
 	}
 	width: 100%;
 	height: auto;
