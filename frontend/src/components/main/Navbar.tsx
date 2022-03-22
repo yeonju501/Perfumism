@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import Search from "./Search";
 
 interface NavProps {
 	justifyContent?: string;
@@ -37,6 +38,7 @@ function Navbar() {
 			<Nav justifyContent="flex-end">
 				<Ul>
 					<ListItem>
+						<Search />
 						<FontAwesome icon={faBell} />
 						<FontAwesome icon={faUser} />
 						<FontAwesome icon={faArrowRightFromBracket} />
