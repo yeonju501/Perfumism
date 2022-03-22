@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 interface InputProps {
 	isOn: boolean;
 }
 
 function Search() {
+	const [searchContent, setSearchContent] = useState("");
+	const [toggleSearch, setToggleSearch] = useState(false);
+
 	return;
 }
 
