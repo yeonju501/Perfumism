@@ -20,8 +20,14 @@ function LikeButton({ center, perfumeId }: LikeButtonProps) {
 		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
 	};
 
+	const handleHeartClick = async () => {
+		isLiked
+			? await perfumeApi.deleteFavoritePerfume(perfumeId)
+			: await perfumeApi.addFavoritePerfume(perfumeId);
+	};
+
 	return (
-		<Button center isLiked={isLiked}>
+		<Button center isLiked={isLiked} onClick={handleHeartClick}>
 			<FontAwesomeIcon icon={heart} />
 		</Button>
 	);
