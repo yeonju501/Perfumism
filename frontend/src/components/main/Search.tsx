@@ -15,9 +15,14 @@ function Search() {
 		setSearchContent(event.target.value);
 	};
 
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+	};
+
 	const handleSearchInput = () => {
 		setToggleSearch(!toggleSearch);
 	};
+
 	return;
 }
 
