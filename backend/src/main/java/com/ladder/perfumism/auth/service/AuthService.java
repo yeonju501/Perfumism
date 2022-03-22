@@ -42,20 +42,21 @@ public class AuthService {
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.login(passwordEncoder, request.getPassword());
 
-
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
+        setRefreshTokenToCookie(tokenResponse, response);
+        saveRefreshToken(member, tokenResponse);
+        return AccessTokenResponse.builder()
+            .accessToken(tokenResponse.getAccessToken())
+            .build();
+    }
 
+    private void setRefreshTokenToCookie(TokenResponse tokenResponse, HttpServletResponse response) {
         Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
         cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
         cookie.setSecure(true);
 //        cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
-
-        saveRefreshToken(member, tokenResponse);
-        return AccessTokenResponse.builder()
-            .accessToken(tokenResponse.getAccessToken())
-            .build();
     }
 
     private void saveRefreshToken(Member member, TokenResponse tokenResponse) {
@@ -84,12 +85,7 @@ public class AuthService {
         TokenResponse tokenResponse = jwtTokenProvider.createToken(authentication.getName(),
             jwtTokenProvider.getAuthority(authentication));
 
-        Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
-        cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-        cookie.setSecure(true);
-//        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        setRefreshTokenToCookie(tokenResponse, response);
 
         // 새로운 refresh token
         refreshToken.updateToken(tokenResponse.getRefreshToken());

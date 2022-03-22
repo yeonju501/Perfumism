@@ -49,4 +49,9 @@ public class AuthRestController {
     public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code) {
         return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationGoogle(code));
     }
+
+    @GetMapping("/oauth2/authorization/kakao")
+    public ResponseEntity<AccessTokenResponse> getKakaoCode(@RequestParam String code, HttpServletResponse response) {
+        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationKakao(code, response));
+    }
 }

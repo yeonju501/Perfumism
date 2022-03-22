@@ -46,15 +46,19 @@ public class Member extends BaseEntity {
     @Column(name = "authority")
     private Authority authority;
 
+    @Column(name = "kakao_id")
+    private String kakaoId;
+
     protected Member() {
     }
 
     @Builder
-    public Member(String email, String password, String username, Authority authority) {
+    public Member(String email, String password, String username, Authority authority, String kakaoId) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.authority = authority;
+        this.kakaoId = kakaoId;
     }
 
     public static Member createMember(String email, String password, String username) {
