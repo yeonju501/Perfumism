@@ -34,7 +34,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 						/>
 						<p>{perfume.perfume_name}</p>
 					</PerfumeItem>
-					<LikeButton>
+					<LikeButton center>
 						<FontAwesomeIcon icon={heart} />
 					</LikeButton>
 				</Perfume>
@@ -49,6 +49,7 @@ const Container = styled.ul`
 
 const Perfume = styled.li`
 	list-style: none;
+	position: relative;
 `;
 
 const PerfumeItem = styled.div`
