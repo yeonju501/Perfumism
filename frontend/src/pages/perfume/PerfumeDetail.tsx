@@ -1,5 +1,4 @@
 import perfumeApi from "apis/perfume";
-import { LikeButton } from "components/button/Button";
 import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
@@ -8,6 +7,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
+import LikeButton from "components/button/LikeButton";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -42,25 +42,13 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
-	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
 		getPerfume();
-		// isPerfumeLiked();
 	}, [perfumeId]);
 
 	const getPerfume = async () => {
 		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));
-	};
-
-	const isPerfumeLiked = async () => {
-		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
-	};
-
-	const handleHeartClick = async () => {
-		isLiked
-			? await perfumeApi.deleteFavoritePerfume(perfumeId)
-			: await perfumeApi.addFavoritePerfume(perfumeId);
 	};
 
 	return (
@@ -68,9 +56,7 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<LikeButton isLiked={isLiked} onClick={handleHeartClick}>
-						<FontAwesomeIcon icon={heart} />
-					</LikeButton>
+					<LikeButton perfumeId={perfumeId} />
 					<div>
 						<h1>
 							{perfumeData.perfume_name}
