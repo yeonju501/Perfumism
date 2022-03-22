@@ -2,10 +2,10 @@ import PerfumeImage from "./PerfumeImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { LikeButton } from "components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import perfumeApi from "apis/perfume";
+import LikeButton from "components/button/LikeButton";
 
 type PerfumeList = {
 	perfumes: [];
@@ -41,9 +41,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 						/>
 						<Name>{perfume.perfume_name}</Name>
 					</PerfumeItem>
-					<LikeButton center isLiked={isLiked}>
-						<FontAwesomeIcon icon={heart} />
-					</LikeButton>
+					<LikeButton center perfumeId={perfume.perfume_id} />
 				</Perfume>
 			))}
 		</Container>
