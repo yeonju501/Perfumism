@@ -3,6 +3,7 @@ package com.ladder.perfumism.comment.domain;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.global.domain.BaseEntity;
 import com.ladder.perfumism.member.domain.Member;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,5 +48,11 @@ public class Comment extends BaseEntity {
         this.member = member;
         this.article = article;
         this.content = content;
+    }
+
+    public void changeContent(String content) {
+        if (!Objects.isNull(content)){
+            this.content = content;
+        }
     }
 }
