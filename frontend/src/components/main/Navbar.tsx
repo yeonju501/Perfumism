@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+
 
 interface NavProps {
 	justifyContent?: string;
@@ -46,4 +50,20 @@ const ListItem = styled.li`
 	align-items: center;
 `;
 
+const LinkParagraph = styled(Link)`
+	text-decoration: none;
+	font-size: 1.3rem;
+	font-weight: 900;
+	margin-right: 5rem;
+	color: inherit;
+`;
+
+const Head = styled(Link)`
+	font-size: 4rem;
+	font-weight: 900;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	color: inherit;
+`;
 export default Navbar;
