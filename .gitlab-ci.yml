@@ -76,11 +76,11 @@ deploy-front:
     - develop
   script:
     - ls -al /home/ubuntu/S06P22D105/frontend/build
-    - cd /home/ubuntu/S06P22D105/frontend
-    - sudo kill $(pgrep -f npx)
-    - sudo chmod -R 664 ./build
-    - sudo npx serve -s build &
-    - echo "complate deploy perfumism frontend pid=$(pgrep -f npx)"
+    # - cd /home/ubuntu/S06P22D105/frontend
+    # - sudo kill $(pgrep -f npx)
+    # - sudo chmod -R 664 ./build
+    # - sudo npx serve -s build &
+    # - echo "complate deploy perfumism frontend pid=$(pgrep -f npx)"
 
   tags:
     - prd
