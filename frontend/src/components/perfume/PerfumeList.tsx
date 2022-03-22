@@ -32,7 +32,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 							src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image.slice(2)}`}
 							alt="perfume image"
 						/>
-						<p>{perfume.perfume_name}</p>
+						<Name>{perfume.perfume_name}</Name>
 					</PerfumeItem>
 					<LikeButton center>
 						<FontAwesomeIcon icon={heart} />
@@ -54,6 +54,10 @@ const Perfume = styled.li`
 
 const PerfumeItem = styled.div`
 	cursor: pointer;
+`;
+
+const Name = styled.p`
+	text-align: center;
 `;
 
 export default PerfumeList;
