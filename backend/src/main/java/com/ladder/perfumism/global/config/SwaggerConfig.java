@@ -53,11 +53,11 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Getter
     private static class SwaggerPageable {
 
-        @ApiParam(value = "페이지 크기 (기본값 10)")
+        @ApiParam(value = "페이지 크기 (기본값 10)", example = "10")
         @Nullable
         private Integer size;
 
-        @ApiParam(value = "페이지 번호 (기본값 0)")
+        @ApiParam(value = "페이지 번호 (기본값 0)", example = "0")
         @Nullable
         private Integer page;
 
