@@ -40,6 +40,8 @@ public class OAuthService {
 
     @Value("${oauth.google.client-id}")
     private String GOOGLE_CLIENT_ID;
+    @Value("${oauth.google.client-secret}")
+    private String GOOGLE_CLIENT_SECRET;
     private static final String GOOGLE_REDIRECT_URL = "http://localhost:3000/login/oauth2/code/google";
     private static final String GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
     private static final String GOOGLE_USERINFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
@@ -62,11 +64,16 @@ public class OAuthService {
     }
 
     @Transactional
-    public AccessTokenResponse oauth2AuthorizationGoogle(String code) {
+    public AccessTokenResponse oauth2AuthorizationGoogle(String code, HttpServletResponse response) {
         AuthorizationGoogle authorization = callTokenApiGoogle(code);
-        GoogleUserInfoResponse userInfoResponse = callGoogleUserInfoByAccessToken(authorization.getAccess_token());
+        GoogleUserInfoResponse userInfoResponse = callGoogleUserInfoByAccessToken(authorization.getAccess_token(), authorization.getId_token());
+
+        Member member = loadGoogleUser(userInfoResponse);
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
+        saveRefreshToken(member, tokenResponse);
+        setRefreshTokenToCookie(tokenResponse, response);
         return AccessTokenResponse.builder()
-            .accessToken("")
+            .accessToken(tokenResponse.getAccessToken())
             .build();
     }
 
@@ -77,6 +84,7 @@ public class OAuthService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", GRANT_TYPE);
         params.add("client_id", GOOGLE_CLIENT_ID);
+        params.add("client_secret", GOOGLE_CLIENT_SECRET);
         params.add("redirect_uri", GOOGLE_REDIRECT_URL);
         params.add("code", code);
 
@@ -92,7 +100,7 @@ public class OAuthService {
         }
     }
 
-    private GoogleUserInfoResponse callGoogleUserInfoByAccessToken(String accessToken) {
+    private GoogleUserInfoResponse callGoogleUserInfoByAccessToken(String accessToken, String idToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -101,9 +109,8 @@ public class OAuthService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(GOOGLE_USERINFO_URL, request, String.class);
-            System.out.println(response.getBody());
-            return new GoogleUserInfoResponse();
+            ResponseEntity<GoogleUserInfoResponse> response = restTemplate.postForEntity(GOOGLE_USERINFO_URL+idToken, request, GoogleUserInfoResponse.class);
+            return response.getBody();
         } catch (RestClientException e) {
             e.printStackTrace();
             throw new BusinessException(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR);
@@ -115,7 +122,7 @@ public class OAuthService {
         AuthorizationKakao authorization = callTokenApiKakao(code);
         KakaoUserInfoResponse userInfoResponse = callUserInfoByAccessToken(authorization.getAccess_token());
 
-        Member member = loadUser(userInfoResponse);
+        Member member = loadKakaoUser(userInfoResponse);
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
         saveRefreshToken(member, tokenResponse);
         setRefreshTokenToCookie(tokenResponse, response);
@@ -164,9 +171,16 @@ public class OAuthService {
     }
 
     @Transactional
-    public Member loadUser(KakaoUserInfoResponse response) {
+    public Member loadKakaoUser(KakaoUserInfoResponse response) {
         String email = (String) response.getKakaoAccount().get("email");
         Member member = memberRepository.findByEmail(email)
+            .orElse(response.toEntity());
+        return memberRepository.save(member);
+    }
+
+    @Transactional
+    public Member loadGoogleUser(GoogleUserInfoResponse response) {
+        Member member = memberRepository.findByEmail(response.getEmail())
             .orElse(response.toEntity());
         return memberRepository.save(member);
     }
