@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+const Button = styled.button`
 	&:hover {
 	}
 `;
+
+export default Button;
