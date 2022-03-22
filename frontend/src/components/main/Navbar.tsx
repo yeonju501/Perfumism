@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 
-
 interface NavProps {
 	justifyContent?: string;
 }
@@ -13,10 +12,28 @@ interface HeaderProps {
 }
 
 function Navbar() {
-
-
 	return (
-		
+		<Header scrollHeader={scrollPosition}>
+			<Nav>
+				<Ul>
+					<ListItem>
+						<LinkParagraph to="/recommend">RECOMMEND</LinkParagraph>
+						<LinkParagraph to="/">PERFUMES</LinkParagraph>
+						<LinkParagraph to="/">COMMUNITY</LinkParagraph>
+					</ListItem>
+				</Ul>
+			</Nav>
+			<Head to="/">PERFUMISM</Head>
+			<Nav justifyContent="flex-end">
+				<Ul>
+					<ListItem>
+						<FontAwesome icon={faBell} />
+						<FontAwesome icon={faUser} />
+						<FontAwesome icon={faArrowRightFromBracket} />
+					</ListItem>
+				</Ul>
+			</Nav>
+		</Header>
 	);
 }
 
@@ -32,7 +49,6 @@ const Header = styled.header<HeaderProps>`
 	align-items: center;
 	border-bottom: 1px solid black;
 `;
-
 
 const Nav = styled.nav<NavProps>`
 	display: flex;
@@ -67,8 +83,6 @@ const Head = styled(Link)`
 	justify-content: center;
 	color: inherit;
 `;
-
-
 
 const FontAwesome = styled(FontAwesomeIcon)`
 	width: 1.8rem;
