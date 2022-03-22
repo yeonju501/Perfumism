@@ -48,7 +48,7 @@ const Container = styled.ul`
 `;
 
 const Perfume = styled.li`
-	width: 25%;
+	width: 15%;
 	height: auto;
 	list-style: none;
 	position: relative;

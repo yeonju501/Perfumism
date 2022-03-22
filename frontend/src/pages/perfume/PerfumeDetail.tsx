@@ -76,8 +76,12 @@ function PerfumeDetail() {
 							{perfumeData.perfume_name}
 							<span>({perfumeData.launch_year})</span>
 						</h1>
+						{/* 브랜드 페이지 만든 후 클릭하면 이동하도록 변경해줄 것 */}
 						<h3>{perfumeData.brand.brand_name}</h3>
-						<h3>{perfumeData.average_grade}</h3>
+						<h4>
+							<span style={{ color: "#ffcb14" }}>★</span>
+							{perfumeData.average_grade}
+						</h4>
 						<p>main accords</p>
 						<ul>
 							{perfumeData.accords.map((accord) => (
@@ -109,7 +113,6 @@ const Container = styled.div`
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 `;
 
 const PerfumeMainInfo = styled.div`
