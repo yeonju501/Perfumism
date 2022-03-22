@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,15 @@ interface HeaderProps {
 }
 
 function Navbar() {
+	const [scrollPosition, setScrollPosition] = useState(0);
+	const updateScroll = () => {
+		setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+	};
+
+	useEffect(() => {
+		window.addEventListener("scroll", updateScroll);
+	});
+
 	return (
 		<Header scrollHeader={scrollPosition}>
 			<Nav>
