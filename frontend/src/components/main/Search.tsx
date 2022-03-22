@@ -23,7 +23,12 @@ function Search() {
 		setToggleSearch(!toggleSearch);
 	};
 
-	return;
+	return (
+		<SearchForm>
+			<Input placeholder="향수명, 브랜드, 키워드" onChange={handleChange} isOn={toggleSearch} />
+			<FontAwesome icon={faMagnifyingGlass} onClick={handleSearchInput}></FontAwesome>
+		</SearchForm>
+	);
 }
 
 export default Search;
