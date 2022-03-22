@@ -28,4 +28,22 @@ const Header = styled.header<HeaderProps>`
 	border-bottom: 1px solid black;
 `;
 
+
+const Nav = styled.nav<NavProps>`
+	display: flex;
+	justify-content: ${({ justifyContent }) => (justifyContent ? justifyContent : "flex-start")};
+	width: 20%;
+	margin: 0 5%;
+`;
+
+const Ul = styled.ul`
+	display: flex;
+`;
+
+const ListItem = styled.li`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
 export default Navbar;
