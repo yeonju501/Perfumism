@@ -1,3 +1,4 @@
+import Navbar from "components/main/Navbar";
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
@@ -32,6 +33,7 @@ function Router() {
 				<Route path="/find-password" element={<FindPassword />} />
 				<Route path="/login/oauth2/code/kakao" element={<KaKaoLoginPage />} />
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
+				<Route path="/navbar" element={<Navbar />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
 			</Routes>
 		</BrowserRouter>
