@@ -14,6 +14,10 @@ function Search() {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchContent(event.target.value);
 	};
+
+	const handleSearchInput = () => {
+		setToggleSearch(!toggleSearch);
+	};
 	return;
 }
 
