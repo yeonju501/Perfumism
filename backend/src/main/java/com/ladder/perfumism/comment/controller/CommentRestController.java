@@ -4,6 +4,10 @@ import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
 import com.ladder.perfumism.comment.controller.response.CommentReadListResponse;
 import com.ladder.perfumism.comment.service.CommentService;
 import com.sun.jndi.toolkit.url.Uri;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth/comment/{article_id}")
+@Api(tags = {"댓글"})
 public class CommentRestController {
 
     private final CommentService commentService;
@@ -30,6 +35,8 @@ public class CommentRestController {
     }
 
     @PostMapping
+    @ApiOperation(value = "댓글 작성", notes = "<b>(로그인 필요)</b> 댓글 작성 API")
+    @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> createComment(@AuthenticationPrincipal String email,
         @RequestBody CommentCreateRequest request, @PathVariable(value = "article_id")Long articleId){
         commentService.commentCreate(email,articleId,request);
@@ -38,6 +45,8 @@ public class CommentRestController {
     }
 
     @GetMapping
+    @ApiOperation(value = "댓글 조회", notes = "<b>(로그인 필요)</b> 댓글 조회 API")
+    @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<CommentReadListResponse> getCommentList(
         @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC)Pageable pageable,
@@ -48,6 +57,11 @@ public class CommentRestController {
     }
 
     @PutMapping("/update/{comment_id}")
+    @ApiOperation(value = "댓글 수정", notes = "<b>(로그인 필요)</b> 댓글 수정 API")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
+        @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
+    })
     public ResponseEntity<Void> updateComment(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
@@ -60,6 +74,11 @@ public class CommentRestController {
     }
 
     @DeleteMapping("/delete/{comment_id}")
+    @ApiOperation(value = "댓글 삭제", notes = "<b>(로그인 필요)</b> 댓글 삭제 API")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
+        @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
+    })
     public ResponseEntity<Void> deleteComment(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
