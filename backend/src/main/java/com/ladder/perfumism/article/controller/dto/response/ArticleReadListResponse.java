@@ -11,7 +11,7 @@ public class ArticleReadListResponse {
 
 
     @JsonProperty("articleList")
-    @ApiModelProperty(position = 0, notes = "게시글")
+    @ApiModelProperty(position = 0, notes = "게시글 목록")
     private List<ArticleReadResponse> articleList;
 
     @JsonProperty("total_page_count")
