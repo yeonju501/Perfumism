@@ -76,7 +76,7 @@ public class PerfumeRestController {
 
     @GetMapping("/perfumes")
     @ApiOperation(value = "향수 목록", notes = "향수 목록 API 입니다.")
-    public ResponseEntity<PerfumeListResponse> normalPerfumeList(@PageableDefault(sort = "id", direction = Direction.ASC) Pageable pageable) {
+    public ResponseEntity<PerfumeListResponse> normalPerfumeList(Pageable pageable) {
         return ResponseEntity.ok().body(perfumeService.normalPerfumeList(pageable));
     }
 }
