@@ -6,7 +6,6 @@ import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
 import com.ladder.perfumism.perfume.service.PerfumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.net.URI;
@@ -69,15 +68,15 @@ public class PerfumeRestController {
 
     @GetMapping("/auth/perfumes/likes/my-favorite")
     @ApiOperation(value = "내가 좋아요 누른 향수 목록", notes = "<b>(로그인 필요)</b> 내가 좋아요 누른 향수의 목록을 받아오는 API 입니다.")
-    @ApiImplicitParams(
-        {
-            @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
-            @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
-        }
-    )
     public ResponseEntity<PerfumeListResponse> myFavoritePerfumeList(
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
         @ApiParam(hidden = true) @AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(perfumeService.myFavoritePerfumeList(email, pageable));
+    }
+
+    @GetMapping("/perfumes")
+    @ApiOperation(value = "향수 목록", notes = "향수 목록 API 입니다.")
+    public ResponseEntity<PerfumeListResponse> normalPerfumeList(@PageableDefault(sort = "id", direction = Direction.ASC) Pageable pageable) {
+        return ResponseEntity.ok().body(perfumeService.normalPerfumeList(pageable));
     }
 }
