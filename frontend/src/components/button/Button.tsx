@@ -14,6 +14,7 @@ export const LikeButton = styled.button<LikeButtonProps>`
 	position: ${({ center }) => (center ? "absolute" : "static")};
 	top: 50%;
 	left: 50%;
+	transform: translate(-50%, -100%);
 	display: none;
 `;
 
