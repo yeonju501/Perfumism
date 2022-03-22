@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface LikeButtonProps {
 	isLiked?: boolean;
+	center?: boolean;
 }
 
 export const LikeButton = styled.button<LikeButtonProps>`
@@ -10,6 +11,9 @@ export const LikeButton = styled.button<LikeButtonProps>`
 	background-color: inherit;
 	border: none;
 	cursor: pointer;
+	position: ${({ center }) => (center ? "absolute" : "static")};
+	top: 50%;
+	left: 50%;
 	&:hover {
 	}
 `;

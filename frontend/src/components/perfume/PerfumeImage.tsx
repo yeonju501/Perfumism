@@ -6,6 +6,8 @@ const PerfumeImage = styled.img`
 	&:hover {
 		filter: brightness(75%);
 	}
+	width: 100%;
+	height: auto;
 `;
 
 export default PerfumeImage;
