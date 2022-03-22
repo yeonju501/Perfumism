@@ -38,5 +38,14 @@ public class Comment extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    protected Comment(){
 
+    }
+
+    @Builder
+    public Comment(Member member, Article article, String content){
+        this.member = member;
+        this.article = article;
+        this.content = content;
+    }
 }
