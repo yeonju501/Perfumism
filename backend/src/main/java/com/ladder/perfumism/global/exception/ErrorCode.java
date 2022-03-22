@@ -39,6 +39,8 @@ public enum ErrorCode {
     ARTICLE_IS_NOT_YOURS(HttpStatus.UNAUTHORIZED,"당신의 게시글이 아닙니다","H02"),
 
     // comment
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다","I01"),
+    COMMENT_IS_NOT_YOURS(HttpStatus.UNAUTHORIZED, "당신의 댓글이 아닙니다","I02"),
 
     // vote
 
