@@ -67,7 +67,7 @@ function PerfumeDetail() {
 		perfumeData && (
 			<Container>
 				<PerfumeMainInfo>
-					<img src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
+					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
 					<LikeButton isLiked={isLiked} onClick={handleHeartClick}>
 						<FontAwesomeIcon icon={heart} />
 					</LikeButton>
@@ -105,10 +105,20 @@ function PerfumeDetail() {
 	);
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
 
 const PerfumeMainInfo = styled.div`
 	display: flex;
+`;
+
+const Image = styled.img`
+	width: 15%;
+	height: auto;
 `;
 const PerfumeSubInfo = styled.div``;
 const Recommendation = styled.div``;
