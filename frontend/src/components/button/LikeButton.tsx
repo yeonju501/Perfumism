@@ -13,7 +13,7 @@ function LikeButton({ center, perfumeId }: LikeButtonProps) {
 	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
-		isPerfumeLiked();
+		// isPerfumeLiked();
 	}, []);
 
 	const isPerfumeLiked = async () => {

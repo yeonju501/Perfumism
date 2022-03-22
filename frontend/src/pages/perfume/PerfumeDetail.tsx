@@ -42,11 +42,9 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
-	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
 		getPerfume();
-		// isPerfumeLiked();
 	}, [perfumeId]);
 
 	const getPerfume = async () => {
