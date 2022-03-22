@@ -4,6 +4,10 @@ import SignUp from "pages/account/signup/SignUp";
 import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
+import Favorites from "pages/profile/Favorites";
+import MyArticles from "pages/profile/MyArticles";
+import MyComments from "pages/profile/MyComments";
+import Profile from "pages/profile/Profile";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
@@ -14,6 +18,10 @@ function Router() {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" />
+				<Route path="/:username" element={<Profile />} />
+				<Route path="/:username/favorites" element={<Favorites />} />
+				<Route path="/:username/my-articles" element={<MyArticles />} />
+				<Route path="/:username/my-comments" element={<MyComments />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/recommend" element={<Recommend />} />
 				<Route path="/survey" element={<Survey />} />
