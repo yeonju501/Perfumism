@@ -37,7 +37,7 @@ public class ArticleRestController {
 
     @PostMapping
     @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
-        public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleCreateRequest request){
+    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleCreateRequest request){
 
         articleService.articleCreate(email,request);
         URI uri = URI.create("api/articles/create");
@@ -47,13 +47,7 @@ public class ArticleRestController {
 
     @GetMapping(value = {"/{subject}","/"})
     @ApiOperation(value = "게시글 목록 조회", notes = "<b>(로그인 필요)</b> 게시글 목록을 받아오는 API")
-    @ApiImplicitParams(
-        {
-            @ApiImplicitParam(name = "pageNumber", value = "가져올 페이지 (=page)", defaultValue = "0"),
-            @ApiImplicitParam(name = "pageSize", value = "가져올 글 수(=size)", defaultValue = "10"),
-            @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null"),
-        }
-    )
+    @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null")
     public ResponseEntity<ArticleReadListResponse> getArticleList(
         @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
