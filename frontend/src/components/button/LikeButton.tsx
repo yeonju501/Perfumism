@@ -27,7 +27,7 @@ function LikeButton({ center, perfumeId }: LikeButtonProps) {
 	};
 
 	return (
-		<Button center isLiked={isLiked} onClick={handleHeartClick}>
+		<Button center={center} isLiked={isLiked} onClick={handleHeartClick}>
 			<FontAwesomeIcon icon={heart} />
 		</Button>
 	);
@@ -47,7 +47,7 @@ const Button = styled.button<ButtonProps>`
 	position: ${({ center }) => (center ? "absolute" : "static")};
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -100%);
+	transform: ${({ center }) => (center ? "translate(-50%, -100%)" : "0")};
 	display: none;
 `;
 
