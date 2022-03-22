@@ -77,5 +77,7 @@ public class CommentService {
 
         checkCommentOwner(email,comment);
 
+        comment.changeContent(request.getContent());
+
     }
 }
