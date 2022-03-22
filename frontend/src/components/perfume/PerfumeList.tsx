@@ -52,6 +52,11 @@ const Perfume = styled.li`
 	height: auto;
 	list-style: none;
 	position: relative;
+	&:hover {
+		button {
+			display: block;
+		}
+	}
 `;
 
 const PerfumeItem = styled.div`

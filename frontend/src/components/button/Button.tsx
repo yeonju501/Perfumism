@@ -14,8 +14,7 @@ export const LikeButton = styled.button<LikeButtonProps>`
 	position: ${({ center }) => (center ? "absolute" : "static")};
 	top: 50%;
 	left: 50%;
-	&:hover {
-	}
+	display: none;
 `;
 
 export const CreateButton = styled.button`
