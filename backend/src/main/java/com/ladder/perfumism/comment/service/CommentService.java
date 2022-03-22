@@ -57,4 +57,14 @@ public class CommentService {
 
         return CommentReadListResponse.from(commentList);
     }
+
+    @Transactional
+    public void updateComment(String email, Long articleId, CommentCreateRequest request) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+    }
 }
