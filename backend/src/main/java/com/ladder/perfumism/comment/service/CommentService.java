@@ -28,6 +28,12 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    private void checkCommentOwner(String email, Comment comment){
+        if(!comment.getMember().getEmail().equals(email)){
+            throw new BusinessException(ErrorCode.COMMENT_IS_NOT_YOURS);
+        }
+    }
+
     @Transactional
     public void commentCreate(String email, Long articleId, CommentCreateRequest request) {
         Member member = memberRepository.findByEmail(email)
@@ -59,12 +65,17 @@ public class CommentService {
     }
 
     @Transactional
-    public void updateComment(String email, Long articleId, CommentCreateRequest request) {
+    public void updateComment(String email, Long articleId, Long commentId, CommentCreateRequest request) {
         Member member = memberRepository.findByEmail(email)
             .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+
+        checkCommentOwner(email,comment);
 
     }
 }
