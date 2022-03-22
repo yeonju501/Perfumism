@@ -61,7 +61,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         @Nullable
         private Integer page;
 
-        @ApiParam(value = "정렬방식 (사용법: 컬럼명,asc|desc)", example = "id,asc")
+        @ApiParam(value = "정렬방식 (사용법: 컬럼명,asc|desc) * 컬럼명은 DB Table의 Column 이름")
         @Nullable
         private String sort;
     }
