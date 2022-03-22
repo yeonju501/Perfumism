@@ -46,11 +46,13 @@ public class AuthRestController {
     }
 
     @GetMapping("/oauth2/authorization/google")
-    public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code) {
-        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationGoogle(code));
+    @ApiOperation(value = "구글 로그인", notes = "구글 로그인 API")
+    public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code, HttpServletResponse response) {
+        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationGoogle(code, response));
     }
 
     @GetMapping("/oauth2/authorization/kakao")
+    @ApiOperation(value = "카카오 로그인", notes = "카카오 로그인 API")
     public ResponseEntity<AccessTokenResponse> getKakaoCode(@RequestParam String code, HttpServletResponse response) {
         return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationKakao(code, response));
     }
