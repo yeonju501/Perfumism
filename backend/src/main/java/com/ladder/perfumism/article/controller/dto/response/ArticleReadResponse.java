@@ -20,7 +20,7 @@ public class ArticleReadResponse {
 
     @JsonProperty("member_name")
     @ApiModelProperty(position = 2, notes = "멤버 이름", example = "우사앙주운")
-    private String memnberName;
+    private String memberName;
 
     @JsonProperty("subject")
     @ApiModelProperty(position = 3, notes = "말머리", example = "TALK")
@@ -42,11 +42,11 @@ public class ArticleReadResponse {
 
     }
 
-    public ArticleReadResponse(Long articleId, Long memberId, String memnberName, ArticleSubject subject, String title, String content,
+    public ArticleReadResponse(Long articleId, Long memberId, String memberName, ArticleSubject subject, String title, String content,
         LocalDateTime createdAt){
         this.articleId = articleId;
         this.memberId = memberId;
-        this.memnberName = memnberName;
+        this.memberName = memberName;
         this.subject = subject;
         this.title = title;
         this.content = content;
