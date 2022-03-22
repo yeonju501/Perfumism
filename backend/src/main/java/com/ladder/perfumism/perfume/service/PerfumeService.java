@@ -7,7 +7,6 @@ import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
-import com.ladder.perfumism.perfume.controller.dto.response.PerfumeSimpleResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeAccordRepository;
@@ -110,6 +109,13 @@ public class PerfumeService {
 
         Page<PerfumeLike> perfumeLikeList = perfumeLikeRepository.findByMemberId(member, pageable);
 
-        return PerfumeListResponse.from(perfumeLikeList);
+        return PerfumeListResponse.fromLikes(perfumeLikeList);
+    }
+
+    @Transactional(readOnly = true)
+    public PerfumeListResponse normalPerfumeList(Pageable pageable) {
+        Page<Perfume> perfumeList = perfumeRepository.findAll(pageable);
+
+        return PerfumeListResponse.from(perfumeList);
     }
 }
