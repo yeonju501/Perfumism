@@ -1,6 +1,7 @@
 package com.ladder.perfumism.perfume.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -44,6 +45,16 @@ public class PerfumeSimpleResponse {
             perfumeLike.getPerfumeId().getImage(),
             perfumeLike.getPerfumeId().getAverageGrade(),
             perfumeLike.getPerfumeId().getTotalLike()
+        );
+    }
+
+    public static PerfumeSimpleResponse from(Perfume perfume) {
+        return new PerfumeSimpleResponse(
+            perfume.getId(),
+            perfume.getName(),
+            perfume.getImage(),
+            perfume.getAverageGrade(),
+            perfume.getTotalLike()
         );
     }
 }

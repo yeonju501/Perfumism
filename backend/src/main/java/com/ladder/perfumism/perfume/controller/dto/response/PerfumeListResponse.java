@@ -1,6 +1,7 @@
 package com.ladder.perfumism.perfume.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -31,7 +32,17 @@ public class PerfumeListResponse {
         this.currentPageCount = currentPageCount;
     }
 
-    public static PerfumeListResponse from(Page<PerfumeLike> perfumes){
+    public static PerfumeListResponse fromLikes(Page<PerfumeLike> perfumes){
+        return new PerfumeListResponse(
+            perfumes.stream()
+                .map(PerfumeSimpleResponse::from)
+                .collect(Collectors.toList()),
+            perfumes.getTotalPages(),
+            perfumes.getNumber()
+        );
+    }
+
+    public static PerfumeListResponse from(Page<Perfume> perfumes){
         return new PerfumeListResponse(
             perfumes.stream()
                 .map(PerfumeSimpleResponse::from)

@@ -1,7 +1,11 @@
 package com.ladder.perfumism.global.config;
 
+import io.swagger.annotations.ApiParam;
+import lombok.Getter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -34,7 +38,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
             .apis(RequestHandlerSelectors.basePackage("com.ladder.perfumism"))
             .paths(PathSelectors.any())
             .build()
-            .apiInfo(apiInfo());
+            .apiInfo(apiInfo())
+            .directModelSubstitute(Pageable.class, SwaggerPageable.class);
     }
 
     private ApiInfo apiInfo() {
@@ -43,5 +48,21 @@ public class SwaggerConfig implements WebMvcConfigurer {
             .description("향수 추천 서비스 Perfumism의 API입니다.")
             .version("1.0")
             .build();
+    }
+
+    @Getter
+    private static class SwaggerPageable {
+
+        @ApiParam(value = "페이지 크기 (기본값 10)")
+        @Nullable
+        private Integer size;
+
+        @ApiParam(value = "페이지 번호 (기본값 0)")
+        @Nullable
+        private Integer page;
+
+        @ApiParam(value = "정렬방식 (사용법: 컬럼명,asc|desc)", example = "id,asc")
+        @Nullable
+        private String sort;
     }
 }
