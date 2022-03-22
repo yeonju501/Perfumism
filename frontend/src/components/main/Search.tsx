@@ -31,3 +31,8 @@ const FontAwesome = styled(FontAwesomeIcon)`
 	margin-left: 2rem;
 	cursor: pointer;
 `;
+
+const SearchForm = styled.form`
+	display: flex;
+	align-items: center;
+`;
