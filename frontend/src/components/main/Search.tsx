@@ -11,6 +11,9 @@ function Search() {
 	const [searchContent, setSearchContent] = useState("");
 	const [toggleSearch, setToggleSearch] = useState(false);
 
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchContent(event.target.value);
+	};
 	return;
 }
 
