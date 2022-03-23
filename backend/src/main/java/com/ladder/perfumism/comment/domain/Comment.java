@@ -48,7 +48,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parentId")
     private Comment parentId;
 
-    @OneToMany(mappedBy = "mainComment")
+    @OneToMany(mappedBy = "parentId")
     private List<Comment> replyList = new ArrayList<>();
 
     protected Comment(){
