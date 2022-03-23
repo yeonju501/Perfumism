@@ -1,3 +1,4 @@
+import Navbar from "components/navbar/Navbar";
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
@@ -18,6 +19,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function Router() {
 	return (
 		<BrowserRouter>
+			<Navbar />
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/:username" element={<Profile />} />
