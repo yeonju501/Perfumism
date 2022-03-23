@@ -24,7 +24,12 @@ function SignUp() {
 						password,
 						username,
 					})
-					.then(() => navigate("/signin"));
+					.then((res) => {
+						if (res.status === 201)
+							authApi.signin({ email, password }).then((res) => {
+								if (res.status === 204) navigate("/");
+							});
+					});
 			} catch (error) {
 				console.log(error);
 			}
