@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Search, Icons } from "./index";
+import LinkList from "./LinkList";
 
 interface NavProps {
 	justifyContent?: string;
@@ -25,17 +26,7 @@ function Navbar() {
 		<Header scrollheader={scrollPosition}>
 			<Nav>
 				<Ul>
-					<ListItem>
-						<LinkParagraph scrollheader={scrollPosition} to="/recommend">
-							RECOMMEND
-						</LinkParagraph>
-						<LinkParagraph scrollheader={scrollPosition} to="/">
-							PERFUMES
-						</LinkParagraph>
-						<LinkParagraph scrollheader={scrollPosition} to="/">
-							COMMUNITY
-						</LinkParagraph>
-					</ListItem>
+					<LinkList scrollheader={scrollPosition} />
 				</Ul>
 			</Nav>
 			<Head scrollheader={scrollPosition} to="/">
@@ -81,14 +72,6 @@ const ListItem = styled.li`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-`;
-
-const LinkParagraph = styled(Link)<HeaderProps>`
-	text-decoration: none;
-	font-size: 1.3rem;
-	font-weight: 900;
-	margin-right: 5rem;
-	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 `;
 
 const Head = styled(Link)<HeaderProps>`
