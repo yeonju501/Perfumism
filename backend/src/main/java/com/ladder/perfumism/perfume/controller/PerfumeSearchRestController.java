@@ -29,14 +29,14 @@ public class PerfumeSearchRestController {
     @GetMapping("/perfumes/search")
     @ApiOperation(value = "항수 검색", notes = "브랜드 목록 API 입니다.\n"
         + "가능한 검색 타입: name(기본값), brand, accord\n"
-        + "<font color=\"red\"><b>현재 커밋 기준으로 NAME 검색만 가능합니다!</b></font>\n"
+        + "<font color=\"red\"><b>현재 커밋 기준으로 ACCORD 는 불가능합니다!</b></font>\n"
         + "정렬은 기본적으로 id 순으로 정렬되어있습니다.\n"
         + "name: 향수 이름으로 검색합니다.\n"
         + "brand: 이 브랜드의 향수를 검색합니다.\n"
         + "accord: 이 향을 가진 향수를 검색합니다.")
     @ApiResponses({
         @ApiResponse(code = 400, message = "BAD_REQUEST\n검색어가 2글자 이하일 때"),
-        @ApiResponse(code = 404, message = "NOT_FOUND\n검색 타입이 존재하지 않을 때")
+        @ApiResponse(code = 404, message = "NOT_FOUND\n검색 타입이 존재하지 않을 때\n브랜드 검색 결과가 없을 때")
     })
     @ApiImplicitParams({
         @ApiImplicitParam(name = "type", value = "검색 타입 (name(기본값), brand, accord)"),
