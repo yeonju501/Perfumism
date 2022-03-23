@@ -1,10 +1,6 @@
 import PerfumeImage from "./PerfumeImage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import perfumeApi from "apis/perfume";
 import LikeButton from "components/button/LikeButton";
 
 type PerfumeList = {
@@ -20,14 +16,9 @@ type Perfume = {
 
 function PerfumeList({ perfumes }: PerfumeList) {
 	const navigate = useNavigate();
-	const [isLiked, setIsLiked] = useState(false);
 
 	const handlePerfumeItemClick = (perfumeId: string) => {
 		navigate(`/perfume/${perfumeId}`);
-	};
-
-	const isPerfumeLiked = async (perfumeId: string) => {
-		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
 	};
 
 	return (
