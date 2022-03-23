@@ -10,6 +10,8 @@ interface PerfumeType {
 
 function Perfumes() {
 	const [perfumes, setPerfumes] = useState<PerfumeType[]>([]);
+	const [totalPage, setTotalPage] = useState(0);
+	const [currentPage, setCurrentPage] = useState(0);
 
 	return <div>향수목록</div>;
 }
