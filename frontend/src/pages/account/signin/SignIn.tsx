@@ -22,7 +22,7 @@ function SignIn() {
 						password,
 					})
 					.then((res) => {
-						res.status === 200 ? navigate("/") : null;
+						res.status === 204 ? navigate("/") : null;
 					});
 			} catch (error) {
 				console.log(error);
