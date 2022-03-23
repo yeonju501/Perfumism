@@ -96,4 +96,25 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
+
+    @Transactional
+    public void createCommentReply(String email, Long articleId, Long commentId, CommentCreateRequest request) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Comment mainComment = commentRepository.findById(commentId)
+            .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+
+        Comment reply = Comment.builder()
+            .member(member)
+            .article(article)
+            .mainComment(mainComment)
+            .content(request.getContent())
+            .build();
+
+        commentRepository.save(reply);
+    }
 }

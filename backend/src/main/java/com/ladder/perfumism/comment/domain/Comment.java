@@ -3,6 +3,8 @@ package com.ladder.perfumism.comment.domain;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.global.domain.BaseEntity;
 import com.ladder.perfumism.member.domain.Member;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
@@ -39,15 +42,23 @@ public class Comment extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "main_comment_id")
+    private Comment mainComment;
+
+    @OneToMany(mappedBy = "mainComment")
+    private List<Comment> replyCommentList = new ArrayList<>();
+
     protected Comment(){
 
     }
 
     @Builder
-    public Comment(Member member, Article article, String content){
+    public Comment(Member member, Article article, String content, Comment mainComment){
         this.member = member;
         this.article = article;
         this.content = content;
+        this.mainComment = mainComment;
     }
 
     public void changeContent(String content) {
