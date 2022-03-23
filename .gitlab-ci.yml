@@ -14,6 +14,8 @@ build-back:
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
     - mkdir ./src/main/resources
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
+    - rm -rf ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
+    - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/WEBSECURITY ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
     - ls -al ./src/main/resources
 
   script:
