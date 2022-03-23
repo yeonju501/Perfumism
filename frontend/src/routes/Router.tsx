@@ -1,4 +1,3 @@
-import Navbar from "components/main/Navbar";
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
