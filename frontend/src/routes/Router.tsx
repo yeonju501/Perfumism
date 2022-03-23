@@ -15,21 +15,24 @@ import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 function Router() {
 	return (
 		<BrowserRouter>
 			<Navbar />
 			<Routes>
+				<Route element={<PrivateRoute />}>
+					<Route path="/recommend" element={<Recommend />} />
+					<Route path="/:username" element={<Profile />} />
+					<Route path="/:username/favorites" element={<Favorites />} />
+					<Route path="/:username/my-articles" element={<MyArticles />} />
+					<Route path="/:username/my-comments" element={<MyComments />} />
+					<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
+					<Route path="/survey" element={<Survey />} />
+					<Route path="/survey/result" element={<SurveyResult />} />
+				</Route>
 				<Route path="/" element={<Main />} />
-				<Route path="/:username" element={<Profile />} />
-				<Route path="/:username/favorites" element={<Favorites />} />
-				<Route path="/:username/my-articles" element={<MyArticles />} />
-				<Route path="/:username/my-comments" element={<MyComments />} />
-				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
-				<Route path="/recommend" element={<Recommend />} />
-				<Route path="/survey" element={<Survey />} />
-				<Route path="/survey/result" element={<SurveyResult />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/find-password" element={<FindPassword />} />
