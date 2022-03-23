@@ -49,7 +49,7 @@ public class Comment extends BaseEntity {
     private Comment mainComment;
 
     @OneToMany(mappedBy = "mainComment")
-    private List<Comment> replyCommentList = new ArrayList<>();
+    private List<Comment> replyList = new ArrayList<>();
 
     protected Comment(){
 
