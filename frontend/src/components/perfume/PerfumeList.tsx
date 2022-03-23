@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import LikeButton from "components/button/LikeButton";
 
 type PerfumeList = {
-	perfumes: [];
+	perfumes: Perfume[];
 };
 
 type Perfume = {
 	perfume_id: string;
 	perfume_name: string;
-	brand_name: string;
+	brand_name?: string;
 	image: string;
 };
 
