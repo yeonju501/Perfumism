@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Search, Icons } from "./index";
+import { Icons } from "./index";
 import LinkList from "./LinkList";
 
 interface NavProps {
