@@ -5,6 +5,7 @@ import { formValidator } from "utils";
 import { authApi } from "apis";
 import useForm from "../hooks/useForm";
 import socialLogin from "apis/socialLogin";
+import { toast } from "react-toastify";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -21,8 +22,9 @@ function SignIn() {
 						email,
 						password,
 					})
-					.then((res) => {
-						res.status === 204 ? navigate("/") : null;
+					.then(() => {
+						toast.success("로그인 성공");
+						navigate("/");
 					});
 			} catch (error) {
 				console.log(error);
