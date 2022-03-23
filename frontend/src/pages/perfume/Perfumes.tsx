@@ -1,4 +1,5 @@
-import { useState } from "react";
+import perfumeApi from "apis/perfume";
+import { useEffect, useState } from "react";
 
 interface PerfumeType {
 	perfume_id: string;
@@ -12,6 +13,18 @@ function Perfumes() {
 	const [perfumes, setPerfumes] = useState<PerfumeType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
+
+	useEffect(() => {
+		getPerfumes();
+	}, []);
+
+	const getPerfumes = async () => {
+		await perfumeApi.getPerfumes().then((res) => {
+			setPerfumes(res.data.perfumes);
+			setTotalPage(res.data.total_page_count);
+			setCurrentPage(res.data.current_page_count);
+		});
+	};
 
 	return <div>향수목록</div>;
 }
