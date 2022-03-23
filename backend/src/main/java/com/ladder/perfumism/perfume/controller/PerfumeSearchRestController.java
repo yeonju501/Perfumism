@@ -26,7 +26,7 @@ public class PerfumeSearchRestController {
         this.perfumeSearchService = perfumeSearchService;
     }
 
-    @GetMapping("/perfume/search")
+    @GetMapping("/perfumes/search")
     @ApiOperation(value = "항수 검색", notes = "브랜드 목록 API 입니다.\n"
         + "가능한 검색 타입: name(기본값), brand, accord\n"
         + "<font color=\"red\"><b>현재 커밋 기준으로 NAME 검색만 가능합니다!</b></font>\n"
