@@ -1,4 +1,5 @@
 import perfumeApi from "apis/perfume";
+import PerfumeList from "components/perfume/PerfumeList";
 import { useEffect, useState } from "react";
 
 interface PerfumeType {
@@ -26,7 +27,7 @@ function Perfumes() {
 		});
 	};
 
-	return <div>향수목록</div>;
+	return <PerfumeList perfumes={perfumes} />;
 }
 
 export default Perfumes;
