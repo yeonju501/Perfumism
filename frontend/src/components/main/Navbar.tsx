@@ -34,10 +34,7 @@ function Navbar() {
 			</Head>
 			<Nav justifyContent="flex-end">
 				<Ul>
-					<ListItem>
-						<Search />
-						<Icons />
-					</ListItem>
+					<Icons />
 				</Ul>
 			</Nav>
 		</Header>
@@ -66,12 +63,6 @@ const Nav = styled.nav<NavProps>`
 
 const Ul = styled.ul`
 	display: flex;
-`;
-
-const ListItem = styled.li`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 `;
 
 const Head = styled(Link)<HeaderProps>`
