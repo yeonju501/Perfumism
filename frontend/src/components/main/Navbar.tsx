@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
-import Search from "./Search";
-import { authApi } from "apis";
+import { Icons } from "./index";
+import LinkList from "./LinkList";
 
 interface NavProps {
 	justifyContent?: string;
@@ -28,17 +26,7 @@ function Navbar() {
 		<Header scrollheader={scrollPosition}>
 			<Nav>
 				<Ul>
-					<ListItem>
-						<LinkParagraph scrollheader={scrollPosition} to="/recommend">
-							RECOMMEND
-						</LinkParagraph>
-						<LinkParagraph scrollheader={scrollPosition} to="/">
-							PERFUMES
-						</LinkParagraph>
-						<LinkParagraph scrollheader={scrollPosition} to="/">
-							COMMUNITY
-						</LinkParagraph>
-					</ListItem>
+					<LinkList scrollheader={scrollPosition} />
 				</Ul>
 			</Nav>
 			<Head scrollheader={scrollPosition} to="/">
@@ -46,12 +34,7 @@ function Navbar() {
 			</Head>
 			<Nav justifyContent="flex-end">
 				<Ul>
-					<ListItem>
-						<Search />
-						<FontAwesome icon={faBell} />
-						<FontAwesome icon={faUser} />
-						<FontAwesome icon={faArrowRightFromBracket} onClick={authApi.logout} />
-					</ListItem>
+					<Icons />
 				</Ul>
 			</Nav>
 		</Header>
@@ -82,20 +65,6 @@ const Ul = styled.ul`
 	display: flex;
 `;
 
-const ListItem = styled.li`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-`;
-
-const LinkParagraph = styled(Link)<HeaderProps>`
-	text-decoration: none;
-	font-size: 1.3rem;
-	font-weight: 900;
-	margin-right: 5rem;
-	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
-`;
-
 const Head = styled(Link)<HeaderProps>`
 	font-size: 4rem;
 	font-weight: 900;
@@ -105,10 +74,4 @@ const Head = styled(Link)<HeaderProps>`
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 `;
 
-const FontAwesome = styled(FontAwesomeIcon)`
-	width: 1.8rem;
-	height: 1.8rem;
-	margin-left: 2rem;
-	cursor: pointer;
-`;
 export default Navbar;
