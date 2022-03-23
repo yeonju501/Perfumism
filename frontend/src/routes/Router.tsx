@@ -4,6 +4,7 @@ import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
 import GoogleLoginPage from "pages/account/socialogin/GoogleLoginPage";
 import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
+import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
 import Favorites from "pages/profile/Favorites";
@@ -19,7 +20,7 @@ function Router() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" />
+				<Route path="/" element={<Main />} />
 				<Route path="/:username" element={<Profile />} />
 				<Route path="/:username/favorites" element={<Favorites />} />
 				<Route path="/:username/my-articles" element={<MyArticles />} />
@@ -33,7 +34,6 @@ function Router() {
 				<Route path="/find-password" element={<FindPassword />} />
 				<Route path="/login/oauth2/code/kakao" element={<KaKaoLoginPage />} />
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
-				<Route path="/navbar" element={<Navbar />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
 			</Routes>
 		</BrowserRouter>
