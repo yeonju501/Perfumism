@@ -25,9 +25,9 @@ public class CommentReplyReadResponse {
     @ApiModelProperty(position = 3, notes = "게시글 ID", example = "1")
     private Long articleId;
 
-    @JsonProperty("main_comment_id")
+    @JsonProperty("parentId")
     @ApiModelProperty(position = 4, notes = "댓글 ID", example = "1")
-    private Long mainCommentId;
+    private Long parentId;
 
     @JsonProperty("content")
     @ApiModelProperty(required = true, position = 5, notes = "내용", example = "나는 쓴다 댓글 여기에")
@@ -47,12 +47,12 @@ public class CommentReplyReadResponse {
 
     public CommentReplyReadResponse(
         Long commentId, Long memberId, String memberName, Long articleId,
-        Long mainCommentId, String content, LocalDateTime createAt, LocalDateTime updateAt){
+        Long parentId, String content, LocalDateTime createAt, LocalDateTime updateAt){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
         this.articleId = articleId;
-        this.mainCommentId = mainCommentId;
+        this.parentId = parentId;
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
@@ -64,7 +64,7 @@ public class CommentReplyReadResponse {
             comment.getMember().getId(),
             comment.getMember().getUsername(),
             comment.getArticle().getId(),
-            comment.getMainComment().getId(),
+            comment.getParentId().getId(),
             comment.getContent(),
             comment.getCreatedAt(),
             comment.getUpdatedAt()

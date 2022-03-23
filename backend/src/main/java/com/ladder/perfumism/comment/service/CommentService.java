@@ -105,13 +105,13 @@ public class CommentService {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
-        Comment mainComment = commentRepository.findById(commentId)
+        Comment parentId = commentRepository.findById(commentId)
             .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
 
         Comment reply = Comment.builder()
             .member(member)
             .article(article)
-            .mainComment(mainComment)
+            .parentId(parentId)
             .content(request.getContent())
             .build();
 

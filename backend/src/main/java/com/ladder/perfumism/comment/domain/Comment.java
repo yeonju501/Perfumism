@@ -45,8 +45,8 @@ public class Comment extends BaseEntity {
     // 대댓글
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "main_comment_id")
-    private Comment mainComment;
+    @JoinColumn(name = "parentId")
+    private Comment parentId;
 
     @OneToMany(mappedBy = "mainComment")
     private List<Comment> replyList = new ArrayList<>();
@@ -56,11 +56,11 @@ public class Comment extends BaseEntity {
     }
 
     @Builder
-    public Comment(Member member, Article article, String content, Comment mainComment){
+    public Comment(Member member, Article article, String content, Comment parentId){
         this.member = member;
         this.article = article;
         this.content = content;
-        this.mainComment = mainComment;
+        this.parentId = parentId;
     }
 
     public void changeContent(String content) {
