@@ -4,7 +4,9 @@ interface SectionProps {
 	image: string;
 }
 
-export const Section = styled.section<SectionProps>`
+const Section = styled.section<SectionProps>`
 	height: 80rem;
 	background: ${(props) => `url(${props.image}) no-repeat top`};
 `;
+
+export default Section;
