@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 public class PerfumeListResponse {
 
     @JsonProperty("perfumes")
-    @ApiModelProperty(position = 0, notes = "향수 리스트")
+    @ApiModelProperty(notes = "향수 리스트")
     private List<PerfumeSimpleResponse> perfumeSimpleResponses;
 
     @JsonProperty("total_page_count")
@@ -32,7 +32,7 @@ public class PerfumeListResponse {
         this.currentPageCount = currentPageCount;
     }
 
-    public static PerfumeListResponse fromLikes(Page<PerfumeLike> perfumes){
+    public static PerfumeListResponse fromLikes(Page<PerfumeLike> perfumes) {
         return new PerfumeListResponse(
             perfumes.stream()
                 .map(PerfumeSimpleResponse::from)
@@ -42,7 +42,7 @@ public class PerfumeListResponse {
         );
     }
 
-    public static PerfumeListResponse from(Page<Perfume> perfumes){
+    public static PerfumeListResponse from(Page<Perfume> perfumes) {
         return new PerfumeListResponse(
             perfumes.stream()
                 .map(PerfumeSimpleResponse::from)
