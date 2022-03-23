@@ -91,6 +91,11 @@ public class CommentRestController {
 
     // 대댓글
     @PostMapping("/reply/{comment_id}")
+    @ApiOperation(value = "대댓글 작성", notes = "<b>(로그인 필요)</b> 대댓글 작성 API")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
+        @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
+    })
     public ResponseEntity<Void> createCommentReply(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
