@@ -3,7 +3,7 @@ import cookie from "react-cookies";
 
 function PrivateRoute() {
 	const token = cookie.load("accessToken");
-	return token ? <Outlet /> : <Navigate to="/sign-in" />;
+	return token ? <Outlet /> : <Navigate to="/signin" />;
 }
 
 export default PrivateRoute;
