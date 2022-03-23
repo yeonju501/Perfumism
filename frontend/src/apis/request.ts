@@ -8,33 +8,31 @@ axios.defaults.withCredentials = true;
 const setInterceptors = (instance: AxiosInstance) => {
 	instance.interceptors.request.use(
 		(config) => {
+			const token = cookie.load("access_token");
+			if (config.headers && token) config.headers.Authorization = `Bearer ${token}`;
 			return config;
 		},
-		(error) => Promise.reject(console.log(error.response)),
+		(error) => Promise.reject(error),
 	);
-
 	instance.interceptors.response.use(
 		(response) => {
-			if (response.data.access_token) setHeadersAuthroization(response.data.access_token);
 			return response;
 		},
 		(error) => {
-			const refreshToken = cookie.load("refreshToken");
-			if (refreshToken && error.response.status === 401) return authApi.reissue(refreshToken);
-			Promise.reject(toast.error(error.response.data.error_message));
+			const index = cookie.load("index");
+			const access_token = cookie.load("access_token");
+			if (error.response.status === 403) return authApi.reissue({ index, access_token });
+			toast.error(error.response.data.error_message);
+			return Promise.reject(error);
 		},
 	);
 	return instance;
 };
 
-const setHeadersAuthroization = (token: string) => {
-	axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
-
 const createInstance = () => {
 	const instance = axios.create({
 		baseURL: process.env.REACT_APP_MAIN_URL,
-		timeout: 3000,
+		timeout: 10000,
 		headers: { "Content-Type": "application/json" },
 	});
 	return setInterceptors(instance);

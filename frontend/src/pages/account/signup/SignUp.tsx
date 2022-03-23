@@ -5,6 +5,7 @@ import useForm from "../hooks/useForm";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import socialLogin from "apis/socialLogin";
+import { toast } from "react-toastify";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -24,7 +25,10 @@ function SignUp() {
 						password,
 						username,
 					})
-					.then(() => navigate("/signin"));
+					.then(() => {
+						authApi.signin({ email, password }).then(() => navigate("/"));
+						toast.success("회원가입이 완료 되었습니다");
+					});
 			} catch (error) {
 				console.log(error);
 			}
