@@ -49,6 +49,10 @@ public enum ErrorCode {
     PERFUME_ALREADY_LIKE(HttpStatus.CONFLICT, "이미 향수에 좋아요를 하셨습니다.", "S02"),
     PERFUME_NOT_LIKE_THIS_BEFORE(HttpStatus.NOT_FOUND, "이 향수를 좋아한 적이 없습니다.", "S03"),
 
+    // search
+    SEARCH_TOO_SHORT_KEYWORD(HttpStatus.BAD_REQUEST, "검색어는 2글자 이상 입력하셔야 합니다.", "T01"),
+    SEARCH_NOT_EXIST_TYPE(HttpStatus.NOT_FOUND, "존재하지 않는 검색 타입입니다.", "T02"),
+
     //review
     REVIEW_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 리뷰 ID 입니다", "V01"),
     REVIEW_OVER_GRADE(HttpStatus.CONFLICT, "평점은 5점을 넘어설 수 없습니다.", "V02"),
