@@ -2,8 +2,11 @@ package com.ladder.perfumism.perfume.service;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.perfume.controller.dto.response.BrandListResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
+import com.ladder.perfumism.perfume.domain.Brand;
+import com.ladder.perfumism.perfume.domain.BrandRepository;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeAccordRepository;
@@ -22,13 +25,15 @@ public class PerfumeService {
     private final PerfumeRepository perfumeRepository;
     private final PerfumeAccordRepository perfumeAccordRepository;
     private final SimilarPerfumeRepository similarPerfumeRepository;
+    private final BrandRepository brandRepository;
 
     public PerfumeService(PerfumeRepository perfumeRepository,
         PerfumeAccordRepository perfumeAccordRepository,
-        SimilarPerfumeRepository similarPerfumeRepository) {
+        SimilarPerfumeRepository similarPerfumeRepository, BrandRepository brandRepository) {
         this.perfumeRepository = perfumeRepository;
         this.perfumeAccordRepository = perfumeAccordRepository;
         this.similarPerfumeRepository = similarPerfumeRepository;
+        this.brandRepository = brandRepository;
     }
 
     @Transactional(readOnly = true)
@@ -43,11 +48,17 @@ public class PerfumeService {
         return PerfumeDetailResponse.from(perfume, perfumeAccords, similarPerfumes);
     }
 
-
     @Transactional(readOnly = true)
-    public PerfumeListResponse normalPerfumeList(Pageable pageable) {
+    public PerfumeListResponse getPerfumeList(Pageable pageable) {
         Page<Perfume> perfumeList = perfumeRepository.findAll(pageable);
 
         return PerfumeListResponse.from(perfumeList);
+    }
+
+    @Transactional(readOnly = true)
+    public BrandListResponse getBrandList(Pageable pageable) {
+        Page<Brand> brandList = brandRepository.findAll(pageable);
+
+        return BrandListResponse.from(brandList);
     }
 }
