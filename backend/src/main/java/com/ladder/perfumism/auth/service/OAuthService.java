@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ladder.perfumism.auth.controller.dto.AuthorizationGoogle;
 import com.ladder.perfumism.auth.controller.dto.AuthorizationKakao;
-import com.ladder.perfumism.auth.controller.dto.response.AccessTokenResponse;
 import com.ladder.perfumism.auth.controller.dto.response.GoogleUserInfoResponse;
 import com.ladder.perfumism.auth.controller.dto.response.KakaoUserInfoResponse;
 import com.ladder.perfumism.auth.controller.dto.response.TokenResponse;
@@ -64,17 +63,14 @@ public class OAuthService {
     }
 
     @Transactional
-    public AccessTokenResponse oauth2AuthorizationGoogle(String code, HttpServletResponse response) {
+    public void oauth2AuthorizationGoogle(String code, HttpServletResponse response) {
         AuthorizationGoogle authorization = callTokenApiGoogle(code);
         GoogleUserInfoResponse userInfoResponse = callGoogleUserInfoByAccessToken(authorization.getAccess_token(), authorization.getId_token());
 
         Member member = loadGoogleUser(userInfoResponse);
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
-        saveRefreshToken(member, tokenResponse);
-        setRefreshTokenToCookie(tokenResponse, response);
-        return AccessTokenResponse.builder()
-            .accessToken(tokenResponse.getAccessToken())
-            .build();
+        Long refreshTokenId = saveRefreshToken(member, tokenResponse);
+        setTokenToCookie(tokenResponse.getAccessToken(), refreshTokenId, response);
     }
 
     private AuthorizationGoogle callTokenApiGoogle(String code) {
@@ -118,17 +114,14 @@ public class OAuthService {
     }
 
     @Transactional
-    public AccessTokenResponse oauth2AuthorizationKakao(String code, HttpServletResponse response) {
+    public void oauth2AuthorizationKakao(String code, HttpServletResponse response) {
         AuthorizationKakao authorization = callTokenApiKakao(code);
         KakaoUserInfoResponse userInfoResponse = callUserInfoByAccessToken(authorization.getAccess_token());
 
         Member member = loadKakaoUser(userInfoResponse);
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
-        saveRefreshToken(member, tokenResponse);
-        setRefreshTokenToCookie(tokenResponse, response);
-        return AccessTokenResponse.builder()
-            .accessToken(tokenResponse.getAccessToken())
-            .build();
+        Long refreshTokenId = saveRefreshToken(member, tokenResponse);
+        setTokenToCookie(tokenResponse.getAccessToken(), refreshTokenId, response);
     }
 
     private AuthorizationKakao callTokenApiKakao(String code) {
@@ -186,20 +179,29 @@ public class OAuthService {
     }
 
     @Transactional
-    public void saveRefreshToken(Member member, TokenResponse tokenResponse) {
-        RefreshToken refreshToken = RefreshToken.builder()
-            .key(member.getEmail())
-            .value(tokenResponse.getRefreshToken())
-            .build();
+    public Long saveRefreshToken(Member member, TokenResponse tokenResponse) {
+        RefreshToken refreshToken = refreshTokenRepository.findByKey(member.getEmail())
+            .orElse(RefreshToken.builder()
+                .key(member.getEmail())
+                .value(tokenResponse.getRefreshToken())
+                .build());
         refreshTokenRepository.save(refreshToken);
+        return refreshToken.getId();
     }
 
-    private void setRefreshTokenToCookie(TokenResponse tokenResponse, HttpServletResponse response) {
-        Cookie cookie = new Cookie("refreshToken", tokenResponse.getRefreshToken());
-        cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-        cookie.setSecure(true);
+    private void setTokenToCookie(String accessToken, Long refreshTokenId, HttpServletResponse response) {
+        Cookie accessTokenCookie = new Cookie("access_token", accessToken);
+        accessTokenCookie.setMaxAge(30 * 60); // expires in 7 days
+        accessTokenCookie.setSecure(true);
 //        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        accessTokenCookie.setPath("/");
+        response.addCookie(accessTokenCookie);
+
+        Cookie refreshIdCookie = new Cookie("index", Long.toString(refreshTokenId));
+        refreshIdCookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+        refreshIdCookie.setSecure(true);
+//        cookie.setHttpOnly(true);
+        refreshIdCookie.setPath("/");
+        response.addCookie(refreshIdCookie);
     }
 }
