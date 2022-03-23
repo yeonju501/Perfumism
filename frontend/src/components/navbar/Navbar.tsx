@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Icons } from "./index";
-import LinkList from "./LinkList";
+import { Icons, LinkList } from "./index";
 
 interface NavProps {
 	justifyContent?: string;
@@ -46,7 +45,8 @@ const Header = styled.header<HeaderProps>`
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 	width: 100%;
 	height: 10rem;
-	position: fixed;
+	position: sticky;
+	top: 0;
 	z-index: 20;
 	display: flex;
 	justify-content: space-between;
