@@ -41,7 +41,7 @@ public class CommentRestController {
         @RequestBody CommentCreateRequest request, @PathVariable(value = "article_id")Long articleId){
         commentService.commentCreate(email,articleId,request);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -89,4 +89,17 @@ public class CommentRestController {
         return ResponseEntity.noContent().build();
     }
 
+    // 대댓글
+    @PostMapping("/reply/{comment_id}")
+    public ResponseEntity<Void> createCommentReply(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId,
+        @PathVariable(value = "comment_id") Long commentId,
+        @RequestBody CommentCreateRequest request){
+
+        commentService.createCommentReply(email, articleId, commentId, request);
+
+        return ResponseEntity.noContent().build();
+
+    }
 }
