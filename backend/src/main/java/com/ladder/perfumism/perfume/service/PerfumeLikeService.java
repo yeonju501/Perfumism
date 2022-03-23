@@ -12,8 +12,10 @@ import com.ladder.perfumism.perfume.domain.PerfumeLikeRepository;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class PerfumeLikeService {
 
     private final MemberService memberService;
