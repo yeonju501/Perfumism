@@ -5,6 +5,7 @@ interface SectionProps {
 }
 
 const Section = styled.section<SectionProps>`
+	position: relative;
 	height: 80rem;
 	background: ${(props) => `url(${props.image}) no-repeat top`};
 `;
