@@ -1,14 +1,11 @@
 package com.ladder.perfumism.auth.controller;
 
 import com.ladder.perfumism.auth.controller.dto.request.LoginRequest;
-import com.ladder.perfumism.auth.controller.dto.request.RefreshTokenRequest;
-import com.ladder.perfumism.auth.controller.dto.request.TokenRequest;
-import com.ladder.perfumism.auth.controller.dto.response.AccessTokenResponse;
+import com.ladder.perfumism.auth.controller.dto.request.ReissueRequest;
 import com.ladder.perfumism.auth.service.AuthService;
 import com.ladder.perfumism.auth.service.OAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,27 +30,29 @@ public class AuthRestController {
 
     @PostMapping("/members/login")
     @ApiOperation(value = "로그인", notes = "로그인 API")
-    public ResponseEntity<AccessTokenResponse> login(@RequestBody LoginRequest request, HttpServletResponse response) {
-        return ResponseEntity.ok().body(authService.login(request, response));
+    public ResponseEntity<Void> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+        authService.login(request, response);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/members/reissue")
     @ApiOperation(value = "토큰 재발급", notes = "토큰 재발급 API")
-    public ResponseEntity<AccessTokenResponse> reissue(@RequestBody RefreshTokenRequest tokenRequest, HttpServletRequest request,
-        HttpServletResponse response) {
-        String accessToken = request.getHeader("Authorization").split(" ")[1];
-        return ResponseEntity.ok().body(authService.reissue(tokenRequest, accessToken, response));
+    public ResponseEntity<Void> reissue(@RequestBody ReissueRequest tokenRequest, HttpServletResponse response) {
+        authService.reissue(tokenRequest, response);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/oauth2/authorization/google")
     @ApiOperation(value = "구글 로그인", notes = "구글 로그인 API")
-    public ResponseEntity<AccessTokenResponse> getGoogleCode(@RequestParam String code, HttpServletResponse response) {
-        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationGoogle(code, response));
+    public ResponseEntity<Void> getGoogleCode(@RequestParam String code, HttpServletResponse response) {
+        oAuthService.oauth2AuthorizationGoogle(code, response);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/oauth2/authorization/kakao")
     @ApiOperation(value = "카카오 로그인", notes = "카카오 로그인 API")
-    public ResponseEntity<AccessTokenResponse> getKakaoCode(@RequestParam String code, HttpServletResponse response) {
-        return ResponseEntity.ok().body(oAuthService.oauth2AuthorizationKakao(code, response));
+    public ResponseEntity<Void> getKakaoCode(@RequestParam String code, HttpServletResponse response) {
+        oAuthService.oauth2AuthorizationKakao(code, response);
+        return ResponseEntity.noContent().build();
     }
 }
