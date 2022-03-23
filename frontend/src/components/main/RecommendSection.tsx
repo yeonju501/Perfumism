@@ -17,9 +17,8 @@ function RecommendSection() {
 export default RecommendSection;
 
 const Section = styled.section<SectionProps>`
-	width: 100%;
-	height: 70rem;
-	background-image: url(${Background});
+	height: 80rem;
+	background: url(${Background}) no-repeat top;
 `;
 
 const Button = styled(Link)`
