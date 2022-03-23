@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { request } from "./request";
+import cookie from "react-cookies";
 
 interface UserApiType {
 	signup: (userInfo: {
@@ -11,6 +12,7 @@ interface UserApiType {
 	signin: (userInfo: { email: string; password: string }) => Promise<AxiosResponse>;
 	reissue: (data: { index: number; access_token: string }) => Promise<AxiosResponse>;
 	findPassword: (email: string) => Promise<AxiosResponse<{ code: string }>>;
+	logout: () => void;
 }
 
 const authApi: UserApiType = {
@@ -19,6 +21,7 @@ const authApi: UserApiType = {
 	signin: (userInfo) => request.post("members/login", userInfo),
 	reissue: (data) => request.post("members/reissue", data),
 	findPassword: (email) => request.post("members/find-pw", email),
+	logout: () => cookie.remove("access_token"),
 };
 
 export default authApi;

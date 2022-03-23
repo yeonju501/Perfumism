@@ -4,13 +4,14 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import Search from "./Search";
+import { authApi } from "apis";
 
 interface NavProps {
 	justifyContent?: string;
 }
 
 interface HeaderProps {
-	scrollHeader: number;
+	scrollheader: number;
 }
 
 function Navbar() {
@@ -24,23 +25,23 @@ function Navbar() {
 	});
 
 	return (
-		<Header scrollHeader={scrollPosition}>
+		<Header scrollheader={scrollPosition}>
 			<Nav>
 				<Ul>
 					<ListItem>
-						<LinkParagraph scrollHeader={scrollPosition} to="/recommend">
+						<LinkParagraph scrollheader={scrollPosition} to="/recommend">
 							RECOMMEND
 						</LinkParagraph>
-						<LinkParagraph scrollHeader={scrollPosition} to="/">
+						<LinkParagraph scrollheader={scrollPosition} to="/">
 							PERFUMES
 						</LinkParagraph>
-						<LinkParagraph scrollHeader={scrollPosition} to="/">
+						<LinkParagraph scrollheader={scrollPosition} to="/">
 							COMMUNITY
 						</LinkParagraph>
 					</ListItem>
 				</Ul>
 			</Nav>
-			<Head scrollHeader={scrollPosition} to="/">
+			<Head scrollheader={scrollPosition} to="/">
 				PERFUMISM
 			</Head>
 			<Nav justifyContent="flex-end">
@@ -49,7 +50,7 @@ function Navbar() {
 						<Search />
 						<FontAwesome icon={faBell} />
 						<FontAwesome icon={faUser} />
-						<FontAwesome icon={faArrowRightFromBracket} />
+						<FontAwesome icon={faArrowRightFromBracket} onClick={authApi.logout} />
 					</ListItem>
 				</Ul>
 			</Nav>
@@ -58,8 +59,8 @@ function Navbar() {
 }
 
 const Header = styled.header<HeaderProps>`
-	background: ${({ scrollHeader }) => (scrollHeader > 2 ? "#000" : "#fff")};
-	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
+	background: ${({ scrollheader }) => (scrollheader > 2 ? "#000" : "#fff")};
+	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 	width: 100%;
 	height: 10rem;
 	position: fixed;
@@ -92,7 +93,7 @@ const LinkParagraph = styled(Link)<HeaderProps>`
 	font-size: 1.3rem;
 	font-weight: 900;
 	margin-right: 5rem;
-	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
+	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 `;
 
 const Head = styled(Link)<HeaderProps>`
@@ -101,7 +102,7 @@ const Head = styled(Link)<HeaderProps>`
 	text-decoration: none;
 	display: flex;
 	justify-content: center;
-	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
+	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
