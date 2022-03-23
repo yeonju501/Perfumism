@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import Navbar from "components/main/Navbar";
+import Navbar from "components/navbar/Navbar";
 import { RecommendSection, PerfumesSection } from "components/main";
 
 function MainPage() {
 	return (
 		<Main>
-			<Navbar />
 			<RecommendSection />
 			<PerfumesSection />
 		</Main>
