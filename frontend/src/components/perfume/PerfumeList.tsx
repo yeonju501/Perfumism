@@ -3,16 +3,16 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "components/button/LikeButton";
 
-type PerfumeList = {
+interface PerfumeList {
 	perfumes: Perfume[];
-};
+}
 
-type Perfume = {
+interface Perfume {
 	perfume_id: string;
 	perfume_name: string;
 	brand_name?: string;
 	image: string;
-};
+}
 
 function PerfumeList({ perfumes }: PerfumeList) {
 	const navigate = useNavigate();
