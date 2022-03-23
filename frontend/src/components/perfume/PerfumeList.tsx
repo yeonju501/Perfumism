@@ -41,6 +41,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 
 const Container = styled.ul`
 	display: flex;
+	flex-wrap: wrap;
 `;
 
 const Perfume = styled.li`

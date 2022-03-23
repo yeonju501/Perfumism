@@ -20,7 +20,7 @@ function Perfumes() {
 	}, []);
 
 	const getPerfumes = async () => {
-		await perfumeApi.getPerfumes().then((res) => {
+		await perfumeApi.getPerfumes(currentPage).then((res) => {
 			setPerfumes(res.data.perfumes);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count);
