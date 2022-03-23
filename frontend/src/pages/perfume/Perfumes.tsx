@@ -27,7 +27,11 @@ function Perfumes() {
 		});
 	};
 
-	return <PerfumeList perfumes={perfumes} />;
+	return (
+		<div>
+			<PerfumeList perfumes={perfumes} />
+		</div>
+	);
 }
 
 export default Perfumes;
