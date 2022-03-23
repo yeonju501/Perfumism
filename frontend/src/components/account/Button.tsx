@@ -6,12 +6,10 @@ interface ButtonProps {
 }
 
 const Button = styled.button<ButtonProps>`
-	--background-color: ${({ backgroundColor }) => backgroundColor};
-	--color: ${({ color }) => color};
 	width: 50rem;
-	background-color: var(--background-color);
+	background-color: ${({ backgroundColor }) => backgroundColor};
 	border: none;
-	color: var(--color);
+	color: ${({ color }) => color};
 	height: 5rem;
 	font-weight: bold;
 	font-size: 1.6rem;
