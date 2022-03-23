@@ -42,6 +42,8 @@ public class Comment extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    // 대댓글
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_comment_id")
     private Comment mainComment;
