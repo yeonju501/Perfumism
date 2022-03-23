@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.comment.domain.Comment;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Getter
@@ -37,11 +39,17 @@ public class CommentReadResponse {
     @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
     private LocalDateTime updateAt;
 
+    @JsonProperty("replyList")
+    private List<CommentReplyReadResponse> replyList;
+
     public CommentReadResponse(){
 
     }
 
-    public CommentReadResponse(Long commentId, Long memberId, String memberName, Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt){
+    public CommentReadResponse(
+        Long commentId, Long memberId, String memberName,
+        Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt,
+        List<CommentReplyReadResponse> replyList){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -49,6 +57,7 @@ public class CommentReadResponse {
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.replyList = replyList;
     }
 
     public static CommentReadResponse from(Comment comment){
@@ -59,7 +68,8 @@ public class CommentReadResponse {
             comment.getArticle().getId(),
             comment.getContent(),
             comment.getCreatedAt(),
-            comment.getUpdatedAt()
+            comment.getUpdatedAt(),
+            comment.getReplyList().stream().map(CommentReplyReadResponse::from).collect(Collectors.toList())
         );
     }
 
