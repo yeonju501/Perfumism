@@ -64,7 +64,8 @@ deploy-back:
     - master
     - develop
   script:
-    - /home/ubuntu/restart_backend.sh
+    - cd /home/ubuntu
+    - ./restart_backend.sh
   tags:
     - prd
 
@@ -75,8 +76,8 @@ deploy-front:
     - develop
   script:
     - ls -al /home/ubuntu/S06P22D105/frontend/build
-    - cd /home/ubuntu/S06P22D105/frontend
-    - npx serve -s build/ &
+    - cd /home/ubuntu/
+    - ./restart_frontend.sh
 
   tags:
     - prd
