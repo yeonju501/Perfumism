@@ -59,7 +59,7 @@ public class CommentService {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
-        Page<Comment> commentList = commentRepository.findByArticle(article, pageable);
+        Page<Comment> commentList = commentRepository.findAllByParentIdIsNullAndArticle(article, pageable);
 
         return CommentReadListResponse.from(commentList);
     }
