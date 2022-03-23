@@ -67,7 +67,7 @@ deploy-back:
     - echo "백 배포 시작"
   script:
     - cd /home/ubuntu
-    - ./restart_backend.sh
+    - sudo ./restart_backend.sh
   after_script:
     - echo "백 배포 끝"
   tags:
@@ -83,7 +83,7 @@ deploy-front:
   script:
     - ls -al /home/ubuntu/S06P22D105/frontend/build
     - cd /home/ubuntu/
-    - ./restart_frontend.sh
+    - sudo ./restart_frontend.sh
   after_script:
     - echo "프론트 배포 끝"
   tags:
