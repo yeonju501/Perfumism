@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Background from "assets/background.webp";
-
-interface SectionProps {
-	image: string;
-}
+import { Section } from "./Section";
 
 function RecommendSection() {
 	return (
@@ -15,11 +12,6 @@ function RecommendSection() {
 }
 
 export default RecommendSection;
-
-const Section = styled.section<SectionProps>`
-	height: 80rem;
-	background: url(${Background}) no-repeat top;
-`;
 
 const Button = styled(Link)`
 	width: 35rem;
