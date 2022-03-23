@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
-import Search from "./Search";
-import { authApi } from "apis";
+import { Search, Icons } from "./index";
 
 interface NavProps {
 	justifyContent?: string;
@@ -48,9 +45,7 @@ function Navbar() {
 				<Ul>
 					<ListItem>
 						<Search />
-						<FontAwesome icon={faBell} />
-						<FontAwesome icon={faUser} />
-						<FontAwesome icon={faArrowRightFromBracket} onClick={authApi.logout} />
+						<Icons />
 					</ListItem>
 				</Ul>
 			</Nav>
@@ -105,10 +100,4 @@ const Head = styled(Link)<HeaderProps>`
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 `;
 
-const FontAwesome = styled(FontAwesomeIcon)`
-	width: 1.8rem;
-	height: 1.8rem;
-	margin-left: 2rem;
-	cursor: pointer;
-`;
 export default Navbar;
