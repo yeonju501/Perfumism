@@ -1,10 +1,11 @@
 import Background from "assets/background2.webp";
-import { Section, Button } from "./index";
+import { Section, Button, Phrases } from "./index";
 
 function PerfumesSection() {
 	return (
 		<Section image={Background}>
-			<Button to="/perfumes">향수 목록 바로가기</Button>
+			<Phrases title="All fragrances" content="향수 둘러보기" />
+			<Button to="/perfumes">바로가기</Button>
 		</Section>
 	);
 }
