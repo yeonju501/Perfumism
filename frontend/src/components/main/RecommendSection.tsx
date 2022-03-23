@@ -8,7 +8,9 @@ interface SectionProps {
 
 function RecommendSection() {
 	return (
-	
+		<Section image={Background}>
+			<Button to="/recommend">추천 페이지 바로가기</Button>
+		</Section>
 	);
 }
 
@@ -19,7 +21,6 @@ const Section = styled.section<SectionProps>`
 	height: 70rem;
 	background-image: url(${Background});
 `;
-
 
 const Button = styled(Link)`
 	width: 35rem;
