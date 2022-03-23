@@ -28,13 +28,21 @@ function Navbar() {
 			<Nav>
 				<Ul>
 					<ListItem>
-						<LinkParagraph to="/recommend">RECOMMEND</LinkParagraph>
-						<LinkParagraph to="/">PERFUMES</LinkParagraph>
-						<LinkParagraph to="/">COMMUNITY</LinkParagraph>
+						<LinkParagraph scrollHeader={scrollPosition} to="/recommend">
+							RECOMMEND
+						</LinkParagraph>
+						<LinkParagraph scrollHeader={scrollPosition} to="/">
+							PERFUMES
+						</LinkParagraph>
+						<LinkParagraph scrollHeader={scrollPosition} to="/">
+							COMMUNITY
+						</LinkParagraph>
 					</ListItem>
 				</Ul>
 			</Nav>
-			<Head to="/">PERFUMISM</Head>
+			<Head scrollHeader={scrollPosition} to="/">
+				PERFUMISM
+			</Head>
 			<Nav justifyContent="flex-end">
 				<Ul>
 					<ListItem>
@@ -53,7 +61,7 @@ const Header = styled.header<HeaderProps>`
 	background: ${({ scrollHeader }) => (scrollHeader > 2 ? "#000" : "#fff")};
 	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
 	width: 100%;
-	height: 10vh;
+	height: 10rem;
 	position: fixed;
 	z-index: 20;
 	display: flex;
@@ -79,21 +87,21 @@ const ListItem = styled.li`
 	align-items: center;
 `;
 
-const LinkParagraph = styled(Link)`
+const LinkParagraph = styled(Link)<HeaderProps>`
 	text-decoration: none;
 	font-size: 1.3rem;
 	font-weight: 900;
 	margin-right: 5rem;
-	color: inherit;
+	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
 `;
 
-const Head = styled(Link)`
+const Head = styled(Link)<HeaderProps>`
 	font-size: 4rem;
 	font-weight: 900;
 	text-decoration: none;
 	display: flex;
 	justify-content: center;
-	color: inherit;
+	color: ${({ scrollHeader }) => (scrollHeader > 2 ? "#fff" : "#000")};
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
