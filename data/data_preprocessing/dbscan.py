@@ -6,31 +6,52 @@ import time
 
 start = time.time()
 
-df = pd.read_json('data_preprocessing.json')
+answerData = {
+			"a1": 3,
+			"a2": 4,
+			"a3": 0,
+			"a4": 2,
+			"a5": 1,
+		}
 
 input_data = {
+    "id": "",
+    "perfume": "user",
     "brand": "",
     "image": "",
     "launch_year": 0,
-    "longevity": "",
-    "main_accords": "citrus woody violet fresh musky amber vanilla sweet",
-    "notes": "",
-    "perfume": "user",
-    "sillage": "",
+    "main_accords": "aromatic citrus floral woody fresh spicy",
+    "notes": "Lavender Violet Musk Leather Woody Notes Lemon Bergamot Cardamom",
+    "longevity": "weak",
+    "sillage": "intimate",
+    "total_survey": 61,
+    "similar_perfume": [
+      9903, 7600, 31781, 31808, 19746, 2254, 13591, 25907, 35841, 30273
+    ]
 }
+
+if answerData["a5"] == 0:
+    df = pd.read_json("popular.json")
+elif answerData["a5"] == 1:
+    df = pd.read_json("unpopular.json")
+else:
+    df = pd.read_json("unknown.json")
 
 df = df.append(input_data, ignore_index=True)
 
-tfidfv = TfidfVectorizer().fit(df['main_accords'])
-data = tfidfv.transform(df['main_accords']).toarray()
-data = pd.DataFrame(data)
+if answerData["a5"] == 0:
+    new_df = df
+else:
+    tfidfv = TfidfVectorizer().fit(df['main_accords'])
+    data = tfidfv.transform(df['main_accords']).toarray()
+    data = pd.DataFrame(data)
 
-model = DBSCAN(eps=0.431, min_samples=13)
-predict = pd.DataFrame(model.fit_predict(data))
-predict.columns = ['predict']
+    model = DBSCAN(eps=0.5, min_samples=20)
+    predict = pd.DataFrame(model.fit_predict(data))
+    predict.columns = ['predict']
 
-filt = (predict['predict'] == predict.iloc[-1, 0])
-new_df = df[filt]
+    filt = (predict['predict'] == predict.iloc[-1, 0])
+    new_df = df[filt]
 
 feature = new_df['main_accords'] + ' ' + new_df['notes']
 
