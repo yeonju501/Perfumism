@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.comment.domain.Comment;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Getter
-public class CommentReadResponse {
+public class CommentReplyReadResponse {
 
     @JsonProperty("comment_id")
     @ApiModelProperty(position = 0, notes = "댓글 ID", example = "1")
@@ -27,50 +25,49 @@ public class CommentReadResponse {
     @ApiModelProperty(position = 3, notes = "게시글 ID", example = "1")
     private Long articleId;
 
+    @JsonProperty("parentId")
+    @ApiModelProperty(position = 4, notes = "댓글 ID", example = "1")
+    private Long parentId;
+
     @JsonProperty("content")
-    @ApiModelProperty(required = true, position = 4, notes = "내용", example = "나는 쓴다 댓글 여기에")
+    @ApiModelProperty(required = true, position = 5, notes = "내용", example = "나는 쓴다 댓글 여기에")
     private String content;
 
     @JsonProperty("createAt")
-    @ApiModelProperty(position = 5, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
+    @ApiModelProperty(position = 6, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
     private LocalDateTime createAt;
 
     @JsonProperty("updateAt")
-    @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
+    @ApiModelProperty(position = 7, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
     private LocalDateTime updateAt;
 
-    @JsonProperty("replyList")
-    private List<CommentReplyReadResponse> replyList;
-
-    public CommentReadResponse(){
+    public CommentReplyReadResponse(){
 
     }
 
-    public CommentReadResponse(
-        Long commentId, Long memberId, String memberName,
-        Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt,
-        List<CommentReplyReadResponse> replyList){
+    public CommentReplyReadResponse(
+        Long commentId, Long memberId, String memberName, Long articleId,
+        Long parentId, String content, LocalDateTime createAt, LocalDateTime updateAt){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
         this.articleId = articleId;
+        this.parentId = parentId;
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
-        this.replyList = replyList;
     }
 
-    public static CommentReadResponse from(Comment comment){
-        return new CommentReadResponse(
+    public static CommentReplyReadResponse from(Comment comment){
+        return new CommentReplyReadResponse(
             comment.getId(),
             comment.getMember().getId(),
             comment.getMember().getUsername(),
             comment.getArticle().getId(),
+            comment.getParentId().getId(),
             comment.getContent(),
             comment.getCreatedAt(),
-            comment.getUpdatedAt(),
-            comment.getReplyList().stream().map(CommentReplyReadResponse::from).collect(Collectors.toList())
+            comment.getUpdatedAt()
         );
     }
-
 }
