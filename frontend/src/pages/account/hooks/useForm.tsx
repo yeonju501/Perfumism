@@ -21,7 +21,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 		event.preventDefault();
 		const newErrors = validate(values) ? validate(values) : {};
 		if (Object.keys(newErrors).length === 0) {
-			await onSubmit(values);
+			return await onSubmit(values);
 		}
 		setErrors(newErrors);
 	};
