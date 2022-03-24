@@ -1,5 +1,6 @@
 import { useSearchParams, useLocation } from "react-router-dom";
 import SurveyItem from "components/recommend/SurveyItem";
+import styled from "styled-components";
 
 function Survey() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -14,7 +15,7 @@ function Survey() {
 	];
 
 	return (
-		<div>
+		<Container>
 			{page === "1" ? (
 				<SurveyItem queryString={queryString} surveyListItem={surveyList[0]} />
 			) : null}
@@ -30,8 +31,15 @@ function Survey() {
 			{page === "5" ? (
 				<SurveyItem queryString={queryString} surveyListItem={surveyList[4]} />
 			) : null}
-		</div>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	height: 80vh;
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: column;
+`;
 
 export default Survey;
