@@ -42,6 +42,10 @@ public class CommentReadResponse {
     @JsonProperty("replyList")
     private List<CommentReplyReadResponse> replyList;
 
+    // 삭제
+    @JsonProperty("deletion")
+    private Boolean deletion;
+
     public CommentReadResponse(){
 
     }
@@ -49,7 +53,7 @@ public class CommentReadResponse {
     public CommentReadResponse(
         Long commentId, Long memberId, String memberName,
         Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt,
-        List<CommentReplyReadResponse> replyList){
+        List<CommentReplyReadResponse> replyList, Boolean deletion){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -58,6 +62,7 @@ public class CommentReadResponse {
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.replyList = replyList;
+        this.deletion = deletion;
     }
 
     public static CommentReadResponse from(Comment comment){
@@ -69,7 +74,9 @@ public class CommentReadResponse {
             comment.getContent(),
             comment.getCreatedAt(),
             comment.getUpdatedAt(),
-            comment.getReplyList().stream().map(CommentReplyReadResponse::from).collect(Collectors.toList())
+            comment.getReplyList().stream().map(CommentReplyReadResponse::from)
+                .filter(c -> !c.getDeletion()).collect(Collectors.toList()),
+            comment.getDeletion()
         );
     }
 
