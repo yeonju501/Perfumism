@@ -1,22 +1,29 @@
+import SeaSrc from "assets/바다.jpg";
 import styled from "styled-components";
 
 function Answer() {
-	return <></>;
+	return (
+		<Container>
+			<SurveyImg src={SeaSrc} />
+			<Content>바다</Content>
+		</Container>
+	);
 }
 
 const Container = styled.div`
-	height: 80vh;
-	font-size: 1.5rem;
+	width: 20rem;
 	display: flex;
 	flex-direction: column;
+	margin: 4px;
 `;
 
-const Title = styled.h1`
-	color: #000;
-	font-size: 4rem;
-	font-weight: 800;
-	text-align: center;
-	margin: 10% auto 2%;
+const SurveyImg = styled.img`
+	background-color: none;
+	border: none;
+`;
+
+const Content = styled.p`
+	font-size: 1rem;
 `;
 
 export default Answer;
