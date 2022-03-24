@@ -14,6 +14,7 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     @Query(value = "select p from Perfume p where p.brandId in (:brands)")
     Page<Perfume> findByBrandId(@Param("brands") List<Brand> brands, Pageable pageable);
 
-    @Query(value = "select p from Perfume p join PerfumeAccord a on a.perfumeId = p where a.accordId = :accordId")
+    @Query(value = "select p from Perfume p where p.id in "
+        + "(select a.perfumeId from PerfumeAccord a where a.accordId = :accordId)")
     Page<Perfume> findByAccordId(Accord accordId, Pageable pageable);
 }
