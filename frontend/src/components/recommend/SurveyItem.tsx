@@ -12,7 +12,6 @@ interface SurveyItemProps {
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
-	const [answer, setAnswer] = useState("");
 	const [recommendData, setRecommendData] = useState({});
 
 	const getNextUrl = () => {
@@ -25,10 +24,11 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		return newUrl;
 	};
 
-	const nextUrl = getNextUrl() + answer;
-	const nextPage = () => {
+	const nextPage = (strAnswer: string) => {
+		const nextUrl = getNextUrl() + strAnswer;
 		if (surveyListItem["질문번호"] === "5") {
-			getRecommendData();
+			// getRecommendData();
+			navigate("/survey/result");
 		} else {
 			navigate({
 				pathname: "/survey",
@@ -55,13 +55,14 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 			a2: searchParams.get("a2"),
 			a3: searchParams.get("a3"),
 			a4: searchParams.get("a4"),
-			a5: answer,
+			a5: searchParams.get("a5"),
 		};
 		return answerData;
 	};
 
-	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAnswer(e.target.value);
+	const answerHandleChange = (answer: number) => {
+		const strAnswer = String(answer);
+		nextPage(strAnswer);
 	};
 
 	return (
@@ -69,10 +70,9 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 			<Title>{surveyListItem["질문"]}</Title>
 			<Section>
 				{surveyListItem["답변"].map((answer: string, idx: number) => (
-					<Answer />
+					<Answer key={idx} answerHandleChange={answerHandleChange} number={idx} />
 				))}
 			</Section>
-			<button onClick={nextPage}>다음페이지</button>
 		</Container>
 	);
 }

@@ -1,9 +1,17 @@
+import { useState } from "react";
 import SeaSrc from "assets/바다.jpg";
 import styled from "styled-components";
 
-function Answer() {
+interface AnswerProps {
+	number: number;
+	answerHandleChange: (answer: number) => void;
+}
+
+function Answer({ number, answerHandleChange }: AnswerProps) {
+	const answerHandleClick = () => answerHandleChange(number);
+
 	return (
-		<Container>
+		<Container onClick={answerHandleClick}>
 			<SurveyImg src={SeaSrc} />
 			<Content>바다</Content>
 		</Container>
