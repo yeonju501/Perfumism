@@ -4,7 +4,7 @@ import recommendApi from "apis/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
-	surveyListItem: { 질문: string; 답변: string[] };
+	surveyListItem: { 질문번호: string; 질문: string; 답변: string[] };
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
@@ -13,16 +13,19 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const [answer, setAnswer] = useState("");
 	const [recommendData, setRecommendData] = useState({});
 
-	const nowPage = queryString.slice(6, 7);
 	const getNextUrl = () => {
-		const nextPage = Number(nowPage) + 1;
-		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
+		const nextPage = Number(surveyListItem["질문번호"]) + 1;
+		const newUrl =
+			queryString.replace(surveyListItem["질문번호"], String(nextPage)) +
+			"&a" +
+			surveyListItem["질문번호"] +
+			"=";
 		return newUrl;
 	};
 
 	const nextUrl = getNextUrl() + answer;
 	const nextPage = () => {
-		if (nowPage === "5") {
+		if (surveyListItem["질문번호"] === "5") {
 			getRecommendData();
 		} else {
 			navigate({
