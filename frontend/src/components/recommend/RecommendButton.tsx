@@ -1,4 +1,5 @@
-import { Button, Sentence } from "./index";
+import styled from "styled-components";
+import { Button } from "./index";
 
 interface RecommendButtonProps {
 	firstSentence: string;
@@ -16,5 +17,9 @@ function RecommendButton({ firstSentence, secondSentence, url }: RecommendButton
 		</>
 	);
 }
+
+const Sentence = styled.p`
+	font-size: 2.5rem;
+`;
 
 export default RecommendButton;
