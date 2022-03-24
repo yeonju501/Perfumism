@@ -29,7 +29,6 @@ public class PerfumeSearchRestController {
     @GetMapping("/perfumes/search")
     @ApiOperation(value = "항수 검색", notes = "브랜드 목록 API 입니다.\n"
         + "가능한 검색 타입: name(기본값), brand, accord\n"
-        + "<font color=\"red\"><b>현재 커밋 기준으로 ACCORD 는 불가능합니다!</b></font>\n"
         + "정렬은 기본적으로 id 순으로 정렬되어있습니다.\n"
         + "name: 향수 이름으로 검색합니다.\n"
         + "brand: 이 브랜드의 향수를 검색합니다.\n"
