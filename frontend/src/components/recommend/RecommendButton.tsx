@@ -1,5 +1,4 @@
 import { Button, Sentence } from "./index";
-import styled from "styled-components";
 
 interface RecommendButtonProps {
 	firstSentence: string;
