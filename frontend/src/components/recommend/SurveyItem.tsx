@@ -78,7 +78,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 }
 
 const Container = styled.div`
-	height: 80vh;
+	height: 100%;
 `;
 
 const Title = styled.h1`
@@ -91,7 +91,9 @@ const Title = styled.h1`
 
 const Section = styled.div`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
+	margin: 0 20rem;
 `;
 
 export default SurveyItem;

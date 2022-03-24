@@ -19,10 +19,10 @@ function Answer({ number, answerHandleChange }: AnswerProps) {
 }
 
 const Container = styled.div`
-	width: 20rem;
+	width: 25rem;
 	display: flex;
 	flex-direction: column;
-	margin: 4px;
+	margin: 0 5rem;
 `;
 
 const SurveyImg = styled.img`
@@ -33,7 +33,7 @@ const SurveyImg = styled.img`
 const Content = styled.p`
 	font-size: 2.5rem;
 	text-align: center;
-	margin: 0;
+	margin: 1.5rem;
 `;
 
 export default Answer;

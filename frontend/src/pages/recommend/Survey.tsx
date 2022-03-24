@@ -8,9 +8,9 @@ function Survey() {
 	const queryString = useLocation().search;
 	const surveyList = [
 		{ 질문번호: "1", 질문: "질문1", 답변: ["a1", "a2", "a3", "a4"] },
-		{ 질문번호: "2", 질문: "질문2", 답변: ["a1", "a2", "a3", "a4", "a5"] },
+		{ 질문번호: "2", 질문: "질문2", 답변: ["a1", "a2", "a3", "a4", "a5", "a5", "a5", "a5"] },
 		{ 질문번호: "3", 질문: "질문3", 답변: ["a1", "a2", "a3", "a4"] },
-		{ 질문번호: "4", 질문: "질문4", 답변: ["a1", "a2", "a3", "a4", "a5"] },
+		{ 질문번호: "4", 질문: "질문4", 답변: ["a1", "a2", "a3", "a4", "a5", "a5", "a5", "a5"] },
 		{ 질문번호: "5", 질문: "질문5", 답변: ["a1", "a2", "a3", "a4"] },
 	];
 
@@ -26,7 +26,7 @@ function Survey() {
 }
 
 const Container = styled.div`
-	height: 80vh;
+	min-height: 80vh;
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
