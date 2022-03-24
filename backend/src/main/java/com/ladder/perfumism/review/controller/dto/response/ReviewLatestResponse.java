@@ -26,20 +26,25 @@ public class ReviewLatestResponse {
     @ApiModelProperty(position = 4, notes = "회원 프로필 사진", example = "eocnddlalwlvkdlfdlfma.jpg")
     private String memberImage;
 
+    @JsonProperty("grade")
+    @ApiModelProperty(position = 5, notes = "평점", example = "4")
+    private Integer grade;
+
     @JsonProperty("content")
-    @ApiModelProperty(position = 5, notes = "리뷰 내용", example = "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...")
+    @ApiModelProperty(position = 6, notes = "리뷰 내용", example = "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...")
     private String content;
 
     public ReviewLatestResponse() {
     }
 
     public ReviewLatestResponse(Long reviewId, Long perfumeId, Long memberId, String memberName, String memberImage,
-        String content) {
+        Integer grade, String content) {
         this.reviewId = reviewId;
         this.perfumeId = perfumeId;
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberImage = memberImage;
+        this.grade = grade;
         this.content = content;
     }
 
@@ -50,6 +55,7 @@ public class ReviewLatestResponse {
             review.getMemberId().getId(),
             review.getMemberId().getUsername(),
             review.getMemberId().getImage(),
+            review.getGrade(),
             review.getContent()
         );
     }
