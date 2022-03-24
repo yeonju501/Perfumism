@@ -1,6 +1,6 @@
 import reviewApi from "apis/review";
 import { useEffect, useState } from "react";
-import Section from "./Section";
+import styled from "styled-components";
 
 function ReviewSection() {
 	const [reviews, setReviews] = useState([]);
@@ -17,3 +17,9 @@ function ReviewSection() {
 }
 
 export default ReviewSection;
+
+const Section = styled.section`
+	display: flex;
+	width: 100%;
+	height: 50rem;
+`;
