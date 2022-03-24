@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 interface Perfume {
 	content: string;
@@ -23,7 +24,7 @@ interface Review {
 	review: Perfume;
 }
 
-function ReviewText({ perfume }: temp) {
+function ReviewText({ review }: Review) {
 	return (
 		<Container>
 			<PerfumeName></PerfumeName>
@@ -35,20 +36,32 @@ function ReviewText({ perfume }: temp) {
 
 export default ReviewText;
 
-const Container = styled.section`
+const Container = styled(Link)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin: 0 auto;
+	position: relative;
+	color: #000;
 `;
 
 const PerfumeName = styled.p`
 	font-size: 2rem;
 	font-weight: 800;
+	position: absolute;
+	top: 5rem;
 `;
 
 const Content = styled.p`
+	width: 26rem;
 	font-size: 2rem;
+	position: absolute;
+	top: 13rem;
 `;
 
-const DateAndName = styled.p``;
+const DateAndName = styled.p`
+	font-size: 1.3rem;
+	position: absolute;
+	top: 34rem;
+`;
