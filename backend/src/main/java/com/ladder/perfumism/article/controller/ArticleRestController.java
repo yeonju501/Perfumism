@@ -37,7 +37,9 @@ public class ArticleRestController {
 
     @PostMapping
     @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
-    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleCreateRequest request){
+    public ResponseEntity<Void> postArticle(
+        @AuthenticationPrincipal String email,
+        @RequestBody ArticleCreateRequest request){
 
         articleService.articleCreate(email,request);
         URI uri = URI.create("api/articles/create");
@@ -68,9 +70,10 @@ public class ArticleRestController {
     @PutMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 수정", notes = "<b>(로그인 필요)</b> 게시글 수정요청을 하는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
-    public ResponseEntity<Void> updateArticle(
+    public ResponseEntity<Void> putArticle(
         @AuthenticationPrincipal String email,
-        @PathVariable(value = "article_id") Long articleId, @RequestBody ArticleCreateRequest request){
+        @PathVariable(value = "article_id") Long articleId,
+        @RequestBody ArticleCreateRequest request){
 
         articleService.updateArticle(email,articleId, request);
 
