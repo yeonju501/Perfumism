@@ -1,19 +1,19 @@
-import { useState } from "react";
 import SeaSrc from "assets/바다.jpg";
 import styled from "styled-components";
 
 interface AnswerProps {
+	surveyItem: { url: string; content: string };
 	number: number;
 	answerHandleChange: (answer: number) => void;
 }
 
-function Answer({ number, answerHandleChange }: AnswerProps) {
+function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 	const answerHandleClick = () => answerHandleChange(number);
 
 	return (
 		<Container onClick={answerHandleClick}>
-			<SurveyImg src={SeaSrc} />
-			<Content>바다</Content>
+			<SurveyImg src={surveyItem["url"]} />
+			<Content>{surveyItem["content"]}</Content>
 		</Container>
 	);
 }
