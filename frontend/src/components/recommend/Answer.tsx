@@ -23,7 +23,9 @@ const SurveyImg = styled.img`
 `;
 
 const Content = styled.p`
-	font-size: 1rem;
+	font-size: 2.5rem;
+	text-align: center;
+	margin: 0;
 `;
 
 export default Answer;
