@@ -1,0 +1,19 @@
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+const Button = styled(Link)`
+	width: 70rem;
+	color: inherit;
+	text-align: center;
+	text-decoration: none;
+	padding: 1rem;
+	border: 1px solid #000;
+	margin: 4px auto;
+
+	&:hover {
+		background-color: #000;
+		color: #fff;
+	}
+`;
+
+export default Button;
