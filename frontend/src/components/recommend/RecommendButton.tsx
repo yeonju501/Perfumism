@@ -11,14 +11,14 @@ function RecommendButton({ firstSentence, secondSentence, url }: RecommendButton
 	return (
 		<>
 			<Button to={url}>
-				<Sentence>{firstSentence}</Sentence>
-				<Sentence>{secondSentence}</Sentence>
+				<Content>{firstSentence}</Content>
+				<Content>{secondSentence}</Content>
 			</Button>
 		</>
 	);
 }
 
-const Sentence = styled.p`
+const Content = styled.p`
 	font-size: 2.5rem;
 `;
 
