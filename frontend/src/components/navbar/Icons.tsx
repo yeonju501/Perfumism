@@ -4,7 +4,7 @@ import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid
 import { authApi } from "apis";
 import cookie from "react-cookies";
 import styled from "styled-components";
-import Search from "../main/Search";
+import Search from "./Search";
 
 function Icons() {
 	const token = cookie.load("access_token");
