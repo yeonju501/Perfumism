@@ -51,6 +51,10 @@ public class Comment extends BaseEntity {
     @OneToMany(mappedBy = "parentId")
     private List<Comment> replyList = new ArrayList<>();
 
+    // 삭제
+    @Column(name = "deletion")
+    private Boolean deletion;
+
     protected Comment(){
 
     }
@@ -67,5 +71,12 @@ public class Comment extends BaseEntity {
         if (!Objects.isNull(content)){
             this.content = content;
         }
+    }
+
+    public boolean isParent(){
+        if (Objects.isNull(this.getParentId())){
+            return true;
+        }
+        return false;
     }
 }
