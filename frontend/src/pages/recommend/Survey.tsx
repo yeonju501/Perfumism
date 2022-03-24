@@ -1,5 +1,5 @@
 import { useSearchParams, useLocation } from "react-router-dom";
-import SurveyItem from "components/recommend/SurveyItem";
+import { SurveyItem } from "components/recommend";
 import styled from "styled-components";
 
 function Survey() {
