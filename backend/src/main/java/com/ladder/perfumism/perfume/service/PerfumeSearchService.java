@@ -40,7 +40,7 @@ public class PerfumeSearchService {
                 perfumes = perfumeRepository.findByNameContainsIgnoreCase(keyword, pageable);
                 break;
             case "brand":
-                List<Brand> brands = brandRepository.findByNameContainsIgnoreCase(keyword);
+                List<Brand> brands = brandRepository.findByNameStartsWithIgnoreCase(keyword);
                 if (brands.isEmpty()) {
                     throw new BusinessException(ErrorCode.BRAND_NOT_FOUND_BY_NAME);
                 }
