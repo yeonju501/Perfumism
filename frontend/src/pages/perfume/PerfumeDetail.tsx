@@ -5,8 +5,6 @@ import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import LikeButton from "components/button/LikeButton";
 
 interface PerfumeDataType {

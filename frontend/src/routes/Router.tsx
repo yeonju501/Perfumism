@@ -7,6 +7,7 @@ import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
+import Perfumes from "pages/perfume/Perfumes";
 import Favorites from "pages/profile/Favorites";
 import MyArticles from "pages/profile/MyArticles";
 import MyComments from "pages/profile/MyComments";
