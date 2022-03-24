@@ -66,6 +66,9 @@ public enum ErrorCode {
     REVIEW_ALREADY_LIKE(HttpStatus.CONFLICT, "이미 리뷰에 좋아요를 하셨습니다.", "V07"),
     REVIEW_NO_LIKE_YOURSELF(HttpStatus.CONFLICT, "본인의 리뷰에 좋아요를 할 수 없습니다. 자추추", "V08"),
     REVIEW_NOT_LIKE_THIS_BEFORE(HttpStatus.NOT_FOUND, "이 리뷰를 좋아한 적이 없습니다.", "V09"),
+
+    //accord
+    ACCORD_NOT_FOUND_BY_NAME(HttpStatus.NOT_FOUND, "존재하지 않는 향 특징 이름 입니다", "W01"),
     ;
     private final HttpStatus httpStatus;
     private final String message;
