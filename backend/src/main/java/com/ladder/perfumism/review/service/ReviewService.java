@@ -5,13 +5,12 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
-import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLatestPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.domain.Review;
-import com.ladder.perfumism.review.domain.ReviewLike;
 import com.ladder.perfumism.review.domain.ReviewLikeRepository;
 import com.ladder.perfumism.review.domain.ReviewRepository;
 import org.springframework.data.domain.Page;
@@ -139,4 +138,8 @@ public class ReviewService {
         return ReviewResponse.from(review);
     }
 
+    @Transactional(readOnly = true)
+    public ReviewLatestPageResponse getLatestReviewPage(Pageable pageable){
+        return ReviewLatestPageResponse.from(reviewRepository.findAll(pageable));
+    }
 }
