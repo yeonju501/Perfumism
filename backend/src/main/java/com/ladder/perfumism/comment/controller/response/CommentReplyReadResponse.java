@@ -41,13 +41,17 @@ public class CommentReplyReadResponse {
     @ApiModelProperty(position = 7, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
     private LocalDateTime updateAt;
 
+    // 삭제
+    @JsonProperty("deletion")
+    private Boolean deletion;
+
     public CommentReplyReadResponse(){
 
     }
 
     public CommentReplyReadResponse(
         Long commentId, Long memberId, String memberName, Long articleId,
-        Long parentId, String content, LocalDateTime createAt, LocalDateTime updateAt){
+        Long parentId, String content, LocalDateTime createAt, LocalDateTime updateAt, Boolean deletion){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -56,6 +60,7 @@ public class CommentReplyReadResponse {
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.deletion = deletion;
     }
 
     public static CommentReplyReadResponse from(Comment comment){
@@ -67,7 +72,8 @@ public class CommentReplyReadResponse {
             comment.getParentId().getId(),
             comment.getContent(),
             comment.getCreatedAt(),
-            comment.getUpdatedAt()
+            comment.getUpdatedAt(),
+            comment.getDeletion()
         );
     }
 }
