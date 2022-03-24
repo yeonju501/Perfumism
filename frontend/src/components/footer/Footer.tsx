@@ -15,10 +15,10 @@ function Footer() {
 				PERFUMISM | 대표: 김대표
 			</Content>
 			<Content>
-				고객 문의 이메일: help@perfumism.com | 고객 센터: 070-1234-5678 | 개인정보취급방침 및
-				이용약관 | 개인정보관리책임자: 김대표
+				고객 문의 이메일: help@perfumism.com | 고객 센터: 123-456-789 | 개인정보취급방침 및 이용약관
+				| 개인정보관리책임자: 김대표
 			</Content>
-			<Content>Created by SADRITAJO. © PAFFEM All right reserved.</Content>
+			<Content>Created by SADARITAJO. © PERFUMISM All right reserved.</Content>
 		</Container>
 	);
 }
