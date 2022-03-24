@@ -65,7 +65,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 
 	return (
 		<Container>
-			<h1>{surveyListItem["질문"]}</h1>
+			<Title>{surveyListItem["질문"]}</Title>
 			{surveyListItem["답변"].map((answer: string, idx: number) => (
 				<label key={idx}>
 					<input type="radio" name="answer" value={idx} onChange={answerHandleChange} />
@@ -79,6 +79,14 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 
 const Container = styled.div`
 	height: 80vh;
+`;
+
+const Title = styled.h1`
+	color: #000;
+	font-size: 4rem;
+	font-weight: 800;
+	text-align: center;
+	margin: 5% auto 2%;
 `;
 
 export default SurveyItem;
