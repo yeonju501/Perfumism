@@ -1,4 +1,3 @@
-import ReviewSection from "components/main/ReviewSection";
 import Navbar from "components/navbar/Navbar";
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
@@ -40,7 +39,6 @@ function Router() {
 				<Route path="/login/oauth2/code/kakao" element={<KaKaoLoginPage />} />
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
-				<Route path="/review" element={<ReviewSection />} />
 			</Routes>
 		</BrowserRouter>
 	);
