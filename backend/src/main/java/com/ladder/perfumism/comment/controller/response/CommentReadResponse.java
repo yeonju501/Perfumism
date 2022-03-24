@@ -39,12 +39,14 @@ public class CommentReadResponse {
     @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
     private LocalDateTime updateAt;
 
+    @JsonProperty("deletion")
+    @ApiModelProperty(position = 7, notes = "삭제 유무", example = "false(삭제X) or ture(삭제O)")
+    private Boolean deletion;
+
     @JsonProperty("replyList")
+    @ApiModelProperty(position = 8, notes = "대댓글 리스트 없을 때 = []")
     private List<CommentReplyReadResponse> replyList;
 
-    // 삭제
-    @JsonProperty("deletion")
-    private Boolean deletion;
 
     public CommentReadResponse(){
 
