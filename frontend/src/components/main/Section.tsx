@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface SectionProps {
-	image: string;
+	image?: string;
 }
 
 const Section = styled.section<SectionProps>`
