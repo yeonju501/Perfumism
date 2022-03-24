@@ -85,4 +85,10 @@ public class Member extends BaseEntity {
             this.password = passwordEncoder.encode(password);
         }
     }
+
+    public void checkSocialMember() {
+        if(Objects.isNull(this.kakaoId)) {
+            throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+    }
 }
