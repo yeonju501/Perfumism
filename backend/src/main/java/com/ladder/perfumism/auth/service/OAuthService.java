@@ -168,6 +168,7 @@ public class OAuthService {
         String email = (String) response.getKakaoAccount().get("email");
         Member member = memberRepository.findByEmail(email)
             .orElse(response.toEntity());
+        member.checkSocialMember();
         return memberRepository.save(member);
     }
 
@@ -175,6 +176,7 @@ public class OAuthService {
     public Member loadGoogleUser(GoogleUserInfoResponse response) {
         Member member = memberRepository.findByEmail(response.getEmail())
             .orElse(response.toEntity());
+        member.checkSocialMember();
         return memberRepository.save(member);
     }
 
