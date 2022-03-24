@@ -39,8 +39,14 @@ public class CommentReadResponse {
     @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
     private LocalDateTime updateAt;
 
+    @JsonProperty("deletion")
+    @ApiModelProperty(position = 7, notes = "삭제 유무", example = "false(삭제X) or ture(삭제O)")
+    private Boolean deletion;
+
     @JsonProperty("replyList")
+    @ApiModelProperty(position = 8, notes = "대댓글 리스트 없을 때 = []")
     private List<CommentReplyReadResponse> replyList;
+
 
     public CommentReadResponse(){
 
@@ -49,7 +55,7 @@ public class CommentReadResponse {
     public CommentReadResponse(
         Long commentId, Long memberId, String memberName,
         Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt,
-        List<CommentReplyReadResponse> replyList){
+        List<CommentReplyReadResponse> replyList, Boolean deletion){
         this.commentId = commentId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -58,6 +64,7 @@ public class CommentReadResponse {
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.replyList = replyList;
+        this.deletion = deletion;
     }
 
     public static CommentReadResponse from(Comment comment){
@@ -69,7 +76,9 @@ public class CommentReadResponse {
             comment.getContent(),
             comment.getCreatedAt(),
             comment.getUpdatedAt(),
-            comment.getReplyList().stream().map(CommentReplyReadResponse::from).collect(Collectors.toList())
+            comment.getReplyList().stream().map(CommentReplyReadResponse::from)
+                .filter(c -> !c.getDeletion()).collect(Collectors.toList()),
+            comment.getDeletion()
         );
     }
 

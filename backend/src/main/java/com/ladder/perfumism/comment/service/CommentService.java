@@ -94,7 +94,8 @@ public class CommentService {
 
         checkCommentOwner(email,comment);
 
-        commentRepository.delete(comment);
+        comment.isDeletion();
+//        commentRepository.delete(comment);
     }
 
     @Transactional

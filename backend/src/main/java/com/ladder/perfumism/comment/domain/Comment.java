@@ -51,21 +51,31 @@ public class Comment extends BaseEntity {
     @OneToMany(mappedBy = "parentId")
     private List<Comment> replyList = new ArrayList<>();
 
-    protected Comment(){
+    // 삭제
+    @Column(name = "deletion")
+    private Boolean deletion;
+
+    protected Comment() {
 
     }
 
     @Builder
-    public Comment(Member member, Article article, String content, Comment parentId){
+    public Comment(Member member, Article article, String content, Comment parentId) {
         this.member = member;
         this.article = article;
         this.content = content;
         this.parentId = parentId;
+        this.deletion = false;
     }
 
     public void changeContent(String content) {
-        if (!Objects.isNull(content)){
+        if (!Objects.isNull(content)) {
             this.content = content;
         }
+    }
+
+    public void isDeletion(){
+        this.deletion = true;
+        this.content = "삭제된 댓글 입니다";
     }
 }
