@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import recommendApi from "apis/recommend";
+import styled from "styled-components";
 
 interface SurveyItemProps {
 	queryString: string;
@@ -63,7 +64,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	};
 
 	return (
-		<div>
+		<Container>
 			<h1>{surveyListItem["질문"]}</h1>
 			{surveyListItem["답변"].map((answer: string, idx: number) => (
 				<label key={idx}>
@@ -72,8 +73,12 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 				</label>
 			))}
 			<button onClick={nextPage}>다음페이지</button>
-		</div>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	height: 80vh;
+`;
 
 export default SurveyItem;
