@@ -1,7 +1,7 @@
 package com.ladder.perfumism.review.controller;
 
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
-import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLatestPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.service.ReviewService;
@@ -86,4 +86,10 @@ public class ReviewRestController {
         return ResponseEntity.ok().body(reviewService.getMyPerfumeReview(email, perfumeId));
     }
 
+    @GetMapping("/reviews/latest")
+    @ApiOperation(value = "리뷰 최신 목록 조회", notes = "최신 리뷰 목록을 조회하는 API 입니다.")
+    public ResponseEntity<ReviewLatestPageResponse> getLatestReviewPage(
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(reviewService.getLatestReviewPage(pageable));
+    }
 }
