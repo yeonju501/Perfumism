@@ -41,7 +41,7 @@ public class ArticleRestController {
         @AuthenticationPrincipal String email,
         @RequestBody ArticleCreateRequest request){
 
-        articleService.articleCreate(email,request);
+        articleService.createArticle(email,request);
         URI uri = URI.create("api/articles/create");
 
         return ResponseEntity.created(uri).build();
@@ -54,6 +54,7 @@ public class ArticleRestController {
         @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
         @PathVariable(required = false) ArticleSubject subject){
+
         return ResponseEntity.ok().body(articleService.showArticleList(email,pageable,subject));
 
     }
@@ -64,7 +65,9 @@ public class ArticleRestController {
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId) {
+
         return ResponseEntity.ok().body(articleService.showArticleDetail(email,articleId));
+
     }
 
     @PutMapping("/detail/{article_id}")
@@ -86,7 +89,8 @@ public class ArticleRestController {
     public ResponseEntity<Void> deleteArticle(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
-        articleService.deleteArticle(email,articleId);
+
+        articleService.removeArticle(email,articleId);
 
         return ResponseEntity.noContent().build();
     }
