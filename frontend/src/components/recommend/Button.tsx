@@ -11,6 +11,7 @@ const Button = styled(Link)`
 	margin: 4px auto;
 
 	&:hover {
+		transition: 0.5s;
 		background-color: #000;
 		color: #fff;
 	}
