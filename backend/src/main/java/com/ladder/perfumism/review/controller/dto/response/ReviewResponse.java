@@ -3,6 +3,7 @@ package com.ladder.perfumism.review.controller.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.review.domain.Review;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDateTime;
 
 public class ReviewResponse {
 
@@ -34,11 +35,15 @@ public class ReviewResponse {
     @ApiModelProperty(position = 6, notes = "좋아요 수", example = "222")
     private Integer likes;
 
+    @JsonProperty("created_at")
+    @ApiModelProperty(position = 7, notes = "작성 날짜", example = "[2022, 3, 24, 13, 4, 8, 921000000]")
+    private LocalDateTime createdAt;
+
     public ReviewResponse() {
     }
 
     public ReviewResponse(Long reviewId, Long memberId, String memberName, String memberImage, Integer grade,
-        String content, Integer likes) {
+        String content, Integer likes, LocalDateTime createdAt) {
         this.reviewId = reviewId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -46,6 +51,7 @@ public class ReviewResponse {
         this.grade = grade;
         this.content = content;
         this.likes = likes;
+        this.createdAt = createdAt;
     }
 
     public static ReviewResponse from(Review review) {
@@ -56,7 +62,8 @@ public class ReviewResponse {
             review.getMemberId().getImage(),
             review.getGrade(),
             review.getContent(),
-            review.getTotalLike()
+            review.getTotalLike(),
+            review.getCreatedAt()
         );
     }
 
