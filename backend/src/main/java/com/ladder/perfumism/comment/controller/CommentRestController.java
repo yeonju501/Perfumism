@@ -42,7 +42,7 @@ public class CommentRestController {
         @RequestBody CommentCreateRequest request,
         @PathVariable(value = "article_id")Long articleId){
 
-        commentService.commentCreate(email,articleId,request);
+        commentService.createComment(email,articleId,request);
 
         return ResponseEntity.noContent().build();
     }
@@ -87,7 +87,7 @@ public class CommentRestController {
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId){
 
-        commentService.deleteComment(email,articleId,commentId);
+        commentService.removeComment(email,articleId,commentId);
 
         return ResponseEntity.noContent().build();
     }
