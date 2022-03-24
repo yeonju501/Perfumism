@@ -10,6 +10,7 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import com.ladder.perfumism.member.service.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,29 +19,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CommentService {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
-    public CommentService(MemberRepository memberRepository, ArticleRepository articleRepository, CommentRepository commentRepository){
-        this.memberRepository = memberRepository;
+    public CommentService(MemberService memberService, ArticleRepository articleRepository, CommentRepository commentRepository){
+        this.memberService = memberService;
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
     }
 
-    private void checkCommentOwner(String email, Comment comment){
+    private Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
+        return articleRepository.findById(articleId)
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+    }
+
+    private Comment COMMENT_NOT_FOUND_FUNC(Long commentId){
+        return commentRepository.findById(commentId)
+            .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+    }
+
+    private void COMMENT_IS_NOT_YOURS_FUNC(String email, Comment comment){
         if(!comment.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.COMMENT_IS_NOT_YOURS);
         }
     }
 
     @Transactional
-    public void commentCreate(String email, Long articleId, CommentCreateRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()-> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void createComment(String email, Long articleId,
+        CommentCreateRequest request) {
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
 
         Comment comment = Comment.builder()
             .member(member)
@@ -53,11 +63,9 @@ public class CommentService {
 
     @Transactional
     public CommentReadListResponse showCommentList(String email, Pageable pageable, Long articleId) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
 
         Page<Comment> commentList = commentRepository.findAllByParentIdIsNullAndArticle(article, pageable);
 
@@ -65,49 +73,37 @@ public class CommentService {
     }
 
     @Transactional
-    public void updateComment(String email, Long articleId, Long commentId, CommentCreateRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void updateComment(String email, Long articleId, Long commentId,
+        CommentCreateRequest request) {
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
-
-        checkCommentOwner(email,comment);
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
+        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
 
         comment.changeContent(request.getContent());
 
     }
 
     @Transactional
-    public void deleteComment(String email, Long articleId, Long commentId) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void removeComment(String email, Long articleId, Long commentId) {
 
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
-
-        checkCommentOwner(email,comment);
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
+        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
 
         comment.isDeletion();
 //        commentRepository.delete(comment);
     }
 
     @Transactional
-    public void createCommentReply(String email, Long articleId, Long commentId, CommentCreateRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void createCommentReply(String email, Long articleId, Long commentId,
+        CommentCreateRequest request) {
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-
-        Comment parentId = commentRepository.findById(commentId)
-            .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Comment parentId = COMMENT_NOT_FOUND_FUNC(commentId);
 
         Comment reply = Comment.builder()
             .member(member)

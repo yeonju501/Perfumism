@@ -37,9 +37,12 @@ public class CommentRestController {
     @PostMapping
     @ApiOperation(value = "댓글 작성", notes = "<b>(로그인 필요)</b> 댓글 작성 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
-    public ResponseEntity<Void> createComment(@AuthenticationPrincipal String email,
-        @RequestBody CommentCreateRequest request, @PathVariable(value = "article_id")Long articleId){
-        commentService.commentCreate(email,articleId,request);
+    public ResponseEntity<Void> postComment(
+        @AuthenticationPrincipal String email,
+        @RequestBody CommentCreateRequest request,
+        @PathVariable(value = "article_id")Long articleId){
+
+        commentService.createComment(email,articleId,request);
 
         return ResponseEntity.noContent().build();
     }
@@ -62,7 +65,7 @@ public class CommentRestController {
         @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
     })
-    public ResponseEntity<Void> updateComment(
+    public ResponseEntity<Void> putComment(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId,
@@ -84,7 +87,7 @@ public class CommentRestController {
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId){
 
-        commentService.deleteComment(email,articleId,commentId);
+        commentService.removeComment(email,articleId,commentId);
 
         return ResponseEntity.noContent().build();
     }
@@ -96,7 +99,7 @@ public class CommentRestController {
         @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
     })
-    public ResponseEntity<Void> createCommentReply(
+    public ResponseEntity<Void> postCommentReply(
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId,

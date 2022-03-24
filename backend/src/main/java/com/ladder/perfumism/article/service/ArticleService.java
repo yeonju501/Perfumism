@@ -10,6 +10,7 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import com.ladder.perfumism.member.service.MemberService;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,24 +21,28 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-
-    public ArticleService(ArticleRepository articleRepository, MemberRepository memberRepository){
+    public ArticleService(ArticleRepository articleRepository, MemberService memberService){
         this.articleRepository = articleRepository;
-        this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
-    private void checkArticleOwner(String email, Article article){
+    private void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
         if(!article.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
         }
     }
 
+    private Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
+        return articleRepository.findById(articleId)
+            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+    }
+
     @Transactional
-    public void articleCreate(String email, ArticleCreateRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()-> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void createArticle(String email, ArticleCreateRequest request) {
+
+        Member member = memberService.findByEmail(email);
 
         Article article = Article.builder()
             .member(member)
@@ -51,8 +56,8 @@ public class ArticleService {
 
     @Transactional
     public ArticleReadListResponse showArticleList(String email,Pageable pageable, ArticleSubject subject) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Member member = memberService.findByEmail(email);
 
         Page<Article> articleList;
         if (subject != null){
@@ -66,23 +71,20 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadDetailResponse showArticleDetail(String email, Long article_Id) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        Article article = articleRepository.findById(article_Id)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+    public ArticleReadDetailResponse showArticleDetail(String email, Long articleId) {
+
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+
         return ArticleReadDetailResponse.from(article);
     }
 
     @Transactional
     public void updateArticle(String email, Long articleId, ArticleCreateRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-
-        checkArticleOwner(email, article);
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
@@ -91,14 +93,11 @@ public class ArticleService {
     }
 
     @Transactional
-    public void deleteArticle(String email,Long articleId) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(()->new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    public void removeArticle(String email,Long articleId) {
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-
-        checkArticleOwner(email, article);
+        Member member = memberService.findByEmail(email);
+        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
         articleRepository.delete(article);
     }
