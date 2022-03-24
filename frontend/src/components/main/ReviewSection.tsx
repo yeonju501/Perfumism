@@ -17,7 +17,7 @@ function ReviewSection() {
 	return (
 		reviews && (
 			<Section>
-				{reviews.map((review, idx) => (
+				{reviews.slice(0, 3).map((review, idx) => (
 					<ReviewText review={review} key={idx} />
 				))}
 			</Section>
