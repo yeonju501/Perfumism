@@ -1,6 +1,7 @@
 import AccordRecommend from "components/recommend/AccordRecommend";
 import WordCloud from "components/recommend/WordCloud";
 import PerfumeRecommend from "components/recommend/PerfumeRecommend";
+import styled from "styled-components";
 
 function SurveyResult() {
 	const resultData = [
@@ -48,13 +49,19 @@ function SurveyResult() {
 	];
 
 	return (
-		<div>
-			<h1>result</h1>
+		<Container>
 			<AccordRecommend />
 			<WordCloud />
 			<PerfumeRecommend />
-		</div>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	min-height: 80vh;
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: column;
+`;
 
 export default SurveyResult;
