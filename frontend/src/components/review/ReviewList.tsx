@@ -1,6 +1,7 @@
 import reviewApi from "apis/review";
 import { ShowMoreButton } from "components/button/Button";
 import { useEffect, useState } from "react";
+import LikeButton from "./LikeButton";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -46,6 +47,7 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 					<p>{review.member_name}</p>
 					<p>{review.grade}</p>
 					<p>{review.content}</p>
+					<LikeButton reviewId={review.review_id} />
 					<hr />
 				</li>
 			))}
