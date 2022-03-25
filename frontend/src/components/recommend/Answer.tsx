@@ -28,6 +28,10 @@ const Container = styled.div`
 const SurveyImg = styled.img`
 	background-color: none;
 	border: none;
+	&:hover {
+		filter: brightness(65%);
+		cursor: pointer;
+	}
 `;
 
 const Content = styled.p`
