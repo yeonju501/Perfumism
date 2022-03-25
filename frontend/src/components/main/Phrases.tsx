@@ -22,7 +22,6 @@ const Title = styled.h1`
 	font-weight: 800;
 	text-align: center;
 	margin: 0;
-	width: 100%;
 `;
 
 const Content = styled.p`
@@ -30,5 +29,4 @@ const Content = styled.p`
 	font-size: 3rem;
 	text-align: center;
 	margin: 1rem 0 5rem;
-	width: 100%;
 `;
