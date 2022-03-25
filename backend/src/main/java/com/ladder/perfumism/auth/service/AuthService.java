@@ -47,7 +47,7 @@ public class AuthService {
 
     private void setTokenToCookie(String accessToken, Long refreshTokenId, HttpServletResponse response) {
         Cookie accessTokenCookie = new Cookie("access_token", accessToken);
-        accessTokenCookie.setMaxAge(30 * 60); // expires in 7 days
+        accessTokenCookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
         accessTokenCookie.setSecure(true);
 //        cookie.setHttpOnly(true);
         accessTokenCookie.setPath("/");
