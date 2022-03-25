@@ -48,12 +48,12 @@ function SurveyResult() {
 		},
 	];
 	const accordData = {
-		accord: ["fruity", "woody", "aromatic"],
+		accords: ["fruity", "woody", "aromatic"],
 	};
 
 	return (
 		<Container>
-			<AccordRecommend />
+			<AccordRecommend accords={accordData["accords"]} />
 			<WordCloud />
 			<PerfumeRecommend />
 		</Container>

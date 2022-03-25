@@ -1,5 +1,13 @@
-function AccordRecommend() {
-	return <h1>accords 추천</h1>;
+import styled from "styled-components";
+
+interface AccordProps {
+	accords: string[];
 }
+
+function AccordRecommend({ accords }: AccordProps) {
+	return <Container>{accords}</Container>;
+}
+
+const Container = styled.div``;
 
 export default AccordRecommend;
