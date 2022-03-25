@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
-import useLikeButton from "./hooks/useLikeButton";
+import useLikeButton from "../button/hooks/useLikeButton";
 
 interface LikeButtonProps {
 	perfumeId: string;

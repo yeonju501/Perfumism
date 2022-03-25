@@ -1,7 +1,7 @@
 import PerfumeImage from "./PerfumeImage";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LikeButton from "components/button/LikeButton";
+import LikeButton from "components/perfume/LikeButton";
 
 interface PerfumeList {
 	perfumes: Perfume[];
