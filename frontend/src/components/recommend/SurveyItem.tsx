@@ -1,29 +1,34 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import recommendApi from "apis/recommend";
+import styled from "styled-components";
+import { Answer } from "components/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
-	surveyListItem: { 질문: string; 답변: string[] };
+	surveyListItem: { 질문번호: string; 질문: string; 답변: { url: string; content: string }[] };
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
-	const [answer, setAnswer] = useState("");
 	const [recommendData, setRecommendData] = useState({});
 
-	const nowPage = queryString.slice(6, 7);
 	const getNextUrl = () => {
-		const nextPage = Number(nowPage) + 1;
-		const newUrl = queryString.replace(nowPage, String(nextPage)) + "&a" + nowPage + "=";
+		const nextPage = Number(surveyListItem["질문번호"]) + 1;
+		const newUrl =
+			queryString.replace(surveyListItem["질문번호"], String(nextPage)) +
+			"&a" +
+			surveyListItem["질문번호"] +
+			"=";
 		return newUrl;
 	};
 
-	const nextUrl = getNextUrl() + answer;
-	const nextPage = () => {
-		if (nowPage === "5") {
-			getRecommendData();
+	const nextPage = (strAnswer: string) => {
+		const nextUrl = getNextUrl() + strAnswer;
+		if (surveyListItem["질문번호"] === "5") {
+			// getRecommendData();
+			navigate("/survey/result");
 		} else {
 			navigate({
 				pathname: "/survey",
@@ -50,27 +55,50 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 			a2: searchParams.get("a2"),
 			a3: searchParams.get("a3"),
 			a4: searchParams.get("a4"),
-			a5: answer,
+			a5: searchParams.get("a5"),
 		};
 		return answerData;
 	};
 
-	const answerHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAnswer(e.target.value);
+	const answerHandleChange = (answer: number) => {
+		const strAnswer = String(answer);
+		nextPage(strAnswer);
 	};
 
 	return (
-		<div>
-			<h1>{surveyListItem["질문"]}</h1>
-			{surveyListItem["답변"].map((answer: string, idx: number) => (
-				<label key={idx}>
-					<input type="radio" name="answer" value={idx} onChange={answerHandleChange} />
-					{answer}
-				</label>
-			))}
-			<button onClick={nextPage}>다음페이지</button>
-		</div>
+		<Container>
+			<Title>{surveyListItem["질문"]}</Title>
+			<Section>
+				{surveyListItem["답변"].map((surveyItem: { url: string; content: string }, idx: number) => (
+					<Answer
+						key={idx}
+						surveyItem={surveyItem}
+						number={idx}
+						answerHandleChange={answerHandleChange}
+					/>
+				))}
+			</Section>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	height: 100%;
+`;
+
+const Title = styled.h1`
+	color: #000;
+	font-size: 4rem;
+	font-weight: 800;
+	text-align: center;
+	margin: 5% auto 2%;
+`;
+
+const Section = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 20rem;
+`;
 
 export default SurveyItem;
