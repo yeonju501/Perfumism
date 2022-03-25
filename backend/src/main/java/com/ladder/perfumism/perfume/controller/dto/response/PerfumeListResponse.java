@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
@@ -50,5 +51,9 @@ public class PerfumeListResponse {
             perfumes.getTotalPages(),
             perfumes.getNumber()
         );
+    }
+
+    public static PerfumeListResponse createEmptyList() {
+        return new PerfumeListResponse(new ArrayList<>(), 0, 0);
     }
 }
