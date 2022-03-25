@@ -7,10 +7,8 @@ import com.ladder.perfumism.perfume.domain.Accord;
 import com.ladder.perfumism.perfume.domain.AccordRepository;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.BrandRepository;
-import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import java.util.List;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,29 +33,24 @@ public class PerfumeSearchService {
     public PerfumeListResponse getPerfumeSearch(Pageable pageable, String type, String keyword) {
         checkKeywordLength(keyword);
 
-        Page<Perfume> perfumes;
         switch (type) {
             case "name":
-                perfumes = perfumeRepository.findByNameContainsIgnoreCase(keyword, pageable);
-                break;
+                return PerfumeListResponse.from(perfumeRepository.findByNameContainsIgnoreCase(keyword, pageable));
             case "brand":
                 List<Brand> brands = brandRepository.findByNameStartsWithIgnoreCase(keyword);
                 if (brands.isEmpty()) {
-                    throw new BusinessException(ErrorCode.BRAND_NOT_FOUND_BY_NAME);
+                    return PerfumeListResponse.createEmptyList();
                 }
-                perfumes = perfumeRepository.findByBrandId(brands, pageable);
-                break;
+                return PerfumeListResponse.from(perfumeRepository.findByBrandId(brands, pageable));
             case "accord":
-                Accord accord = accordRepository.findByEngNameIgnoreCaseOrKorName(keyword, keyword)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.ACCORD_NOT_FOUND_BY_NAME));
-
-                perfumes = perfumeRepository.findByAccordId(accord, pageable);
-                break;
+                Accord accord = accordRepository.findByEngNameIgnoreCaseOrKorName(keyword, keyword).orElseGet(() -> null);
+                if (accord == null) {
+                    return PerfumeListResponse.createEmptyList();
+                }
+                return PerfumeListResponse.from(perfumeRepository.findByAccordId(accord, pageable));
             default:
                 throw new BusinessException(ErrorCode.SEARCH_NOT_EXIST_TYPE);
         }
-
-        return PerfumeListResponse.from(perfumes);
     }
 
     private void checkKeywordLength(String keyword) {
