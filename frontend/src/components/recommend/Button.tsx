@@ -8,7 +8,7 @@ const Button = styled(Link)`
 	text-decoration: none;
 	padding: 1rem;
 	border: 1px solid #000;
-	margin: 4px auto;
+	margin: 2rem auto;
 
 	&:hover {
 		transition: 0.5s;
