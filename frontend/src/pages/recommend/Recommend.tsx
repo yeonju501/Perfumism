@@ -23,6 +23,16 @@ const Container = styled.div`
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
+	animation-name: appear;
+	animation-duration: 2s;
+	@keyframes appear {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
 `;
 
 const Title = styled.h1`
