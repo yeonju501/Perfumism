@@ -11,7 +11,8 @@ function Recommend() {
 				url="/survey?page=1"
 			/>
 			<RecommendButton
-				firstSentence="자신만의 향기가 있는 당신, 비슷한 향기를 찾아보세요."
+				firstSentence="자신만의 향기가 있는 당신,"
+				secondSentence="비슷한 향기를 찾아보세요."
 				url="/survey?page=1"
 			/>
 		</Container>
