@@ -42,7 +42,12 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
-				<li key={review.review_id}>{review.content}</li>
+				<li key={review.review_id}>
+					<p>{review.member_name}</p>
+					<p>{review.grade}</p>
+					<p>{review.content}</p>
+					<hr />
+				</li>
 			))}
 			{/* current랑 total page 체크해서 두개가 같다면 display none으로 주기 */}
 			<ShowMoreButton>Show More</ShowMoreButton>
