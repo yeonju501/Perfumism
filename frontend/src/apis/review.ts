@@ -8,7 +8,7 @@ interface ReviewApiType {
 	) => Promise<AxiosResponse>;
 	getReviews: (perfumeId: string, currentPage: number) => Promise<AxiosResponse>;
 	getLatestReviews: () => Promise<AxiosResponse<{ reviews: [] }>>;
-	isReviewLiked: (reviewId: number) => Promise<AxiosResponse>;
+	isReviewLiked: (reviewId: number | string) => Promise<AxiosResponse>;
 }
 
 const reviewApi: ReviewApiType = {
