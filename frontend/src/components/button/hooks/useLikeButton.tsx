@@ -1,6 +1,6 @@
 import perfumeApi from "apis/perfume";
 import reviewApi from "apis/review";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface useLikeButtonProps {
 	type: string;
