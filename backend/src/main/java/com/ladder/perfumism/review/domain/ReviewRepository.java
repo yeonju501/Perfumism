@@ -19,7 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Boolean existsByMemberIdAndPerfumeId(Member member, Perfume perfume);
 
-    @Query(nativeQuery = true, value = "select avg(cast(r.grade as float)) from Review r "
+    @Query(nativeQuery = true, value = "select avg(cast(r.grade as float)) from review r "
         + "where r.perfume_id in (:ids) "
         + "and r.deleted_at is null "
         + "and r.grade > 0")
