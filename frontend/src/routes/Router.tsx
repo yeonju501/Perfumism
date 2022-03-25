@@ -23,16 +23,14 @@ function Router() {
 		<BrowserRouter>
 			<Navbar />
 			<Routes>
-				<Route element={<PrivateRoute />}>
-					<Route path="/recommend" element={<Recommend />} />
-					<Route path="/:username" element={<Profile />} />
-					<Route path="/:username/favorites" element={<Favorites />} />
-					<Route path="/:username/my-articles" element={<MyArticles />} />
-					<Route path="/:username/my-comments" element={<MyComments />} />
-					<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
-					<Route path="/survey" element={<Survey />} />
-					<Route path="/survey/result" element={<SurveyResult />} />
-				</Route>
+				<Route path="/recommend" element={<Recommend />} />
+				<Route path="/:username" element={<Profile />} />
+				<Route path="/:username/favorites" element={<Favorites />} />
+				<Route path="/:username/my-articles" element={<MyArticles />} />
+				<Route path="/:username/my-comments" element={<MyComments />} />
+				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
+				<Route path="/survey" element={<Survey />} />
+				<Route path="/survey/result" element={<SurveyResult />} />
 				<Route path="/" element={<Main />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/signin" element={<SignIn />} />
