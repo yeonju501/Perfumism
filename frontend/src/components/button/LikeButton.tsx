@@ -24,6 +24,7 @@ function LikeButton({ center, perfumeId }: LikeButtonProps) {
 		isLiked
 			? await perfumeApi.deleteFavoritePerfume(perfumeId)
 			: await perfumeApi.addFavoritePerfume(perfumeId);
+		setIsLiked((prev) => !prev);
 	};
 
 	return (
