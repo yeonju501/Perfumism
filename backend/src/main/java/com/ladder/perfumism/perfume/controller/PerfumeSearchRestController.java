@@ -34,8 +34,8 @@ public class PerfumeSearchRestController {
         + "brand: 이 브랜드의 향수를 검색합니다.\n"
         + "accord: 이 향을 가진 향수를 검색합니다.")
     @ApiResponses({
-        @ApiResponse(code = 400, message = "BAD_REQUEST\n검색어가 2글자 이하일 때"),
-        @ApiResponse(code = 404, message = "NOT_FOUND\n검색 타입이 존재하지 않을 때")
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n검색어가 2글자 미만일 때(T01)"),
+        @ApiResponse(code = 404, message = "NOT_FOUND\n검색 타입이 존재하지 않을 때(T02)")
     })
     @ApiImplicitParams({
         @ApiImplicitParam(name = "type", value = "검색 타입 (name(기본값), brand, accord)"),

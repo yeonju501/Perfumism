@@ -7,6 +7,8 @@ import com.ladder.perfumism.perfume.service.PerfumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,9 @@ public class PerfumeRestController {
 
     @GetMapping("/perfumes/{perfume_id}")
     @ApiOperation(value = "향수 상세 정보", notes = "단일 향수 상세 정보를 조회하는 API 입니다.")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n향수 ID가 존재하지 않을 때(S01)")
+    })
     @ApiImplicitParam(name = "perfume_id", value = "향수 ID", required = true)
     public ResponseEntity<PerfumeDetailResponse> viewDetailPerfume(@PathVariable(value = "perfume_id") Long perfumeId) {
         return ResponseEntity.ok().body(perfumeService.viewDetailPerfume(perfumeId));
