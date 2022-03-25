@@ -1,4 +1,3 @@
-import SeaSrc from "assets/바다.jpg";
 import styled from "styled-components";
 
 interface AnswerProps {
