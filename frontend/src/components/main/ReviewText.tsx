@@ -47,6 +47,7 @@ const Container = styled(Link)`
 	margin: 0 auto;
 	position: relative;
 	color: #000;
+	width: 100%;
 `;
 
 const PerfumeName = styled.p`
@@ -61,6 +62,7 @@ const Content = styled.p`
 	font-size: 2rem;
 	position: absolute;
 	top: 13rem;
+	text-align: center;
 `;
 
 const DateAndName = styled.p`
