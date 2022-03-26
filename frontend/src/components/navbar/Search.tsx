@@ -15,10 +15,18 @@ function Search() {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchContent(event.target.value);
+		runSearch();
 	};
 
 	const handleSearchInput = () => {
 		setToggleSearch(!toggleSearch);
+	};
+
+	const runSearch = async () => {
+		if (searchContent.length > 2) {
+			const perfume = await searchApi.searchPerfume(searchContent);
+			setSearchResult(perfume.data.perfumes);
+		}
 	};
 
 	return (
