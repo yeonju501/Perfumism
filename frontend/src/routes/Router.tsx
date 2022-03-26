@@ -24,10 +24,10 @@ function Router() {
 			<Navbar />
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
-				<Route path="/:username" element={<Profile />} />
-				<Route path="/:username/favorites" element={<Favorites />} />
-				<Route path="/:username/my-articles" element={<MyArticles />} />
-				<Route path="/:username/my-comments" element={<MyComments />} />
+				<Route path="/profile/:username" element={<Profile />} />
+				<Route path="/profile/favorites" element={<Favorites />} />
+				<Route path="/profile/my-articles" element={<MyArticles />} />
+				<Route path="/profile/my-comments" element={<MyComments />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/survey/result" element={<SurveyResult />} />
