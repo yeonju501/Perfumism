@@ -58,4 +58,11 @@ public class PerfumeSearchService {
             throw new BusinessException(ErrorCode.SEARCH_TOO_SHORT_KEYWORD);
         }
     }
+
+    @Transactional(readOnly = true)
+    public PerfumeListResponse getPerfumeSearchAll(Pageable pageable, String keyword) {
+        checkKeywordLength(keyword);
+
+        return PerfumeListResponse.from(perfumeRepository.searchAll(keyword, pageable));
+    }
 }
