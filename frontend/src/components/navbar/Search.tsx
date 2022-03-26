@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import searchApi from "apis/serach";
 
 interface InputProps {
 	isOn: boolean;
@@ -10,13 +11,10 @@ interface InputProps {
 function Search() {
 	const [searchContent, setSearchContent] = useState("");
 	const [toggleSearch, setToggleSearch] = useState(false);
+	const [searchResult, setSearchResult] = useState([]);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchContent(event.target.value);
-	};
-
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
 	};
 
 	const handleSearchInput = () => {
