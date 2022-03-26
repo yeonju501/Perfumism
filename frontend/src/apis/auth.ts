@@ -21,7 +21,7 @@ const authApi: UserApiType = {
 	signin: (userInfo) => request.post("members/login", userInfo),
 	reissue: (data) => request.post("members/reissue", data),
 	findPassword: (email) => request.post("members/find-pw", email),
-	logout: () => cookie.remove("access_token"),
+	logout: () => cookie.remove("access_token", { path: "/" }),
 };
 
 export default authApi;
