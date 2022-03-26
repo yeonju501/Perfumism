@@ -14,11 +14,22 @@ function Search() {
 	const navigate = useNavigate();
 	const [toggleSearch, setToggleSearch] = useState(false);
 
-	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {};
+	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+		runSearch(event.target.value);
+	};
 
 	const handleSearchInput = () => {
 		setToggleSearch(!toggleSearch);
 	};
+
+	const runSearch = debounce(async (keyword) => {
+		if (keyword.length > 2) {
+			const perfume = await searchApi.searchPerfume(keyword);
+			navigate(`/search/${keyword}`, {
+				state: { results: perfume.data.perfumes, keyword },
+			});
+		}
+	}, 1000);
 
 	return (
 		<SearchForm>
