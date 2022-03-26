@@ -15,6 +15,7 @@ import Profile from "pages/profile/Profile";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
+import SearchResultPage from "pages/search/SearchResultPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
@@ -38,6 +39,7 @@ function Router() {
 				<Route path="/login/oauth2/code/kakao" element={<KaKaoLoginPage />} />
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
+				<Route path="/search/:keyword" element={<SearchResultPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
