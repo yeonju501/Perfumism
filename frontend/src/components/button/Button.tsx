@@ -7,9 +7,15 @@ export const CreateButton = styled.button`
 	cursor: pointer;
 `;
 
-export const ShowMoreButton = styled.button`
+interface ShowMoreButtonProps {
+	isLastPage: boolean;
+}
+
+export const ShowMoreButton = styled.button<ShowMoreButtonProps>`
 	color: black;
 	background-color: #dedede;
 	border: none;
 	cursor: pointer;
+	dispay: ${({ isLastPage }) => (isLastPage ? "none" : "inline-block")}
+	color: ;
 `;
