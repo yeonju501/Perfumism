@@ -19,7 +19,7 @@ public class PerfumeAccord {
     @Column(name = "perfume_accord_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Accord.class)
+    @ManyToOne(targetEntity = Accord.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "accord_id")
     private Accord accordId;
 

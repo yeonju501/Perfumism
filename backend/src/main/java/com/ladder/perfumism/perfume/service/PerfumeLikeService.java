@@ -9,7 +9,6 @@ import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import com.ladder.perfumism.perfume.domain.PerfumeLikeRepository;
-import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,21 +18,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class PerfumeLikeService {
 
     private final MemberService memberService;
-    private final PerfumeRepository perfumeRepository;
+    private final PerfumeService perfumeService;
     private final PerfumeLikeRepository perfumeLikeRepository;
 
-    public PerfumeLikeService(MemberService memberService, PerfumeRepository perfumeRepository,
+    public PerfumeLikeService(MemberService memberService, PerfumeService perfumeService,
         PerfumeLikeRepository perfumeLikeRepository) {
         this.memberService = memberService;
-        this.perfumeRepository = perfumeRepository;
+        this.perfumeService = perfumeService;
         this.perfumeLikeRepository = perfumeLikeRepository;
     }
 
     @Transactional
     public Long likePerfume(String email, Long perfumeId) {
         Member member = memberService.findByEmail(email);
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         alreadyLikeThisPerfume(member, perfume);
 
@@ -53,8 +51,7 @@ public class PerfumeLikeService {
     @Transactional(readOnly = true)
     public PerfumeLikeResponse isLikeThisPerfume(String email, Long perfumeId) {
         Member member = memberService.findByEmail(email);
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         Boolean liked = perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume);
 
@@ -64,8 +61,7 @@ public class PerfumeLikeService {
     @Transactional
     public void notLikeThisPerfumeAnymore(String email, Long perfumeId) {
         Member member = memberService.findByEmail(email);
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         PerfumeLike perfumeLike = perfumeLikeRepository.findByPerfumeIdAndMemberId(perfume, member)
             .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_LIKE_THIS_BEFORE));

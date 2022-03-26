@@ -61,4 +61,10 @@ public class PerfumeService {
 
         return BrandListResponse.from(brandList);
     }
+
+    @Transactional(readOnly = true)
+    public Perfume findById(Long perfumeId){
+        return perfumeRepository.findById(perfumeId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+    }
 }
