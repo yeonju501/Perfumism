@@ -5,7 +5,7 @@ import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import LikeButton from "components/button/LikeButton";
+import LikeButton from "components/perfume/LikeButton";
 
 interface PerfumeDataType {
 	perfume_id: number;

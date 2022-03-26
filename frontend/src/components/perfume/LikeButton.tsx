@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import perfumeApi from "apis/perfume";
+import useLikeButton from "../button/hooks/useLikeButton";
 
 interface LikeButtonProps {
 	perfumeId: string;
@@ -10,21 +9,8 @@ interface LikeButtonProps {
 }
 
 function LikeButton({ center, perfumeId }: LikeButtonProps) {
-	const [isLiked, setIsLiked] = useState(false);
-
-	useEffect(() => {
-		// isPerfumeLiked();
-	}, []);
-
-	const isPerfumeLiked = async () => {
-		await perfumeApi.isPerfumeLiked(perfumeId).then((res) => setIsLiked(res.data.is_liked));
-	};
-
-	const handleHeartClick = async () => {
-		isLiked
-			? await perfumeApi.deleteFavoritePerfume(perfumeId)
-			: await perfumeApi.addFavoritePerfume(perfumeId);
-	};
+	const type = "perfume";
+	const { isLiked, handleHeartClick } = useLikeButton({ type, typeId: perfumeId });
 
 	return (
 		<Button center={center} isLiked={isLiked} onClick={handleHeartClick}>

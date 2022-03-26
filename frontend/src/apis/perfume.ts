@@ -4,9 +4,9 @@ import { request } from "./request";
 interface PerfumeApiType {
 	getPerfume: (perfumeId: string) => Promise<AxiosResponse>;
 	getPerfumes: (currentPage: number) => Promise<AxiosResponse>;
-	isPerfumeLiked: (perfumeId: string) => Promise<AxiosResponse>;
-	addFavoritePerfume: (perfumeId: string) => Promise<AxiosResponse>;
-	deleteFavoritePerfume: (perfumeId: string) => Promise<AxiosResponse>;
+	isPerfumeLiked: (perfumeId: string | number) => Promise<AxiosResponse>;
+	addFavoritePerfume: (perfumeId: string | number) => Promise<AxiosResponse>;
+	deleteFavoritePerfume: (perfumeId: string | number) => Promise<AxiosResponse>;
 }
 
 const perfumeApi: PerfumeApiType = {
