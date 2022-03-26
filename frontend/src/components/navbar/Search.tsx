@@ -3,30 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import searchApi from "apis/serach";
+import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 interface InputProps {
 	isOn: boolean;
 }
 
 function Search() {
-	const [searchContent, setSearchContent] = useState("");
+	const navigate = useNavigate();
 	const [toggleSearch, setToggleSearch] = useState(false);
-	const [searchResult, setSearchResult] = useState([]);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchContent(event.target.value);
-		runSearch();
-	};
+	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {};
 
 	const handleSearchInput = () => {
 		setToggleSearch(!toggleSearch);
-	};
-
-	const runSearch = async () => {
-		if (searchContent.length > 2) {
-			const perfume = await searchApi.searchPerfume(searchContent);
-			setSearchResult(perfume.data.perfumes);
-		}
 	};
 
 	return (
