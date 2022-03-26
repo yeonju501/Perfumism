@@ -21,24 +21,27 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
+	const [isLastPage, setIsLastPage] = useState(false);
 
 	useEffect(() => {
 		getReviews();
 	}, []);
 
+	useEffect(() => {
+		if (totalPage && currentPage >= totalPage) setIsLastPage(true);
+	}, [currentPage]);
+
 	const getReviews = async () => {
 		await reviewApi.getReviews(perfumeId, currentPage).then((res) => {
-			setReviews([...reviews, ...res.data.reviews]);
+			setReviews((prev) => prev.concat(res.data.reviews));
 			setTotalPage(res.data.total_page_count);
-			setCurrentPage(res.data.current_page_count);
+			setCurrentPage(res.data.current_page_count + 1);
 		});
 	};
 
-	// const handleShowMoreClick = () => {
-	// 	setCurrentPage((prev) => prev + 1);
-	// 	console.log(currentPage);
-	// 	getReviews();
-	// };
+	const handleShowMoreClick = () => {
+		getReviews();
+	};
 
 	return reviews.length > 0 ? (
 		<ul>
@@ -51,8 +54,9 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 					<hr />
 				</li>
 			))}
-			{/* current랑 total page 체크해서 두개가 같다면 display none으로 주기 */}
-			<ShowMoreButton>Show More</ShowMoreButton>
+			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
+				Show More
+			</ShowMoreButton>
 		</ul>
 	) : (
 		<p>작성된 리뷰가 없습니다</p>

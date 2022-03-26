@@ -16,6 +16,5 @@ export const ShowMoreButton = styled.button<ShowMoreButtonProps>`
 	background-color: #dedede;
 	border: none;
 	cursor: pointer;
-	dispay: ${({ isLastPage }) => (isLastPage ? "none" : "inline-block")}
-	color: ;
+	display: ${({ isLastPage }) => (isLastPage ? "none" : "block")};
 `;
