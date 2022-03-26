@@ -10,10 +10,6 @@ interface ReviewApiType {
 const searchApi: ReviewApiType = {
 	searchName: (keyword) =>
 		request.get(`perfumes/search?keyword=${keyword}&page=0&size=20&type=name`),
-	searchBrand: (keyword) =>
-		request.get(`perfumes/search?keyword=${keyword}&page=0&size=20&type=brand`),
-	searchAccord: (keyword) =>
-		request.get(`perfumes/search?keyword=${keyword}&page=0&size=20&type=accord`),
 };
 
 export default searchApi;
