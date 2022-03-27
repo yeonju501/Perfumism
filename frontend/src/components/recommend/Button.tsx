@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Button = styled(Link)`
-	width: 70rem;
+	width: 60rem;
 	color: inherit;
 	text-align: center;
 	text-decoration: none;

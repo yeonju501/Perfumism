@@ -11,7 +11,8 @@ function Recommend() {
 				url="/survey?page=1"
 			/>
 			<RecommendButton
-				firstSentence="자신만의 향기가 있는 당신, 비슷한 향기를 찾아보세요."
+				firstSentence="자신만의 향기가 있는 당신,"
+				secondSentence="비슷한 향기를 찾아보세요."
 				url="/survey?page=1"
 			/>
 		</Container>
@@ -23,6 +24,16 @@ const Container = styled.div`
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
+	animation-name: appear;
+	animation-duration: 2s;
+	@keyframes appear {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
 `;
 
 const Title = styled.h1`

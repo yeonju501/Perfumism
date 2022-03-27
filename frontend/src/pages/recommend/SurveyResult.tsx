@@ -4,7 +4,7 @@ import PerfumeRecommend from "components/recommend/PerfumeRecommend";
 import styled from "styled-components";
 
 function SurveyResult() {
-	const resultData = [
+	const perfumeData = [
 		{
 			id: 36998,
 			perfume: "Belle de Tanger",
@@ -47,12 +47,15 @@ function SurveyResult() {
 			similar_perfume: [33739, 24400, 19642, 12382, 34789, 14633, 5294, 10675, 1081, 13304],
 		},
 	];
+	const accordData = {
+		accords: ["fruity", "woody", "aromatic"],
+	};
 
 	return (
 		<Container>
-			<AccordRecommend />
+			<AccordRecommend accords={accordData["accords"]} />
 			<WordCloud />
-			<PerfumeRecommend />
+			<PerfumeRecommend perfumeData={perfumeData} />
 		</Container>
 	);
 }
@@ -62,6 +65,7 @@ const Container = styled.div`
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 
 export default SurveyResult;
