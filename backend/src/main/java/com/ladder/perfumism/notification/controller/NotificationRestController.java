@@ -1,5 +1,6 @@
 package com.ladder.perfumism.notification.controller;
 
+import com.ladder.perfumism.notification.controller.dto.response.NotificationCountResponse;
 import com.ladder.perfumism.notification.controller.dto.response.NotificationResponse;
 import com.ladder.perfumism.notification.service.NotificationService;
 import io.swagger.annotations.Api;
@@ -28,14 +29,23 @@ public class NotificationRestController {
 
     @GetMapping("/auth/notifications")
     @ApiOperation(value = "모든 알림 목록 조회", notes = "(로그인 필요) 모든 알림 목록을 조회하는 API")
-    public ResponseEntity<List<NotificationResponse>> showAllNotifications(@AuthenticationPrincipal String email) {
+    public ResponseEntity<List<NotificationResponse>> showAllNotifications(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(notificationService.showAllNotifications(email));
     }
 
     @GetMapping("/auth/notifications/unread")
     @ApiOperation(value = "안읽은 알림 목록 조회", notes = "(로그인 필요) 안읽은 알림 목록을 조회하는 API")
-    public ResponseEntity<List<NotificationResponse>> showUnreadNotifications(@AuthenticationPrincipal String email) {
+    public ResponseEntity<List<NotificationResponse>> showUnreadNotifications(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(notificationService.showUnreadNotifications(email));
+    }
+
+    @GetMapping("/auth/notifications/count-unread")
+    @ApiOperation(value = "안읽은 알림 개수 조회", notes = "(로그인 필요) 안읽은 알림 개수를 조회하는 API")
+    public ResponseEntity<NotificationCountResponse> showUnreadCount(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(notificationService.showUnreadCount(email));
     }
 
     @PutMapping("/auth/notifications/{notificationId}")

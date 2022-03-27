@@ -10,4 +10,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     List<Notification> findAllByMemberAndCreatedAtBetweenOrderByCreatedAtDesc(Member member, LocalDateTime start, LocalDateTime end);
 
     List<Notification> findAllByMemberAndCreatedAtBetweenAndReadAtIsNullOrderByCreatedAtDesc(Member member, LocalDateTime start, LocalDateTime end);
+
+    int countAllByMemberAndCreatedAtBetweenAndReadAtIsNull(Member member, LocalDateTime start, LocalDateTime end);
 }

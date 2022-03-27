@@ -5,6 +5,7 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.notification.controller.dto.response.NotificationCountResponse;
 import com.ladder.perfumism.notification.controller.dto.response.NotificationResponse;
 import com.ladder.perfumism.notification.domain.Notification;
 import com.ladder.perfumism.notification.domain.NotificationRepository;
@@ -66,6 +67,15 @@ public class NotificationService {
         return notifications.stream()
             .map(NotificationResponse::from)
             .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public NotificationCountResponse showUnreadCount(String email) {
+        Member member = memberService.findByEmail(email);
+        LocalDateTime start = LocalDateTime.now().minusMonths(3);
+        LocalDateTime end = LocalDateTime.now();
+        int unreadCount = notificationRepository.countAllByMemberAndCreatedAtBetweenAndReadAtIsNull(member, start, end);
+        return NotificationCountResponse.from(unreadCount);
     }
 
     @Transactional
