@@ -55,7 +55,7 @@ function SurveyResult() {
 		<Container>
 			<AccordRecommend accords={accordData["accords"]} />
 			<WordCloud />
-			<PerfumeRecommend />
+			<PerfumeRecommend perfumeData={perfumeData} />
 		</Container>
 	);
 }
