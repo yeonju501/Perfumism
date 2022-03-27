@@ -1,5 +1,6 @@
 package com.ladder.perfumism.review.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.review.domain.Review;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,8 +36,9 @@ public class ReviewResponse {
     @ApiModelProperty(position = 6, notes = "좋아요 수", example = "222")
     private Integer likes;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonProperty("created_at")
-    @ApiModelProperty(position = 7, notes = "작성 날짜", example = "[2022, 3, 24, 13, 4, 8, 921000000]")
+    @ApiModelProperty(position = 7, notes = "작성 날짜", example = "2022-03-24 13:04:08")
     private LocalDateTime createdAt;
 
     public ReviewResponse() {
