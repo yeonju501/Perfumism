@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import test from "assets/test.jpg";
 
 function WordCloud() {
 	return (
 		<Container>
-			<h1>wordCloud</h1>
+			<img src={test} />
 		</Container>
 	);
 }
