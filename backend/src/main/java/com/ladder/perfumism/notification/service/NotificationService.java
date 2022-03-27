@@ -1,6 +1,8 @@
 package com.ladder.perfumism.notification.service;
 
 import com.ladder.perfumism.comment.domain.Comment;
+import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.notification.controller.dto.response.NotificationResponse;
@@ -64,5 +66,13 @@ public class NotificationService {
         return notifications.stream()
             .map(NotificationResponse::from)
             .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void readNotification(String email, Long notificationId) {
+        Notification notification = notificationRepository.findById(notificationId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND_BY_ID));
+        notification.checkNotificationByEmail(email);
+        notification.changeReadAt();
     }
 }

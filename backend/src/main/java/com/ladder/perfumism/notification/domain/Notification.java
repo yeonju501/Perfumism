@@ -2,6 +2,8 @@ package com.ladder.perfumism.notification.domain;
 
 import com.ladder.perfumism.comment.domain.Comment;
 import com.ladder.perfumism.global.domain.BaseEntity;
+import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -47,5 +49,15 @@ public class Notification extends BaseEntity {
         this.type = type;
         this.comment = comment;
         this.readAt = readAt;
+    }
+
+    public void checkNotificationByEmail(String email) {
+        if (!member.getEmail().equals(email)) {
+            throw new BusinessException(ErrorCode.NOTIFICATION_NOT_MATCH_BY_EMAIL);
+        }
+    }
+
+    public void changeReadAt() {
+        readAt = LocalDateTime.now();
     }
 }

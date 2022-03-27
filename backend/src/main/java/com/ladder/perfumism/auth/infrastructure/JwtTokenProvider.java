@@ -13,6 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
@@ -88,7 +89,7 @@ public class JwtTokenProvider {
             throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
         } catch (UnsupportedJwtException e) {
             throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_JWT);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | SignatureException e) {
             throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_JWT);
         }
     }
