@@ -1,5 +1,6 @@
 package com.ladder.perfumism.review.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.review.domain.Review;
 import io.swagger.annotations.ApiModelProperty;
@@ -39,8 +40,9 @@ public class ReviewLatestResponse {
     @ApiModelProperty(position = 7, notes = "리뷰 내용", example = "이 향수는 마치 꽃이 무수하게 핀 들판의 공기를 그대로 가져온듯 한 향...")
     private String content;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonProperty("created_at")
-    @ApiModelProperty(position = 8, notes = "작성 날짜", example = "[2022, 3, 24, 13, 4, 8, 921000000]")
+    @ApiModelProperty(position = 8, notes = "작성 날짜", example = "2022-03-24 13:04:08")
     private LocalDateTime createdAt;
 
     public ReviewLatestResponse() {
