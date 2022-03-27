@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth/comment/{article_id}")
+@RequestMapping("/api/auth/comments/{article_id}")
 @Api(tags = {"댓글"})
 public class CommentRestController {
 
