@@ -13,6 +13,9 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	border-top-style: ridge;
+	border-bottom-style: ridge;
+	width: 50rem;
 `;
 
 export default WordCloud;
