@@ -25,4 +25,9 @@ public class NotificationRestController {
     public ResponseEntity<List<NotificationResponse>> showAllNotifications(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(notificationService.showAllNotifications(email));
     }
+
+    @GetMapping("/auth/notifications/unread")
+    public ResponseEntity<List<NotificationResponse>> showUnreadNotifications(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(notificationService.showUnreadNotifications(email));
+    }
 }
