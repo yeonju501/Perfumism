@@ -1,5 +1,6 @@
 package com.ladder.perfumism.article.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleSubject;
@@ -34,16 +35,29 @@ public class ArticleReadResponse {
     @ApiModelProperty(position = 5, notes = "내용", example = "내용입니다")
     private String content;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonProperty("createAt")
-    @ApiModelProperty(position = 6, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
+    @ApiModelProperty(position = 6, notes = "생성 시간", example = "2022-3-13 14:59:51")
     private LocalDateTime createAt;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("updateAt")
+    @ApiModelProperty(position = 7, notes = "수정 시간", example = "2023-4-14 14:59:51")
+    private LocalDateTime updateAt;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("deleteAt")
+    @ApiModelProperty(position = 8, notes = "삭제 시간", example = "2023-4-15 14:59:51")
+    private LocalDateTime deleteAt;
+
 
     public ArticleReadResponse(){
 
     }
 
-    public ArticleReadResponse(Long articleId, Long memberId, String memberName, ArticleSubject subject, String title, String content,
-        LocalDateTime createdAt){
+    public ArticleReadResponse(Long articleId, Long memberId, String memberName,
+        ArticleSubject subject, String title, String content,
+        LocalDateTime createdAt, LocalDateTime updateAt, LocalDateTime deleteAt){
         this.articleId = articleId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -51,6 +65,8 @@ public class ArticleReadResponse {
         this.title = title;
         this.content = content;
         this.createAt = createdAt;
+        this.updateAt = updateAt;
+        this.deleteAt = deleteAt;
     }
 
     public static ArticleReadResponse from(Article article){
@@ -61,7 +77,9 @@ public class ArticleReadResponse {
             article.getSubject(),
             article.getTitle(),
             article.getContent(),
-            article.getCreatedAt()
+            article.getCreatedAt(),
+            article.getUpdatedAt(),
+            article.getDeletedAt()
         );
     }
 
