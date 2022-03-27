@@ -9,8 +9,8 @@ import com.ladder.perfumism.comment.domain.CommentRepository;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
-import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.notification.service.NotificationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,11 +22,14 @@ public class CommentService {
     private final MemberService memberService;
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
+    private final NotificationService notificationService;
 
-    public CommentService(MemberService memberService, ArticleRepository articleRepository, CommentRepository commentRepository){
+    public CommentService(MemberService memberService, ArticleRepository articleRepository,
+        CommentRepository commentRepository, NotificationService notificationService) {
         this.memberService = memberService;
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
+        this.notificationService = notificationService;
     }
 
     private Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
@@ -59,6 +62,7 @@ public class CommentService {
             .build();
 
         commentRepository.save(comment);
+        notificationService.createCommentNotification(comment);
     }
 
     @Transactional
@@ -113,5 +117,6 @@ public class CommentService {
             .build();
 
         commentRepository.save(reply);
+        notificationService.createReplyNotification(reply);
     }
 }
