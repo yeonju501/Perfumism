@@ -4,7 +4,7 @@ import test from "assets/test.jpg";
 function WordCloud() {
 	return (
 		<Container>
-			<img src={test} />
+			<WordCloudImg src={test} />
 		</Container>
 	);
 }
@@ -17,6 +17,12 @@ const Container = styled.div`
 	border-top-style: ridge;
 	border-bottom-style: ridge;
 	width: 50rem;
+`;
+
+const WordCloudImg = styled.img`
+	margin: 2rem;
+	background-color: none;
+	border: none;
 `;
 
 export default WordCloud;

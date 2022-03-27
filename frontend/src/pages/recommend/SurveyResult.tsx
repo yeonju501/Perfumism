@@ -48,7 +48,7 @@ function SurveyResult() {
 		},
 	];
 	const accordData = {
-		accords: ["fruity", "woody", "aromatic"],
+		accords: ["powdery", "woody", "violet"],
 	};
 
 	return (
