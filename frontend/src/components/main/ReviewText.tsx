@@ -25,7 +25,7 @@ interface Review {
 }
 
 function ReviewText({ review }: Review) {
-	const date = `${review.created_at[0]}.${review.created_at[1]}.${review.created_at[2]}`;
+	const date = `${review.created_at.slice(0, 10)}`;
 	return (
 		<Container to={`/perfume/${review.perfume_id}`}>
 			<PerfumeName>{review.perfume_name}</PerfumeName>
