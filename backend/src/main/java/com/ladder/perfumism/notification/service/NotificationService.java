@@ -49,7 +49,18 @@ public class NotificationService {
         Member member = memberService.findByEmail(email);
         LocalDateTime start = LocalDateTime.now().minusMonths(3);
         LocalDateTime end = LocalDateTime.now();
-        List<Notification> notifications = notificationRepository.findAllByMemberAndCreatedAtBetween(member, start, end);
+        List<Notification> notifications = notificationRepository.findAllByMemberAndCreatedAtBetweenOrderByCreatedAtDesc(member, start, end);
+        return notifications.stream()
+            .map(NotificationResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<NotificationResponse> showUnreadNotifications(String email) {
+        Member member = memberService.findByEmail(email);
+        LocalDateTime start = LocalDateTime.now().minusMonths(3);
+        LocalDateTime end = LocalDateTime.now();
+        List<Notification> notifications = notificationRepository.findAllByMemberAndCreatedAtBetweenAndReadAtIsNullOrderByCreatedAtDesc(member, start, end);
         return notifications.stream()
             .map(NotificationResponse::from)
             .collect(Collectors.toList());
