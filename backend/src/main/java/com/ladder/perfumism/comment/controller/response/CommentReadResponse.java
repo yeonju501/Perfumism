@@ -1,5 +1,6 @@
 package com.ladder.perfumism.comment.controller.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.comment.domain.Comment;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,20 +32,27 @@ public class CommentReadResponse {
     @ApiModelProperty(required = true, position = 4, notes = "내용", example = "나는 쓴다 댓글 여기에")
     private String content;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonProperty("createAt")
-    @ApiModelProperty(position = 5, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
+    @ApiModelProperty(position = 5, notes = "생성 시간", example = "2022-03-13 14:59:51")
     private LocalDateTime createAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonProperty("updateAt")
-    @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
+    @ApiModelProperty(position = 6, notes = "수정 시간", example = "2023-4-14 14:59:51")
     private LocalDateTime updateAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("deleteAt")
+    @ApiModelProperty(position = 7, notes = "삭제 시간", example = "2023-4-15 14:59:51")
+    private LocalDateTime deleteAt;
+
     @JsonProperty("deletion")
-    @ApiModelProperty(position = 7, notes = "삭제 유무", example = "false(삭제X) or ture(삭제O)")
+    @ApiModelProperty(position = 8, notes = "삭제 유무", example = "false(삭제X) or ture(삭제O)")
     private Boolean deletion;
 
     @JsonProperty("replyList")
-    @ApiModelProperty(position = 8, notes = "대댓글 리스트 없을 때 = []")
+    @ApiModelProperty(position = 9, notes = "대댓글 리스트 없을 때 = []")
     private List<CommentReplyReadResponse> replyList;
 
 
@@ -53,8 +61,8 @@ public class CommentReadResponse {
     }
 
     public CommentReadResponse(
-        Long commentId, Long memberId, String memberName,
-        Long articleId, String content, LocalDateTime createAt, LocalDateTime updateAt,
+        Long commentId, Long memberId, String memberName, Long articleId, String content,
+        LocalDateTime createAt, LocalDateTime updateAt, LocalDateTime deleteAt,
         List<CommentReplyReadResponse> replyList, Boolean deletion){
         this.commentId = commentId;
         this.memberId = memberId;
@@ -63,6 +71,7 @@ public class CommentReadResponse {
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.deleteAt = deleteAt;
         this.replyList = replyList;
         this.deletion = deletion;
     }
@@ -76,6 +85,7 @@ public class CommentReadResponse {
             comment.getContent(),
             comment.getCreatedAt(),
             comment.getUpdatedAt(),
+            comment.getDeletedAt(),
             comment.getReplyList().stream().map(CommentReplyReadResponse::from)
                 .filter(c -> !c.getDeletion()).collect(Collectors.toList()),
             comment.getDeletion()
