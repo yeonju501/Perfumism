@@ -9,6 +9,7 @@ import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
 import com.ladder.perfumism.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,7 +41,7 @@ public class MemberRestController {
 
     @DeleteMapping("/members")
     @ApiOperation(value = "회원탈퇴", notes = "회원 탈퇴 api")
-    public ResponseEntity<Void> resignMember(@AuthenticationPrincipal String email) {
+    public ResponseEntity<Void> resignMember(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
         memberService.resignMember(email);
         return ResponseEntity.noContent().build();
     }
