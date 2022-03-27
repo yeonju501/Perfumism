@@ -34,6 +34,10 @@ public enum ErrorCode {
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 이메일 입니다.", "C04"),
     MEMBER_USERNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 닉네임 입니다.", "C11"),
 
+    // notification
+    NOTIFICATION_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 알림입니다.", "D01"),
+    NOTIFICATION_NOT_MATCH_BY_EMAIL(HttpStatus.BAD_REQUEST, "알림 수신자와 일치하지 않는 이메일입니다.", "D02"),
+
     // article
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
     ARTICLE_IS_NOT_YOURS(HttpStatus.UNAUTHORIZED,"당신의 게시글이 아닙니다","H02"),
