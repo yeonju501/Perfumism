@@ -2,7 +2,7 @@
 
 const size = {
 	tabletS: "1060px",
-	mobile: "770px",
+	mobile: "790px",
 };
 
 const theme = {
