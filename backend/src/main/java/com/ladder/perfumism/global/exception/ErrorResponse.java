@@ -33,6 +33,7 @@ public class ErrorResponse {
 
     public static String toJson(ErrorCode error) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.getFactory().configure(JsonWriteFeature.ESCAPE_NON_ASCII.mappedFeature(), true);
         return objectMapper.writeValueAsString(new ErrorResponse(error.getCode(), error.getMessage()));
     }
 
