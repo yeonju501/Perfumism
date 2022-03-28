@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PerfumeInfo from "components/perfume/PerfumeInfo";
+import PerfumeDetailRecommendation from "components/perfume/PerfumeDetailRecommendation";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -54,11 +55,7 @@ function PerfumeDetail() {
 		perfumeData && (
 			<Container>
 				<PerfumeInfo perfumeData={perfumeData} />
-				<Recommendation>
-					<p>{perfumeData.perfume_name}과 비슷한 향수</p>
-					<PerfumeList perfumes={perfumeData.similar_perfume} />
-					<p>{perfumeData.brand.brand_name}의 다른 향수</p>
-				</Recommendation>
+				<PerfumeDetailRecommendation perfumeData={perfumeData} />
 				<ReviewCreateForm perfumeId={perfumeId} />
 				<ReviewList perfumeId={perfumeId} />
 			</Container>
@@ -71,7 +68,5 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-
-const Recommendation = styled.div``;
 
 export default PerfumeDetail;
