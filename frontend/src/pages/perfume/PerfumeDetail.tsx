@@ -55,7 +55,7 @@ function PerfumeDetail() {
 		perfumeData && (
 			<Container>
 				<PerfumeMainInfo>
-					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
+					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
 					{token && <LikeButton perfumeId={perfumeId} />}
 					<div>
 						<h1>
