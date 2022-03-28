@@ -29,7 +29,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 				<Perfume key={idx}>
 					<PerfumeItem onClick={() => handlePerfumeItemClick(perfume.perfume_id)}>
 						<PerfumeImage
-							src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image.slice(2)}`}
+							src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}`}
 							alt="perfume image"
 						/>
 						<Name>{perfume.perfume_name}</Name>
