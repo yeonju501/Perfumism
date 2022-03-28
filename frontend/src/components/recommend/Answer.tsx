@@ -31,6 +31,8 @@ const Container = styled.div`
 const SurveyImg = styled.img`
 	background-color: none;
 	border: none;
+	width: 250px;
+	height: 170px;
 `;
 
 const Content = styled.p`
