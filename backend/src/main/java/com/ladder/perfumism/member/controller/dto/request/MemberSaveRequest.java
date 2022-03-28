@@ -12,7 +12,7 @@ public class MemberSaveRequest {
     @JsonProperty("email")
     private String email;
 
-    @ApiModelProperty(name = "password", position = 1, example = "dkjghdfkjhdkjh")
+    @ApiModelProperty(name = "password", position = 1, example = "sksmsWkddlek1!")
     @JsonProperty("password")
     private String password;
 
