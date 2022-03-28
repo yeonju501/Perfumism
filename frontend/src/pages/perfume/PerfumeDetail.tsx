@@ -5,8 +5,7 @@ import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import LikeButton from "components/perfume/LikeButton";
-import cookie from "react-cookies";
+import PerfumeInfo from "components/perfume/PerfumeInfo";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -26,6 +25,7 @@ interface PerfumeDataType {
 	sillage: string;
 	accords: AccordType[];
 	similar_perfume: [];
+	likes: number;
 }
 
 interface AccordType {
@@ -41,7 +41,6 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
-	const token = cookie.load("access_token");
 
 	useEffect(() => {
 		getPerfume();
@@ -54,36 +53,7 @@ function PerfumeDetail() {
 	return (
 		perfumeData && (
 			<Container>
-				<PerfumeMainInfo>
-					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
-					{token && <LikeButton perfumeId={perfumeId} />}
-					<div>
-						<h1>
-							{perfumeData.perfume_name}
-							<span>({perfumeData.launch_year})</span>
-						</h1>
-						<Link to={`/perfumes/${perfumeData.brand.brand_name}`}>
-							{perfumeData.brand.brand_name}
-						</Link>
-						<h4>
-							<span style={{ color: "#ffcb14" }}>★</span>
-							{perfumeData.average_grade}
-						</h4>
-						<p>main accords</p>
-						<ul>
-							{perfumeData.accords.map((accord) => (
-								<li key={accord.accord_id}>{accord.eng_name}</li>
-							))}
-						</ul>
-					</div>
-				</PerfumeMainInfo>
-				<PerfumeSubInfo>
-					<p>{perfumeData.top_notes}</p>
-					<p>{perfumeData.middle_notes}</p>
-					<p>{perfumeData.base_notes}</p>
-					<p>{perfumeData.longevity}</p>
-					<p>{perfumeData.sillage}</p>
-				</PerfumeSubInfo>
+				<PerfumeInfo perfumeData={perfumeData} />
 				<Recommendation>
 					<p>{perfumeData.perfume_name}과 비슷한 향수</p>
 					<PerfumeList perfumes={perfumeData.similar_perfume} />
@@ -102,18 +72,6 @@ const Container = styled.div`
 	flex-direction: column;
 `;
 
-const PerfumeMainInfo = styled.div`
-	display: flex;
-	button {
-		display: block;
-	}
-`;
-
-const Image = styled.img`
-	width: 15%;
-	height: auto;
-`;
-const PerfumeSubInfo = styled.div``;
 const Recommendation = styled.div``;
 
 export default PerfumeDetail;
