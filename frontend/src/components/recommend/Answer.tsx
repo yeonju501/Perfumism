@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface AnswerProps {
-	surveyItem: { url: string; content: string };
+	surveyItem: { url?: string; content: string };
 	number: number;
 	answerHandleChange: (answer: number) => void;
 }
