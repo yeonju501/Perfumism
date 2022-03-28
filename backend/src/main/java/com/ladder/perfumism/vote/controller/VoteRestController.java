@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -47,5 +48,15 @@ public class VoteRestController {
         @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
         return ResponseEntity.ok().body(voteService.showVoteList(email,articleId));
+    }
+
+    @PutMapping("/{article_id}")
+    public ResponseEntity<Void> putVote(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId){
+
+        voteService.expireVote(email, articleId);
+
+        return ResponseEntity.noContent().build();
     }
 }
