@@ -45,7 +45,7 @@ public class VoteService {
         List<String> items = request.getVoteItemList();
         for (String item : items ){
             VoteItem voteItem = VoteItem.builder()
-                .voteId(vote)
+                .vote(vote)
                 .content(item)
                 .build();
 
