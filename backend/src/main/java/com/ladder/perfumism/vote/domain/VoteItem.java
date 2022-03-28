@@ -16,8 +16,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-@Where(clause = "deleted_at is null")
-public class VoteItem {
+public class VoteItem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
