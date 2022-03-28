@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
 import { authApi } from "apis";
 import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
+import IconStyled from "./IconStyled";
 
 function UserIcon() {
 	const token = cookie.load("access_token");
@@ -16,19 +15,12 @@ function UserIcon() {
 
 	return token ? (
 		<>
-			<FontAwesome icon={faUser} />
-			<FontAwesome icon={faArrowRightFromBracket} onClick={logout} />
+			<IconStyled img={faUser} />
+			<IconStyled img={faArrowRightFromBracket} handleClick={logout} />
 		</>
 	) : (
-		<FontAwesome icon={faUser} onClick={() => navigate("/signin")} />
+		<IconStyled img={faUser} handleClick={() => navigate("/signin")} />
 	);
 }
 
 export default UserIcon;
-
-const FontAwesome = styled(FontAwesomeIcon)`
-	width: 1.8rem;
-	height: 1.8rem;
-	margin-left: 2rem;
-	cursor: pointer;
-`;

@@ -19,4 +19,7 @@ const FontAwesome = styled(FontAwesomeIcon)`
 	height: 1.8rem;
 	margin-left: 2rem;
 	cursor: pointer;
+	@media ${(props) => props.theme.tabletS} {
+		margin: 0;
+	}
 `;

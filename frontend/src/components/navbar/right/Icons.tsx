@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Search from "./Search";
-import Alert from "./alert/Alert";
+import Alert from "./Alert";
 import UserIcon from "./UserIcon";
 
 function Icons() {
@@ -17,6 +17,5 @@ export default Icons;
 
 const ListItem = styled.li`
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 `;

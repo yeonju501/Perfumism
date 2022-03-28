@@ -4,7 +4,7 @@ import { alertApi } from "apis";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
-import IconStyled from "../IconStyled";
+import IconStyled from "./IconStyled";
 import cookie from "react-cookies";
 
 function Alert() {

@@ -52,6 +52,11 @@ const Input = styled.input<InputProps>`
 	&:focus {
 		outline: none;
 	}
+
+	@media ${(props) => props.theme.tabletS} {
+		width: 15rem;
+		transform: ${({ isOn }) => isOn && "translate(-13.5rem, -.4rem)"};
+	}
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
