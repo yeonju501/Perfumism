@@ -34,6 +34,9 @@ public class Vote extends BaseEntity {
     @Column(name = "total_voter")
     private int totalVoter;
 
+    @Column(name = "expiration")
+    private Boolean expiration;
+
     public Vote(){
 
     }
@@ -43,5 +46,6 @@ public class Vote extends BaseEntity {
         this.article = article;
         this.title = title;
         this.totalVoter = totalVoter;
+        this.expiration = false;
     }
 }
