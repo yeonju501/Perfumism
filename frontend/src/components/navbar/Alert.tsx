@@ -18,5 +18,6 @@ function Alert() {
 export default Alert;
 
 const Container = styled.div`
+	margin-top: 0.3rem;
 	position: relative;
 `;
