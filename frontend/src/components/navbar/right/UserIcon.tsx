@@ -39,4 +39,5 @@ const FontAwesome = styled(FontAwesomeIcon)<Props>`
 		margin: 0;
 		position: absolute;
 		left: ${(props) => (props.userIcon ? "7rem" : "4rem")};
+	}
 `;

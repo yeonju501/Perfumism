@@ -48,9 +48,12 @@ const FontAwesome = styled(FontAwesomeIcon)`
 	cursor: pointer;
 `;
 
-const Content = styled.p`
+const Content = styled.span`
 	font-size: 1.3rem;
 	color: rgb(123, 123, 123);
 	margin: 0;
 	margin-bottom: 0.5rem;
+	@media ${(props) => props.theme.mobile} {
+		font-size: 1rem;
+	}
 `;
