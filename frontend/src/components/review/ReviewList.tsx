@@ -3,6 +3,8 @@ import { ShowMoreButton } from "components/button/Button";
 import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import cookie from "react-cookies";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -53,6 +55,8 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 					<p>{review.grade}</p>
 					<p>{review.content}</p>
 					{token && <LikeButton reviewId={review.review_id} />}
+					<FontAwesomeIcon icon={heart} />
+					<span>{review.likes}</span>
 					<hr />
 				</li>
 			))}
