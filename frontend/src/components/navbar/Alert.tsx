@@ -1,16 +1,27 @@
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { alertApi } from "apis";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
 import IconStyled from "./IconStyled";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
+	const [numOfUnread, setNumOfUnread] = useState(0);
+
+	useEffect(() => {
+		getNumOfUnread();
+	}, [numOfUnread]);
+
+	const getNumOfUnread = async () => {
+		const num = await alertApi.getNumOfUnread();
+		setNumOfUnread(num.data);
+	};
 
 	return (
 		<Container>
 			<IconStyled img={faBell} handleClick={() => setIsOn(!isOn)} />
-			<NumberOfNotification></NumberOfNotification>
+			{numOfUnread ? <NumberOfNotification>{numOfUnread}</NumberOfNotification> : undefined}
 			{isOn ? <AlertBox /> : undefined}
 		</Container>
 	);
