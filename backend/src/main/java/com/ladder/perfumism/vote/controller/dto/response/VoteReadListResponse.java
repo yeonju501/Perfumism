@@ -22,16 +22,20 @@ public class VoteReadListResponse {
     @JsonProperty("total_voter")
     private int totalVoter;
 
+    @JsonProperty("expiration")
+    private Boolean expiration;
+
     public VoteReadListResponse(){
 
     }
 
     public VoteReadListResponse(
-        Long voteId, String title, List<VoteReadResponse> voteItemList, int totalVoter){
+        Long voteId, String title, List<VoteReadResponse> voteItemList, int totalVoter, Boolean expiration){
         this.voteId = voteId;
         this.title = title;
         this.voteItemList = voteItemList;
         this.totalVoter = totalVoter;
+        this.expiration = expiration;
     }
 
     public static VoteReadListResponse from(Vote vote, List<VoteItem> voteItem){
@@ -41,7 +45,8 @@ public class VoteReadListResponse {
             voteItem.stream()
                 .map(VoteReadResponse::from)
                 .collect(Collectors.toList()),
-            vote.getTotalVoter()
+            vote.getTotalVoter(),
+            vote.getExpiration()
 
         );
     }
