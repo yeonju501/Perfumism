@@ -17,7 +17,7 @@ const perfumeApi: PerfumeApiType = {
 	addFavoritePerfume: (perfumeId) => request.post(`auth/perfumes/likes/${perfumeId}`),
 	deleteFavoritePerfume: (perfumeId) => request.delete(`auth/perfumes/likes/${perfumeId}`),
 	getBrandPerfumes: (brandName, currentPage) =>
-		request.get(`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=5&type=brand"`),
+		request.get(`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=5&type=brand`),
 };
 
 export default perfumeApi;
