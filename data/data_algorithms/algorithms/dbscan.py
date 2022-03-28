@@ -3,15 +3,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-def recommend_like_based(accord_list):
-
-    answerData = {
-                "a1": 3,
-                "a2": 4,
-                "a3": 0,
-                "a4": 2,
-                "a5": 1,
-            }
+def recommend_like_based(accord_list, a5):
 
     input_data = {
         "id": "",
@@ -27,14 +19,14 @@ def recommend_like_based(accord_list):
         "similar_perfume": []
     }
 
-    if answerData["a5"] == 0:
+    if a5 == 0:
         df = pd.read_json("popular.json")
-    else :
+    else:
         df = pd.read_json("unpopular.json")
 
     df = df.append(input_data, ignore_index=True)
 
-    if answerData["a5"] == 0:
+    if a5 == 0:
         new_df = df
     else:
         tfidfv = TfidfVectorizer().fit(df['main_accords'])
@@ -60,6 +52,11 @@ def recommend_like_based(accord_list):
     else:
         sim_index = perfume_c_sim[len(new_df) - 1, :30].reshape(-1)
     sim_index = sim_index[sim_index != len(new_df) - 1]
-    result = new_df.iloc[sim_index]
+    result = new_df.iloc[sim_index][:3]
 
     return result
+
+if __name__ == '__main__':
+    arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"
+    result = recommend_like_based(arr, 0)
+    print(result)
