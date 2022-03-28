@@ -3,6 +3,31 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+
+mapping_table = [
+    {
+        0: ["cherry", "tropical", "fruity", "sour", "terpenic", "citrus", "tropical"],
+        1: ["lavender", "tuberose", "terpenic", "yellow floral", "rose", "violet", "patchouli", "white floral", "aldehydic", "floral", "iris"],
+        2: ["mossy", "foresty", "woody", "oud", "conifer", "patchouli"],
+        3: ["ozonic", "aquatic", "marine"]
+    },
+    {
+        0: ["cinnamon", "cherry", "vanilla", "gourmand", "coconut", "caramel", "balsamic", "beeswax", "sweet", "amber", "honey", "tropical", "fruity"],
+        1: ["soapy", "musky", "beeswax", "powdery", "amber", "aldehydic"],
+        2: ["vanilla", "gourmand", "coconut", "nutty", "beeswax", "milky", "lactonic"],
+        3: ["cinnamon", "animalic", "vanilla", "fresh spicy", "camphor", "balsamic", "patchouli", "soft spicy", "aromatic", "warm spicy", "cannabis"],
+        4: ["mossy", "foresty", "herbal", "earthy", "patchouli", "aromatic", "green"]
+    },
+    {
+        0: ["eternal", "long lasting", "moderate"],
+        1: ["weak", "very weak"]
+    },
+    {
+        0: ["intimate"],
+        1: ["moderate", "strong", "enormous"]
+    }
+]
+
 def recommend_like_based(accord_list, a5):
 
     input_data = {
