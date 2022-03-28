@@ -49,4 +49,11 @@ public class PerfumeRestController {
     public ResponseEntity<BrandListResponse> viewBrandList(Pageable pageable) {
         return ResponseEntity.ok().body(perfumeService.getBrandList(pageable));
     }
+
+    @GetMapping("/perfumes/monthly/forced-refresh")
+    @ApiOperation(value = "이달의 향수 목록 강제 새로 고침", notes = "이달의 향수 목록을 강제로 새로고침하는 API 입니다.")
+    public ResponseEntity<Void> forcedRefreshMonthlyPerfumeList() {
+        perfumeService.refreshingMonthlyPerfumeList();
+        return ResponseEntity.ok().build();
+    }
 }
