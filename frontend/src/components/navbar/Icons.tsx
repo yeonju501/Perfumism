@@ -5,6 +5,7 @@ import { authApi } from "apis";
 import cookie from "react-cookies";
 import styled from "styled-components";
 import Search from "./Search";
+import Alert from "./Alert";
 
 function Icons() {
 	const token = cookie.load("access_token");
@@ -18,7 +19,7 @@ function Icons() {
 	return token ? (
 		<ListItem>
 			<Search />
-			<FontAwesome icon={faBell} />
+			<Alert />
 			<FontAwesome icon={faUser} />
 			<FontAwesome icon={faArrowRightFromBracket} onClick={logout} />
 		</ListItem>
