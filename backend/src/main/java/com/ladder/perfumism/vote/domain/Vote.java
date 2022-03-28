@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
 
@@ -29,4 +30,14 @@ public class Vote extends BaseEntity {
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    protected Vote(){
+
+    }
+
+    @Builder
+    private Vote(Article articleId, String title){
+        this.articleId = articleId;
+        this.title = title;
+    }
 }
