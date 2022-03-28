@@ -38,6 +38,7 @@ public class VoteService {
         Vote vote = Vote.builder()
             .articleId(article)
             .title(request.getTitle())
+            .totalVoter(0)
             .build();
 
         voteRepository.save(vote);
