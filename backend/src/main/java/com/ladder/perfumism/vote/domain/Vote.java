@@ -25,7 +25,7 @@ public class Vote extends BaseEntity {
 
     @OneToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
-    private Article member;
+    private Article articleId;
 
     @Column(name = "title", nullable = false)
     private String title;
