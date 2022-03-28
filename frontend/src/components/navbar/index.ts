@@ -1,3 +1,2 @@
-export { default as Icons } from "./right/Icons";
+export { Icons, Search } from "./right";
 export { default as LinkList } from "./left/LinkList";
-export { default as Search } from "./right/Search";
