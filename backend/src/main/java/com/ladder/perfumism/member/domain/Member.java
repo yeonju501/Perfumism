@@ -80,6 +80,12 @@ public class Member extends BaseEntity {
         }
     }
 
+    public void changeUsername(String username) {
+        if(!Objects.isNull(username)) {
+            this.username = username;
+        }
+    }
+
     public void changePassword(PasswordEncoder passwordEncoder, String password) {
         if(!Objects.isNull(password)) {
             this.password = passwordEncoder.encode(password);
