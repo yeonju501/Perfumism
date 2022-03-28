@@ -48,7 +48,7 @@ const Input = styled.input<InputProps>`
 	position: absolute;
 	display: ${({ isOn }) => (isOn ? "block" : "none")};
 	border-radius: 0.5rem;
-	transform: ${({ isOn }) => isOn && "translateX(-19rem)"};
+	transform: ${({ isOn }) => isOn && "translate(-19rem, -.4rem)"};
 	&:focus {
 		outline: none;
 	}

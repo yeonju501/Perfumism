@@ -59,6 +59,9 @@ const Nav = styled.nav<NavProps>`
 	justify-content: ${({ justifyContent }) => (justifyContent ? justifyContent : "flex-start")};
 	width: 20%;
 	margin: 0 5%;
+	@media ${(props) => props.theme.tabletS} {
+		margin: 0 2%;
+	}
 `;
 
 const Ul = styled.ul`
