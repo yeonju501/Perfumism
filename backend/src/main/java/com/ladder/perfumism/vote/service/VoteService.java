@@ -7,6 +7,7 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.vote.controller.dto.request.VoteCreateRequest;
+import com.ladder.perfumism.vote.controller.dto.response.VoteReadListResponse;
 import com.ladder.perfumism.vote.domain.Vote;
 import com.ladder.perfumism.vote.domain.VoteItem;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
@@ -14,6 +15,7 @@ import com.ladder.perfumism.vote.domain.VoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VoteService {
@@ -31,13 +33,15 @@ public class VoteService {
         this.voteItemRepository = voteItemRepository;
     }
 
+    @Transactional
     public void createVote(String email, Long articleId, VoteCreateRequest request) {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
         Vote vote = Vote.builder()
-            .articleId(article)
+            .article(article)
             .title(request.getTitle())
+            .totalVoter(0)
             .build();
 
         voteRepository.save(vote);
@@ -45,11 +49,24 @@ public class VoteService {
         List<String> items = request.getVoteItemList();
         for (String item : items ){
             VoteItem voteItem = VoteItem.builder()
-                .voteId(vote)
+                .vote(vote)
                 .content(item)
                 .build();
 
             voteItemRepository.save(voteItem);
         }
+    }
+
+    @Transactional
+    public VoteReadListResponse showVoteList(String email, Long articleId) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Vote vote = voteRepository.findByArticle(article)
+            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
+
+        List<VoteItem> voteItem = voteItemRepository.findByVote(vote);
+
+        return VoteReadListResponse.from(vote, voteItem);
     }
 }

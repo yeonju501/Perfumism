@@ -26,18 +26,22 @@ public class Vote extends BaseEntity {
 
     @OneToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
-    private Article articleId;
+    private Article article;
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "total_voter")
+    private int totalVoter;
 
     public Vote(){
 
     }
 
     @Builder
-    private Vote(Article articleId, String title){
-        this.articleId = articleId;
+    private Vote(Article article, String title, int totalVoter){
+        this.article = article;
         this.title = title;
+        this.totalVoter = totalVoter;
     }
 }

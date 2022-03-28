@@ -40,13 +40,14 @@ public enum ErrorCode {
 
     // article
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
-    ARTICLE_IS_NOT_YOURS(HttpStatus.UNAUTHORIZED,"당신의 게시글이 아닙니다","H02"),
+    ARTICLE_IS_NOT_YOURS(HttpStatus.BAD_REQUEST,"당신의 게시글이 아닙니다","H02"),
 
     // comment
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다","I01"),
-    COMMENT_IS_NOT_YOURS(HttpStatus.UNAUTHORIZED, "당신의 댓글이 아닙니다","I02"),
+    COMMENT_IS_NOT_YOURS(HttpStatus.BAD_REQUEST, "당신의 댓글이 아닙니다","I02"),
 
     // vote
+    VOTE_NOT_FOUND(HttpStatus.NOT_FOUND,"진행되는 투표가 없습니다", "J01"),
 
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),

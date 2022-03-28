@@ -16,8 +16,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-@Where(clause = "deleted_at is null")
-public class VoteItem {
+public class VoteItem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +25,7 @@ public class VoteItem {
 
     @ManyToOne(targetEntity = Vote.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "vote_id")
-    private Vote voteId;
+    private Vote vote;
 
     @Column(name = "content", nullable = false)
     private String content;
@@ -36,8 +35,8 @@ public class VoteItem {
     }
 
     @Builder
-    public VoteItem(Vote voteId, String content){
-        this.voteId = voteId;
+    public VoteItem(Vote vote, String content){
+        this.vote = vote;
         this.content = content;
     }
 }
