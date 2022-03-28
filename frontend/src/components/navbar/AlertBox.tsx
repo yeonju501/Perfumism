@@ -45,11 +45,12 @@ function AlertBox() {
 				Unread
 			</SelectedButton>
 
-			{notifications.map((notification) => (
-				<Notification to="/" key={notification.notification_id}>
+			{notifications.map((notification) => {
+				const link = `/${notification.article_id}`;
+				<Notification to={link} key={notification.notification_id}>
 					{notification}
-				</Notification>
-			))}
+				</Notification>;
+			})}
 		</Container>
 	);
 }
@@ -88,7 +89,7 @@ const SelectedButton = styled.button<Button>`
 	padding: 1rem;
 	font-weight: 800;
 	font-size: 1.6rem;
-	color: ${(props) => (props.selected ? "red" : "gray")};
+	color: ${(props) => (props.selected ? "#000" : "gray")};
 	margin-right: 1rem;
 	margin-bottom: 1.5rem;
 	border: none;
