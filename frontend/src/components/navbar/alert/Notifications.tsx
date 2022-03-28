@@ -18,12 +18,12 @@ function Notifications({ notifications }: Prop) {
 				notifications.map((notification) => {
 					const link = `/${notification.article_id}`;
 					<Notification to={link} key={notification.notification_id}>
-						<NoAlert>
+						<span onClick={() => readNotification(notification.notification_id)}>
 							{notification.type === "comment"
 								? notification.comment_content
 								: notification.article_title}
 							에 새로운 댓글이 달렸습니다
-						</NoAlert>
+						</span>
 					</Notification>;
 				})
 			) : (
