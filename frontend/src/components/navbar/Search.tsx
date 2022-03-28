@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import searchApi from "apis/serach";
+import searchApi from "apis/search";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 
