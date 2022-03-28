@@ -10,10 +10,20 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 	const answerHandleClick = () => answerHandleChange(number);
 
 	return (
-		<Container onClick={answerHandleClick}>
-			<SurveyImg src={surveyItem["url"]} />
-			<Content>{surveyItem["content"]}</Content>
-		</Container>
+		<>
+			{surveyItem["url"] ? (
+				<Container onClick={answerHandleClick}>
+					<SurveyImg src={surveyItem["url"]} />
+					<Content>{surveyItem["content"]}</Content>
+				</Container>
+			) : (
+				<Container onClick={answerHandleClick}>
+					<Button>
+						<Content>{surveyItem["content"]}</Content>
+					</Button>
+				</Container>
+			)}
+		</>
 	);
 }
 
@@ -39,6 +49,22 @@ const Content = styled.p`
 	font-size: 2.5rem;
 	text-align: center;
 	margin: 1.5rem;
+`;
+
+const Button = styled.button`
+	width: 60rem;
+	// color: inherit;
+	text-align: center;
+	text-decoration: none;
+	padding: 1rem;
+	border: 1px solid #000;
+	margin: 2rem auto;
+
+	&:hover {
+		transition: 0.5s;
+		background-color: #000;
+		color: #fff;
+	}
 `;
 
 export default Answer;
