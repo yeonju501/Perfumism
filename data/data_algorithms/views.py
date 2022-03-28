@@ -18,8 +18,8 @@ def like_based(request, member_pk):
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
 
-    # 어코드 영문 이름 리스트 여기 있습니다 미스터방씨
-    accord_list = list(set(accord_list))
+    # 어코드 영문 이름 리스트 여기 있습니다 미스터방씨 >> 네
+    accord_list = ' '.join(list(set(accord_list)))
 
     serializer = AccordListSerializer(accord_list, many=True)
     return Response(serializer.data)
