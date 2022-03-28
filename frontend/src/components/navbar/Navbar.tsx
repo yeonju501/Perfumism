@@ -75,6 +75,13 @@ const Head = styled(Link)<HeaderProps>`
 	display: flex;
 	justify-content: center;
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
+	@media ${(props) => props.theme.tabletS} {
+		font-size: 3rem;
+	}
+
+	@media ${(props) => props.theme.mobilS} {
+		font-size: 2rem;
+	}
 `;
 
 export default Navbar;

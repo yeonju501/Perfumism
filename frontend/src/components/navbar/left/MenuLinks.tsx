@@ -14,7 +14,7 @@ const handleClick = (link: string) => {
 };
 
 function MenuLinks({ scrollheader, isMenu }: Props) {
-	return isMenu ? (
+	return (
 		<ListItem isMenu={isMenu}>
 			<LinkParagraph scrollheader={scrollheader} onClick={() => handleClick("/recommend")}>
 				RECOMMEND
@@ -26,7 +26,7 @@ function MenuLinks({ scrollheader, isMenu }: Props) {
 				COMMUNITY
 			</LinkParagraph>
 		</ListItem>
-	) : null;
+	);
 }
 
 export default MenuLinks;
