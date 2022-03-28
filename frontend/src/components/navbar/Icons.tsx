@@ -5,7 +5,7 @@ import { authApi } from "apis";
 import cookie from "react-cookies";
 import styled from "styled-components";
 import Search from "./Search";
-import Alert from "./Alert";
+import Alert from "./alert/Alert";
 
 function Icons() {
 	const token = cookie.load("access_token");

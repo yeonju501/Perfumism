@@ -1,9 +1,9 @@
 import { alertApi } from "apis";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Notifications from "./Notifications";
 
-interface Notification {
+export interface NotificationProp {
 	notification_id: number;
 	type: string;
 	article_id: number;
@@ -18,7 +18,7 @@ interface Button {
 }
 
 function AlertBox() {
-	const [notifications, setNotifications] = useState<Array<Notification>>([]);
+	const [notifications, setNotifications] = useState<Array<NotificationProp>>([]);
 	const [isAll, setIsAll] = useState(true);
 
 	useEffect(() => {
@@ -37,20 +37,13 @@ function AlertBox() {
 	return (
 		<Container>
 			<Title>Notifications</Title>
-
 			<SelectedButton onClick={() => setIsAll(!isAll)} selected={isAll}>
 				All
 			</SelectedButton>
 			<SelectedButton onClick={() => setIsAll(!isAll)} selected={!isAll}>
 				Unread
 			</SelectedButton>
-
-			{notifications.map((notification) => {
-				const link = `/${notification.article_id}`;
-				<Notification to={link} key={notification.notification_id}>
-					{notification}
-				</Notification>;
-			})}
+			<Notifications notifications={notifications} />
 		</Container>
 	);
 }
@@ -75,14 +68,6 @@ const Title = styled.h1`
 	font-size: 2.5rem;
 	margin: 0;
 	margin-bottom: 0.5rem;
-`;
-
-const Notification = styled(Link)`
-	margin: 0 auto;
-	display: block;
-	text-decoration: none;
-	color: #000;
-	margin-bottom: 1rem;
 `;
 
 const SelectedButton = styled.button<Button>`
