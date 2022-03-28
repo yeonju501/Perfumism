@@ -48,4 +48,8 @@ public class Vote extends BaseEntity {
         this.totalVoter = totalVoter;
         this.expiration = false;
     }
+
+    public void expireVote() {
+        this.expiration = !this.expiration;
+    }
 }
