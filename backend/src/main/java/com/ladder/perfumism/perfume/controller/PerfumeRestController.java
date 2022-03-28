@@ -3,12 +3,14 @@ package com.ladder.perfumism.perfume.controller;
 import com.ladder.perfumism.perfume.controller.dto.response.BrandListResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeSimpleResponse;
 import com.ladder.perfumism.perfume.service.PerfumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,5 +57,11 @@ public class PerfumeRestController {
     public ResponseEntity<Void> forcedRefreshMonthlyPerfumeList() {
         perfumeService.refreshingMonthlyPerfumeList();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/perfumes/monthly")
+    @ApiOperation(value = "이달의 향수 목록", notes = "이달의 향수 목록 API 입니다.")
+    public ResponseEntity<List<PerfumeSimpleResponse>> viewMonthlyPerfumeList() {
+        return ResponseEntity.ok().body(perfumeService.getMonthlyPerfumeList());
     }
 }
