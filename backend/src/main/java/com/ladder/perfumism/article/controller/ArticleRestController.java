@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -38,7 +39,7 @@ public class ArticleRestController {
     @PostMapping
     @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
     public ResponseEntity<Void> postArticle(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestBody ArticleCreateRequest request){
 
         articleService.createArticle(email,request);
@@ -51,7 +52,7 @@ public class ArticleRestController {
     @ApiOperation(value = "게시글 목록 조회", notes = "<b>(로그인 필요)</b> 게시글 목록을 받아오는 API")
     @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null")
     public ResponseEntity<ArticleReadListResponse> getArticleList(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
         @PathVariable(required = false) ArticleSubject subject){
 
@@ -63,7 +64,7 @@ public class ArticleRestController {
     @ApiOperation(value = "게시글 상세 조회", notes = "<b>(로그인 필요)</b> 게시글을 선택했을 때 선택한 게시글을 받아오는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId) {
 
         return ResponseEntity.ok().body(articleService.showArticleDetail(email,articleId));
@@ -74,7 +75,7 @@ public class ArticleRestController {
     @ApiOperation(value = "게시글 수정", notes = "<b>(로그인 필요)</b> 게시글 수정요청을 하는 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> putArticle(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @RequestBody ArticleCreateRequest request){
 
@@ -87,7 +88,7 @@ public class ArticleRestController {
     @ApiOperation(value = "게시글 삭제", notes = "<b>(로그인 필요)</b> 게시글 삭제 요청 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> deleteArticle(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
 
         articleService.removeArticle(email,articleId);

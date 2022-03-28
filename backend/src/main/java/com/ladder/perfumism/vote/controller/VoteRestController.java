@@ -7,6 +7,7 @@ import com.ladder.perfumism.vote.service.VoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,7 +35,7 @@ public class VoteRestController {
     @ApiOperation(value = "투표 만들기", notes = "<b>(로그인 필요)</b> 투표를 만드는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVote(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @RequestBody VoteCreateRequest request){
 
@@ -47,7 +48,7 @@ public class VoteRestController {
     @ApiOperation(value = "투표 조회", notes = "<b>(로그인 필요)</b> 투표를 조회하는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<VoteReadListResponse> getVote(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
         return ResponseEntity.ok().body(voteService.showVoteList(email,articleId));
     }
@@ -56,7 +57,7 @@ public class VoteRestController {
     @ApiOperation(value = "투표 만료", notes = "<b>(로그인 필요)</b> 투표 만료/재개하는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> putVote(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
 
         voteService.expireVote(email, articleId);
