@@ -15,7 +15,7 @@ function Alert() {
 
 	const getNumOfUnread = async () => {
 		const num = await alertApi.getNumOfUnread();
-		setNumOfUnread(num.data);
+		setNumOfUnread(num.data.unread_count);
 	};
 
 	return (
