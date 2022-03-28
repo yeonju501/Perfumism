@@ -62,6 +62,10 @@ const Container = styled.div`
 	z-index: 10;
 	background-color: #fff;
 	padding: 1.5rem;
+	color: #000;
+	@media ${(props) => props.theme.mobile} {
+		right: 0;
+	}
 `;
 
 const Title = styled.h1`

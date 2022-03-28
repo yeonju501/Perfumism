@@ -1,14 +1,11 @@
-import { useNavigate } from "react-router";
 import { FormContainer, Container } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import { formValidator } from "utils";
 import { authApi } from "apis";
 import useForm from "../hooks/useForm";
 import socialLogin from "apis/socialLogin";
-import { toast } from "react-toastify";
 
 function SignIn() {
-	const navigate = useNavigate();
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			email: "",
@@ -23,8 +20,7 @@ function SignIn() {
 						password,
 					})
 					.then(() => {
-						toast.success("로그인 성공");
-						navigate("/");
+						location.replace("/");
 					});
 			} catch (error) {
 				console.log(error);

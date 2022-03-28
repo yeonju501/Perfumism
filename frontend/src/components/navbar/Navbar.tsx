@@ -59,6 +59,9 @@ const Nav = styled.nav<NavProps>`
 	justify-content: ${({ justifyContent }) => (justifyContent ? justifyContent : "flex-start")};
 	width: 20%;
 	margin: 0 5%;
+	@media ${(props) => props.theme.tabletS} {
+		margin: 0 2%;
+	}
 `;
 
 const Ul = styled.ul`
@@ -72,6 +75,13 @@ const Head = styled(Link)<HeaderProps>`
 	display: flex;
 	justify-content: center;
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
+	@media ${(props) => props.theme.tabletS} {
+		font-size: 3rem;
+	}
+
+	@media ${(props) => props.theme.mobilS} {
+		font-size: 2rem;
+	}
 `;
 
 export default Navbar;

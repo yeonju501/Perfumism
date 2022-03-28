@@ -48,9 +48,19 @@ const Input = styled.input<InputProps>`
 	position: absolute;
 	display: ${({ isOn }) => (isOn ? "block" : "none")};
 	border-radius: 0.5rem;
-	transform: ${({ isOn }) => isOn && "translateX(-19rem)"};
+	transform: ${({ isOn }) => isOn && "translate(-19rem, -.4rem)"};
 	&:focus {
 		outline: none;
+	}
+
+	@media ${(props) => props.theme.tabletS} {
+		width: 15rem;
+		transform: ${({ isOn }) => isOn && "translate(-13.5rem, -.4rem)"};
+	}
+
+	@media ${(props) => props.theme.mobilS} {
+		width: 8rem;
+		transform: ${({ isOn }) => isOn && "translate(-6rem, -.4rem)"};
 	}
 `;
 

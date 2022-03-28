@@ -22,6 +22,9 @@ const Title = styled.h1`
 	font-weight: 800;
 	text-align: center;
 	margin: 0;
+	@media ${(props) => props.theme.mobile} {
+		font-size: 3rem;
+	}
 `;
 
 const Content = styled.p`
@@ -29,4 +32,7 @@ const Content = styled.p`
 	font-size: 3rem;
 	text-align: center;
 	margin: 1rem 0 5rem;
+	@media ${(props) => props.theme.mobile} {
+		font-size: 2rem;
+	}
 `;

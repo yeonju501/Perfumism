@@ -4,11 +4,12 @@ import { alertApi } from "apis";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
-import IconStyled from "../IconStyled";
+import cookie from "react-cookies";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
 	const [numOfUnread, setNumOfUnread] = useState(0);
+	const token = cookie.load("access_token");
 
 	useEffect(() => {
 		getNumOfUnread();
@@ -19,9 +20,9 @@ function Alert() {
 		setNumOfUnread(num.data.unread_count);
 	};
 
-	return (
+	return token ? (
 		<Container>
-			<IconStyled img={faBell} handleClick={() => setIsOn(!isOn)} />
+			<FontAwesome icon={faBell} onClick={() => setIsOn(!isOn)} />
 			{numOfUnread ? (
 				numOfUnread > 5 ? (
 					<NumberOfNotification>
@@ -33,7 +34,7 @@ function Alert() {
 			) : undefined}
 			{isOn ? <AlertBox /> : undefined}
 		</Container>
-	);
+	) : null;
 }
 
 export default Alert;
@@ -41,7 +42,6 @@ export default Alert;
 const Container = styled.div`
 	margin-top: 0.3rem;
 	position: relative;
-	color: #000;
 `;
 
 const NumberOfNotification = styled.span`
@@ -56,4 +56,13 @@ const NumberOfNotification = styled.span`
 	position: absolute;
 	top: -1.2rem;
 	right: -1rem;
+`;
+
+const FontAwesome = styled(FontAwesomeIcon)`
+	width: 1.8rem;
+	height: 1.8rem;
+	margin-left: 2rem;
+	@media ${(props) => props.theme.mobile} {
+		margin-left: 0.5rem;
+	}
 `;

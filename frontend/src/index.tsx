@@ -8,7 +8,8 @@ import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 import persistReducer from "./store/index";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 const store = createStore(persistReducer);
 export const persistor = persistStore(store);
 
@@ -16,7 +17,9 @@ ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<App />
+				<ThemeProvider theme={theme}>
+					<App />
+				</ThemeProvider>
 			</PersistGate>
 		</Provider>
 	</React.StrictMode>,

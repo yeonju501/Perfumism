@@ -1,6 +1,7 @@
 package com.ladder.perfumism.vote.controller;
 
 import com.ladder.perfumism.vote.controller.dto.request.VoteCreateRequest;
+import com.ladder.perfumism.vote.controller.dto.response.VoteReadListResponse;
 import com.ladder.perfumism.vote.domain.VoteItem;
 import com.ladder.perfumism.vote.service.VoteService;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +40,12 @@ public class VoteRestController {
         voteService.createVote(email,articleId,request);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{article_id}")
+    public ResponseEntity<VoteReadListResponse> getVote(
+        @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId){
+        return ResponseEntity.ok().body(voteService.showVoteList(email,articleId));
     }
 }

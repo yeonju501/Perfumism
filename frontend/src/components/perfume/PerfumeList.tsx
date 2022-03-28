@@ -2,6 +2,7 @@ import PerfumeImage from "./PerfumeImage";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "components/perfume/LikeButton";
+import cookie from "react-cookies";
 
 interface PerfumeList {
 	perfumes: Perfume[];
@@ -16,6 +17,7 @@ interface Perfume {
 
 function PerfumeList({ perfumes }: PerfumeList) {
 	const navigate = useNavigate();
+	const token = cookie.load("access_token");
 
 	const handlePerfumeItemClick = (perfumeId: string) => {
 		navigate(`/perfume/${perfumeId}`);
@@ -32,7 +34,7 @@ function PerfumeList({ perfumes }: PerfumeList) {
 						/>
 						<Name>{perfume.perfume_name}</Name>
 					</PerfumeItem>
-					<LikeButton center perfumeId={perfume.perfume_id} />
+					{token && <LikeButton center perfumeId={perfume.perfume_id} />}
 				</Perfume>
 			))}
 		</Container>

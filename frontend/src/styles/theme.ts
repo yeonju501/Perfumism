@@ -1,3 +1,15 @@
 // 스타일 테마 모음
 
-export {};
+const size = {
+	tabletS: "1060px",
+	mobile: "790px",
+	mobileS: "600px",
+};
+
+const theme = {
+	mobile: `(max-width: ${size.mobile})`,
+	mobilesS: `(max-width:${size.mobileS})`,
+	tabletS: `(max-width: ${size.tabletS})`,
+};
+
+export default theme;
