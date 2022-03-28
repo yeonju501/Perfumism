@@ -1,16 +1,22 @@
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import styled from "styled-components";
+import AlertBox from "./AlertBox";
 import IconStyled from "./IconStyled";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
 
 	return (
-		<>
+		<Container>
 			<IconStyled img={faBell} handleClick={() => setIsOn(!isOn)} />
-			{isOn ? <div>hi</div> : <div>bye</div>}
-		</>
+			{isOn ? <AlertBox /> : undefined}
+		</Container>
 	);
 }
 
 export default Alert;
+
+const Container = styled.div`
+	position: relative;
+`;
