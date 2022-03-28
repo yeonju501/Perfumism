@@ -3,6 +3,7 @@ package com.ladder.perfumism.perfume.controller.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
+import com.ladder.perfumism.perfume.domain.PerfumeMonthly;
 import io.swagger.annotations.ApiModelProperty;
 
 public class PerfumeSimpleResponse {
@@ -63,6 +64,17 @@ public class PerfumeSimpleResponse {
             perfume.getImage(),
             perfume.getAverageGrade(),
             perfume.getTotalLike()
+        );
+    }
+
+    public static PerfumeSimpleResponse from(PerfumeMonthly perfumeMonthly) {
+        return new PerfumeSimpleResponse(
+            perfumeMonthly.getPerfumeId().getId(),
+            perfumeMonthly.getPerfumeId().getName(),
+            BrandResponse.from(perfumeMonthly.getPerfumeId().getBrandId()),
+            perfumeMonthly.getPerfumeId().getImage(),
+            perfumeMonthly.getPerfumeId().getAverageGrade(),
+            perfumeMonthly.getPerfumeId().getTotalLike()
         );
     }
 }
