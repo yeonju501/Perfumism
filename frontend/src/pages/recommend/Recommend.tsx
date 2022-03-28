@@ -41,7 +41,7 @@ const Title = styled.h1`
 	font-size: 4rem;
 	font-weight: 800;
 	text-align: center;
-	margin: 10% auto 2%;
+	margin: 5% auto 2%;
 `;
 
 export default Recommend;

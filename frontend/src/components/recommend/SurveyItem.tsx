@@ -6,7 +6,7 @@ import { Answer } from "components/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
-	surveyListItem: { 질문번호: string; 질문: string; 답변: { url: string; content: string }[] };
+	surveyListItem: { 질문번호: string; 질문: string; 답변: { url?: string; content: string }[] };
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
@@ -69,14 +69,16 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		<Container>
 			<Title>{surveyListItem["질문"]}</Title>
 			<Section>
-				{surveyListItem["답변"].map((surveyItem: { url: string; content: string }, idx: number) => (
-					<Answer
-						key={idx}
-						surveyItem={surveyItem}
-						number={idx}
-						answerHandleChange={answerHandleChange}
-					/>
-				))}
+				{surveyListItem["답변"].map(
+					(surveyItem: { url?: string; content: string }, idx: number) => (
+						<Answer
+							key={idx}
+							surveyItem={surveyItem}
+							number={idx}
+							answerHandleChange={answerHandleChange}
+						/>
+					),
+				)}
 			</Section>
 		</Container>
 	);
