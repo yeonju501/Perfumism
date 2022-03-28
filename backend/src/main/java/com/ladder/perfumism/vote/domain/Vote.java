@@ -31,13 +31,17 @@ public class Vote extends BaseEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "total_voter")
+    private int totalVoter;
+
     public Vote(){
 
     }
 
     @Builder
-    private Vote(Article articleId, String title){
+    private Vote(Article articleId, String title, int totalVoter){
         this.articleId = articleId;
         this.title = title;
+        this.totalVoter = totalVoter;
     }
 }
