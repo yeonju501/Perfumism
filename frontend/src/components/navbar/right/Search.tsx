@@ -57,6 +57,11 @@ const Input = styled.input<InputProps>`
 		width: 15rem;
 		transform: ${({ isOn }) => isOn && "translate(-13.5rem, -.4rem)"};
 	}
+
+	@media ${(props) => props.theme.mobilS} {
+		width: 8rem;
+		transform: ${({ isOn }) => isOn && "translate(-6rem, -.4rem)"};
+	}
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`

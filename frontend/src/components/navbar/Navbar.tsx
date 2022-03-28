@@ -78,6 +78,10 @@ const Head = styled(Link)<HeaderProps>`
 	@media ${(props) => props.theme.tabletS} {
 		font-size: 3rem;
 	}
+
+	@media ${(props) => props.theme.mobilS} {
+		font-size: 2rem;
+	}
 `;
 
 export default Navbar;
