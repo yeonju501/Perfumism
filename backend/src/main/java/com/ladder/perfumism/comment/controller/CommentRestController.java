@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -38,7 +39,7 @@ public class CommentRestController {
     @ApiOperation(value = "댓글 작성", notes = "<b>(로그인 필요)</b> 댓글 작성 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> postComment(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestBody CommentCreateRequest request,
         @PathVariable(value = "article_id")Long articleId){
 
@@ -51,7 +52,7 @@ public class CommentRestController {
     @ApiOperation(value = "댓글 조회", notes = "<b>(로그인 필요)</b> 댓글 조회 API")
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<CommentReadListResponse> getCommentList(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC)Pageable pageable,
         @PathVariable(value = "article_id") Long articleId){
 
@@ -66,7 +67,7 @@ public class CommentRestController {
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
     })
     public ResponseEntity<Void> putComment(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId,
         @RequestBody CommentCreateRequest request){
@@ -83,7 +84,7 @@ public class CommentRestController {
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
     })
     public ResponseEntity<Void> deleteComment(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId){
 
@@ -100,7 +101,7 @@ public class CommentRestController {
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
     })
     public ResponseEntity<Void> postCommentReply(
-        @AuthenticationPrincipal String email,
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
         @PathVariable(value = "comment_id") Long commentId,
         @RequestBody CommentCreateRequest request){

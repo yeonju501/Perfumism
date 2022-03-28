@@ -69,4 +69,17 @@ public class VoteService {
 
         return VoteReadListResponse.from(vote, voteItem);
     }
+
+    @Transactional
+    public void expireVote(String email, Long articleId) {
+
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Vote vote = voteRepository.findByArticle(article)
+            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
+
+        vote.changVoteExpiration();
+
+    }
 }

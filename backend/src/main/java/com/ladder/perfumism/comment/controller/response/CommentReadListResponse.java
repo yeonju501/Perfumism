@@ -14,11 +14,11 @@ public class CommentReadListResponse {
     private List<CommentReadResponse> commentList;
 
     @JsonProperty("total_page_count")
-    @ApiModelProperty(position = 1, notes = "댓글 총 페이지 수")
+    @ApiModelProperty(position = 1, notes = "댓글 총 페이지 수", example = "2")
     private int totalPageCount;
 
     @JsonProperty("current_page_count")
-    @ApiModelProperty(position = 2, notes = "댓글 현재 페이지")
+    @ApiModelProperty(position = 2, notes = "댓글 현재 페이지", example = "3")
     private int currentPageCount;
 
     public CommentReadListResponse(){

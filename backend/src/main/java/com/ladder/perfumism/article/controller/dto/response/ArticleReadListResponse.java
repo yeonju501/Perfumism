@@ -15,11 +15,11 @@ public class ArticleReadListResponse {
     private List<ArticleReadResponse> articleList;
 
     @JsonProperty("total_page_count")
-    @ApiModelProperty(position = 1, notes = "게시글 총 페이지 수")
+    @ApiModelProperty(position = 1, notes = "게시글 총 페이지 수", example = "2")
     private int totalPageCount;
 
     @JsonProperty("current_page_count")
-    @ApiModelProperty(position = 2, notes = "게시글 현재 페이지")
+    @ApiModelProperty(position = 2, notes = "게시글 현재 페이지", example = "1")
     private int currentPageCount;
 
     public ArticleReadListResponse(){
