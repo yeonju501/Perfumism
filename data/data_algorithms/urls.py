@@ -4,6 +4,6 @@ from . import views
 app_name = 'data_algorithms'
 
 urlpatterns = [
-    # path('survey/', views.survey),
+    path('survey/<int:a1>/<int:a2>/<int:a3>/<int:a4>/<int:a5>', views.survey),
     path('<int:member_pk>/like-based', views.like_based),
 ]
