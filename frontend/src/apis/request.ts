@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true;
 const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 	instance.interceptors.request.use(
 		(config) => {
+			console.log(config);
 			if (isReissue) return config;
 			const token = cookie.load("access_token");
 			if (config.headers && token) config.headers.Authorization = `Bearer ${token}`;
@@ -17,6 +18,7 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 	);
 	instance.interceptors.response.use(
 		(response) => {
+			console.log(response);
 			return response;
 		},
 		(error) => {
@@ -25,6 +27,7 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 			if (error.response.status === 403) {
 				authApi.reissue({ index, access_token }).then(() => instance.request(error.config));
 			}
+			console.log(error.response);
 			toast.error(error.response.data.error_message);
 			return Promise.reject(error);
 		},
