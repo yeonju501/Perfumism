@@ -81,20 +81,26 @@ public class Member extends BaseEntity {
     }
 
     public void changeUsername(String username) {
-        if(!Objects.isNull(username)) {
+        if (!Objects.isNull(username)) {
             this.username = username;
         }
     }
 
     public void changePassword(PasswordEncoder passwordEncoder, String password) {
-        if(!Objects.isNull(password)) {
+        if (!Objects.isNull(password)) {
             this.password = passwordEncoder.encode(password);
         }
     }
 
     public void checkSocialMember() {
-        if(Objects.isNull(this.kakaoId)) {
+        if (Objects.isNull(this.kakaoId)) {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+    }
+
+    public void changeImage(String imageUrl) {
+        if (!Objects.isNull(imageUrl)) {
+            this.image = imageUrl;
         }
     }
 }
