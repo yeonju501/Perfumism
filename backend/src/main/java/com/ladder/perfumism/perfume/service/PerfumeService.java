@@ -5,6 +5,7 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.perfume.controller.dto.response.BrandListResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeDetailResponse;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeSimpleResponse;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.BrandRepository;
 import com.ladder.perfumism.perfume.domain.Perfume;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -87,5 +89,14 @@ public class PerfumeService {
 
         perfumeMonthlyRepository.deleteAll();
         perfumeMonthlyRepository.saveAll(monthlies);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PerfumeSimpleResponse> getMonthlyPerfumeList() {
+        List<PerfumeMonthly> perfumeMonthlyList = perfumeMonthlyRepository.findAll();
+
+        return perfumeMonthlyList.stream()
+            .map(PerfumeSimpleResponse::from)
+            .collect(Collectors.toList());
     }
 }
