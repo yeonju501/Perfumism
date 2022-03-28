@@ -22,15 +22,15 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 0 5rem;
+	&:hover {
+		filter: brightness(65%);
+		cursor: pointer;
+	}
 `;
 
 const SurveyImg = styled.img`
 	background-color: none;
 	border: none;
-	&:hover {
-		filter: brightness(65%);
-		cursor: pointer;
-	}
 `;
 
 const Content = styled.p`
