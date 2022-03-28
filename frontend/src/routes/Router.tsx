@@ -32,7 +32,7 @@ function Router() {
 				<Route path="/profile/my-comments" element={<MyComments />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/perfumes" element={<Perfumes />} />
-				<Route path="/perfumes/:brand" element={<PerfumeBrand />} />
+				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/survey/result" element={<SurveyResult />} />
 				<Route path="/" element={<Main />} />
