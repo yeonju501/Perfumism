@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from data_algorithms.models import Accord, Member, Perfume
 from data_algorithms.serializers.accord import AccordListSerializer, AccordSerializer
+from data_algorithms.serializers.perfume import PerfumeListSerializer
 from .algorithms.dbscan import recommend_like_based
 
 # Create your views here.
@@ -19,10 +20,22 @@ def like_based(request, member_pk):
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
 
-    # 어코드 영문 이름 리스트 여기 있습니다 미스터방씨 >> 네
-    accord_list = ' '.join(list(set(accord_list)))
+    accord_list = ' '.join(accord_list)
     result = recommend_like_based(accord_list)
-    print(result)
+    perfumes = []
+    for i in range(3):
+        perfume = get_object_or_404(Perfume, perfume_id = result[i])
+        perfumes.append(perfume)
 
-    serializer = AccordListSerializer(accord_list, many=True)
+    serializer = PerfumeListSerializer(perfumes, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def survey(request, a1, a2, a3, a4, a5):
+    answer_list = []
+    answer_list.append(a1)
+    answer_list.append(a2)
+    answer_list.append(a3)
+    answer_list.append(a4)
+    answer_list.append(a5)
+    return Response("")
