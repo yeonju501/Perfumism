@@ -87,7 +87,7 @@ public class PerfumeService {
         List<PerfumeMonthly> monthlies = perfumeMonthlyRepository.CountLikePerfume(startDatetime, endDatetime,
             PageRequest.of(0, 3));
 
-        perfumeMonthlyRepository.deleteAll();
+        perfumeMonthlyRepository.updateDeletedAtAll();
         perfumeMonthlyRepository.saveAll(monthlies);
     }
 
