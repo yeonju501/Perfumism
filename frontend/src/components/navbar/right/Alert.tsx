@@ -43,7 +43,6 @@ export default Alert;
 const Container = styled.div`
 	margin-top: 0.3rem;
 	position: relative;
-	color: #000;
 `;
 
 const NumberOfNotification = styled.span`
