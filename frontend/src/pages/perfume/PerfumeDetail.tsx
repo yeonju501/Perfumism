@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import LikeButton from "components/perfume/LikeButton";
+import cookie from "react-cookies";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -40,6 +41,7 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
+	const token = cookie.load("access_token");
 
 	useEffect(() => {
 		getPerfume();
@@ -54,7 +56,7 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeMainInfo>
 					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image.slice(2)}`} />
-					<LikeButton perfumeId={perfumeId} />
+					{token && <LikeButton perfumeId={perfumeId} />}
 					<div>
 						<h1>
 							{perfumeData.perfume_name}
@@ -101,6 +103,9 @@ const Container = styled.div`
 
 const PerfumeMainInfo = styled.div`
 	display: flex;
+	button {
+		display: block;
+	}
 `;
 
 const Image = styled.img`
