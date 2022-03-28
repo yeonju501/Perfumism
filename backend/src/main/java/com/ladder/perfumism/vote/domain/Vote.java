@@ -49,7 +49,7 @@ public class Vote extends BaseEntity {
         this.expiration = false;
     }
 
-    public void expireVote() {
+    public void changVoteExpiration() {
         this.expiration = !this.expiration;
     }
 }

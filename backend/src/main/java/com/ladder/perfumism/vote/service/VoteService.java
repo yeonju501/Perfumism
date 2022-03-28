@@ -79,7 +79,7 @@ public class VoteService {
         Vote vote = voteRepository.findByArticle(article)
             .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
 
-        vote.expireVote();
+        vote.changVoteExpiration();
 
     }
 }
