@@ -21,7 +21,8 @@ def like_based(request, member_pk):
 
     # 어코드 영문 이름 리스트 여기 있습니다 미스터방씨 >> 네
     accord_list = ' '.join(list(set(accord_list)))
-    result = recommend_like_based(accord_list, 0)
+    result = recommend_like_based(accord_list)
+    print(result)
 
     serializer = AccordListSerializer(accord_list, many=True)
     return Response(serializer.data)
