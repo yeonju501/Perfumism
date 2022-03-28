@@ -10,6 +10,7 @@ import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
+import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,6 +54,13 @@ public class MemberService {
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    }
+
+    @Transactional(readOnly = true)
+    public MemberInfoResponse showMemberInfo(String email) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        return MemberInfoResponse.from(member);
     }
 
     @Transactional(readOnly = true)
