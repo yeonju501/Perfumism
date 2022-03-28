@@ -6,6 +6,7 @@ import GoogleLoginPage from "pages/account/socialogin/GoogleLoginPage";
 import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
+import PerfumeBrand from "pages/perfume/PerfumeBrand";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
 import Perfumes from "pages/perfume/Perfumes";
 import Favorites from "pages/profile/Favorites";
@@ -31,6 +32,7 @@ function Router() {
 				<Route path="/profile/my-comments" element={<MyComments />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/perfumes" element={<Perfumes />} />
+				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/survey/result" element={<SurveyResult />} />
 				<Route path="/" element={<Main />} />

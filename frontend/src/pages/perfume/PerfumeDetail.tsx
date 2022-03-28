@@ -3,7 +3,7 @@ import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import LikeButton from "components/perfume/LikeButton";
 import cookie from "react-cookies";
@@ -62,8 +62,9 @@ function PerfumeDetail() {
 							{perfumeData.perfume_name}
 							<span>({perfumeData.launch_year})</span>
 						</h1>
-						{/* 브랜드 페이지 만든 후 클릭하면 이동하도록 변경해줄 것 */}
-						<h3>{perfumeData.brand.brand_name}</h3>
+						<Link to={`/perfumes/${perfumeData.brand.brand_name}`}>
+							{perfumeData.brand.brand_name}
+						</Link>
 						<h4>
 							<span style={{ color: "#ffcb14" }}>★</span>
 							{perfumeData.average_grade}
