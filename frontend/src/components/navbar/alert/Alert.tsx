@@ -5,10 +5,12 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
 import IconStyled from "../IconStyled";
+import cookie from "react-cookies";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
 	const [numOfUnread, setNumOfUnread] = useState(0);
+	const token = cookie.load("access_token");
 
 	useEffect(() => {
 		getNumOfUnread();
@@ -19,7 +21,7 @@ function Alert() {
 		setNumOfUnread(num.data.unread_count);
 	};
 
-	return (
+	return token ? (
 		<Container>
 			<IconStyled img={faBell} handleClick={() => setIsOn(!isOn)} />
 			{numOfUnread ? (
@@ -33,7 +35,7 @@ function Alert() {
 			) : undefined}
 			{isOn ? <AlertBox /> : undefined}
 		</Container>
-	);
+	) : null;
 }
 
 export default Alert;
