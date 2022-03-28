@@ -10,7 +10,12 @@ interface PerfumeType {
 	likes: number;
 }
 
-const useInfiniteScroll = () => {
+interface useInfiniteScrollProps {
+	type: string;
+	brandName?: string;
+}
+
+const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 	const [perfumes, setPerfumes] = useState<PerfumeType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
@@ -24,11 +29,19 @@ const useInfiniteScroll = () => {
 	const getPerfumes = async () => {
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 800));
-		await perfumeApi.getPerfumes(currentPage).then((res) => {
-			setPerfumes((prev) => prev.concat(res.data.perfumes));
-			setTotalPage(res.data.total_page_count);
-			setCurrentPage(res.data.current_page_count);
-		});
+		if (type === "perfumes")
+			await perfumeApi.getPerfumes(currentPage).then((res) => {
+				setPerfumes((prev) => prev.concat(res.data.perfumes));
+				setTotalPage(res.data.total_page_count);
+				setCurrentPage(res.data.current_page_count);
+			});
+		else if (type === "brandPerfumes") {
+			await perfumeApi.getBrandPerfumes(brandName, currentPage).then((res) => {
+				setPerfumes((prev) => prev.concat(res.data.perfumes));
+				setTotalPage(res.data.total_page_count);
+				setCurrentPage(res.data.current_page_count);
+			});
+		}
 		setIsLoading(false);
 	};
 
