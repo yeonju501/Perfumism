@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { authApi } from "apis";
 import cookie from "react-cookies";
 import styled from "styled-components";
