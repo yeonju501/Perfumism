@@ -1,4 +1,5 @@
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { alertApi } from "apis";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -21,7 +22,15 @@ function Alert() {
 	return (
 		<Container>
 			<IconStyled img={faBell} handleClick={() => setIsOn(!isOn)} />
-			{numOfUnread ? <NumberOfNotification>{numOfUnread}</NumberOfNotification> : undefined}
+			{numOfUnread ? (
+				numOfUnread > 5 ? (
+					<NumberOfNotification>
+						5<FontAwesomeIcon icon={faPlus} />
+					</NumberOfNotification>
+				) : (
+					<NumberOfNotification>{numOfUnread}</NumberOfNotification>
+				)
+			) : undefined}
 			{isOn ? <AlertBox /> : undefined}
 		</Container>
 	);
@@ -32,6 +41,7 @@ export default Alert;
 const Container = styled.div`
 	margin-top: 0.3rem;
 	position: relative;
+	color: #000;
 `;
 
 const NumberOfNotification = styled.span`
