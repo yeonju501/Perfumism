@@ -10,6 +10,7 @@ import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
+import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.member.service.ProfileService;
 import io.swagger.annotations.Api;
@@ -21,6 +22,7 @@ import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,13 +55,6 @@ public class MemberRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/members")
-    @ApiOperation(value = "회원탈퇴", notes = "회원 탈퇴 api")
-    public ResponseEntity<Void> resignMember(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
-        memberService.resignMember(email);
-        return ResponseEntity.noContent().build();
-    }
-
     @PostMapping("/auth/members/find-pw")
     @ApiOperation(value = "비밀번호 변경 메일 전송", notes = "비밀번호 변경 메일 전송 api")
     public ResponseEntity<CodeResponse> findPassword(@RequestBody FindPasswordRequest request) {
@@ -85,6 +80,12 @@ public class MemberRestController {
         return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
     }
 
+    @GetMapping("/auth/members")
+    @ApiOperation(value = "회원 정보 조회", notes = "회원 정보 조회 api")
+    public ResponseEntity<MemberInfoResponse> showMemberInfo(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(memberService.showMemberInfo(email));
+    }
+
     @PutMapping("/auth/members")
     @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정 api")
     public ResponseEntity<Void> changeMemberInfo(@ApiParam(hidden = true) @AuthenticationPrincipal String email, @RequestBody MemberUpdateRequest request) {
@@ -104,6 +105,13 @@ public class MemberRestController {
             throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
         }
         memberService.changeProfileImage(email, url);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/auth/members")
+    @ApiOperation(value = "회원탈퇴", notes = "회원 탈퇴 api")
+    public ResponseEntity<Void> resignMember(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
+        memberService.resignMember(email);
         return ResponseEntity.noContent().build();
     }
 }
