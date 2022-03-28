@@ -4,9 +4,11 @@ import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
+import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.member.service.ProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,9 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberRestController {
 
     private final MemberService memberService;
+    private final ProfileService profileService;
 
-    public MemberRestController(MemberService memberService) {
+    public MemberRestController(MemberService memberService, ProfileService profileService) {
         this.memberService = memberService;
+        this.profileService = profileService;
     }
 
     @PostMapping("/members/join")
@@ -46,17 +50,17 @@ public class MemberRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/members/find-pw")
+    @PostMapping("/auth/members/find-pw")
     @ApiOperation(value = "비밀번호 변경 메일 전송", notes = "비밀번호 변경 메일 전송 api")
     public ResponseEntity<CodeResponse> findPassword(@RequestBody FindPasswordRequest request) {
         return ResponseEntity.ok().body(memberService.findPassword(request));
     }
 
-    @PutMapping("/members/change-pw")
+    @PutMapping("/auth/members/change-pw")
     @ApiOperation(value = "비밀번호 변경", notes = "비밀번호 변경 api")
     public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request){
         memberService.changePassword(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/members/exist-email")
@@ -65,9 +69,16 @@ public class MemberRestController {
         return ResponseEntity.ok().body(memberService.checkDuplicateEmail(request));
     }
 
-    @PostMapping("/members/exist-username")
+    @PostMapping("/exist-username")
     @ApiOperation(value = "유저네임 중복검사", notes = "유저네임 중복 검사 api")
     public ResponseEntity<CheckDuplicateResponse> checkDulicateUsername(@RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
+    }
+
+    @PutMapping("/auth/members")
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정 api")
+    public ResponseEntity<Void> changeMemberInfo(@ApiParam(hidden = true) @AuthenticationPrincipal String email, @RequestBody MemberUpdateRequest request) {
+        memberService.changeMemberInfo(email, request);
+        return ResponseEntity.noContent().build();
     }
 }

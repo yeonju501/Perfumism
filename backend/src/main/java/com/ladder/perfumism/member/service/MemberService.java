@@ -6,6 +6,7 @@ import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
+import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
 import com.ladder.perfumism.member.domain.Member;
@@ -85,5 +86,13 @@ public class MemberService {
     @Transactional(readOnly = true)
     public CheckDuplicateResponse checkDuplicateUsername(CheckDuplicateRequest request) {
         return CheckDuplicateResponse.from(memberRepository.existsByUsername(request.getValue()));
+    }
+
+    @Transactional
+    public void changeMemberInfo(String email, MemberUpdateRequest request) {
+        Member member = memberRepository.findByEmail(email).
+            orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        member.changeUsername(request.getUsername());
+        member.changePassword(passwordEncoder, request.getPassword());
     }
 }
