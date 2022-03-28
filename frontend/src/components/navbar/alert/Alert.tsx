@@ -3,7 +3,7 @@ import { alertApi } from "apis";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
-import IconStyled from "./IconStyled";
+import IconStyled from "../IconStyled";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
