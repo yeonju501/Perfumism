@@ -31,7 +31,7 @@ public class Vote extends BaseEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    protected Vote(){
+    public Vote(){
 
     }
 

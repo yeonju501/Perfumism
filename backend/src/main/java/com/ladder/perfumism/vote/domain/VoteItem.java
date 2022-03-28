@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
 
@@ -29,4 +30,14 @@ public class VoteItem {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    public VoteItem(){
+
+    }
+
+    @Builder
+    public VoteItem(Vote voteId, String content){
+        this.voteId = voteId;
+        this.content = content;
+    }
 }
