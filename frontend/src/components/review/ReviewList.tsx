@@ -2,6 +2,7 @@ import reviewApi from "apis/review";
 import { ShowMoreButton } from "components/button/Button";
 import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
+import cookie from "react-cookies";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -22,6 +23,7 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLastPage, setIsLastPage] = useState(false);
+	const token = cookie.load("access_token");
 
 	useEffect(() => {
 		getReviews();
@@ -50,7 +52,7 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 					<p>{review.member_name}</p>
 					<p>{review.grade}</p>
 					<p>{review.content}</p>
-					<LikeButton reviewId={review.review_id} />
+					{token && <LikeButton reviewId={review.review_id} />}
 					<hr />
 				</li>
 			))}
