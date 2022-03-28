@@ -7,7 +7,7 @@ interface PerfumeApiType {
 	isPerfumeLiked: (perfumeId: string | number) => Promise<AxiosResponse>;
 	addFavoritePerfume: (perfumeId: string | number) => Promise<AxiosResponse>;
 	deleteFavoritePerfume: (perfumeId: string | number) => Promise<AxiosResponse>;
-	getBrandPerfumes: (brandName: string, currentPage: number) => Promise<AxiosResponse>;
+	getBrandPerfumes: (brandName: string | undefined, currentPage: number) => Promise<AxiosResponse>;
 }
 
 const perfumeApi: PerfumeApiType = {
