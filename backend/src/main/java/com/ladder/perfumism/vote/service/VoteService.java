@@ -91,6 +91,8 @@ public class VoteService {
 
         List<VoteItem> voteItem = voteItemRepository.findByVote(vote);
 
+        vote.saveVoterCnt(voteMemberRepository.countByVote(vote));
+
         return VoteReadListResponse.from(vote, voteItem);
     }
 
