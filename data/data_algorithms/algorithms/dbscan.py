@@ -111,11 +111,12 @@ def recommend_survey(answer_list):
 
     perfume_c_sim = cosine_similarity(c_vector_perfume, c_vector_perfume).argsort()[:, ::-1]
 
-    if len(new_df) < 30:
+    if len(new_df) < 200:
         sim_index = perfume_c_sim[len(new_df) - 1].reshape(-1)
     else:
-        sim_index = perfume_c_sim[len(new_df) - 1, :30].reshape(-1)
+        sim_index = perfume_c_sim[len(new_df) - 1, :200].reshape(-1)
     sim_index = sim_index[sim_index != len(new_df) - 1]
+
     result = new_df.iloc[sim_index][:3].to_dict('list')['id']
 
     return result
