@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import recommendApi from "apis/recommend";
 import styled from "styled-components";
 import { Answer } from "components/recommend";
 
@@ -11,7 +10,6 @@ interface SurveyItemProps {
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
-	const [recommendData, setRecommendData] = useState({});
 
 	const getNextUrl = () => {
 		const nextPage = Number(surveyListItem["질문번호"]) + 1;
@@ -36,18 +34,6 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 				pathname: "/survey",
 				search: nextUrl,
 			});
-		}
-	};
-
-	const getRecommendData = async () => {
-		const answerData = getAnswerData();
-		try {
-			await recommendApi.createSurveyRecommend(answerData).then((res) => {
-				setRecommendData(res.data);
-				navigate("/survey/result");
-			});
-		} catch (error) {
-			console.log(error);
 		}
 	};
 
