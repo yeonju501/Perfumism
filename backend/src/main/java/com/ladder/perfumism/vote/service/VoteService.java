@@ -65,7 +65,6 @@ public class VoteService {
         Vote vote = Vote.builder()
             .article(article)
             .title(request.getTitle())
-            .totalVoter(0)
             .build();
 
         voteRepository.save(vote);
@@ -110,6 +109,7 @@ public class VoteService {
 
     }
 
+    @Transactional
     public void chooseVote(String email, Long articleId, VoteChooseRequest voteChoose) {
         Member member = memberService.findByEmail(email);
         Vote vote = voteRepository.getById(voteChoose.getVote());
@@ -137,7 +137,7 @@ public class VoteService {
             .build();
 
         voteMemberRepository.save(futureVoteMember);
-
+        choseVoteItem.saveMemberCnt(voteMemberRepository.countByVoteItem(choseVoteItem));
 
     }
 }
