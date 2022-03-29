@@ -4,8 +4,13 @@ import { formValidator } from "utils";
 import { authApi } from "apis";
 import useForm from "../hooks/useForm";
 import socialLogin from "apis/socialLogin";
+import { useDispatch } from "react-redux";
+import profileApi from "apis/profile";
+import { SET_USER } from "store/user";
 
 function SignIn() {
+	const dispatch = useDispatch();
+
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			email: "",
@@ -21,6 +26,7 @@ function SignIn() {
 					})
 					.then(() => {
 						location.replace("/");
+						profileApi.getUserInfo().then((res) => dispatch(SET_USER(res.data)));
 					});
 			} catch (error) {
 				console.log(error);
