@@ -52,4 +52,8 @@ public class Vote extends BaseEntity {
     public void changVoteExpiration() {
         this.expiration = !this.expiration;
     }
+
+    public void saveVoterCnt(Integer totalVoter){
+        this.totalVoter = totalVoter;
+    }
 }
