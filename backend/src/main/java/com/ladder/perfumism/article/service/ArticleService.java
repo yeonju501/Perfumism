@@ -28,13 +28,13 @@ public class ArticleService {
         this.memberService = memberService;
     }
 
-    private void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
+    public void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
         if(!article.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
         }
     }
 
-    private Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
+    public Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
         return articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
     }

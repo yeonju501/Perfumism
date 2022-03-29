@@ -2,10 +2,12 @@ package com.ladder.perfumism.vote.service;
 
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleRepository;
+import com.ladder.perfumism.article.service.ArticleService;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.vote.controller.dto.request.VoteCreateRequest;
 import com.ladder.perfumism.vote.controller.dto.response.VoteReadListResponse;
 import com.ladder.perfumism.vote.domain.Vote;
@@ -20,15 +22,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VoteService {
 
-    private final ArticleRepository articleRepository;
-    private final MemberRepository memberRepository;
+    private final ArticleService articleService;
+    private final MemberService memberService;
     private final VoteRepository voteRepository;
     private final VoteItemRepository voteItemRepository;
 
-    public VoteService(ArticleRepository articleRepository, MemberRepository memberRepository,
+    public VoteService(ArticleService articleService, MemberService memberService,
         VoteRepository voteRepository, VoteItemRepository voteItemRepository){
-        this.articleRepository = articleRepository;
-        this.memberRepository = memberRepository;
+        this.articleService = articleService;
+        this.memberService = memberService;
         this.voteRepository = voteRepository;
         this.voteItemRepository = voteItemRepository;
     }
@@ -40,10 +42,18 @@ public class VoteService {
         }
     }
 
+    private Vote VOTE_IS_NOT_FOUND(Article article){
+        return voteRepository.findByArticle(article)
+            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
+    }
+
     @Transactional
     public void createVote(String email, Long articleId, VoteCreateRequest request) {
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Member member = memberService.findByEmail(email);
+
+        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
+        articleService.ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
         Vote vote = Vote.builder()
             .article(article)
@@ -66,11 +76,12 @@ public class VoteService {
 
     @Transactional
     public VoteReadListResponse showVoteList(String email, Long articleId) {
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
-        Vote vote = voteRepository.findByArticle(article)
-            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
+        Member member = memberService.findByEmail(email);
+
+        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
+
+        Vote vote = VOTE_IS_NOT_FOUND(article);
 
         List<VoteItem> voteItem = voteItemRepository.findByVote(vote);
 
@@ -80,13 +91,13 @@ public class VoteService {
     @Transactional
     public void expireVote(String email, Long articleId) {
 
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+        Member member = memberService.findByEmail(email);
+
+        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
+        articleService.ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
         VOTE_IS_NOT_YOURS_FUNC(email,article);
-
-        Vote vote = voteRepository.findByArticle(article)
-            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
+        Vote vote = VOTE_IS_NOT_FOUND(article);
 
         vote.changVoteExpiration();
 
