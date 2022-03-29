@@ -17,15 +17,13 @@ function SignIn() {
 
 		onSubmit: async ({ email, password }) => {
 			try {
-				await authApi
-					.signin({
-						email,
-						password,
-					})
-					.then(() => {
-						location.replace("/");
-						profileApi.getUserInfo().then((res) => dispatch(SET_USER(res.data)));
-					});
+				await authApi.signin({
+					email,
+					password,
+				});
+				const res = await profileApi.getUserInfo();
+				await dispatch(SET_USER(res.data));
+				location.replace("/");
 			} catch (error) {
 				console.log(error);
 			}
