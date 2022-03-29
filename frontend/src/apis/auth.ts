@@ -14,6 +14,7 @@ interface UserApiType {
 	findPassword: (email: string) => Promise<AxiosResponse>;
 	logout: () => void;
 	checkCode: (code: string) => Promise<AxiosResponse>;
+	changePassword: (email: string, password: string) => Promise<AxiosResponse>;
 }
 
 const authApi: UserApiType = {
@@ -22,6 +23,7 @@ const authApi: UserApiType = {
 	signin: (userInfo) => request.post("members/login", userInfo),
 	reissue: (data) => request.post("members/reissue", data),
 	findPassword: (email) => request.post("members/find-pw", email),
+	changePassword: (email, password) => request.put("members/change-pw", { email, password }),
 	logout: () => cookie.remove("access_token", { path: "/" }),
 	checkCode: (code) => request.put("members/code", { value: code }),
 };
