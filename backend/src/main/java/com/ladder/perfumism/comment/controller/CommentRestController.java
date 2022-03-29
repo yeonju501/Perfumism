@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -37,6 +39,9 @@ public class CommentRestController {
 
     @PostMapping
     @ApiOperation(value = "댓글 작성", notes = "<b>(로그인 필요)</b> 댓글 작성 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)")
+    })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> postComment(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -50,6 +55,9 @@ public class CommentRestController {
 
     @GetMapping
     @ApiOperation(value = "댓글 조회", notes = "<b>(로그인 필요)</b> 댓글 조회 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)")
+    })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<CommentReadListResponse> getCommentList(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -62,6 +70,11 @@ public class CommentRestController {
 
     @PutMapping("/update/{comment_id}")
     @ApiOperation(value = "댓글 수정", notes = "<b>(로그인 필요)</b> 댓글 수정 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "댓글이 존재하지 않을 때(I01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 댓글이 아닐 때(I02)")
+    })
     @ApiImplicitParams({
         @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
@@ -79,6 +92,11 @@ public class CommentRestController {
 
     @DeleteMapping("/delete/{comment_id}")
     @ApiOperation(value = "댓글 삭제", notes = "<b>(로그인 필요)</b> 댓글 삭제 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "댓글이 존재하지 않을 때(I01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 댓글이 아닐 때(I02)")
+    })
     @ApiImplicitParams({
         @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
@@ -96,6 +114,10 @@ public class CommentRestController {
     // 대댓글
     @PostMapping("/reply/{comment_id}")
     @ApiOperation(value = "대댓글 작성", notes = "<b>(로그인 필요)</b> 대댓글 작성 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "댓글이 존재하지 않을 때(I01)")
+    })
     @ApiImplicitParams({
         @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true),
         @ApiImplicitParam(name = "comment_id", value = "댓글 ID", required = true)
