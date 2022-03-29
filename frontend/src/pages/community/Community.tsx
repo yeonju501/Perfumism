@@ -1,11 +1,11 @@
-import { Header } from "components/community";
+import { Header, CommunityList } from "components/community";
 import styled from "styled-components";
 
 function Community() {
 	return (
 		<Container>
 			<Header />
-			<div>list</div>
+			<CommunityList />
 			<div>pagination</div>
 		</Container>
 	);
