@@ -9,6 +9,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +36,10 @@ public class VoteRestController {
 
     @PostMapping
     @ApiOperation(value = "투표 만들기", notes = "<b>(로그인 필요)</b> 투표 생성 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 게시글이 아닐 때(H02)")
+    })
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -47,6 +53,10 @@ public class VoteRestController {
 
     @GetMapping
     @ApiOperation(value = "투표 조회", notes = "<b>(로그인 필요)</b> 투표를 조회 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "투표가 존재하지 않을 때(J01)")
+    })
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<VoteReadListResponse> getVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -56,6 +66,11 @@ public class VoteRestController {
 
     @PutMapping
     @ApiOperation(value = "투표 만료", notes = "<b>(로그인 필요)</b> 투표 만료/재개 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "투표가 존재하지 않을 때(J01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 게시글이 아닐때(H02)\n자신이 만든 투표가 아닐 때(J02)")
+    })
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> putVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -69,6 +84,10 @@ public class VoteRestController {
     // 투표
     @PostMapping("/choose")
     @ApiOperation(value = "투표 선택", notes = "<b>(로그인 필요)</b> 투표 선택/재선택 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
+            + "투표가 존재하지 않을 때(J01)\n투표 항목이 없을 때(J03)")
+    })
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVoteChoose(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
