@@ -15,21 +15,23 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
-		try {
-			await recommendApi
-				.createSurveyRecommend(
-					answerData[0],
-					answerData[1],
-					answerData[2],
-					answerData[3],
-					answerData[4],
-				)
-				.then((res) => {
-					setRecommendData(res.data);
-					navigate("/survey/result");
-				});
-		} catch (error) {
-			console.log(error);
+		if (answerData) {
+			try {
+				await recommendApi
+					.createSurveyRecommend(
+						answerData[0],
+						answerData[1],
+						answerData[2],
+						answerData[3],
+						answerData[4],
+					)
+					.then((res) => {
+						setRecommendData(res.data);
+						navigate("/survey/result");
+					});
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
