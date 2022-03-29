@@ -1,5 +1,6 @@
 package com.ladder.perfumism.vote.controller;
 
+import com.ladder.perfumism.vote.controller.dto.request.VoteChooseRequest;
 import com.ladder.perfumism.vote.controller.dto.request.VoteCreateRequest;
 import com.ladder.perfumism.vote.controller.dto.response.VoteReadListResponse;
 import com.ladder.perfumism.vote.domain.VoteItem;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth/votes")
+@RequestMapping("/api/auth/votes/{article_id}")
 @Api(tags = {"투표"})
 public class VoteRestController {
 
@@ -31,7 +32,7 @@ public class VoteRestController {
         this.voteService = voteService;
     }
 
-    @PostMapping("/{article_id}")
+    @PostMapping
     @ApiOperation(value = "투표 만들기", notes = "<b>(로그인 필요)</b> 투표를 만드는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVote(
@@ -44,7 +45,7 @@ public class VoteRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{article_id}")
+    @GetMapping
     @ApiOperation(value = "투표 조회", notes = "<b>(로그인 필요)</b> 투표를 조회하는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<VoteReadListResponse> getVote(
@@ -53,7 +54,7 @@ public class VoteRestController {
         return ResponseEntity.ok().body(voteService.showVoteList(email,articleId));
     }
 
-    @PutMapping("/{article_id}")
+    @PutMapping
     @ApiOperation(value = "투표 만료", notes = "<b>(로그인 필요)</b> 투표 만료/재개하는 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> putVote(
@@ -61,6 +62,18 @@ public class VoteRestController {
         @PathVariable(value = "article_id") Long articleId){
 
         voteService.expireVote(email, articleId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    // 투표
+    @PostMapping("/choose")
+    public ResponseEntity<Void> postVoteChoose(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PathVariable(value = "article_id") Long articleId,
+        @RequestBody VoteChooseRequest request){
+
+        voteService.chooseVote(email,articleId, request);
 
         return ResponseEntity.noContent().build();
     }
