@@ -54,11 +54,26 @@ function CommunityList() {
 			current_page_count: 1,
 		},
 	];
-	return <Container>List</Container>;
+
+	return (
+		<Container>
+			<table>
+				<tr>
+					<th>번호</th>
+					<th>말머리</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</table>
+		</Container>
+	);
 }
 
 const Container = styled.div`
-	display: flex;
+	font-size: 2rem;
+	width: 100%;
 `;
 
 export default CommunityList;
