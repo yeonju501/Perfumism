@@ -67,6 +67,7 @@ def recommend_like_based(accord_list):
 def recommend_survey(answer_list):
     accord_list = []
     accord_list += mapping_table[0][answer_list[0]] + mapping_table[1][answer_list[1]]
+    accord_list = ' '.join(accord_list)
   
     input_data = {
         "id": "",
@@ -85,7 +86,7 @@ def recommend_survey(answer_list):
     if answer_list[4] == 0:
         df = pd.read_json("./data_algorithms/algorithms/popular.json")
     else:
-        df = pd.read_json("unpopular.json")
+        df = pd.read_json("./data_algorithms/algorithms/unpopular.json")
 
     df = df.append(input_data, ignore_index=True)
 
@@ -120,6 +121,7 @@ def recommend_survey(answer_list):
     return result
 
 if __name__ == '__main__':
-    arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"
-    result = recommend_like_based(arr)
+    # arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"
+    arr = [0, 2, 0, 0, 0]
+    result = recommend_survey(arr)
     print(result)
