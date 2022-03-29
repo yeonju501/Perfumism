@@ -17,6 +17,7 @@ function Loading() {
 		const answerData = getAnswerData();
 		if (answerData) {
 			try {
+				console.log("이건 설문");
 				await recommendApi
 					.surveyRecommend(
 						answerData[0],
@@ -29,6 +30,12 @@ function Loading() {
 						setRecommendData(res.data);
 						navigate("/survey/result");
 					});
+			} catch (error) {
+				console.log(error);
+			}
+		} else {
+			try {
+				await console.log("좋아요기반");
 			} catch (error) {
 				console.log(error);
 			}

@@ -16,7 +16,7 @@ function Recommend() {
 			<RecommendButton
 				firstSentence="자신만의 향기가 있는 당신,"
 				secondSentence="비슷한 향기를 찾아보세요."
-				{...(token ? { url: "/survey/result" } : { url: "/signin" })}
+				{...(token ? { url: "/loading" } : { url: "/signin" })}
 			/>
 		</Container>
 	);
