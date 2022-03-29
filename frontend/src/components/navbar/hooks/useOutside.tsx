@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-interface Props {
-	Ref: React.RefObject<HTMLFormElement>;
+interface Props<T> {
+	Ref: React.RefObject<T>;
 	setFunction: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function useOutside({ Ref, setFunction }: Props) {
+function useOutside({ Ref, setFunction }: Props<HTMLElement>) {
 	useEffect(() => {
 		function handleClickOutside(e: MouseEvent) {
 			if (Ref.current && !Ref.current.contains(e.target as Node)) {
