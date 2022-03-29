@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import recommendApi from "apis/recommend";
 import styled from "styled-components";
 import { Answer } from "components/recommend";
@@ -10,7 +10,6 @@ interface SurveyItemProps {
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
-	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [recommendData, setRecommendData] = useState({});
 
@@ -50,17 +49,6 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const getAnswerData = () => {
-		const answerData = {
-			a1: searchParams.get("a1"),
-			a2: searchParams.get("a2"),
-			a3: searchParams.get("a3"),
-			a4: searchParams.get("a4"),
-			a5: searchParams.get("a5"),
-		};
-		return answerData;
 	};
 
 	const answerHandleChange = (answer: number) => {
