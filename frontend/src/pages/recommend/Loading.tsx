@@ -16,7 +16,7 @@ function Loading() {
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
 		try {
-			await recommendApi.createSurveyRecommend(answerData).then((res) => {
+			await recommendApi.createSurveyRecommend().then((res) => {
 				setRecommendData(res.data);
 				navigate("/survey/result");
 			});
@@ -26,13 +26,13 @@ function Loading() {
 	};
 
 	const getAnswerData = () => {
-		const answerData = {
-			a1: searchParams.get("a1"),
-			a2: searchParams.get("a2"),
-			a3: searchParams.get("a3"),
-			a4: searchParams.get("a4"),
-			a5: searchParams.get("a5"),
-		};
+		const answerData = [
+			searchParams.get("a1"),
+			searchParams.get("a2"),
+			searchParams.get("a3"),
+			searchParams.get("a4"),
+			searchParams.get("a5"),
+		];
 		return answerData;
 	};
 
