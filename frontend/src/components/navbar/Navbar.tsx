@@ -79,7 +79,7 @@ const Head = styled(Link)<HeaderProps>`
 		font-size: 3rem;
 	}
 
-	@media ${(props) => props.theme.mobilS} {
+	@media ${(props) => props.theme.mobileS} {
 		font-size: 2rem;
 	}
 `;
