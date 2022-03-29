@@ -62,6 +62,7 @@ public class ArticleReadDetailResponse  {
     private Boolean vote_exist;
 
     @JsonProperty("image_url_list")
+    @ApiModelProperty(position = 11, notes = "이미지 URL 리스트", dataType = "List")
     private List<ArticleImageResponse> imageUrlList;
 
     public ArticleReadDetailResponse(){

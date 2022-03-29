@@ -51,6 +51,10 @@ public class ArticleRestController {
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
     })
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "article", value = "게시글 내용 example : {\"subject\":\"TALK\", \"title\":\"ㅎㅇ\", \"content\":\"ㅂㅇ\"}",required = true),
+        @ApiImplicitParam(name = "image", value = "이미지 파일")
+    })
     public ResponseEntity<Void> postArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestPart(value = "article") ArticleCreateRequest request,
