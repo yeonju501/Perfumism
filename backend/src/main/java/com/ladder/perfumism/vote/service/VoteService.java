@@ -8,13 +8,17 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.vote.controller.dto.request.VoteChooseRequest;
 import com.ladder.perfumism.vote.controller.dto.request.VoteCreateRequest;
 import com.ladder.perfumism.vote.controller.dto.response.VoteReadListResponse;
 import com.ladder.perfumism.vote.domain.Vote;
 import com.ladder.perfumism.vote.domain.VoteItem;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
+import com.ladder.perfumism.vote.domain.VoteMember;
+import com.ladder.perfumism.vote.domain.VoteMemberRepository;
 import com.ladder.perfumism.vote.domain.VoteRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +30,16 @@ public class VoteService {
     private final MemberService memberService;
     private final VoteRepository voteRepository;
     private final VoteItemRepository voteItemRepository;
+    private final VoteMemberRepository voteMemberRepository;
 
     public VoteService(ArticleService articleService, MemberService memberService,
-        VoteRepository voteRepository, VoteItemRepository voteItemRepository){
+        VoteRepository voteRepository, VoteItemRepository voteItemRepository,
+        VoteMemberRepository voteMemberRepository){
         this.articleService = articleService;
         this.memberService = memberService;
         this.voteRepository = voteRepository;
         this.voteItemRepository = voteItemRepository;
+        this.voteMemberRepository = voteMemberRepository;
     }
 
     private void VOTE_IS_NOT_YOURS_FUNC(String email, Article article){
@@ -100,6 +107,37 @@ public class VoteService {
         Vote vote = VOTE_IS_NOT_FOUND(article);
 
         vote.changVoteExpiration();
+
+    }
+
+    public void chooseVote(String email, Long articleId, VoteChooseRequest voteChoose) {
+        Member member = memberService.findByEmail(email);
+        Vote vote = voteRepository.getById(voteChoose.getVote());
+        VoteItem choseVoteItem = voteItemRepository.getById(voteChoose.getVoteItem());
+
+        List<VoteItem> voteItems = voteItemRepository.findByVote(vote);
+
+        for (VoteItem voteItem: voteItems){
+            Optional<VoteMember> presentVoteMember = voteMemberRepository.findByMemberAndVoteItem(member,voteItem);
+            if (presentVoteMember.isPresent())
+            {
+                VoteMember pastVoteMember = voteMemberRepository.getById(presentVoteMember.get().getId());
+
+                voteMemberRepository.delete(pastVoteMember);
+
+                break;
+            }
+
+        }
+
+        VoteMember futureVoteMember = VoteMember.builder()
+            .vote(vote)
+            .voteItem(choseVoteItem)
+            .member(member)
+            .build();
+
+        voteMemberRepository.save(futureVoteMember);
+
 
     }
 }
