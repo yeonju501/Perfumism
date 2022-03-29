@@ -1,6 +1,6 @@
 import perfumeApi from "apis/perfume";
 import profileApi from "apis/profile";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import useIntersectionObserver from "./useIntersectionObserver";
@@ -24,17 +24,26 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const filter = useSelector((state: RootState) => state.filter);
+	const { accord, sort, order } = useSelector((state: RootState) => state.filter);
+	console.log(accord, sort, order);
 
 	useEffect(() => {
+		console.log(currentPage, totalPage);
 		if (currentPage && currentPage >= totalPage) return;
+		console.log("get");
 		getPerfumes();
-	}, [currentPage]);
+	}, [currentPage, accord, sort, order]);
+
+	useEffect(() => {
+		console.log("초기화");
+		setCurrentPage(0);
+	}, [accord, sort, order]);
 
 	const getPerfumes = async () => {
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 800));
-		if (filter.accord === "" && filter.sort === "") {
+		if (accord === "" && sort === "" && order === "") {
+			console.log("default");
 			if (type === "perfumes")
 				await perfumeApi.getPerfumes(currentPage).then((res) => {
 					setPerfumes((prev) => prev.concat(res.data.perfumes));
@@ -54,14 +63,13 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 					setCurrentPage(res.data.current_page_count);
 				});
 		} else {
+			console.log("filtering");
 			if (type === "perfumes")
-				await perfumeApi
-					.getPerfumesByAccord(filter.accord, currentPage, filter.sort, filter.order)
-					.then((res) => {
-						setPerfumes((prev) => prev.concat(res.data.perfumes));
-						setTotalPage(res.data.total_page_count);
-						setCurrentPage(res.data.current_page_count);
-					});
+				await perfumeApi.getPerfumesByAccord(accord, currentPage, sort, order).then((res) => {
+					setPerfumes((prev) => prev.concat(res.data.perfumes));
+					setTotalPage(res.data.total_page_count);
+					setCurrentPage(res.data.current_page_count);
+				});
 		}
 		setIsLoading(false);
 	};
