@@ -18,7 +18,7 @@ function LinkList({ scrollheader }: HeaderProps) {
 	return (
 		<>
 			<CloseButton icon={faX} onClick={() => setIsToggle(!isToggle)} on={isToggle ? 0 : 1} />
-			<MenuLinks scrollheader={scrollheader} isMenu={isToggle} />
+			<MenuLinks scrollheader={scrollheader} isMenu={isToggle} setIsToggle={setIsToggle} />
 			<MenuBars scrollheader={scrollheader} icon={faBars} onClick={() => setIsToggle(!isToggle)} />
 		</>
 	);
