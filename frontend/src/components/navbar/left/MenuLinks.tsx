@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { useRef } from "react";
+import useOutside from "../hooks/useOutside";
 
 interface Props {
 	scrollheader: number;
 	isMenu?: boolean;
+	setIsToggle?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface isMenu {
@@ -13,9 +16,12 @@ const handleClick = (link: string) => {
 	location.replace(link);
 };
 
-function MenuLinks({ scrollheader, isMenu }: Props) {
+function MenuLinks({ scrollheader, isMenu, setIsToggle }: Props) {
+	const Ref = useRef<HTMLLIElement>(null);
+	useOutside({ Ref, setFunction: setIsToggle as React.Dispatch<React.SetStateAction<boolean>> });
+
 	return (
-		<ListItem isMenu={isMenu}>
+		<ListItem isMenu={isMenu} ref={Ref}>
 			<LinkParagraph scrollheader={scrollheader} onClick={() => handleClick("/recommend")}>
 				RECOMMEND
 			</LinkParagraph>
