@@ -52,6 +52,7 @@ const DropDownHeader = styled("div")`
 	font-weight: 500;
 	font-size: 1.3rem;
 	background: #ffffff;
+	cursor: pointer;
 `;
 
 const DropDownListContainer = styled("div")`
@@ -68,6 +69,7 @@ const DropDownList = styled("ul")`
 	box-sizing: border-box;
 	font-size: 1.3rem;
 	font-weight: 500;
+	cursor: pointer;
 	&:first-child {
 		padding-top: 0.8em;
 	}
@@ -75,7 +77,12 @@ const DropDownList = styled("ul")`
 
 const ListItem = styled("li")`
 	list-style: none;
-	margin-bottom: 0.8em;
+	height: 2.5rem;
+	&:hover {
+		transition: 0.5s;
+		background-color: #d3d3d3;
+		color: #2f4f4f;
+	}
 `;
 
 export default Dropdown;
