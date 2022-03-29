@@ -8,4 +8,6 @@ public interface VoteMemberRepository extends JpaRepository<VoteMember,Long> {
 
     Optional<VoteMember> findByMemberAndVoteItem(Member member,VoteItem voteItem);
 
+    Integer countByVoteItem(VoteItem voteItem);
+
 }
