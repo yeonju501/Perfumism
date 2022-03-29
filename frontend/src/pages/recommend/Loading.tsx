@@ -15,10 +15,8 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
-		console.log(answerData);
 		if (answerData) {
 			try {
-				console.log("이건 설문");
 				await recommendApi
 					.surveyRecommend(
 						answerData[0],
@@ -36,7 +34,10 @@ function Loading() {
 			}
 		} else {
 			try {
-				await console.log("좋아요기반");
+				await recommendApi.likeBasedRecommend(1).then((res) => {
+					setRecommendData(res.data);
+					navigate("/survey/result");
+				});
 			} catch (error) {
 				console.log(error);
 			}
