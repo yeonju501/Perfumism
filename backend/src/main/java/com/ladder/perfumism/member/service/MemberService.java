@@ -10,6 +10,7 @@ import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
+import com.ladder.perfumism.member.controller.dto.response.MemberIdResponse;
 import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
@@ -23,14 +24,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
-    private final ImageUploader imageUploader;
 
     public MemberService(MemberRepository memberRepository,
-        PasswordEncoder passwordEncoder, MailService mailService, ImageUploader imageUploader) {
+        PasswordEncoder passwordEncoder, MailService mailService) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
-        this.imageUploader = imageUploader;
     }
 
     @Transactional
@@ -54,6 +53,13 @@ public class MemberService {
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    }
+
+    @Transactional(readOnly = true)
+    public MemberIdResponse showMemberId(String email) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        return MemberIdResponse.from(member.getId());
     }
 
     @Transactional(readOnly = true)

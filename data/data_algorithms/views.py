@@ -34,6 +34,12 @@ def like_based(request, member_pk):
 def survey(request, a1, a2, a3, a4, a5):
     answer_list = [a1, a2, a3, a4, a5]
     
-    recommend_survey(answer_list)
+    result = recommend_survey(answer_list)
 
-    return Response("")
+    perfumes = []
+    for i in range(3):
+        perfume = get_object_or_404(Perfume, perfume_id = result[i])
+        perfumes.append(perfume)
+
+    serializer = PerfumeListSerializer(perfumes, many=True)
+    return Response(serializer.data)
