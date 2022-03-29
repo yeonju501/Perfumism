@@ -18,6 +18,7 @@ import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
 import SearchResultPage from "pages/search/SearchResultPage";
+import Loading from "pages/recommend/Loading";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
@@ -37,6 +38,7 @@ function Router() {
 				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/survey/result" element={<SurveyResult />} />
+				<Route path="/loading" element={<Loading />} />
 				<Route path="/" element={<Main />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/signin" element={<SignIn />} />

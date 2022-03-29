@@ -1,7 +1,10 @@
 import { RecommendButton } from "components/recommend";
 import styled from "styled-components";
+import cookie from "react-cookies";
 
 function Recommend() {
+	const token = cookie.load("access_token");
+
 	return (
 		<Container>
 			<Title>Find your signature scent</Title>
@@ -13,7 +16,7 @@ function Recommend() {
 			<RecommendButton
 				firstSentence="자신만의 향기가 있는 당신,"
 				secondSentence="비슷한 향기를 찾아보세요."
-				url="/survey/result"
+				{...(token ? { url: "/loading" } : { url: "/signin" })}
 			/>
 		</Container>
 	);

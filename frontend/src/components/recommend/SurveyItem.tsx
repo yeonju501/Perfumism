@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import recommendApi from "apis/recommend";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Answer } from "components/recommend";
 
@@ -10,9 +9,7 @@ interface SurveyItemProps {
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
-	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
-	const [recommendData, setRecommendData] = useState({});
 
 	const getNextUrl = () => {
 		const nextPage = Number(surveyListItem["질문번호"]) + 1;
@@ -28,36 +25,16 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 		const nextUrl = getNextUrl() + strAnswer;
 		if (surveyListItem["질문번호"] === "5") {
 			// getRecommendData();
-			navigate("/survey/result");
+			navigate({
+				pathname: "/loading",
+				search: nextUrl,
+			});
 		} else {
 			navigate({
 				pathname: "/survey",
 				search: nextUrl,
 			});
 		}
-	};
-
-	const getRecommendData = async () => {
-		const answerData = getAnswerData();
-		try {
-			await recommendApi.createSurveyRecommend(answerData).then((res) => {
-				setRecommendData(res.data);
-				navigate("/survey/result");
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const getAnswerData = () => {
-		const answerData = {
-			a1: searchParams.get("a1"),
-			a2: searchParams.get("a2"),
-			a3: searchParams.get("a3"),
-			a4: searchParams.get("a4"),
-			a5: searchParams.get("a5"),
-		};
-		return answerData;
 	};
 
 	const answerHandleChange = (answer: number) => {
