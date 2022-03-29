@@ -34,7 +34,7 @@ function PerfumeFilter() {
 		const category = e.target as HTMLElement;
 		const accord = category.innerText;
 		if (accord === "All") {
-			dispatch(SET_FILTER({ accord: "", sort: "", order: "" }));
+			dispatch(SET_FILTER({ accord: "", sort: "totalSurvey", order: "desc" }));
 		} else {
 			setAccord(accord);
 			dispatch(SET_FILTER({ accord, sort: "totalSurvey", order: "desc" }));
@@ -42,6 +42,11 @@ function PerfumeFilter() {
 	};
 
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (accord === "All") {
+			if (e.target.selectedIndex === 1)
+				dispatch(SET_FILTER({ accord: "", sort: "name", order: "asc" }));
+			else dispatch(SET_FILTER({ accord: "", sort: "name", order: "desc" }));
+		}
 		if (e.target.value === "name" && e.target.selectedIndex === 1) {
 			dispatch(SET_FILTER({ accord, sort: "name", order: "asc" }));
 		} else {
