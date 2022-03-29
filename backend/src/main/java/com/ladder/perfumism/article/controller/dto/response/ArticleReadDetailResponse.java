@@ -1,10 +1,14 @@
 package com.ladder.perfumism.article.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.article.domain.Article;
+import com.ladder.perfumism.article.domain.ArticleImage;
 import com.ladder.perfumism.article.domain.ArticleSubject;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Getter
@@ -38,17 +42,27 @@ public class ArticleReadDetailResponse  {
     @ApiModelProperty(position = 6, notes = "내용", example = "내용이네요")
     private String content;
 
-    @JsonProperty("created_at")
-    @ApiModelProperty(position = 7, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("createAt")
+    @ApiModelProperty(position = 7, notes = "생성 시간", example = "2022-3-13 14:59:51")
     private LocalDateTime createdAt;
 
-    @JsonProperty("updated_at")
-    @ApiModelProperty(position = 8, notes = "수정 시간", example = "2022,3,13,14,59,51,0000000")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("updateAt")
+    @ApiModelProperty(position = 8, notes = "수정 시간", example = "2023-4-14 14:59:51")
     private LocalDateTime updatedAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty("deleteAt")
+    @ApiModelProperty(position = 9, notes = "삭제 시간", example = "2023-4-15 14:59:51")
+    private LocalDateTime deletedAt;
+
     @JsonProperty("vote_exist")
-    @ApiModelProperty(position = 9, notes = "투표 존재 유무 true(있음) or false(없음)", example = "false")
+    @ApiModelProperty(position = 10, notes = "투표 존재 유무 true(있음) or false(없음)", example = "false")
     private Boolean vote_exist;
+
+    @JsonProperty("image_url_list")
+    private List<ArticleImageResponse> imageUrlList;
 
     public ArticleReadDetailResponse(){
 
@@ -57,7 +71,8 @@ public class ArticleReadDetailResponse  {
     public ArticleReadDetailResponse(
         Long articleId, Long memberId, String memberName, String memberImage,
         ArticleSubject subject, String title, String content,
-        LocalDateTime createdAt, LocalDateTime updatedAt, Boolean vote_exist){
+        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, Boolean vote_exist,
+        List<ArticleImageResponse> imageUrlList){
         this.articleId = articleId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -67,10 +82,12 @@ public class ArticleReadDetailResponse  {
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.vote_exist = vote_exist;
+        this.imageUrlList = imageUrlList;
     }
 
-    public static ArticleReadDetailResponse from(Article article){
+    public static ArticleReadDetailResponse from(Article article, List<ArticleImage> articleImages){
         return new ArticleReadDetailResponse(
             article.getId(),
             article.getMember().getId(),
@@ -81,7 +98,12 @@ public class ArticleReadDetailResponse  {
             article.getContent(),
             article.getCreatedAt(),
             article.getUpdatedAt(),
-            article.getVote_exist()
+            article.getDeletedAt(),
+            article.getVote_exist(),
+            articleImages.stream()
+                .map(ArticleImageResponse::from)
+                .collect(Collectors.toList())
+
         );
     }
 
