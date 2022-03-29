@@ -3,6 +3,7 @@ const SET = "filter/setFilter";
 interface dataType {
 	accord: string;
 	sort: string;
+	order: string;
 }
 
 interface actionType {
@@ -15,6 +16,7 @@ export const SET_FILTER = (data: dataType) => ({ type: SET, data });
 const initialState = {
 	accord: "",
 	sort: "",
+	order: "",
 };
 
 const filter = (state = initialState, action: actionType) => {
@@ -24,6 +26,7 @@ const filter = (state = initialState, action: actionType) => {
 				...state,
 				accord: action.data.accord,
 				sort: action.data.sort,
+				order: action.data.order,
 			};
 		default:
 			return state;
