@@ -42,10 +42,10 @@ public class Vote extends BaseEntity {
     }
 
     @Builder
-    private Vote(Article article, String title, int totalVoter){
+    private Vote(Article article, String title){
         this.article = article;
         this.title = title;
-        this.totalVoter = totalVoter;
+        this.totalVoter = 0;
         this.expiration = false;
     }
 
