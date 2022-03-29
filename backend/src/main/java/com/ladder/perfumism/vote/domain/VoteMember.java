@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
 
@@ -25,15 +26,25 @@ public class VoteMember extends BaseEntity {
 
     @ManyToOne(targetEntity = Vote.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "vote_id")
-    private Vote voteId;
+    private Vote vote;
 
     @ManyToOne(targetEntity = VoteItem.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "vote_item_id")
-    private VoteItem voteItemId;
+    private VoteItem voteItem;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
 
+    public VoteMember(){
+
+    }
+
+    @Builder
+    public VoteMember(Vote vote, VoteItem voteItem, Member member){
+        this.vote = vote;
+        this.voteItem = voteItem;
+        this.member = member;
+    }
 }
