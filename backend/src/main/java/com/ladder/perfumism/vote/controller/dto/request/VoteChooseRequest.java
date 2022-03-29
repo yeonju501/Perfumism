@@ -7,10 +7,6 @@ import lombok.Getter;
 @Getter
 public class VoteChooseRequest {
 
-    @JsonProperty("vote_id")
-    @ApiModelProperty(required = true, position = 0, notes = "투표 ID", example = "1")
-    private Long vote;
-
     @JsonProperty("vote_item_id")
     @ApiModelProperty(required = true, position = 2, notes = "투표 항목 ID", example = "3")
     private Long voteItem;
@@ -19,8 +15,7 @@ public class VoteChooseRequest {
 
     }
 
-    public VoteChooseRequest(Long vote, Long voteItem){
-        this.vote = vote;
+    public VoteChooseRequest(Long voteItem){
         this.voteItem = voteItem;
     }
 }
