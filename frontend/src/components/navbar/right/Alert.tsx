@@ -16,7 +16,7 @@ function Alert() {
 	useOutside({ Ref, setFunction: setIsOn });
 
 	useEffect(() => {
-		getNumOfUnread();
+		token && getNumOfUnread();
 	}, [numOfUnread]);
 
 	const getNumOfUnread = async () => {
