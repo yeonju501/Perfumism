@@ -62,6 +62,7 @@ const FontAwesome = styled(FontAwesomeIcon)`
 	width: 1.8rem;
 	height: 1.8rem;
 	margin-left: 2rem;
+	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		margin-left: 0.5rem;
 	}

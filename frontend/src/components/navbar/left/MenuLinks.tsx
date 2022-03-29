@@ -49,9 +49,9 @@ const ListItem = styled.li<isMenu>`
 
 const LinkParagraph = styled.p<Props>`
 	text-decoration: none;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	font-weight: 900;
-	margin-right: 5rem;
+	margin-right: 3.5rem;
 	cursor: pointer;
 	color: ${({ scrollheader }) => (scrollheader > 2 ? "#fff" : "#000")};
 	@media ${(props) => props.theme.tabletS} {

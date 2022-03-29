@@ -8,7 +8,7 @@ const size = {
 
 const theme = {
 	mobile: `(max-width: ${size.mobile})`,
-	mobilesS: `(max-width:${size.mobileS})`,
+	mobileS: `(max-width:${size.mobileS})`,
 	tabletS: `(max-width: ${size.tabletS})`,
 };
 

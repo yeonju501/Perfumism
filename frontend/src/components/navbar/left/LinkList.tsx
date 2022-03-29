@@ -35,6 +35,7 @@ const MenuBars = styled(FontAwesomeIcon)<IsToggle>`
 	font-size: 2rem;
 	display: none;
 	color: ${(props) => (props.isToggle ? "#fff" : "#000")};
+	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		display: ${(props) => (props.isToggle ? "none" : "block")};
 		color: ${({ scrollheader }) => ((scrollheader as number) > 2 ? "#fff" : "#000")};
@@ -49,6 +50,7 @@ const CloseButton = styled(FontAwesomeIcon)<IsToggle>`
 	position: absolute;
 	top: 2rem;
 	left: 22rem;
+	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		display: ${(props) => (props.isToggle ? "none" : "block")};
 	}
