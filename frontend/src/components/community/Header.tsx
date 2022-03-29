@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Button } from "./index";
+import { Button, Dropdown } from "./index";
 
 function Header() {
 	return (
 		<Container>
-			<div>dropdown</div>
+			<Dropdown />
 			<Button>글쓰기</Button>
 		</Container>
 	);
