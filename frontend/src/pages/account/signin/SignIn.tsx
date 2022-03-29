@@ -1,12 +1,10 @@
 import { FormContainer, Container } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import { formValidator } from "utils";
-import { authApi } from "apis";
+import { authApi, socialLogin, profileApi } from "apis";
 import useForm from "../hooks/useForm";
-import socialLogin from "apis/socialLogin";
-import { useDispatch } from "react-redux";
-import profileApi from "apis/profile";
 import { SET_USER } from "store/user";
+import { useDispatch } from "react-redux";
 
 function SignIn() {
 	const dispatch = useDispatch();
