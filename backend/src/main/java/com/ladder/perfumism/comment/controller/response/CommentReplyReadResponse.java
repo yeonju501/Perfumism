@@ -35,19 +35,19 @@ public class CommentReplyReadResponse {
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("createAt")
+    @JsonProperty("created_at")
     @ApiModelProperty(position = 6, notes = "생성 시간", example = "2022,3,13,14,59,51,0000000")
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("updateAt")
+    @JsonProperty("updated_at")
     @ApiModelProperty(position = 7, notes = "수정 시간", example = "2023,4,14,14,59,51,0000000")
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("deleteAt")
+    @JsonProperty("deleted_at")
     @ApiModelProperty(position = 8, notes = "삭제 시간", example = "2023-4-15 14:59:51")
-    private LocalDateTime deleteAt;
+    private LocalDateTime deletedAt;
 
     @JsonProperty("deletion")
     @ApiModelProperty(position = 9, notes = "삭제 유무", example = "false(삭제X) or ture(삭제O)")
@@ -60,7 +60,7 @@ public class CommentReplyReadResponse {
     public CommentReplyReadResponse(
         Long commentId, Long memberId, String memberName, Long articleId,
         Long parentId, String content,
-        LocalDateTime createAt, LocalDateTime updateAt, LocalDateTime deleteAt,
+        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deleteAt,
         Boolean deletion){
         this.commentId = commentId;
         this.memberId = memberId;
@@ -68,9 +68,9 @@ public class CommentReplyReadResponse {
         this.articleId = articleId;
         this.parentId = parentId;
         this.content = content;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-        this.deleteAt = deleteAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.deletion = deletion;
     }
 
