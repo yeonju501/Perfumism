@@ -33,7 +33,7 @@ public class VoteRestController {
     }
 
     @PostMapping
-    @ApiOperation(value = "투표 만들기", notes = "<b>(로그인 필요)</b> 투표를 만드는 API")
+    @ApiOperation(value = "투표 만들기", notes = "<b>(로그인 필요)</b> 투표 생성 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -46,7 +46,7 @@ public class VoteRestController {
     }
 
     @GetMapping
-    @ApiOperation(value = "투표 조회", notes = "<b>(로그인 필요)</b> 투표를 조회하는 API")
+    @ApiOperation(value = "투표 조회", notes = "<b>(로그인 필요)</b> 투표를 조회 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<VoteReadListResponse> getVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -55,7 +55,7 @@ public class VoteRestController {
     }
 
     @PutMapping
-    @ApiOperation(value = "투표 만료", notes = "<b>(로그인 필요)</b> 투표 만료/재개하는 API")
+    @ApiOperation(value = "투표 만료", notes = "<b>(로그인 필요)</b> 투표 만료/재개 API")
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> putVote(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -68,6 +68,8 @@ public class VoteRestController {
 
     // 투표
     @PostMapping("/choose")
+    @ApiOperation(value = "투표 선택", notes = "<b>(로그인 필요)</b> 투표 선택/재선택 API")
+    @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<Void> postVoteChoose(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
