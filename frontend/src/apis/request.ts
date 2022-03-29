@@ -42,6 +42,15 @@ const createInstance = () => {
 	return setInterceptors(instance);
 };
 
+const imageCreateInstance = () => {
+	const instance = axios.create({
+		baseURL: process.env.REACT_APP_MAIN_URL,
+		timeout: 10000,
+		headers: { "Content-Type": "multipart/form-data" },
+	});
+	return setInterceptors(instance);
+};
+
 const djangoCreateInstance = () => {
 	const instance = axios.create({
 		baseURL: process.env.REACT_APP_SUB_URL,
@@ -62,3 +71,4 @@ const authCreateInstance = () => {
 export const authRequest = authCreateInstance();
 export const request = createInstance();
 export const djangoRequest = djangoCreateInstance();
+export const imageRequest = imageCreateInstance();
