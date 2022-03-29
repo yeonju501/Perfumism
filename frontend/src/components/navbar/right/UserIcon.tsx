@@ -4,12 +4,15 @@ import styled from "styled-components";
 import { authApi } from "apis";
 import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface Props {
 	usericon?: string;
 }
 
 function UserIcon() {
+	const userName = useSelector((state: RootState) => state.user.username);
 	const token = cookie.load("access_token");
 	const navigate = useNavigate();
 
@@ -20,7 +23,7 @@ function UserIcon() {
 
 	return token ? (
 		<>
-			<FontAwesome icon={faUser} />
+			<FontAwesome icon={faUser} onClick={() => navigate(`profile/${userName}`)} />
 			<FontAwesome icon={faArrowRightFromBracket} usericon="1" onClick={logout} />
 		</>
 	) : (
