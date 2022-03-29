@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 function Loading() {
-	return <Container>loading</Container>;
+	return (
+		<Container>
+			<h1>loading</h1>
+			<img />
+		</Container>
+	);
 }
 
 const Container = styled.div`
