@@ -3,7 +3,7 @@ import styled from "styled-components";
 function Community() {
 	return (
 		<Container>
-			<div>top</div>
+			<div>header</div>
 			<div>list</div>
 			<div>pagination</div>
 		</Container>
