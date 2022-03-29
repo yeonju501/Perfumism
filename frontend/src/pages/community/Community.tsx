@@ -1,4 +1,4 @@
-import { Header, CommunityList } from "components/community";
+import { Header, CommunityList, Pagination } from "components/community";
 import styled from "styled-components";
 
 function Community() {
@@ -6,7 +6,7 @@ function Community() {
 		<Container>
 			<Header />
 			<CommunityList />
-			<div>pagination</div>
+			<Pagination />
 		</Container>
 	);
 }
