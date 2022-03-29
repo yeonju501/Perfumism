@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -38,6 +40,9 @@ public class ArticleRestController {
 
     @PostMapping
     @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
+    })
     public ResponseEntity<Void> postArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestBody ArticleCreateRequest request){
@@ -50,6 +55,9 @@ public class ArticleRestController {
 
     @GetMapping(value = {"/{subject}","/"})
     @ApiOperation(value = "게시글 목록 조회", notes = "<b>(로그인 필요)</b> 게시글 목록을 받아오는 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
+    })
     @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null")
     public ResponseEntity<ArticleReadListResponse> getArticleList(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -62,6 +70,9 @@ public class ArticleRestController {
 
     @GetMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 상세 조회", notes = "<b>(로그인 필요)</b> 게시글을 선택했을 때 선택한 게시글을 받아오는 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)")
+    })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -73,6 +84,10 @@ public class ArticleRestController {
 
     @PutMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 수정", notes = "<b>(로그인 필요)</b> 게시글 수정요청을 하는 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 게시글이 아닐 때(H02)")
+    })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> putArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
@@ -86,6 +101,10 @@ public class ArticleRestController {
 
     @DeleteMapping("/detail/{article_id}")
     @ApiOperation(value = "게시글 삭제", notes = "<b>(로그인 필요)</b> 게시글 삭제 요청 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)"),
+        @ApiResponse(code = 400, message = "BAD_REQUEST\n자신이 쓴 게시글이 아닐 때(H02)")
+    })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<Void> deleteArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
