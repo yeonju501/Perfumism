@@ -1,4 +1,5 @@
 import Navbar from "components/navbar/Navbar";
+import ScrollToTop from "components/ScrollToTop";
 import FindPassword from "pages/account/find-pw/FindPassword";
 import SignIn from "pages/account/signin/SignIn";
 import SignUp from "pages/account/signup/SignUp";
@@ -23,6 +24,7 @@ import PrivateRoute from "./PrivateRoute";
 function Router() {
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<Navbar />
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
