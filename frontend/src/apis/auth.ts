@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { request } from "./request";
+import { request, authRequest } from "./request";
 import cookie from "react-cookies";
 
 interface UserApiType {
@@ -21,7 +21,7 @@ const authApi: UserApiType = {
 	signup: (userInfo) => request.post("members/join", userInfo),
 	isExist: (name, value) => request.post(`members/exist-${name}`, value),
 	signin: (userInfo) => request.post("members/login", userInfo),
-	reissue: (data) => request.post("auth/members/reissue", data),
+	reissue: (data) => authRequest.post("members/reissue", data),
 	findPassword: (email) => request.post("members/find-pw", email),
 	changePassword: (email, password) => request.put("members/change-pw", { email, password }),
 	logout: () => cookie.remove("access_token", { path: "/" }),
