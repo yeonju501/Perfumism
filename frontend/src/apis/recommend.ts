@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { request } from "./request";
+import { djangoRequest } from "./request";
 
 interface RecommendApiType {
 	surveyRecommend: (
@@ -14,8 +14,8 @@ interface RecommendApiType {
 
 const recommendApi: RecommendApiType = {
 	surveyRecommend: (a1, a2, a3, a4, a5) =>
-		request.get(`algorithms/survey/${a1}/${a2}/${a3}/${a4}/${a5}`),
-	likeBasedRecommend: (id) => request.get(`algorithms/${id}/like-based`),
+		djangoRequest.get(`algorithms/survey/${a1}/${a2}/${a3}/${a4}/${a5}`),
+	likeBasedRecommend: (id) => djangoRequest.get(`algorithms/${id}/like-based`),
 };
 
 export default recommendApi;
