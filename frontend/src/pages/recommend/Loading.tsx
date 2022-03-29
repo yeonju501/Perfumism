@@ -1,7 +1,18 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Spinner from "assets/spinner.gif";
 
 function Loading() {
+	const [recommendData, setRecommendData] = useState({});
+
+	useEffect(() => {
+		getRecommendData();
+	}, []);
+
+	const getRecommendData = async () => {
+		console.log("ok");
+	};
+
 	return (
 		<Container>
 			<LoadingImg src={Spinner} />
