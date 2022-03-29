@@ -34,7 +34,7 @@ const FontAwesome = styled(FontAwesomeIcon)<Props>`
 	width: 1.8rem;
 	height: 1.8rem;
 	margin-left: 2rem;
-	z-index: -1;
+	z-index: 1;
 	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		margin: 0;
