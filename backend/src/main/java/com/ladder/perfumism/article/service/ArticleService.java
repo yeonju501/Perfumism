@@ -91,7 +91,12 @@ public class ArticleService {
         Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
 
-        return ArticleReadDetailResponse.from(article);
+        List<ArticleImage> articleImage = articleImageRepository.findByArticle(article);
+
+        return ArticleReadDetailResponse.from(article, articleImage);
+
+
+
     }
 
     @Transactional
