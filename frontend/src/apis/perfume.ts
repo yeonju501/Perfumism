@@ -12,12 +12,15 @@ interface PerfumeApiType {
 
 const perfumeApi: PerfumeApiType = {
 	getPerfume: (perfumeId) => request.get(`perfumes/${perfumeId}`),
-	getPerfumes: (currentPage) => request.get(`perfumes/?page=${currentPage}&size=5`),
+	getPerfumes: (currentPage) =>
+		request.get(`perfumes/?page=${currentPage}&size=10&sort=totalSurvey%2Cdesc`),
 	isPerfumeLiked: (perfumeId) => request.get(`auth/perfumes/likes/${perfumeId}`),
 	addFavoritePerfume: (perfumeId) => request.post(`auth/perfumes/likes/${perfumeId}`),
 	deleteFavoritePerfume: (perfumeId) => request.delete(`auth/perfumes/likes/${perfumeId}`),
 	getBrandPerfumes: (brandName, currentPage) =>
-		request.get(`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=5&type=brand`),
+		request.get(
+			`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=10&sort=totalSurvey%2Cdesc&type=brand`,
+		),
 };
 
 export default perfumeApi;
