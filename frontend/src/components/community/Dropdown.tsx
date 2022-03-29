@@ -12,7 +12,6 @@ function Dropdown() {
 	const onOptionClicked = (value: string) => () => {
 		setSelectedOption(value);
 		setIsOpen(false);
-		console.log(selectedOption);
 	};
 
 	return (
