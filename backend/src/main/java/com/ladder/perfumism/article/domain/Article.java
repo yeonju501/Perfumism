@@ -44,6 +44,9 @@ public class Article extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "vote_exist")
+    private Boolean vote_exist;
+
     protected Article(){
 
     }
@@ -54,6 +57,7 @@ public class Article extends BaseEntity {
         this.subject = subject;
         this.title = title;
         this.content = content;
+        this.vote_exist = false;
     }
 
     public void changeSubject(ArticleSubject subject){
@@ -72,5 +76,9 @@ public class Article extends BaseEntity {
         if (!Objects.isNull(content)){
             this.content = content;
         }
+    }
+
+    public void changeVoteExist(){
+        this.vote_exist = true;
     }
 }
