@@ -1,28 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { authApi } from "apis";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
-import { formValidator } from "utils";
 import useForm from "../hooks/useForm";
+import { toast } from "react-toastify";
 
-function FindPassword() {
+function InputCodePage() {
 	const navigate = useNavigate();
+	const { state } = useLocation();
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
-			email: "",
+			code: "",
 		},
-		onSubmit: async ({ email }) => {
+		onSubmit: async ({ code }) => {
 			try {
-				await authApi.findPassword(email).then((res) => {
-					res.status === 204 ? navigate("/check-code", { state: email }) : null;
+				await authApi.checkCode(code).then((res) => {
+					res.data.result === true
+						? navigate("/password/change-pw", { state })
+						: toast.error("코드가 일치하지 않습니다.");
 				});
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		validate: ({ email }) => {
+		validate: ({ code }) => {
 			const errors: { [key: string]: string } = {};
-			if (!formValidator.validateEmailForm(email)) errors.email = "올바른 이메일을 입력해주세요.";
+			if (!code) errors.code = "코드를 입력해주세요";
 			return errors;
 		},
 	});
@@ -30,12 +33,12 @@ function FindPassword() {
 		<Container>
 			<Header>비밀번호 찾기</Header>
 			<FormContainer onSubmit={handleSubmit}>
-				<Label htmlFor="email">이메일</Label>
-				<Input name="email" onChange={handleChange} />
-				<ErrorText>{errors.email}</ErrorText>
+				<Label htmlFor="code">CODE</Label>
+				<Input name="code" onChange={handleChange} />
+				<ErrorText>{errors.code}</ErrorText>
 				<br />
 				<Button backgroundColor="black" color="#fff">
-					비밀번호 찾기
+					확인
 				</Button>
 			</FormContainer>
 			<LinkParagraph to="/signup">회원가입하러 가기</LinkParagraph>
@@ -44,4 +47,4 @@ function FindPassword() {
 	);
 }
 
-export default FindPassword;
+export default InputCodePage;

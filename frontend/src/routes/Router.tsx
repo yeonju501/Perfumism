@@ -21,6 +21,9 @@ import SearchResultPage from "pages/search/SearchResultPage";
 import Loading from "pages/recommend/Loading";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import InputCodePage from "pages/account/find-pw/InputCodePage";
+import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
+import SuccessPage from "pages/account/find-pw/SuccessPage";
 
 function Router() {
 	return (
@@ -47,6 +50,9 @@ function Router() {
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
 				<Route path="/search/:keyword" element={<SearchResultPage />} />
+				<Route path="/check-code" element={<InputCodePage />} />
+				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
+				<Route path="/password/success" element={<SuccessPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
