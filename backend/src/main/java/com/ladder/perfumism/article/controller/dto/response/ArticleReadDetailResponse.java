@@ -46,11 +46,17 @@ public class ArticleReadDetailResponse  {
     @ApiModelProperty(position = 8, notes = "수정 시간", example = "2022,3,13,14,59,51,0000000")
     private LocalDateTime updatedAt;
 
+    @JsonProperty("vote_exist")
+    private Boolean vote_exist;
+
     public ArticleReadDetailResponse(){
 
     }
 
-    public ArticleReadDetailResponse(Long articleId, Long memberId, String memberName, String memberImage,ArticleSubject subject, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt){
+    public ArticleReadDetailResponse(
+        Long articleId, Long memberId, String memberName, String memberImage,
+        ArticleSubject subject, String title, String content,
+        LocalDateTime createdAt, LocalDateTime updatedAt, Boolean vote_exist){
         this.articleId = articleId;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -60,6 +66,7 @@ public class ArticleReadDetailResponse  {
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.vote_exist = vote_exist;
     }
 
     public static ArticleReadDetailResponse from(Article article){
@@ -72,7 +79,8 @@ public class ArticleReadDetailResponse  {
             article.getTitle(),
             article.getContent(),
             article.getCreatedAt(),
-            article.getUpdatedAt()
+            article.getUpdatedAt(),
+            article.getVote_exist()
         );
     }
 
