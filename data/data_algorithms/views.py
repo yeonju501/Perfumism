@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from data_algorithms.models import Accord, Member, Perfume
 from data_algorithms.serializers.accord import AccordListSerializer, AccordSerializer
 from data_algorithms.serializers.perfume import PerfumeListSerializer
-from .algorithms.dbscan import recommend_like_based
+from .algorithms.dbscan import recommend_like_based, recommend_survey
 
 # Create your views here.
 @api_view(['GET'])
@@ -32,10 +32,8 @@ def like_based(request, member_pk):
 
 @api_view(['GET'])
 def survey(request, a1, a2, a3, a4, a5):
-    answer_list = []
-    answer_list.append(a1)
-    answer_list.append(a2)
-    answer_list.append(a3)
-    answer_list.append(a4)
-    answer_list.append(a5)
+    answer_list = [a1, a2, a3, a4, a5]
+    
+    recommend_survey(answer_list)
+
     return Response("")

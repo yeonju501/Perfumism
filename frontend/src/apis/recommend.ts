@@ -12,7 +12,7 @@ interface RecommendApiType {
 }
 
 const recommendApi: RecommendApiType = {
-	createSurveyRecommend: (answer) => request.post(`설문추천api`, answer),
+	createSurveyRecommend: () => request.get(`설문추천api`),
 };
 
 export default recommendApi;
