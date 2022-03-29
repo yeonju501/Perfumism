@@ -15,6 +15,7 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
+		console.log(answerData);
 		if (answerData) {
 			try {
 				console.log("이건 설문");
@@ -43,14 +44,18 @@ function Loading() {
 	};
 
 	const getAnswerData = () => {
-		const answerData = [
-			Number(searchParams.get("a1")),
-			Number(searchParams.get("a2")),
-			Number(searchParams.get("a3")),
-			Number(searchParams.get("a4")),
-			Number(searchParams.get("a5")),
-		];
-		return answerData;
+		if (searchParams.get("a1")) {
+			const answerData = [
+				Number(searchParams.get("a1")),
+				Number(searchParams.get("a2")),
+				Number(searchParams.get("a3")),
+				Number(searchParams.get("a4")),
+				Number(searchParams.get("a5")),
+			];
+			return answerData;
+		} else {
+			return false;
+		}
 	};
 
 	return (
