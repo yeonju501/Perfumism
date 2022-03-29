@@ -15,6 +15,7 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
+		console.log(answerData);
 		if (answerData) {
 			try {
 				await recommendApi
@@ -26,7 +27,8 @@ function Loading() {
 						answerData[4],
 					)
 					.then((res) => {
-						setRecommendData(res.data);
+						// setRecommendData(res.data);
+						console.log(res.data);
 						navigate("/survey/result");
 					});
 			} catch (error) {

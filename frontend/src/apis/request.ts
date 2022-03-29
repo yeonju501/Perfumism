@@ -53,5 +53,14 @@ const authCreateInstance = () => {
 	return setInterceptors(instance, true);
 };
 
+const djangoCreateInstance = () => {
+	const instance = axios.create({
+		baseURL: process.env.REACT_APP_SUB_URL,
+		timeout: 10000,
+	});
+	return instance;
+};
+
 export const request = createInstance();
 export const authRequest = authCreateInstance();
+export const djangoRequest = djangoCreateInstance();
