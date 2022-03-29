@@ -6,7 +6,7 @@ import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-	userIcon?: boolean;
+	usericon?: string;
 }
 
 function UserIcon() {
@@ -21,7 +21,7 @@ function UserIcon() {
 	return token ? (
 		<>
 			<FontAwesome icon={faUser} />
-			<FontAwesome icon={faArrowRightFromBracket} userIcon={true} onClick={logout} />
+			<FontAwesome icon={faArrowRightFromBracket} usericon="1" onClick={logout} />
 		</>
 	) : (
 		<FontAwesome icon={faUser} onClick={() => navigate("/signin")} />
@@ -34,10 +34,11 @@ const FontAwesome = styled(FontAwesomeIcon)<Props>`
 	width: 1.8rem;
 	height: 1.8rem;
 	margin-left: 2rem;
+	z-index: 1;
 	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		margin: 0;
 		position: absolute;
-		left: ${(props) => (props.userIcon ? "7rem" : "4rem")};
+		left: ${(props) => (props.usericon ? "7rem" : "4rem")};
 	}
 `;

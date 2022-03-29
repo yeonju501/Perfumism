@@ -44,6 +44,7 @@ const ListItem = styled.li<isMenu>`
 		width: 25rem;
 		height: 100vh;
 		justify-content: center;
+		z-index: 2;
 	}
 `;
 
