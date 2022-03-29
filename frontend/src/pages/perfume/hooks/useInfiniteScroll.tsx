@@ -36,6 +36,7 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 
 	useEffect(() => {
 		console.log("초기화");
+		setPerfumes([]);
 		setCurrentPage(0);
 	}, [accord, sort, order]);
 
@@ -69,6 +70,7 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 					setPerfumes((prev) => prev.concat(res.data.perfumes));
 					setTotalPage(res.data.total_page_count);
 					setCurrentPage(res.data.current_page_count);
+					console.log(perfumes);
 				});
 		}
 		setIsLoading(false);
