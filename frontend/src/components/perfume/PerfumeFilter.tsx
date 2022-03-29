@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { SET_FILTER } from "store/filter";
+import styled from "styled-components";
 
 const categories = [
 	"All",
@@ -28,8 +29,6 @@ const categories = [
 function PerfumeFilter() {
 	const dispatch = useDispatch();
 	const [accord, setAccord] = useState("");
-	const [sort, setSort] = useState("");
-	const [order, setOrder] = useState("");
 
 	const handleCategoryClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const category = e.target as HTMLElement;
@@ -38,7 +37,15 @@ function PerfumeFilter() {
 			dispatch(SET_FILTER({ accord: "", sort: "", order: "" }));
 		} else {
 			setAccord(accord);
-			dispatch(SET_FILTER({ accord, sort, order }));
+			dispatch(SET_FILTER({ accord, sort: "totalSurvey", order: "desc" }));
+		}
+	};
+
+	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (e.target.value === "name" && e.target.selectedIndex === 1) {
+			dispatch(SET_FILTER({ accord, sort: "name", order: "asc" }));
+		} else {
+			dispatch(SET_FILTER({ accord, sort: e.target.value, order: "desc" }));
 		}
 	};
 
@@ -49,7 +56,11 @@ function PerfumeFilter() {
 					<button onClick={handleCategoryClick}>{category}</button>
 				))}
 			</div>
-			<div>드롭다운 필터</div>
+			<select onChange={handleSelectChange} defaultValue="totalSurvey">
+				<option value="totalSurvey">트렌딩</option>
+				<option value="name">오름차순</option>
+				<option value="name">내림차순</option>
+			</select>
 		</div>
 	);
 }
