@@ -58,7 +58,6 @@ public class ArticleRestController {
 
         Long articleId = articleService.createArticle(email,request);
 
-
         if (!files.get(0).isEmpty()){
             articleService.createArticleImage(email,articleId,files);
         }
