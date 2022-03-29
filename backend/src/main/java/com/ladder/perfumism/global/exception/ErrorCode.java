@@ -38,6 +38,9 @@ public enum ErrorCode {
     NOTIFICATION_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 알림입니다.", "D01"),
     NOTIFICATION_NOT_MATCH_BY_EMAIL(HttpStatus.BAD_REQUEST, "알림 수신자와 일치하지 않는 이메일입니다.", "D02"),
 
+    // password code
+    PASSWORD_CODE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 인증번호입니다.", "E01"),
+
     // article
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
     ARTICLE_IS_NOT_YOURS(HttpStatus.BAD_REQUEST,"당신의 게시글이 아닙니다","H02"),
