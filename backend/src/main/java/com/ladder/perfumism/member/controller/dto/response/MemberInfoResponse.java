@@ -3,11 +3,14 @@ package com.ladder.perfumism.member.controller.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.member.domain.Member;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 import lombok.Getter;
 
 @Getter
 public class MemberInfoResponse {
+
+    @JsonProperty("id")
+    @ApiModelProperty(notes = "ID", example = "1")
+    private Long id;
 
     @JsonProperty("email")
     @ApiModelProperty(notes = "이메일", example = "loling3@naver.com")
@@ -29,7 +32,8 @@ public class MemberInfoResponse {
     @ApiModelProperty(notes = "소셜 아이디 (소셜 확인용)", example = "")
     private String socialId;
 
-    public MemberInfoResponse(String email, String username, Integer gender, String image, String socialId) {
+    public MemberInfoResponse(Long id, String email, String username, Integer gender, String image, String socialId) {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.image = image;
@@ -38,6 +42,7 @@ public class MemberInfoResponse {
 
     public static MemberInfoResponse from(Member member) {
         return new MemberInfoResponse(
+            member.getId(),
             member.getEmail(),
             member.getUsername(),
             member.getGender(),
@@ -45,5 +50,4 @@ public class MemberInfoResponse {
             member.getKakaoId()
         );
     }
-
 }

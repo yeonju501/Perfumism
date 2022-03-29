@@ -10,7 +10,6 @@ import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
-import com.ladder.perfumism.member.controller.dto.response.MemberIdResponse;
 import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.member.service.ProfileService;
@@ -79,12 +78,6 @@ public class MemberRestController {
     @ApiOperation(value = "유저네임 중복검사", notes = "유저네임 중복 검사 api")
     public ResponseEntity<CheckDuplicateResponse> checkDulicateUsername(@RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
-    }
-
-    @GetMapping("/auth/members/id")
-    @ApiOperation(value = "회원 ID 조회", notes = "회원 ID 조회 api")
-    public ResponseEntity<MemberIdResponse> showMemberId(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
-        return ResponseEntity.ok().body(memberService.showMemberId(email));
     }
 
     @GetMapping("/auth/members")
