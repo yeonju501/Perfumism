@@ -1,15 +1,19 @@
 import { faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { alertApi } from "apis";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AlertBox from "./AlertBox";
 import cookie from "react-cookies";
+import useOutside from "../hooks/useOutside";
 
 function Alert() {
 	const [isOn, setIsOn] = useState(false);
 	const [numOfUnread, setNumOfUnread] = useState(0);
 	const token = cookie.load("access_token");
+	const Ref = useRef<HTMLDivElement>(null);
+
+	useOutside({ Ref, setFunction: setIsOn });
 
 	useEffect(() => {
 		getNumOfUnread();
@@ -21,7 +25,7 @@ function Alert() {
 	};
 
 	return token ? (
-		<Container>
+		<Container ref={Ref}>
 			<FontAwesome icon={faBell} onClick={() => setIsOn(!isOn)} />
 			{numOfUnread ? (
 				numOfUnread > 5 ? (

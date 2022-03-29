@@ -6,13 +6,14 @@ import userInfo from "./user";
 
 const rootReducer = combineReducers({
 	filter,
-	userInfo,
+	user: userInfo,
 });
 
 const persistConfig = {
 	key: "root",
 	storage,
-	whitelist: [],
+	whitelist: ["user"],
 };
 
 export default persistReducer(persistConfig, rootReducer);
+export type RootState = ReturnType<typeof rootReducer>;

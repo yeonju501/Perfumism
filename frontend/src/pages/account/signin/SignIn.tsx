@@ -1,12 +1,10 @@
 import { FormContainer, Container } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import { formValidator } from "utils";
-import { authApi } from "apis";
+import { authApi, socialLogin, profileApi } from "apis";
 import useForm from "../hooks/useForm";
-import socialLogin from "apis/socialLogin";
-import { useDispatch } from "react-redux";
-import profileApi from "apis/profile";
 import { SET_USER } from "store/user";
+import { useDispatch } from "react-redux";
 
 function SignIn() {
 	const dispatch = useDispatch();
@@ -19,15 +17,13 @@ function SignIn() {
 
 		onSubmit: async ({ email, password }) => {
 			try {
-				await authApi
-					.signin({
-						email,
-						password,
-					})
-					.then(() => {
-						location.replace("/");
-						profileApi.getUserInfo().then((res) => dispatch(SET_USER(res.data)));
-					});
+				await authApi.signin({
+					email,
+					password,
+				});
+				const res = await profileApi.getUserInfo();
+				await dispatch(SET_USER(res.data));
+				location.replace("/");
 			} catch (error) {
 				console.log(error);
 			}
