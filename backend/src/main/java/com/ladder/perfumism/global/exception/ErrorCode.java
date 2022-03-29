@@ -48,6 +48,7 @@ public enum ErrorCode {
 
     // vote
     VOTE_NOT_FOUND(HttpStatus.NOT_FOUND,"진행되는 투표가 없습니다", "J01"),
+    VOTE_IS_NOT_YOURS(HttpStatus.BAD_REQUEST, "당신의 투표가 아닙니다", "J02"),
 
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),

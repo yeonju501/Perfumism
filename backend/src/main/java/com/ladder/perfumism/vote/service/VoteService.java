@@ -33,6 +33,13 @@ public class VoteService {
         this.voteItemRepository = voteItemRepository;
     }
 
+    private void VOTE_IS_NOT_YOURS_FUNC(String email, Article article){
+        if(!article.getMember().getEmail().equals(email))
+        {
+            throw new BusinessException(ErrorCode.VOTE_IS_NOT_YOURS);
+        }
+    }
+
     @Transactional
     public void createVote(String email, Long articleId, VoteCreateRequest request) {
         Article article = articleRepository.findById(articleId)
@@ -75,6 +82,8 @@ public class VoteService {
 
         Article article = articleRepository.findById(articleId)
             .orElseThrow(()->new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        VOTE_IS_NOT_YOURS_FUNC(email,article);
 
         Vote vote = voteRepository.findByArticle(article)
             .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
