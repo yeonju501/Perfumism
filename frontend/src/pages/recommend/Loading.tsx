@@ -18,7 +18,7 @@ function Loading() {
 		if (answerData) {
 			try {
 				await recommendApi
-					.createSurveyRecommend(
+					.surveyRecommend(
 						answerData[0],
 						answerData[1],
 						answerData[2],
