@@ -78,6 +78,7 @@ public class VoteService {
 
             voteItemRepository.save(voteItem);
         }
+        article.changeVoteExist();
     }
 
     @Transactional
