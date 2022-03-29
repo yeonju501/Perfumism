@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { SET_FILTER } from "store/filter";
 
@@ -26,11 +27,19 @@ const categories = [
 
 function PerfumeFilter() {
 	const dispatch = useDispatch();
+	const [accord, setAccord] = useState("");
+	const [sort, setSort] = useState("");
+	const [order, setOrder] = useState("");
 
 	const handleCategoryClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const category = e.target as HTMLElement;
 		const accord = category.innerText;
-		dispatch(SET_FILTER({ accord, sort: "desc" }));
+		if (accord === "All") {
+			dispatch(SET_FILTER({ accord: "", sort: "", order: "" }));
+		} else {
+			setAccord(accord);
+			dispatch(SET_FILTER({ accord, sort, order }));
+		}
 	};
 
 	return (
