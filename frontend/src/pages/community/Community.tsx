@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
 function Community() {
-	return <Container></Container>;
+	return (
+		<Container>
+			<div>top</div>
+			<div>list</div>
+			<div>pagination</div>
+		</Container>
+	);
 }
 
 const Container = styled.div`
