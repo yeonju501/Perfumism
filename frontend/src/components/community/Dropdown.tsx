@@ -14,6 +14,7 @@ function Dropdown() {
 		setIsOpen(false);
 		console.log(selectedOption);
 	};
+
 	return (
 		<Main>
 			<DropDownContainer>
@@ -34,9 +35,7 @@ function Dropdown() {
 	);
 }
 
-const Main = styled("div")`
-	font-family: sans-serif;
-`;
+const Main = styled("div")``;
 
 const DropDownContainer = styled("div")`
 	width: 8em;
