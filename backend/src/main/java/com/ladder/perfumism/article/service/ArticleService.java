@@ -5,6 +5,7 @@ import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailRes
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleImage;
+import com.ladder.perfumism.article.domain.ArticleImageRepository;
 import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.global.exception.BusinessException;
@@ -28,11 +29,16 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final MemberService memberService;
     private final ImageUploader imageUploader;
+    private final ArticleImageRepository articleImageRepository;
 
-    public ArticleService(ArticleRepository articleRepository, MemberService memberService, ImageUploader imageUploader){
+    public ArticleService(ArticleRepository articleRepository, MemberService memberService,
+        ImageUploader imageUploader, ArticleImageRepository articleImageRepository){
+
         this.articleRepository = articleRepository;
         this.memberService = memberService;
         this.imageUploader = imageUploader;
+        this.articleImageRepository = articleImageRepository;
+
     }
 
     public void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
@@ -113,26 +119,30 @@ public class ArticleService {
 
     @Transactional
     public void createArticleImage(String email, Long articleId, List<MultipartFile> files) {
-        System.out.println("cai in");
 
         Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        System.out.println("mem-art");
+
         for(MultipartFile file: files){
-            System.out.println(file.getName());
+
             String url = null;
             try {
                 url = imageUploader.upload(file, "article");
+
+                ArticleImage articleImage = ArticleImage.builder()
+                    .article(article)
+                    .url(url)
+                    .build();
+
+                articleImageRepository.save(articleImage);
+
             } catch (IOException e) {
 
                 throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
             }
 
 
-            ArticleImage articleImage = ArticleImage.builder()
-                .article(article)
-                .url(url)
-                .build();
+
         }
 
 
