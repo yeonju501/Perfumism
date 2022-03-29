@@ -1,9 +1,10 @@
+import { Header } from "components/community";
 import styled from "styled-components";
 
 function Community() {
 	return (
 		<Container>
-			<div>header</div>
+			<Header />
 			<div>list</div>
 			<div>pagination</div>
 		</Container>
@@ -12,6 +13,9 @@ function Community() {
 
 const Container = styled.div`
 	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `;
 
 export default Community;
