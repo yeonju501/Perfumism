@@ -32,10 +32,6 @@ def like_based(request, member_pk):
 
 @api_view(['GET'])
 def survey(request, a1, a2, a3, a4, a5):
-    answer_list = []
-    answer_list.append(a1)
-    answer_list.append(a2)
-    answer_list.append(a3)
-    answer_list.append(a4)
-    answer_list.append(a5)
+    answer_list = [a1, a2, a3, a4, a5]
+
     return Response("")
