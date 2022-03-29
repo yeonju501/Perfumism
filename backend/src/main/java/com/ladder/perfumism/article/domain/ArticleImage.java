@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
 
@@ -24,6 +25,19 @@ public class ArticleImage extends BaseEntity {
 
     @ManyToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    private Article article;
+
+    @Column(name = "image_url")
     private String url;
+
+    public ArticleImage(){
+
+    }
+
+    @Builder
+    private ArticleImage(Article article, String url){
+        this.article = article;
+        this.url = url;
+    }
 
 }
