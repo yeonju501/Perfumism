@@ -18,3 +18,17 @@ export const ShowMoreButton = styled.button<ShowMoreButtonProps>`
 	cursor: pointer;
 	display: ${({ isLastPage }) => (isLastPage ? "none" : "block")};
 `;
+
+export const UpdateButton = styled.button`
+	color: black;
+	background-color: inherit;
+	border: none;
+	cursor: pointer;
+`;
+
+export const DeleteButton = styled.button`
+	color: black;
+	background-color: inherit;
+	border: none;
+	cursor: pointer;
+`;
