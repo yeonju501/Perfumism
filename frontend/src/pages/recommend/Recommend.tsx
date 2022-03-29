@@ -1,4 +1,4 @@
-import { Button, RecommendButton } from "components/recommend";
+import { RecommendButton } from "components/recommend";
 import styled from "styled-components";
 
 function Recommend() {
@@ -13,7 +13,7 @@ function Recommend() {
 			<RecommendButton
 				firstSentence="자신만의 향기가 있는 당신,"
 				secondSentence="비슷한 향기를 찾아보세요."
-				url="/survey?page=1"
+				url="/survey/result"
 			/>
 		</Container>
 	);
