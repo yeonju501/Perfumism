@@ -17,6 +17,7 @@ public class VoteReadResponse {
     private String content;
 
     @JsonProperty("vote_member_count")
+    @ApiModelProperty(position = 2, notes = "해당 항목에 투표한 인원", example = "4")
     private int vote_member_count;
 
     public VoteReadResponse(){

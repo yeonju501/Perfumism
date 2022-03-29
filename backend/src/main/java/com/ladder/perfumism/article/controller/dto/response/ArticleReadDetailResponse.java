@@ -47,6 +47,7 @@ public class ArticleReadDetailResponse  {
     private LocalDateTime updatedAt;
 
     @JsonProperty("vote_exist")
+    @ApiModelProperty(position = 9, notes = "투표 존재 유무 true(있음) or false(없음)", example = "false")
     private Boolean vote_exist;
 
     public ArticleReadDetailResponse(){
