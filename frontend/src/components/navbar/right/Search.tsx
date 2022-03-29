@@ -59,8 +59,8 @@ const Input = styled.input<InputProps>`
 	}
 
 	@media ${(props) => props.theme.mobileS} {
-		width: 8rem;
-		transform: ${({ isOn }) => isOn && "translate(-6rem, -.4rem)"};
+		width: 6rem;
+		transform: ${({ isOn }) => isOn && "translate(-4rem, -.4rem)"};
 	}
 `;
 
