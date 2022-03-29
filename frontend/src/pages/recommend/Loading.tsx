@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import Spinner from "assets/spinner.gif";
 
 function Loading() {
 	return (
 		<Container>
-			<h1>loading</h1>
-			<img />
+			<LoadingImg src={Spinner} />
+			<h1>잠시만 기다려 주세요.</h1>
 		</Container>
 	);
 }
@@ -12,6 +13,14 @@ function Loading() {
 const Container = styled.div`
 	min-height: 80vh;
 	font-size: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const LoadingImg = styled.img`
+	width: 50rem;
+	height: 50rem;
 `;
 
 export default Loading;
