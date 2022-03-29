@@ -5,11 +5,9 @@ import { toast } from "react-toastify";
 
 axios.defaults.withCredentials = true;
 
-const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
+const setInterceptors = (instance: AxiosInstance) => {
 	instance.interceptors.request.use(
 		(config) => {
-			console.log(config);
-			if (isReissue) return config;
 			const token = cookie.load("access_token");
 			if (config.headers && token) config.headers.Authorization = `Bearer ${token}`;
 			return config;
@@ -18,7 +16,6 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 	);
 	instance.interceptors.response.use(
 		(response) => {
-			console.log(response);
 			return response;
 		},
 		(error) => {
@@ -27,7 +24,6 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 			if (error.response.status === 403) {
 				authApi.reissue({ index, access_token }).then(() => instance.request(error.config));
 			}
-			console.log(error.response);
 			toast.error(error.response.data.error_message);
 			return Promise.reject(error);
 		},
@@ -44,15 +40,6 @@ const createInstance = () => {
 	return setInterceptors(instance);
 };
 
-const authCreateInstance = () => {
-	const instance = axios.create({
-		baseURL: process.env.REACT_APP_MAIN_URL,
-		timeout: 10000,
-		headers: { "Content-Type": "application/json" },
-	});
-	return setInterceptors(instance, true);
-};
-
 const djangoCreateInstance = () => {
 	const instance = axios.create({
 		baseURL: process.env.REACT_APP_SUB_URL,
@@ -62,5 +49,4 @@ const djangoCreateInstance = () => {
 };
 
 export const request = createInstance();
-export const authRequest = authCreateInstance();
 export const djangoRequest = djangoCreateInstance();
