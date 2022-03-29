@@ -16,10 +16,18 @@ function Loading() {
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
 		try {
-			await recommendApi.createSurveyRecommend().then((res) => {
-				setRecommendData(res.data);
-				navigate("/survey/result");
-			});
+			await recommendApi
+				.createSurveyRecommend(
+					answerData[0],
+					answerData[1],
+					answerData[2],
+					answerData[3],
+					answerData[4],
+				)
+				.then((res) => {
+					setRecommendData(res.data);
+					navigate("/survey/result");
+				});
 		} catch (error) {
 			console.log(error);
 		}
@@ -27,11 +35,11 @@ function Loading() {
 
 	const getAnswerData = () => {
 		const answerData = [
-			searchParams.get("a1"),
-			searchParams.get("a2"),
-			searchParams.get("a3"),
-			searchParams.get("a4"),
-			searchParams.get("a5"),
+			Number(searchParams.get("a1")),
+			Number(searchParams.get("a2")),
+			Number(searchParams.get("a3")),
+			Number(searchParams.get("a4")),
+			Number(searchParams.get("a5")),
 		];
 		return answerData;
 	};
