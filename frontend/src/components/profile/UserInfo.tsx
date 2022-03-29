@@ -12,9 +12,9 @@ function UserInfo() {
 	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const imageFile = useSetImage(e);
 		const formData = new FormData();
-		if (imageFile) {
-			formData.append("image", imageFile);
-			await profileApi.setUserImage(formData).then(() => alert("프로필 이미지가 변경되었습니다"));
+		// if (imageFile) {
+		// 	formData.append("image", imageFile);
+		// 	await profileApi.setUserImage(formData).then(() => alert("프로필 이미지가 변경되었습니다"));
 			// dispatch
 		}
 	};
