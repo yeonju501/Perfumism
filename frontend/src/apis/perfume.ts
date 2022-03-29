@@ -3,7 +3,7 @@ import { request } from "./request";
 
 interface PerfumeApiType {
 	getPerfume: (perfumeId: string) => Promise<AxiosResponse>;
-	getPerfumes: (currentPage: number) => Promise<AxiosResponse>;
+	getPerfumes: (currentPage: number, sort: string, order: string) => Promise<AxiosResponse>;
 	getPerfumesByAccord: (
 		accord: string,
 		currentPage: number,
@@ -18,8 +18,8 @@ interface PerfumeApiType {
 
 const perfumeApi: PerfumeApiType = {
 	getPerfume: (perfumeId) => request.get(`perfumes/${perfumeId}`),
-	getPerfumes: (currentPage) =>
-		request.get(`perfumes/?page=${currentPage}&size=10&sort=totalSurvey%2Cdesc`),
+	getPerfumes: (currentPage, sort, order) =>
+		request.get(`perfumes/?page=${currentPage}&size=10&sort=${sort}%2C${order}`),
 	getPerfumesByAccord: (accord, currentPage, sort, order) =>
 		request.get(
 			`/perfumes/search?keyword=${accord}&page=${currentPage}&size=10&sort=${sort}%2C${order}&type=accord`,

@@ -28,25 +28,25 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 	console.log(accord, sort, order);
 
 	useEffect(() => {
+		console.log("초기화");
+		setPerfumes([]);
+		setCurrentPage(0);
+	}, [accord, sort, order]);
+
+	useEffect(() => {
 		console.log(currentPage, totalPage);
 		if (currentPage && currentPage >= totalPage) return;
 		console.log("get");
 		getPerfumes();
 	}, [currentPage, accord, sort, order]);
 
-	useEffect(() => {
-		console.log("초기화");
-		setPerfumes([]);
-		setCurrentPage(0);
-	}, [accord, sort, order]);
-
 	const getPerfumes = async () => {
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 800));
-		if (accord === "" && sort === "" && order === "") {
+		if (accord === "") {
 			console.log("default");
 			if (type === "perfumes")
-				await perfumeApi.getPerfumes(currentPage).then((res) => {
+				await perfumeApi.getPerfumes(currentPage, sort, order).then((res) => {
 					setPerfumes((prev) => prev.concat(res.data.perfumes));
 					setTotalPage(res.data.total_page_count);
 					setCurrentPage(res.data.current_page_count);
