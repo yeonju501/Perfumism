@@ -18,9 +18,11 @@ function MonthOfPerfumes() {
 		perfumes && (
 			<Section>
 				<Title>이 달의 인기 향수</Title>
-				{perfumes.map((perfume) => (
-					<MonthPerfume perfume={perfume} />
-				))}
+				<Container>
+					{perfumes.map((perfume) => (
+						<MonthPerfume perfume={perfume} />
+					))}
+				</Container>
 			</Section>
 		)
 	);
@@ -39,4 +41,8 @@ const Title = styled.p`
 	font-weight: bold;
 	margin: 0 auto;
 	margin-top: 3rem;
+`;
+
+const Container = styled.div`
+	display: flex;
 `;
