@@ -183,4 +183,13 @@ public class ArticleService {
 
 
     }
+
+    @Transactional
+    public ArticleReadListResponse showMyArticleList(String email, Pageable pageable, ArticleSubject subject) {
+        Member member = memberService.findByEmail(email);
+
+        Page<Article> articleList = articleRepository.findByMember(member,pageable);
+
+        return ArticleReadListResponse.from(articleList);
+    }
 }
