@@ -135,13 +135,11 @@ public class ArticleService {
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
         ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
-//        articleRepository.delete(article);
-
         if(commentRepository.existsByArticle(article)){
             commentRepository.updateDeletedAtByArticle(articleId);
         }
 
-        if(voteRepository.existsByArticle(article)){
+        if(article.getVote_exist()){
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
