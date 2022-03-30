@@ -9,7 +9,6 @@ function MonthOfPerfumes() {
 	useEffect(() => {
 		const getPerfumes = async () => {
 			const monthOfPerfumes = await perfumeApi.getMonthOfPerfumes();
-			console.log(monthOfPerfumes.data);
 			setPerfumes(monthOfPerfumes.data);
 		};
 		getPerfumes();
@@ -18,6 +17,7 @@ function MonthOfPerfumes() {
 	return (
 		perfumes && (
 			<Section>
+				<Title>이 달의 인기 향수</Title>
 				{perfumes.map((perfume) => (
 					<MonthPerfume perfume={perfume} />
 				))}
@@ -32,4 +32,11 @@ const Section = styled.section`
 	display: flex;
 	width: 100%;
 	height: 50rem;
+`;
+
+const Title = styled.p`
+	font-size: 3rem;
+	font-weight: bold;
+	margin: 0 auto;
+	margin-top: 3rem;
 `;

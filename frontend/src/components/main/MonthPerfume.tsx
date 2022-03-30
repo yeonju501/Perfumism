@@ -20,11 +20,10 @@ interface Perfume {
 function MonthPerfume({ perfume }: Perfume) {
 	return (
 		<Container to={`perfume/${perfume.perfume_id}`}>
-			<Image src={perfume.image} />
+			<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}.jpg`} />
 			<PerfumeName>{perfume.perfume_name}</PerfumeName>
-			<BrandAndGrade>
-				{perfume.brand.brand_name} {perfume.average_grade}
-			</BrandAndGrade>
+			<BrandName>{perfume.brand.brand_name}</BrandName>
+			<Grade>{perfume.average_grade}</Grade>
 		</Container>
 	);
 }
@@ -48,10 +47,15 @@ const Image = styled.img`
 `;
 
 const PerfumeName = styled.p`
-	font-size: 2rem;
+	font-size: 2.3rem;
 	font-weight: 800;
+	margin-bottom: 0;
 `;
 
-const BrandAndGrade = styled.p`
+const BrandName = styled.span`
+	font-size: 1.5rem;
+`;
+
+const Grade = styled.span`
 	font-size: 1.3rem;
 `;
