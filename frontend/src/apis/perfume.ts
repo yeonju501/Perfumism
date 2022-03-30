@@ -18,6 +18,7 @@ interface PerfumeApiType {
 		currentPage: number,
 		sort: string,
 	) => Promise<AxiosResponse>;
+	getMonthOfPerfumes: () => Promise<AxiosResponse>;
 }
 
 const perfumeApi: PerfumeApiType = {
@@ -35,6 +36,7 @@ const perfumeApi: PerfumeApiType = {
 		request.get(
 			`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=10&sort=${sort}%2Cdesc&type=brand`,
 		),
+	getMonthOfPerfumes: () => request.get("perfumes/monthly"),
 };
 
 export default perfumeApi;
