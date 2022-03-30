@@ -14,7 +14,7 @@ function FindPassword() {
 		onSubmit: async ({ email }) => {
 			try {
 				await authApi.findPassword(email).then((res) => {
-					res.status === 204 ? navigate("/check-code", { state: email }) : null;
+					res.status === 204 && navigate("/check-code", { state: email });
 				});
 			} catch (error) {
 				console.log(error);
