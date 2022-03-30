@@ -52,7 +52,7 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 					setCurrentPage(res.data.current_page_count);
 				});
 			else if (type === "brandPerfumes")
-				await perfumeApi.getBrandPerfumes(brandName, currentPage).then((res) => {
+				await perfumeApi.getBrandPerfumes(brandName, currentPage, "totalSurvey").then((res) => {
 					setPerfumes((prev) => prev.concat(res.data.perfumes));
 					setTotalPage(res.data.total_page_count);
 					setCurrentPage(res.data.current_page_count);
