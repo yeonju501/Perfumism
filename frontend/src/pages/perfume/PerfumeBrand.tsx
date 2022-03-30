@@ -11,7 +11,7 @@ function PerfumeBrand() {
 	const { brandName } = useParams() as Params;
 
 	const { setTarget, perfumes, isLoading } = useInfiniteScroll({
-		requestApi: async (currentPage) => {
+		requestApi: (currentPage) => {
 			return perfumeApi.getBrandPerfumes(brandName, currentPage, "totalSurvey");
 		},
 	});
