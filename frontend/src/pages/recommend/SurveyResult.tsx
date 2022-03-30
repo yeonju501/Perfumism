@@ -1,9 +1,14 @@
+import { useLocation } from "react-router-dom";
 import AccordRecommend from "components/recommend/AccordRecommend";
 import WordCloud from "components/recommend/WordCloud";
 import PerfumeRecommend from "components/recommend/PerfumeRecommend";
 import styled from "styled-components";
 
 function SurveyResult() {
+	const location = useLocation();
+	const { recommendData }: any = location.state;
+	console.log(recommendData);
+
 	const perfumeData = [
 		{
 			id: 36998,

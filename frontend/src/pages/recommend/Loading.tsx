@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Spinner from "assets/spinner.gif";
 
 function Loading() {
-	const [recommendData, setRecommendData] = useState({});
+	const [recommendData, setRecommendData] = useState([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 
@@ -27,9 +27,12 @@ function Loading() {
 						answerData[4],
 					)
 					.then((res) => {
-						// setRecommendData(res.data);
-						console.log(res.data);
-						navigate("/survey/result");
+						setRecommendData(res.data);
+						navigate("/survey/result", {
+							state: {
+								recommendData: recommendData,
+							},
+						});
 					});
 			} catch (error) {
 				console.log(error);
