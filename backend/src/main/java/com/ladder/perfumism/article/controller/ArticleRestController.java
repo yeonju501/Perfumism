@@ -129,10 +129,15 @@ public class ArticleRestController {
     }
 
     @GetMapping("/members")
+    @ApiOperation(value = "나의 게시글 조회", notes = "<b>(로그인 필요)</b> 나의 게시글 조회 요청 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
+    })
     public ResponseEntity<ArticleReadListResponse> getMyArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
-        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
-        @PathVariable(required = false) ArticleSubject subject){
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
+
+        ArticleSubject subject = null;
 
         return ResponseEntity.ok().body(articleService.showMyArticleList(email,pageable,subject));
     }

@@ -3,6 +3,7 @@ package com.ladder.perfumism.comment.service;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
+import com.ladder.perfumism.comment.controller.response.CommentMyReadListResponse;
 import com.ladder.perfumism.comment.controller.response.CommentReadListResponse;
 import com.ladder.perfumism.comment.domain.Comment;
 import com.ladder.perfumism.comment.domain.CommentRepository;
@@ -135,5 +136,15 @@ public class CommentService {
 
         commentRepository.save(reply);
         notificationService.createReplyNotification(reply);
+    }
+
+    @Transactional
+    public CommentMyReadListResponse showMyCommentList(String email, Pageable pageable) {
+
+        Member member = memberService.findByEmail(email);
+
+        Page<Comment> commentList = commentRepository.findByMember(member, pageable);
+
+        return CommentMyReadListResponse.from(commentList);
     }
 }

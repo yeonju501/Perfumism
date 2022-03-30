@@ -1,6 +1,7 @@
 package com.ladder.perfumism.comment.controller;
 
 import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
+import com.ladder.perfumism.comment.controller.response.CommentMyReadListResponse;
 import com.ladder.perfumism.comment.controller.response.CommentReadListResponse;
 import com.ladder.perfumism.comment.service.CommentService;
 import com.sun.jndi.toolkit.url.Uri;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth/comments/{article_id}")
+@RequestMapping("/api/auth/comments")
 @Api(tags = {"댓글"})
 public class CommentRestController {
 
@@ -37,7 +38,7 @@ public class CommentRestController {
         this.commentService = commentService;
     }
 
-    @PostMapping
+    @PostMapping("/{article_id}")
     @ApiOperation(value = "댓글 작성", notes = "<b>(로그인 필요)</b> 댓글 작성 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)")
@@ -53,7 +54,7 @@ public class CommentRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/{article_id}")
     @ApiOperation(value = "댓글 조회", notes = "<b>(로그인 필요)</b> 댓글 조회 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)")
@@ -68,7 +69,7 @@ public class CommentRestController {
 
     }
 
-    @PutMapping("/update/{comment_id}")
+    @PutMapping("/{article_id}/update/{comment_id}")
     @ApiOperation(value = "댓글 수정", notes = "<b>(로그인 필요)</b> 댓글 수정 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
@@ -90,7 +91,7 @@ public class CommentRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/{comment_id}")
+    @DeleteMapping("/{article_id}/delete/{comment_id}")
     @ApiOperation(value = "댓글 삭제", notes = "<b>(로그인 필요)</b> 댓글 삭제 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
@@ -112,7 +113,7 @@ public class CommentRestController {
     }
 
     // 대댓글
-    @PostMapping("/reply/{comment_id}")
+    @PostMapping("/{article_id}/reply/{comment_id}")
     @ApiOperation(value = "대댓글 작성", notes = "<b>(로그인 필요)</b> 대댓글 작성 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)\n게시글이 존재하지 않을 때(H01)\n"
@@ -133,4 +134,17 @@ public class CommentRestController {
         return ResponseEntity.noContent().build();
 
     }
+
+    @GetMapping("/members")
+    @ApiOperation(value = "내 댓글 조회", notes = "<b>(로그인 필요)</b> 내 댓글 조회 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
+    })
+    public ResponseEntity<CommentMyReadListResponse> getMyComment(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
+
+        return ResponseEntity.ok().body(commentService.showMyCommentList(email, pageable));
+    }
+
 }
