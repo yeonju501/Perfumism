@@ -1,7 +1,8 @@
+import { CommunityListItem } from "components/community";
 import styled from "styled-components";
 
 function CommunityList() {
-	const articleList = [
+	const articleData = [
 		{
 			articleList: [
 				{
@@ -66,6 +67,9 @@ function CommunityList() {
 					<th>작성일</th>
 					<th>조회수</th>
 				</tr>
+				{articleData.map((articleItem, idx) => (
+					<CommunityListItem articleItem={articleItem} key={idx} />
+				))}
 			</table>
 		</Container>
 	);
