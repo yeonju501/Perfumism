@@ -18,6 +18,9 @@ function UserInfo() {
 			await profileApi.setUserImage(formData).then(async () => {
 				const res = await profileApi.getUserInfo();
 				await dispatch(SET_USER(res.data));
+				setTimeout(() => {
+					alert("프로필 이미지가 변경되었습니다.");
+				}, 1000);
 			});
 		}
 	};

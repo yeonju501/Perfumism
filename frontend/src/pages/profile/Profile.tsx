@@ -12,20 +12,22 @@ function Profile() {
 	return (
 		<Container>
 			<Sidebar />
-			<UserInfo></UserInfo>
-			<FormContainer>
-				<Label>닉네임</Label>
-				{username && <Input value={username}></Input>}
-				<Label>새로운 비밀번호</Label>
-				<Input></Input>
-				<Label>비밀번호 확인</Label>
-				<Input></Input>
-				{/* 추가정보 */}
-				<p>성별</p>
-				<p>알림 설정</p>
-				<Button>회원 탈퇴</Button>
-				<Button>제출</Button>
-			</FormContainer>
+			<div>
+				<UserInfo></UserInfo>
+				<FormContainer>
+					<Label>닉네임</Label>
+					{username && <Input value={username}></Input>}
+					<Label>새로운 비밀번호</Label>
+					<Input></Input>
+					<Label>비밀번호 확인</Label>
+					<Input></Input>
+					{/* 추가정보 */}
+					<p>성별</p>
+					<p>알림 설정</p>
+					<Button>회원 탈퇴</Button>
+					<Button>제출</Button>
+				</FormContainer>
+			</div>
 		</Container>
 	);
 }
