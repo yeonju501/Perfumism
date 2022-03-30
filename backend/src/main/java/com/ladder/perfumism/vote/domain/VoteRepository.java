@@ -11,6 +11,8 @@ public interface VoteRepository extends JpaRepository<Vote,Long> {
 
     Optional<Vote> findByArticle(Article article);
 
+    Boolean existsByArticle(Article article);
+
     @Modifying
     @Query(nativeQuery = true, value = "update vote v "
         + "set v.deleted_at = current_timestamp "
