@@ -20,7 +20,7 @@ interface Perfume {
 function MonthPerfume({ perfume }: Perfume) {
 	return (
 		<Container to={`perfume/${perfume.perfume_id}`}>
-			<Image src={perfume.image} />
+			<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}.jpg`} />
 			<PerfumeName>{perfume.perfume_name}</PerfumeName>
 			<BrandAndGrade>
 				{perfume.brand.brand_name} {perfume.average_grade}
