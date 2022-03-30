@@ -18,6 +18,12 @@ interface useInfiniteScrollProps {
 	brandName?: string;
 }
 
+interface resDataType {
+	perfumes: [];
+	total_page_count: number;
+	current_page_count: number;
+}
+
 const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 	const [perfumes, setPerfumes] = useState<PerfumeType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
@@ -90,6 +96,12 @@ const useInfiniteScroll = ({ type, brandName }: useInfiniteScrollProps) => {
 		threshold: 1,
 		onIntersect,
 	});
+
+	const setData = ({ perfumes, total_page_count, current_page_count }: resDataType) => {
+		setPerfumes((prev) => prev.concat(perfumes));
+		setTotalPage(total_page_count);
+		setCurrentPage(current_page_count);
+	};
 
 	return { setTarget, perfumes, isLoading };
 };
