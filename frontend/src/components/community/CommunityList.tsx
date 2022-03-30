@@ -6,7 +6,7 @@ function CommunityList() {
 		{
 			articleList: [
 				{
-					article_id: 1,
+					article_id: 3,
 					member_id: 1,
 					member_name: "우사앙주운",
 					subject: "TALK",
@@ -40,7 +40,7 @@ function CommunityList() {
 		{
 			articleList: [
 				{
-					article_id: 3,
+					article_id: 1,
 					member_id: 1,
 					member_name: "우사앙주운",
 					subject: "TALK",
