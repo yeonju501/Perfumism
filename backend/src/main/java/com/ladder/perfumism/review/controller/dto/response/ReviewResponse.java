@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ladder.perfumism.review.domain.Review;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import lombok.Getter;
 
+@Getter
 public class ReviewResponse {
 
     @JsonProperty("review_id")
