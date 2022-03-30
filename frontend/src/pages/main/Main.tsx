@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { RecommendSection, PerfumesSection } from "components/main";
 import ReviewSection from "components/main/ReviewSection";
+import MonthOfPerfumes from "components/main/MonthOfPerfumes";
 
 function MainPage() {
 	return (
@@ -8,6 +9,7 @@ function MainPage() {
 			<RecommendSection />
 			<ReviewSection />
 			<PerfumesSection />
+			<MonthOfPerfumes />
 		</Main>
 	);
 }
