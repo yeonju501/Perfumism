@@ -104,9 +104,11 @@ public class CommentService {
                 comment.saveDeletedTime();
             }
         } else {
+
             comment.saveDeletedTime();
+
             if(comment.getParentId().getDeletion() &&
-                comment.getParentId().getReplyList().stream().anyMatch(c-> Objects.isNull(c.getDeletedAt()))){
+                !comment.getParentId().getReplyList().stream().anyMatch(c-> Objects.isNull(c.getDeletedAt()))){
 
                 comment.getParentId().saveDeletedTime();
             }
