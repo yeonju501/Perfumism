@@ -12,11 +12,18 @@ interface RecommendProps {
 function PerfumeRecommend({ perfumeData }: RecommendProps) {
 	return (
 		<Container>
+			<Header>추천 향수</Header>
 			<PerfumeList perfumes={perfumeData} />
 		</Container>
 	);
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const Header = styled.h1``;
 
 export default PerfumeRecommend;
