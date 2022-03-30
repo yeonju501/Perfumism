@@ -60,8 +60,6 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 		}
 	};
 
-	console.log("@@");
-
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
