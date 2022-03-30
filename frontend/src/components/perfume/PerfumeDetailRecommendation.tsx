@@ -1,3 +1,5 @@
+import perfumeApi from "apis/perfume";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PerfumeList from "./PerfumeList";
 
@@ -33,12 +35,21 @@ interface AccordType {
 }
 
 function PerfumeDetailRecommendation({ perfumeData }: PerfumeDataProps) {
+	const [brandBasedRecommendation, setBrandBasedRecommendation] = useState([]);
+
+	useEffect(() => {
+		perfumeApi.getBrandPerfumes(perfumeData.brand.brand_name, 0, "totalLike").then((res) => {
+			setBrandBasedRecommendation(res.data.perfumes);
+		});
+	}, []);
+
 	return (
 		<div>
 			<Recommendation>
 				<p>{perfumeData.perfume_name}과 비슷한 향수</p>
 				<PerfumeList perfumes={perfumeData.similar_perfume} />
 				<p>{perfumeData.brand.brand_name}의 다른 향수</p>
+				<PerfumeList perfumes={brandBasedRecommendation} />
 			</Recommendation>
 		</div>
 	);
