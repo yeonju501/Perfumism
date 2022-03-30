@@ -15,7 +15,6 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
-		console.log(answerData);
 		if (answerData) {
 			try {
 				await recommendApi

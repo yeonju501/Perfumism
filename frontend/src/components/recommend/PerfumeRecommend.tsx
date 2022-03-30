@@ -17,9 +17,6 @@ function PerfumeRecommend({ perfumeData }: RecommendProps) {
 	);
 }
 
-const Container = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-`;
+const Container = styled.div``;
 
 export default PerfumeRecommend;
