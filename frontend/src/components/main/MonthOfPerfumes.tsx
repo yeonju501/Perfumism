@@ -1,6 +1,7 @@
 import perfumeApi from "apis/perfume";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import MonthPerfume from "./MonthPerfume";
 
 function MonthOfPerfumes() {
 	const [perfumes, setPerfumes] = useState([]);
@@ -13,7 +14,13 @@ function MonthOfPerfumes() {
 		getPerfumes();
 	}, []);
 
-	return perfumes && <Section></Section>;
+	return (
+		perfumes && (
+			<Section>
+				<MonthPerfume perfumes={perfumes} />
+			</Section>
+		)
+	);
 }
 
 export default MonthOfPerfumes;
