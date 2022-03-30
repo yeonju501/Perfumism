@@ -5,15 +5,7 @@ interface RecommendProps {
 	perfumeData: {
 		id: number;
 		perfume: string;
-		brand: string;
 		image: string;
-		launch_year: number;
-		main_accords: string;
-		notes: string;
-		longevity: string;
-		sillage: string;
-		total_survey: number;
-		similar_perfume: number[];
 	}[];
 }
 
