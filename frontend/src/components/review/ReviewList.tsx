@@ -10,6 +10,8 @@ import { RootState } from "store";
 
 interface ReviewListPropType {
 	perfumeId: string;
+	updateReviews: boolean;
+	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ReviewType {
@@ -22,7 +24,7 @@ interface ReviewType {
 	likes: number;
 }
 
-function ReviewList({ perfumeId }: ReviewListPropType) {
+function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
@@ -31,19 +33,24 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 	const userId = useSelector((state: RootState) => state.user.id);
 
 	useEffect(() => {
-		getReviews(currentPage);
-	}, []);
-
-	useEffect(() => {
 		if (totalPage && currentPage >= totalPage) setIsLastPage(true);
 	}, [currentPage]);
 
+	useEffect(() => {
+		reRenderReviews();
+	}, [updateReviews]);
+
 	const getReviews = async (currentPage: number) => {
-		await reviewApi.getReviews(perfumeId, currentPage).then((res) => {
-			setReviews((prev) => prev.concat(res.data.reviews));
-			setTotalPage(res.data.total_page_count);
-			setCurrentPage(res.data.current_page_count + 1);
-		});
+		const res = await reviewApi.getReviews(perfumeId, currentPage);
+		setReviews((prev) => prev.concat(res.data.reviews));
+		setTotalPage(res.data.total_page_count);
+		setCurrentPage(res.data.current_page_count + 1);
+	};
+
+	const reRenderReviews = () => {
+		setCurrentPage(0);
+		setReviews([]);
+		getReviews(0);
 	};
 
 	const handleShowMoreClick = () => {
@@ -52,11 +59,8 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 
 	const handleDeleteClick = async (reviewId: number) => {
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
-			await reviewApi.deleteReview(reviewId).then(() => {
-				setCurrentPage(0);
-				setReviews([]);
-				getReviews(0);
-			});
+			await reviewApi.deleteReview(reviewId);
+			reRenderReviews;
 		}
 	};
 
