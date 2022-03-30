@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'data_algorithms',
     'django.contrib.admin',
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_extensions',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +56,8 @@ MIDDLEWARE = [
 ]
 
 # 모든 origin 허용
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'perfumism.urls'
 
