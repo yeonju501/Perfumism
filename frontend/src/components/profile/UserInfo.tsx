@@ -1,7 +1,6 @@
 import { profileApi } from "apis";
 import anonymous from "assets/anonymous.jpg";
 import useSetImage from "hooks/useSetImage";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import styled from "styled-components";
@@ -15,8 +14,8 @@ function UserInfo() {
 		// if (imageFile) {
 		// 	formData.append("image", imageFile);
 		// 	await profileApi.setUserImage(formData).then(() => alert("프로필 이미지가 변경되었습니다"));
-			// dispatch
-		}
+		// 	dispatch
+		// }
 	};
 
 	return (
