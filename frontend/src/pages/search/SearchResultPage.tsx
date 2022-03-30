@@ -1,3 +1,4 @@
+import PerfumeList from "components/perfume/PerfumeList";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
@@ -13,7 +14,7 @@ function SearchResultPage() {
 	return (
 		<Page>
 			{state.results.length > 0 ? (
-				<div>hi</div>
+				<PerfumeList perfumes={state.results} />
 			) : (
 				<NoResult>입력하신 {state.keyword}에 대한 결과가 없습니다.</NoResult>
 			)}

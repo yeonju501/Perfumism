@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { searchApi } from "apis";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
@@ -12,17 +12,24 @@ interface InputProps {
 }
 
 function Search() {
-	const Ref = useRef<HTMLFormElement>(null);
 	const navigate = useNavigate();
 	const [toggleSearch, setToggleSearch] = useState(false);
+	const [content, setContent] = useState("");
+	const Ref = useRef<HTMLFormElement>(null);
 
-	useOutside({ Ref, setFunction: setToggleSearch });
+	useOutside({ Ref, setFunction: setToggleSearch, setSecondFunction: setContent });
+
 	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+		setContent(event.target.value);
 		runSearch(event.target.value);
 	};
 
 	const handleSearchInput = () => {
 		setToggleSearch(!toggleSearch);
+	};
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 	};
 
 	const runSearch = debounce(async (keyword) => {
@@ -35,9 +42,13 @@ function Search() {
 	}, 1000);
 
 	return (
-		<SearchForm ref={Ref}>
-			<Input placeholder="향수명, 브랜드, 키워드" onChange={handleChange} isOn={toggleSearch} />
-
+		<SearchForm ref={Ref} onSubmit={handleSubmit}>
+			<Input
+				placeholder="향수명, 브랜드, 키워드"
+				onChange={handleChange}
+				isOn={toggleSearch}
+				value={content}
+			/>
 			<FontAwesome icon={faMagnifyingGlass} onClick={handleSearchInput}></FontAwesome>
 		</SearchForm>
 	);
