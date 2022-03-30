@@ -23,7 +23,6 @@ function MonthPerfume({ perfume }: Perfume) {
 			<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}`} />
 			<PerfumeName>{perfume.perfume_name}</PerfumeName>
 			<BrandName>{perfume.brand.brand_name}</BrandName>
-			<Grade>{perfume.average_grade}</Grade>
 		</Container>
 	);
 }
@@ -54,8 +53,4 @@ const PerfumeName = styled.p`
 
 const BrandName = styled.span`
 	font-size: 1.5rem;
-`;
-
-const Grade = styled.span`
-	font-size: 1.3rem;
 `;

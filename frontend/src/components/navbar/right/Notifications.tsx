@@ -16,8 +16,7 @@ function Notifications({ notifications }: Prop) {
 		<>
 			{notifications.length > 0 ? (
 				notifications.map((notification) => {
-					const link = `/${notification.article_id}`;
-					<Notification to={link} key={notification.notification_id}>
+					<Notification to={`/${notification.article_id}`} key={notification.notification_id}>
 						<span onClick={() => readNotification(notification.notification_id)}>
 							{notification.type === "comment"
 								? notification.comment_content
