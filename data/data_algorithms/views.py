@@ -7,12 +7,12 @@ from data_algorithms.models import Accord, Member, Perfume
 from data_algorithms.serializers.accord import AccordListSerializer, AccordSerializer
 from data_algorithms.serializers.perfume import PerfumeListSerializer
 from .algorithms.dbscan import recommend_like_based, recommend_survey
-
+from .algorithms.wordCloud import word_cloud 
 # Create your views here.
 @api_view(['GET'])
 def like_based(request, member_pk):
     accord_list = []
-    member = get_object_or_404(Member, member_id = 1)
+    member = get_object_or_404(Member, member_id = member_pk)
 
     perfumes = member.perfume_likes.all()
     for perfume in perfumes:
@@ -20,6 +20,7 @@ def like_based(request, member_pk):
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
 
+    word_cloud(accord_list)
     accord_list = ' '.join(accord_list)
     result = recommend_like_based(accord_list)
     perfumes = []
