@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import recommendApi from "apis/recommend";
 import styled from "styled-components";
 import Spinner from "assets/spinner.gif";
 
 function Loading() {
-	const [recommendData, setRecommendData] = useState([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 
