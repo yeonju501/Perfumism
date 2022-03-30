@@ -18,6 +18,6 @@ public interface VoteMemberRepository extends JpaRepository<VoteMember,Long> {
     @Modifying
     @Query(nativeQuery = true, value = "update vote_member vm "
         + "set vm.deleted_at = current_timestamp "
-        + "where vm.article_id = (:article_id)")
-    Integer updateDeletedAtByArticle(@Param("article_id") Long article_id);
+        + "where vm.vote_id = (:vote_id)")
+    Integer updateDeletedAtByVote(@Param("vote_id") Long vote_id);
 }
