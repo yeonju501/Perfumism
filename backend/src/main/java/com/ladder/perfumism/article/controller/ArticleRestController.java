@@ -128,22 +128,12 @@ public class ArticleRestController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PostMapping("/image")
-//    public ResponseEntity<Void> postArticleImage(
-//        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
-//        @PathVariable(value = "article_id") Long articleId,
-//        @RequestPart("image") List<MultipartFile> files) {
-//
-//        for(MultipartFile file: files){
-//            String url = null;
-//            try {
-//                url = imageUploader.upload(file, "article");
-//            } catch (IOException e) {
-//                throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
-//            }
-//            articleService.createArticleImage(email,articleId,url);
-//        }
-//
-//        return ResponseEntity.noContent().build();
-//    }
+    @GetMapping("/members")
+    public ResponseEntity<ArticleReadListResponse> getMyArticle(
+        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
+        @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
+        @PathVariable(required = false) ArticleSubject subject){
+
+        return ResponseEntity.ok().body(articleService.showMyArticleList(email,pageable,subject));
+    }
 }
