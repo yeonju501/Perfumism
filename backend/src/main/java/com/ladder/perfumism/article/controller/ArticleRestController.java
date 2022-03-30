@@ -47,14 +47,11 @@ public class ArticleRestController {
     }
 
     @PostMapping
-    @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API")
     @ApiResponses({
         @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
     })
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "article", value = "게시글 내용 example : {\"subject\":\"TALK\", \"title\":\"ㅎㅇ\", \"content\":\"ㅂㅇ\"}",required = true),
-        @ApiImplicitParam(name = "image", value = "이미지 파일")
-    })
+    @ApiImplicitParam(name = "article", value = "게시글 내용 example : {\"subject\":\"TALK\", \"title\":\"ㅎㅇ\", \"content\":\"ㅂㅇ\"}", required = true)
+    @ApiOperation(value = "게시글 작성", notes = "<b>(로그인 필요)</b> 게시글을 작성 API", produces = "multipart/form-data")
     public ResponseEntity<Void> postArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestPart(value = "article") ArticleCreateRequest request,
