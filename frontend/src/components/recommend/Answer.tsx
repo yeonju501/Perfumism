@@ -10,18 +10,10 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 	const answerHandleClick = () => answerHandleChange(number);
 
 	return (
-		<>
-			{surveyItem["url"] ? (
-				<Container onClick={answerHandleClick}>
-					<SurveyImg src={surveyItem["url"]} />
-					<Content>{surveyItem["content"]}</Content>
-				</Container>
-			) : (
-				<Container onClick={answerHandleClick}>
-					<Content>{surveyItem["content"]}</Content>
-				</Container>
-			)}
-		</>
+		<Container onClick={answerHandleClick}>
+			{surveyItem["url"] ? <SurveyImg src={surveyItem["url"]} /> : null}
+			<Content>{surveyItem["content"]}</Content>
+		</Container>
 	);
 }
 

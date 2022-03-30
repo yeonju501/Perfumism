@@ -26,7 +26,6 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 			<td>{articleItem["articleList"][0]["title"]}</td>
 			<td>{articleItem["articleList"][0]["member_name"]}</td>
 			<td>{articleItem["articleList"][0]["createAt"]}</td>
-			<td>{articleItem["total_page_count"]}</td>
 		</Container>
 	);
 }

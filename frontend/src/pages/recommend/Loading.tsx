@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import recommendApi from "apis/recommend";
 import styled from "styled-components";
 import Spinner from "assets/spinner.gif";
 
 function Loading() {
-	const [recommendData, setRecommendData] = useState({});
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 
@@ -15,30 +14,30 @@ function Loading() {
 
 	const getRecommendData = async () => {
 		const answerData = getAnswerData();
-		console.log(answerData);
 		if (answerData) {
 			try {
-				await recommendApi
-					.surveyRecommend(
-						answerData[0],
-						answerData[1],
-						answerData[2],
-						answerData[3],
-						answerData[4],
-					)
-					.then((res) => {
-						// setRecommendData(res.data);
-						console.log(res.data);
-						navigate("/survey/result");
-					});
+				const res = await recommendApi.surveyRecommend(
+					answerData[0],
+					answerData[1],
+					answerData[2],
+					answerData[3],
+					answerData[4],
+				);
+				navigate("/survey/result", {
+					state: {
+						recommendData: res.data,
+					},
+				});
 			} catch (error) {
 				console.log(error);
 			}
 		} else {
 			try {
-				await recommendApi.likeBasedRecommend(1).then((res) => {
-					setRecommendData(res.data);
-					navigate("/survey/result");
+				const res = await recommendApi.likeBasedRecommend(1);
+				navigate("/survey/result", {
+					state: {
+						recommendData: res.data,
+					},
 				});
 			} catch (error) {
 				console.log(error);
