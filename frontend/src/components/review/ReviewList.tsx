@@ -40,7 +40,6 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 
 	const getReviews = async (currentPage: number) => {
 		await reviewApi.getReviews(perfumeId, currentPage).then((res) => {
-			console.log(res);
 			setReviews((prev) => prev.concat(res.data.reviews));
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
@@ -60,8 +59,6 @@ function ReviewList({ perfumeId }: ReviewListPropType) {
 			});
 		}
 	};
-
-	console.log("@@");
 
 	return reviews.length > 0 ? (
 		<ul>

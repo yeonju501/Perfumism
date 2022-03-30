@@ -25,18 +25,19 @@ function PerfumeList({ perfumes }: PerfumeList) {
 
 	return (
 		<Container>
-			{perfumes.map((perfume: Perfume, idx: number) => (
-				<Perfume key={idx}>
-					<PerfumeItem onClick={() => handlePerfumeItemClick(perfume.perfume_id)}>
-						<PerfumeImage
-							src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}`}
-							alt="perfume image"
-						/>
-						<Name>{perfume.perfume_name}</Name>
-					</PerfumeItem>
-					{token && <LikeButton center perfumeId={perfume.perfume_id} />}
-				</Perfume>
-			))}
+			{perfumes.length > 0 &&
+				perfumes.map((perfume: Perfume, idx: number) => (
+					<Perfume key={idx}>
+						<PerfumeItem onClick={() => handlePerfumeItemClick(perfume.perfume_id)}>
+							<PerfumeImage
+								src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}`}
+								alt="perfume image"
+							/>
+							<Name>{perfume.perfume_name}</Name>
+						</PerfumeItem>
+						{token && <LikeButton center perfumeId={perfume.perfume_id} />}
+					</Perfume>
+				))}
 		</Container>
 	);
 }
