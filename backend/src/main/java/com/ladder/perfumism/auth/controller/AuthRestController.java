@@ -35,8 +35,8 @@ public class AuthRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/auth/members/reissue")
-    @ApiOperation(value = "토큰 재발급", notes = "(로그인 필요) 토큰 재발급 API")
+    @PostMapping("/members/reissue")
+    @ApiOperation(value = "토큰 재발급", notes = "토큰을 재발급하는 API")
     public ResponseEntity<Void> reissue(@RequestBody ReissueRequest tokenRequest, HttpServletResponse response) {
         authService.reissue(tokenRequest, response);
         return ResponseEntity.noContent().build();
