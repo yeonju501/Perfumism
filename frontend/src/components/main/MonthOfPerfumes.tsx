@@ -9,6 +9,7 @@ function MonthOfPerfumes() {
 	useEffect(() => {
 		const getPerfumes = async () => {
 			const monthOfPerfumes = await perfumeApi.getMonthOfPerfumes();
+			console.log(monthOfPerfumes);
 			setPerfumes(monthOfPerfumes.data.perfumes);
 		};
 		getPerfumes();
@@ -17,7 +18,9 @@ function MonthOfPerfumes() {
 	return (
 		perfumes && (
 			<Section>
-				<MonthPerfume perfumes={perfumes} />
+				{perfumes.map((perfume) => (
+					<MonthPerfume perfume={perfume} />
+				))}
 			</Section>
 		)
 	);
