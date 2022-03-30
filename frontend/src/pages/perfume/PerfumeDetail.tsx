@@ -42,6 +42,7 @@ type Params = {
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
 	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
+	const [updateReviews, setUpdateReviews] = useState(false);
 
 	useEffect(() => {
 		getPerfume();
@@ -56,8 +57,12 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeInfo perfumeData={perfumeData} />
 				<PerfumeDetailRecommendation perfumeData={perfumeData} />
-				<ReviewCreateForm perfumeId={perfumeId} />
-				<ReviewList perfumeId={perfumeId} />
+				<ReviewCreateForm perfumeId={perfumeId} setUpdateReviews={setUpdateReviews} />
+				<ReviewList
+					perfumeId={perfumeId}
+					updateReviews={updateReviews}
+					setUpdateReviews={setUpdateReviews}
+				/>
 			</Container>
 		)
 	);

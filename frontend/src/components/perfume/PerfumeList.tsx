@@ -16,11 +16,10 @@ interface Perfume {
 }
 
 function PerfumeList({ perfumes }: PerfumeList) {
-	const navigate = useNavigate();
 	const token = cookie.load("access_token");
 
 	const handlePerfumeItemClick = (perfumeId: string) => {
-		navigate(`/perfume/${perfumeId}`);
+		window.location.replace(`/perfume/${perfumeId}`);
 	};
 
 	return (
