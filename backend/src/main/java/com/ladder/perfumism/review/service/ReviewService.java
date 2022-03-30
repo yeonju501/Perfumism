@@ -3,12 +3,12 @@ package com.ladder.perfumism.review.service;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
-import com.ladder.perfumism.member.domain.MemberRepository;
+import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.perfume.service.PerfumeService;
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import com.ladder.perfumism.review.controller.dto.response.ReviewLatestPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.perfume.domain.Perfume;
-import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
 import com.ladder.perfumism.review.domain.Review;
 import com.ladder.perfumism.review.domain.ReviewLikeRepository;
@@ -22,24 +22,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final PerfumeRepository perfumeRepository;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+    private final PerfumeService perfumeService;
     private final ReviewLikeRepository reviewLikeRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, PerfumeRepository perfumeRepository,
-        MemberRepository memberRepository, ReviewLikeRepository reviewLikeRepository) {
+    public ReviewService(ReviewRepository reviewRepository, MemberService memberService,
+        PerfumeService perfumeService, ReviewLikeRepository reviewLikeRepository) {
         this.reviewRepository = reviewRepository;
-        this.perfumeRepository = perfumeRepository;
-        this.memberRepository = memberRepository;
+        this.memberService = memberService;
+        this.perfumeService = perfumeService;
         this.reviewLikeRepository = reviewLikeRepository;
     }
 
     @Transactional
     public Long writeReview(String email, Long perfumeId, ReviewWriteRequest request) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Member member = memberService.findByEmail(email);
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         alreadyWritten(member, perfume);
 
@@ -68,8 +66,7 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public ReviewPageResponse getReviewPage(Long perfumeId, Pageable pageable) {
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         Page<Review> reviewList = reviewRepository.findByPerfumeId(perfume, pageable);
 
@@ -117,8 +114,7 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public ReviewPageResponse getMyReviewPage(String email, Pageable pageable) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Member member = memberService.findByEmail(email);
 
         Page<Review> reviewList = reviewRepository.findByMemberId(member, pageable);
 
@@ -127,10 +123,8 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public ReviewResponse getMyPerfumeReview(String email, Long perfumeId) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        Perfume perfume = perfumeRepository.findById(perfumeId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+        Member member = memberService.findByEmail(email);
+        Perfume perfume = perfumeService.findById(perfumeId);
 
         Review review = reviewRepository.findByMemberIdAndPerfumeId(member, perfume)
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_WRITTEN_THIS_PERFUME));
@@ -139,7 +133,7 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public ReviewLatestPageResponse getLatestReviewPage(Pageable pageable){
+    public ReviewLatestPageResponse getLatestReviewPage(Pageable pageable) {
         return ReviewLatestPageResponse.from(reviewRepository.findAll(pageable));
     }
 }
