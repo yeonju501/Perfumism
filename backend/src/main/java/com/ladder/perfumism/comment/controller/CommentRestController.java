@@ -136,10 +136,14 @@ public class CommentRestController {
     }
 
     @GetMapping("/members")
+    @ApiOperation(value = "내 댓글 조회", notes = "<b>(로그인 필요)</b> 내 댓글 조회 API")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "NOT_FOUND\n로그인한 회원이 불분명할 때(C01)")
+    })
     public ResponseEntity<CommentMyReadListResponse> getMyComment(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
-        System.out.println("getMycomment");
+
         return ResponseEntity.ok().body(commentService.showMyCommentList(email, pageable));
     }
 
