@@ -55,21 +55,40 @@ function PerfumeFilter() {
 	};
 
 	return (
-		<div>
+		<Container>
 			<div>
 				{categories.map((category, idx) => (
-					<button onClick={handleCategoryClick} key={idx}>
+					<TagButton onClick={handleCategoryClick} key={idx}>
 						{category}
-					</button>
+					</TagButton>
 				))}
 			</div>
-			<select onChange={handleSelectChange} defaultValue="totalSurvey">
+			<Select onChange={handleSelectChange} defaultValue="totalSurvey">
 				<option value="totalSurvey">트렌딩</option>
 				<option value="name">오름차순</option>
 				<option value="name">내림차순</option>
-			</select>
-		</div>
+			</Select>
+		</Container>
 	);
 }
+
+const Container = styled.div``;
+
+const TagButton = styled.button`
+	background-color: inherit;
+	margin-right: 1rem;
+	border: 0.1rem solid black;
+	font-size: 1.4rem;
+	font-weight: bold;
+	padding: 0.7rem 1.2rem;
+	border-radius: 1.5rem;
+	cursor: pointer;
+	&:hover {
+		background-color: black;
+		color: white;
+	}
+`;
+
+const Select = styled.select``;
 
 export default PerfumeFilter;
