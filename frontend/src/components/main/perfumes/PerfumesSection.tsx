@@ -1,5 +1,5 @@
 import Background from "assets/background2.webp";
-import { Section, Button, Phrases } from "./index";
+import { Section, Button, Phrases } from "../index";
 
 function PerfumesSection() {
 	return (
