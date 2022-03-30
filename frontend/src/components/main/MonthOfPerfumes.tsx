@@ -9,8 +9,8 @@ function MonthOfPerfumes() {
 	useEffect(() => {
 		const getPerfumes = async () => {
 			const monthOfPerfumes = await perfumeApi.getMonthOfPerfumes();
-			console.log(monthOfPerfumes);
-			setPerfumes(monthOfPerfumes.data.perfumes);
+			console.log(monthOfPerfumes.data);
+			setPerfumes(monthOfPerfumes.data);
 		};
 		getPerfumes();
 	}, []);
