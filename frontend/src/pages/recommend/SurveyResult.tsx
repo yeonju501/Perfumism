@@ -4,25 +4,31 @@ import WordCloud from "components/recommend/WordCloud";
 import PerfumeRecommend from "components/recommend/PerfumeRecommend";
 import styled from "styled-components";
 
+interface CustomizedState {
+	recommendData: {
+		perfume_id: string;
+		name: string;
+		image: string;
+	}[];
+}
+
 function SurveyResult() {
-	const location = useLocation();
-	const { recommendData }: any = location.state;
-	console.log(recommendData[0]);
+	const { recommendData } = useLocation().state as CustomizedState;
 
 	const perfumeData = [
 		{
-			id: recommendData[0]["perfume_id"],
-			perfume: recommendData[0]["name"],
+			perfume_id: recommendData[0]["perfume_id"],
+			perfume_name: recommendData[0]["name"],
 			image: recommendData[0]["image"],
 		},
 		{
-			id: recommendData[1]["perfume_id"],
-			perfume: recommendData[1]["name"],
+			perfume_id: recommendData[1]["perfume_id"],
+			perfume_name: recommendData[1]["name"],
 			image: recommendData[1]["image"],
 		},
 		{
-			id: recommendData[2]["perfume_id"],
-			perfume: recommendData[2]["name"],
+			perfume_id: recommendData[2]["perfume_id"],
+			perfume_name: recommendData[2]["name"],
 			image: recommendData[2]["image"],
 		},
 	];
