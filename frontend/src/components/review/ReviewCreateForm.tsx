@@ -6,12 +6,14 @@ import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
 import cookie from "react-cookies";
+import { replace } from "lodash";
 
 interface ReviewCreateFormProp {
 	perfumeId: string;
+	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {
+function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp) {
 	const navigate = useNavigate();
 	const token = cookie.load("access_token");
 
@@ -25,8 +27,9 @@ function ReviewCreateForm({ perfumeId }: ReviewCreateFormProp) {
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await reviewApi.createReview({ grade, content }, perfumeId);
-		setContent("");
 		setGrade(0);
+		setContent("");
+		setUpdateReviews((prev) => !prev);
 	};
 
 	const handleNonMemberInputClick = () => {
