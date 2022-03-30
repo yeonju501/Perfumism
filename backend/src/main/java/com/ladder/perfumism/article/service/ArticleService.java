@@ -8,12 +8,17 @@ import com.ladder.perfumism.article.domain.ArticleImage;
 import com.ladder.perfumism.article.domain.ArticleImageRepository;
 import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.domain.ArticleSubject;
+import com.ladder.perfumism.comment.domain.CommentRepository;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.image.ImageUploader;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.vote.domain.Vote;
+import com.ladder.perfumism.vote.domain.VoteItemRepository;
+import com.ladder.perfumism.vote.domain.VoteMemberRepository;
+import com.ladder.perfumism.vote.domain.VoteRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -30,14 +35,25 @@ public class ArticleService {
     private final MemberService memberService;
     private final ImageUploader imageUploader;
     private final ArticleImageRepository articleImageRepository;
+    private final CommentRepository commentRepository;
+    private final VoteRepository voteRepository;
+    private final VoteItemRepository voteItemRepository;
+    private final VoteMemberRepository voteMemberRepository;
 
     public ArticleService(ArticleRepository articleRepository, MemberService memberService,
-        ImageUploader imageUploader, ArticleImageRepository articleImageRepository){
+        ImageUploader imageUploader, ArticleImageRepository articleImageRepository,
+        CommentRepository commentRepository, VoteRepository voteRepository,
+        VoteItemRepository voteItemRepository, VoteMemberRepository voteMemberRepository){
 
         this.articleRepository = articleRepository;
         this.memberService = memberService;
         this.imageUploader = imageUploader;
         this.articleImageRepository = articleImageRepository;
+
+        this.commentRepository = commentRepository;
+        this.voteRepository = voteRepository;
+        this.voteItemRepository = voteItemRepository;
+        this.voteMemberRepository = voteMemberRepository;
 
     }
 
@@ -119,7 +135,22 @@ public class ArticleService {
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
         ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
-        articleRepository.delete(article);
+        if(commentRepository.existsByArticle(article)){
+            commentRepository.updateDeletedAtByArticle(articleId);
+        }
+
+        if(article.getVote_exist()){
+
+            Optional<Vote> vote = voteRepository.findByArticle(article);
+
+            voteRepository.updateDeletedAtByArticle(articleId);
+            voteItemRepository.updateDeletedAtByVote(vote.get().getId());
+            voteMemberRepository.updateDeletedAtByVote(vote.get().getId());
+        }
+
+
+
+        article.saveDeletedTime();
     }
 
     @Transactional

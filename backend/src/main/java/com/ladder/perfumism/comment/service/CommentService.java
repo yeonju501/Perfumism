@@ -11,6 +11,7 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.notification.service.NotificationService;
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -97,7 +98,23 @@ public class CommentService {
         Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
         COMMENT_IS_NOT_YOURS_FUNC(email,comment);
 
-        comment.isDeletion();
+        if(comment.getParentId() == null){
+            comment.isDeletion();
+            if(comment.getReplyList().isEmpty()){
+                comment.saveDeletedTime();
+            }
+        } else {
+
+            comment.saveDeletedTime();
+
+            if(comment.getParentId().getDeletion() &&
+                !comment.getParentId().getReplyList().stream().anyMatch(c-> Objects.isNull(c.getDeletedAt()))){
+
+                comment.getParentId().saveDeletedTime();
+            }
+        }
+
+
 //        commentRepository.delete(comment);
     }
 
