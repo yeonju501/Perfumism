@@ -17,30 +17,28 @@ function Loading() {
 		const answerData = getAnswerData();
 		if (answerData) {
 			try {
-				await recommendApi
-					.surveyRecommend(
-						answerData[0],
-						answerData[1],
-						answerData[2],
-						answerData[3],
-						answerData[4],
-					)
-					.then((res) => {
-						setRecommendData(res.data);
-						navigate("/survey/result", {
-							state: {
-								recommendData: recommendData,
-							},
-						});
-					});
+				const res = await recommendApi.surveyRecommend(
+					answerData[0],
+					answerData[1],
+					answerData[2],
+					answerData[3],
+					answerData[4],
+				);
+				navigate("/survey/result", {
+					state: {
+						recommendData: res.data,
+					},
+				});
 			} catch (error) {
 				console.log(error);
 			}
 		} else {
 			try {
-				await recommendApi.likeBasedRecommend(1).then((res) => {
-					setRecommendData(res.data);
-					navigate("/survey/result");
+				const res = await recommendApi.likeBasedRecommend(1);
+				navigate("/survey/result", {
+					state: {
+						recommendData: res.data,
+					},
 				});
 			} catch (error) {
 				console.log(error);
