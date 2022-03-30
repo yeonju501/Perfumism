@@ -1,6 +1,3 @@
-import perfumeApi from "apis/perfume";
-import profileApi from "apis/profile";
-import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
@@ -15,14 +12,7 @@ interface PerfumeType {
 }
 
 interface useInfiniteScrollProps {
-	initialValues?: { currentPage: number };
 	requestApi: (currentPage: number) => Promise<any>;
-}
-
-interface resDataType {
-	perfumes: [];
-	total_page_count: number;
-	current_page_count: number;
 }
 
 const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
@@ -32,22 +22,21 @@ const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { accord, sort, order } = useSelector((state: RootState) => state.filter);
+	console.log(accord, sort, order);
 
-	console.log(currentPage, totalPage);
 	useEffect(() => {
-		console.log("초기화");
-		setPerfumes([]);
 		setCurrentPage(0);
+		setPerfumes([]);
 	}, [accord, sort, order]);
 
 	useEffect(() => {
 		console.log(currentPage, totalPage);
 		getPerfumes();
-	}, [currentPage, accord, sort, order]);
+	}, [currentPage]);
 
 	const getPerfumes = async () => {
 		setIsLoading(true);
-		await new Promise((resolve) => setTimeout(resolve, 800));
+		await new Promise((resolve) => setTimeout(resolve, 500));
 		const res = await requestApi(currentPage);
 		setPerfumes((prev) => prev.concat(res.data.perfumes));
 		setTotalPage(res.data.total_page_count);
