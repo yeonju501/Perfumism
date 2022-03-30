@@ -15,6 +15,7 @@ import com.ladder.perfumism.image.ImageUploader;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.vote.domain.Vote;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
 import com.ladder.perfumism.vote.domain.VoteMemberRepository;
 import com.ladder.perfumism.vote.domain.VoteRepository;
@@ -136,11 +137,20 @@ public class ArticleService {
 
 //        articleRepository.delete(article);
 
-        commentRepository.updateDeletedAtByArticle(articleId);
+        if(commentRepository.existsByArticle(article)){
+            commentRepository.updateDeletedAtByArticle(articleId);
+        }
 
-        voteRepository.updateDeletedAtByArticle(articleId);
-        voteItemRepository.updateDeletedAtByVote(articleId);
-        voteMemberRepository.updateDeletedAtByArticle(articleId);
+        if(voteRepository.existsByArticle(article)){
+
+            Optional<Vote> vote = voteRepository.findByArticle(article);
+
+            voteRepository.updateDeletedAtByArticle(articleId);
+            voteItemRepository.updateDeletedAtByVote(vote.get().getId());
+            voteMemberRepository.updateDeletedAtByVote(vote.get().getId());
+        }
+
+
 
         article.saveDeletedTime();
     }
