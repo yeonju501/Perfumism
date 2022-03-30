@@ -1,9 +1,12 @@
+import { profileApi } from "apis";
 import PerfumeList from "components/perfume/PerfumeList";
 import useInfiniteScroll from "pages/perfume/hooks/useInfiniteScroll";
 
 function Favorites() {
 	const { setTarget, perfumes, isLoading } = useInfiniteScroll({
-		type: "favoritePerfumes",
+		requestApi: (currentPage) => {
+			return profileApi.getFavorites(currentPage);
+		},
 	});
 
 	return (

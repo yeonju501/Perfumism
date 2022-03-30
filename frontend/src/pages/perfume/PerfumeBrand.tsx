@@ -1,3 +1,4 @@
+import perfumeApi from "apis/perfume";
 import PerfumeList from "components/perfume/PerfumeList";
 import { useParams } from "react-router-dom";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
@@ -10,8 +11,9 @@ function PerfumeBrand() {
 	const { brandName } = useParams() as Params;
 
 	const { setTarget, perfumes, isLoading } = useInfiniteScroll({
-		type: "brandPerfumes",
-		brandName,
+		requestApi: (currentPage) => {
+			return perfumeApi.getBrandPerfumes(brandName, currentPage, "totalSurvey");
+		},
 	});
 
 	return (

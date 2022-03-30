@@ -15,8 +15,8 @@ export const SET_FILTER = (data: dataType) => ({ type: SET, data });
 
 const initialState = {
 	accord: "",
-	sort: "",
-	order: "",
+	sort: "totalSurvey",
+	order: "desc",
 };
 
 const filter = (state = initialState, action: actionType) => {

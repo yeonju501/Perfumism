@@ -57,8 +57,10 @@ function PerfumeFilter() {
 	return (
 		<div>
 			<div>
-				{categories.map((category) => (
-					<button onClick={handleCategoryClick}>{category}</button>
+				{categories.map((category, idx) => (
+					<button onClick={handleCategoryClick} key={idx}>
+						{category}
+					</button>
 				))}
 			</div>
 			<select onChange={handleSelectChange} defaultValue="totalSurvey">

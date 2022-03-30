@@ -2,13 +2,14 @@ import { AxiosResponse } from "axios";
 import { imageRequest, request } from "./request";
 
 interface ProfileApiType {
-	getFavorites: () => Promise<AxiosResponse>;
+	getFavorites: (currentPage: number) => Promise<AxiosResponse>;
 	getUserInfo: () => Promise<AxiosResponse>;
 	setUserImage: (formData: FormData) => Promise<AxiosResponse>;
 }
 
 const profileApi: ProfileApiType = {
-	getFavorites: () => request.get(`auth/perfumes/likes/my-favorite`),
+	getFavorites: (currentPage: number) =>
+		request.get(`auth/perfumes/likes/my-favorite?page=${currentPage}&size=10`),
 	getUserInfo: () => request.get(`auth/members`),
 	setUserImage: (formData) => imageRequest.post(`auth/members/img`, formData),
 };

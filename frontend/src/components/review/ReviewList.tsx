@@ -24,7 +24,7 @@ interface ReviewType {
 	likes: number;
 }
 
-function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPropType) {
+function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
