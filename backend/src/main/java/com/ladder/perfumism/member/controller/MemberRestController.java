@@ -55,13 +55,20 @@ public class MemberRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("/auth/members/find-pw")
+    @PostMapping("/members/find-pw")
     @ApiOperation(value = "비밀번호 변경 메일 전송", notes = "비밀번호 변경 메일 전송 api")
-    public ResponseEntity<CodeResponse> findPassword(@RequestBody FindPasswordRequest request) {
-        return ResponseEntity.ok().body(memberService.findPassword(request));
+    public ResponseEntity<Void> findPassword(@RequestBody FindPasswordRequest request) {
+        memberService.findPassword(request);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/auth/members/change-pw")
+    @PutMapping("/members/code")
+    @ApiOperation(value = "인증 번호 확인", notes = "비밀번호 변경 인증번호 확인 api")
+    public ResponseEntity<CheckDuplicateResponse> checkPasswordCode(@RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(memberService.checkPasswordCode(request));
+    }
+
+    @PutMapping("/members/change-pw")
     @ApiOperation(value = "비밀번호 변경", notes = "비밀번호 변경 api")
     public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request){
         memberService.changePassword(request);

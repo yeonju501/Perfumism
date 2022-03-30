@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 interface IsToggle {
-	isToggle: boolean;
+	on?: number;
 	scrollheader?: number;
 }
 function LinkList({ scrollheader }: HeaderProps) {
@@ -17,14 +17,9 @@ function LinkList({ scrollheader }: HeaderProps) {
 
 	return (
 		<>
-			<CloseButton icon={faX} isToggle={!isToggle} onClick={() => setIsToggle(!isToggle)} />
-			<MenuLinks scrollheader={scrollheader} isMenu={isToggle} />
-			<MenuBars
-				scrollheader={scrollheader}
-				isToggle={isToggle}
-				icon={faBars}
-				onClick={() => setIsToggle(!isToggle)}
-			/>
+			<CloseButton icon={faX} onClick={() => setIsToggle(!isToggle)} on={isToggle ? 0 : 1} />
+			<MenuLinks scrollheader={scrollheader} isMenu={isToggle} setIsToggle={setIsToggle} />
+			<MenuBars scrollheader={scrollheader} icon={faBars} onClick={() => setIsToggle(!isToggle)} />
 		</>
 	);
 }
@@ -34,10 +29,9 @@ export default LinkList;
 const MenuBars = styled(FontAwesomeIcon)<IsToggle>`
 	font-size: 2rem;
 	display: none;
-	color: ${(props) => (props.isToggle ? "#fff" : "#000")};
 	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
-		display: ${(props) => (props.isToggle ? "none" : "block")};
+		display: block;
 		color: ${({ scrollheader }) => ((scrollheader as number) > 2 ? "#fff" : "#000")};
 	}
 `;
@@ -52,6 +46,6 @@ const CloseButton = styled(FontAwesomeIcon)<IsToggle>`
 	left: 22rem;
 	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
-		display: ${(props) => (props.isToggle ? "none" : "block")};
+		display: ${(props) => (props.on ? "none" : "block")};
 	}
 `;

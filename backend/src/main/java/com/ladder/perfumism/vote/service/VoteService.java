@@ -54,6 +54,11 @@ public class VoteService {
             .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
     }
 
+    private VoteItem VOTE_ITEM_IS_NOT_FOUND(Long voteItem){
+        return voteItemRepository.findById(voteItem)
+            .orElseThrow(()->new BusinessException(ErrorCode.VOTE_ITEM_IS_NOT_FOUND));
+    }
+
     @Transactional
     public void createVote(String email, Long articleId, VoteCreateRequest request) {
 
@@ -65,7 +70,6 @@ public class VoteService {
         Vote vote = Vote.builder()
             .article(article)
             .title(request.getTitle())
-            .totalVoter(0)
             .build();
 
         voteRepository.save(vote);
@@ -79,6 +83,7 @@ public class VoteService {
 
             voteItemRepository.save(voteItem);
         }
+        article.changeVoteExist();
     }
 
     @Transactional
@@ -92,6 +97,8 @@ public class VoteService {
 
         List<VoteItem> voteItem = voteItemRepository.findByVote(vote);
 
+        vote.saveVoterCnt(voteMemberRepository.countByVote(vote));
+
         return VoteReadListResponse.from(vote, voteItem);
     }
 
@@ -103,17 +110,21 @@ public class VoteService {
         Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
         articleService.ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
-        VOTE_IS_NOT_YOURS_FUNC(email,article);
         Vote vote = VOTE_IS_NOT_FOUND(article);
+        VOTE_IS_NOT_YOURS_FUNC(email,article);
+
 
         vote.changVoteExpiration();
 
     }
 
-    public void chooseVote(String email, Long articleId, VoteChooseRequest voteChoose) {
+    @Transactional
+    public void chooseVote(String email, Long articleId, VoteChooseRequest request) {
         Member member = memberService.findByEmail(email);
-        Vote vote = voteRepository.getById(voteChoose.getVote());
-        VoteItem choseVoteItem = voteItemRepository.getById(voteChoose.getVoteItem());
+        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
+
+        Vote vote = VOTE_IS_NOT_FOUND(article);
+        VoteItem choseVoteItem = VOTE_ITEM_IS_NOT_FOUND(request.getVoteItem());
 
         List<VoteItem> voteItems = voteItemRepository.findByVote(vote);
 
@@ -137,7 +148,7 @@ public class VoteService {
             .build();
 
         voteMemberRepository.save(futureVoteMember);
-
+        choseVoteItem.saveMemberCnt(voteMemberRepository.countByVoteItem(choseVoteItem));
 
     }
 }

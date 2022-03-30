@@ -12,6 +12,9 @@ import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
 import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
+import com.ladder.perfumism.member.domain.PasswordCode;
+import com.ladder.perfumism.member.domain.PasswordCodeRepository;
+import java.time.LocalDateTime;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +25,17 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final PasswordCodeRepository passwordCodeRepository;
+
+    private static final int EXPIRATION_PERIOD = 5;
 
     public MemberService(MemberRepository memberRepository,
-        PasswordEncoder passwordEncoder, MailService mailService) {
+        PasswordEncoder passwordEncoder, MailService mailService,
+        PasswordCodeRepository passwordCodeRepository) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
+        this.passwordCodeRepository = passwordCodeRepository;
     }
 
     @Transactional
@@ -60,12 +68,29 @@ public class MemberService {
         return MemberInfoResponse.from(member);
     }
 
-    @Transactional(readOnly = true)
-    public CodeResponse findPassword(FindPasswordRequest request) {
+    @Transactional
+    public void findPassword(FindPasswordRequest request) {
         Member member = findByEmail(request.getEmail());
         String code = mailService.randomCode();
         mailService.sendMailChangePassword(member, code);
-        return CodeResponse.from(code);
+        PasswordCode passwordCode = PasswordCode.builder()
+            .id(code)
+            .expirationDate(LocalDateTime.now().plusMinutes(EXPIRATION_PERIOD))
+            .expired(false)
+            .userId(member.getId())
+            .build();
+        passwordCodeRepository.save(passwordCode);
+    }
+
+    @Transactional
+    public CheckDuplicateResponse checkPasswordCode(CheckDuplicateRequest request) {
+        Boolean result = passwordCodeRepository.existsByIdAndExpirationDateAfterAndExpiredIsFalse(request.getValue(), LocalDateTime.now());
+        if (result) {
+            PasswordCode passwordCode = passwordCodeRepository.findById(request.getValue())
+                .orElseThrow(() -> new BusinessException(ErrorCode.PASSWORD_CODE_NOT_FOUND_BY_ID));
+            passwordCode.useCode();
+        }
+        return CheckDuplicateResponse.from(result);
     }
 
     @Transactional(readOnly = true)

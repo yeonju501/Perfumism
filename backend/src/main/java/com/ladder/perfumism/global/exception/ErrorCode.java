@@ -38,6 +38,9 @@ public enum ErrorCode {
     NOTIFICATION_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 알림입니다.", "D01"),
     NOTIFICATION_NOT_MATCH_BY_EMAIL(HttpStatus.BAD_REQUEST, "알림 수신자와 일치하지 않는 이메일입니다.", "D02"),
 
+    // password code
+    PASSWORD_CODE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 인증번호입니다.", "E01"),
+
     // article
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다", "H01"),
     ARTICLE_IS_NOT_YOURS(HttpStatus.BAD_REQUEST,"당신의 게시글이 아닙니다","H02"),
@@ -49,6 +52,7 @@ public enum ErrorCode {
     // vote
     VOTE_NOT_FOUND(HttpStatus.NOT_FOUND,"진행되는 투표가 없습니다", "J01"),
     VOTE_IS_NOT_YOURS(HttpStatus.BAD_REQUEST, "당신의 투표가 아닙니다", "J02"),
+    VOTE_ITEM_IS_NOT_FOUND(HttpStatus.NOT_FOUND, "투표 항목이 없습니다","J03"),
 
     // perfume
     PERFUME_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 퍼퓸 ID 입니다", "S01"),

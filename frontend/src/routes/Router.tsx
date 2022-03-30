@@ -22,6 +22,9 @@ import Loading from "pages/recommend/Loading";
 import Community from "pages/community/Community";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import InputCodePage from "pages/account/find-pw/InputCodePage";
+import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
+import SuccessPage from "pages/account/find-pw/SuccessPage";
 
 function Router() {
 	return (
@@ -49,6 +52,9 @@ function Router() {
 				<Route path="/*" element={<PageNotFoundPage />} />
 				<Route path="/search/:keyword" element={<SearchResultPage />} />
 				<Route path="/community" element={<Community />} />
+				<Route path="/check-code" element={<InputCodePage />} />
+				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
+				<Route path="/password/success" element={<SuccessPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
