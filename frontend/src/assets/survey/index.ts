@@ -1,0 +1,9 @@
+export { default as FruitSrc } from "./과일.jpg";
+export { default as FlowerSrc } from "./꽃.jpg";
+export { default as NatureSrc } from "./자연.jpg";
+export { default as SeaSrc } from "./바다.jpg";
+export { default as SweetSrc } from "./달콤한.jpg";
+export { default as PowderySrc } from "./포근한.jpg";
+export { default as SmoothSrc } from "./부드러운.jpg";
+export { default as OrientalSrc } from "./몽환적.jpg";
+export { default as GrassSrc } from "./풀향의.jpg";
