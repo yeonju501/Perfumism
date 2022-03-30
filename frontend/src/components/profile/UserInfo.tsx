@@ -37,7 +37,7 @@ function UserInfo() {
 
 const UserImage = styled.img`
 	border-radius: 50%;
-	width: 7rem;
-	height: 7rem;
+	width: 20rem;
+	height: 20rem;
 `;
 export default UserInfo;
