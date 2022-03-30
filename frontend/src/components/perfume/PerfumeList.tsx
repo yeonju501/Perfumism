@@ -47,9 +47,11 @@ const Container = styled.ul`
 `;
 
 const Perfume = styled.li`
-	width: 20%;
+	width: 15%;
+	margin: 3rem;
 	height: auto;
 	list-style: none;
+	font-size: 1.4rem;
 	position: relative;
 	&:hover {
 		button {

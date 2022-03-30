@@ -3,6 +3,7 @@ import PerfumeFilter from "components/perfume/PerfumeFilter";
 import PerfumeList from "components/perfume/PerfumeList";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import styled from "styled-components";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
 function Perfumes() {
@@ -19,12 +20,16 @@ function Perfumes() {
 	console.log(1);
 
 	return (
-		<div>
+		<Container>
 			<PerfumeFilter />
 			<PerfumeList perfumes={perfumes} />
 			<div ref={setTarget}>{isLoading && <p>Loading..</p>}</div>
-		</div>
+		</Container>
 	);
 }
 
+const Container = styled.div`
+	width: 80%;
+	margin: 0 auto;
+`;
 export default Perfumes;

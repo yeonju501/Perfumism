@@ -6,13 +6,14 @@ import Sidebar from "components/profile/Sidebar";
 import UserInfo from "components/profile/UserInfo";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import styled from "styled-components";
 
 function Profile() {
 	const { gender, image, username } = useSelector((state: RootState) => state.user);
 	return (
 		<Container>
 			<Sidebar />
-			<div>
+			<Section>
 				<UserInfo></UserInfo>
 				<FormContainer>
 					<Label>닉네임</Label>
@@ -27,9 +28,13 @@ function Profile() {
 					<Button>회원 탈퇴</Button>
 					<Button>제출</Button>
 				</FormContainer>
-			</div>
+			</Section>
 		</Container>
 	);
 }
+
+const Section = styled.div`
+	margin-left: 15%;
+`;
 
 export default Profile;
