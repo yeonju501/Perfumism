@@ -32,6 +32,7 @@ export default MonthOfPerfumes;
 
 const Section = styled.section`
 	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 50rem;
 `;
@@ -39,7 +40,7 @@ const Section = styled.section`
 const Title = styled.p`
 	font-size: 3rem;
 	font-weight: bold;
-	margin: 0 auto;
+	margin: 2rem auto;
 	margin-top: 3rem;
 `;
 
