@@ -1,6 +1,7 @@
 package com.ladder.perfumism.comment.domain;
 
 import com.ladder.perfumism.article.domain.Article;
+import com.ladder.perfumism.member.domain.Member;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
         + "set c.deleted_at = current_timestamp "
         + "where c.article_id = (:article_id)")
     Integer updateDeletedAtByArticle(@Param("article_id") Long article_id);
+
+    Page<Comment> findByMember(Member member, Pageable pageable);
 }
