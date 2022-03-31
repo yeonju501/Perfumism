@@ -19,12 +19,12 @@ mapping_table = [
         4: ["mossy", "foresty", "herbal", "earthy", "patchouli", "aromatic", "green"]
     },
     {
-        0: ["eternal", "long lasting", "moderate"],
-        1: ["weak", "very weak"]
-    },
-    {
         0: ["intimate"],
         1: ["moderate", "strong", "enormous"]
+    },
+    {
+        0: ["eternal", "long lasting", "moderate"],
+        1: ["weak", "very weak"]
     }
 ]
 
@@ -68,7 +68,10 @@ def recommend_survey(answer_list):
     accord_list = []
     accord_list += mapping_table[0][answer_list[0]] + mapping_table[1][answer_list[1]]
 
-    filename = word_cloud(accord_list)
+    wc_result = word_cloud(accord_list)
+
+    filename = wc_result[0][1:]
+    accords = wc_result[1]
 
     accord_list = ' '.join(accord_list)
   
@@ -120,9 +123,23 @@ def recommend_survey(answer_list):
         sim_index = perfume_c_sim[len(new_df) - 1, :200].reshape(-1)
     sim_index = sim_index[sim_index != len(new_df) - 1]
 
-    result = new_df.iloc[sim_index][:3].to_dict('list')['id']
+    result_df = new_df.iloc[sim_index]
+    filt_sillage = (result_df['sillage'] == 'intimate')
+    filt_longevity = (result_df['longevity'] == 'weak') | (result_df['longevity'] == 'very weak')
 
-    return [result, filename]
+    if answer_list[2] == 0:
+        result_df = result_df[filt_sillage]
+    else:
+        result_df = result_df[~filt_sillage]
+
+    if answer_list[3] == 0:
+        result_df = result_df[~filt_longevity]
+    else:
+        result_df = result_df[filt_longevity]
+    
+    result = result_df[:3].to_dict('list')['id']
+
+    return [result, filename, accords]
 
 if __name__ == '__main__':
     # arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"

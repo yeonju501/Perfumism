@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import test from "assets/test.jpg";
 
-function WordCloud() {
+interface Props {
+	url: string;
+}
+
+function WordCloud({ url }: Props) {
+	const imageUrl = process.env.REACT_APP_SUB_URL + url;
+
 	return (
 		<Container>
-			<WordCloudImg src={test} />
+			<WordCloudImg src={imageUrl} />
 		</Container>
 	);
 }
