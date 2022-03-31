@@ -17,7 +17,7 @@ function Alert() {
 
 	useEffect(() => {
 		token && getNumOfUnread();
-	}, [numOfUnread]);
+	}, [numOfUnread, isOn]);
 
 	const getNumOfUnread = async () => {
 		const num = await alertApi.getNumOfUnread();
@@ -30,7 +30,7 @@ function Alert() {
 			{numOfUnread ? (
 				numOfUnread > 5 ? (
 					<NumberOfNotification>
-						5<FontAwesomeIcon icon={faPlus} />
+						5<PlusIcon icon={faPlus} />
 					</NumberOfNotification>
 				) : (
 					<NumberOfNotification>{numOfUnread}</NumberOfNotification>
@@ -63,11 +63,15 @@ const NumberOfNotification = styled.span`
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
-	width: 1.8rem;
+	width: auto;
 	height: 1.8rem;
 	margin-left: 2rem;
 	cursor: pointer;
 	@media ${(props) => props.theme.mobile} {
 		margin-left: 0.5rem;
 	}
+`;
+
+const PlusIcon = styled(FontAwesomeIcon)`
+	font-size: 0.9rem;
 `;
