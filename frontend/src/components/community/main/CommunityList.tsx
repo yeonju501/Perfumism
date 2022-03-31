@@ -22,8 +22,8 @@ interface ArticleProps {
 function CommunityList({ articleData }: ArticleProps) {
 	return (
 		<Container>
-			<table>
-				<thead>
+			<Table>
+				<Thead>
 					<tr>
 						<th>번호</th>
 						<th>말머리</th>
@@ -38,8 +38,8 @@ function CommunityList({ articleData }: ArticleProps) {
 					) : (
 						<td>작성한 글이 없습니다.</td>
 					)}
-				</thead>
-			</table>
+				</Thead>
+			</Table>
 		</Container>
 	);
 }
@@ -47,6 +47,13 @@ function CommunityList({ articleData }: ArticleProps) {
 const Container = styled.div`
 	font-size: 2rem;
 	width: 100%;
+	text-align: center;
 `;
+
+const Table = styled.table`
+	width: 100%;
+`;
+
+const Thead = styled.thead``;
 
 export default CommunityList;
