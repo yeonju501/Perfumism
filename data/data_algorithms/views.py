@@ -8,9 +8,10 @@ from data_algorithms.serializers.accord import AccordListSerializer, AccordSeria
 from data_algorithms.serializers.perfume import PerfumeListSerializer
 from .algorithms.dbscan import recommend_like_based, recommend_survey
 from .algorithms.wordCloud import word_cloud 
+from rest_framework.renderers import JSONRenderer
 # Create your views here.
 @api_view(['GET'])
-def like_based(request, member_pk):
+def like_based(request, member_pk, format=None):
     accord_list = []
     member = get_object_or_404(Member, member_id = member_pk)
 
@@ -20,7 +21,7 @@ def like_based(request, member_pk):
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
 
-    word_cloud(accord_list)
+    filename = word_cloud(accord_list)[1:]
     accord_list = ' '.join(accord_list)
     result = recommend_like_based(accord_list)
     perfumes = []
@@ -29,18 +30,26 @@ def like_based(request, member_pk):
         perfumes.append(perfume)
 
     serializer = PerfumeListSerializer(perfumes, many=True)
-    return Response(serializer.data)
+    return Response({
+        'filename' : filename,
+        'perfume_list' : serializer.data
+    })
 
 @api_view(['GET'])
 def survey(request, a1, a2, a3, a4, a5):
     answer_list = [a1, a2, a3, a4, a5]
     
     result = recommend_survey(answer_list)
-
+    perfume_list = result[0]
+    filename = result[1][1:]
     perfumes = []
     for i in range(3):
-        perfume = get_object_or_404(Perfume, perfume_id = result[i])
+        perfume = get_object_or_404(Perfume, perfume_id = perfume_list[i])
         perfumes.append(perfume)
 
     serializer = PerfumeListSerializer(perfumes, many=True)
-    return Response(serializer.data)
+
+    return Response({
+        'filename' : filename,
+        'perfume_list' : serializer.data
+    })
