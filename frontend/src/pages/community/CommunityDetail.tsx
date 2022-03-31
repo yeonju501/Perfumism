@@ -36,7 +36,7 @@ function CommunityDetaul() {
 	return (
 		<Container>
 			<DetailHeader />
-			<DetailContent />
+			<DetailContent articleData={articleData} />
 			<DetailComment />
 		</Container>
 	);
