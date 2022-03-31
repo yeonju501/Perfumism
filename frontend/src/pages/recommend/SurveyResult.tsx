@@ -25,7 +25,7 @@ function SurveyResult() {
 	return (
 		<Container>
 			<AccordRecommend accords={accordData["accords"]} />
-			<WordCloud />
+			<WordCloud url={recommendData["filename"]} />
 			<PerfumeRecommend perfumeData={recommendData["perfume_list"]} />
 		</Container>
 	);
