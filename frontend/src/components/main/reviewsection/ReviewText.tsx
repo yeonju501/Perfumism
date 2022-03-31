@@ -27,9 +27,10 @@ function ReviewText({ review }: Review) {
 			<Content>
 				{review.content.length >= 90 ? `${review.content.slice(0, 90)}...` : review.content}
 			</Content>
-			<DateAndName>
-				{date} {review.member_name}
-			</DateAndName>
+			<Writer>
+				<Date>{date}</Date> {review.member_name}
+			</Writer>
+
 			<Grade>
 				<FontAwesome icon={faStar} />
 				{review.grade}
@@ -42,13 +43,12 @@ export default ReviewText;
 
 const Container = styled(Link)`
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
 	position: relative;
 	color: #000;
-	width: 100%;
+	width: 30rem;
 `;
 
 const PerfumeName = styled.p`
@@ -66,16 +66,20 @@ const Content = styled.p`
 	text-align: center;
 `;
 
-const DateAndName = styled.p`
-	font-size: 1.3rem;
+const Writer = styled.p`
+	font-size: 1.4rem;
 	position: absolute;
-	top: 34rem;
+	top: 31rem;
+`;
+const Date = styled.span`
+	font-size: 1.2rem;
+	margin: 0;
 `;
 
 const Grade = styled.p`
 	font-size: 1.3rem;
 	position: absolute;
-	top: 37rem;
+	top: 34rem;
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`

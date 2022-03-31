@@ -17,7 +17,7 @@ function ReviewSection() {
 	return (
 		reviews && (
 			<Section>
-				{reviews.slice(0, 3).map((review, idx) => (
+				{reviews.slice(0, 4).map((review, idx) => (
 					<ReviewText review={review} key={idx} />
 				))}
 			</Section>
@@ -29,6 +29,5 @@ export default ReviewSection;
 
 const Section = styled.section`
 	display: flex;
-	width: 100%;
 	height: 50rem;
 `;
