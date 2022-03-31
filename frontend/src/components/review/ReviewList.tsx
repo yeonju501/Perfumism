@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { faStar as star } from "@fortawesome/free-solid-svg-icons";
+import ReviewCreateForm from "./ReviewCreateForm";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -24,11 +26,13 @@ interface ReviewType {
 	likes: number;
 }
 
-function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
+function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLastPage, setIsLastPage] = useState(false);
+	const [isEditable, setIsEditable] = useState(-1);
+
 	const token = cookie.load("access_token");
 	const userId = useSelector((state: RootState) => state.user.id);
 
@@ -47,12 +51,6 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		setCurrentPage(res.data.current_page_count + 1);
 	};
 
-	const reRenderReviews = () => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
-	};
-
 	const handleShowMoreClick = () => {
 		getReviews(currentPage);
 	};
@@ -64,6 +62,17 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		}
 	};
 
+	const reRenderReviews = () => {
+		setCurrentPage(0);
+		setReviews([]);
+		getReviews(0);
+	};
+
+	const handleUpdateClick = (reviewId: number) => {
+		setIsEditable(reviewId);
+	};
+
+	console.log(userId);
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
@@ -71,12 +80,29 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 					<p>{review.member_name}</p>
 					{userId === review.member_id && (
 						<>
-							<UpdateButton>수정</UpdateButton>
+							<UpdateButton onClick={() => handleUpdateClick(review.review_id)}>수정</UpdateButton>
 							<DeleteButton onClick={() => handleDeleteClick(review.review_id)}>삭제</DeleteButton>
 						</>
 					)}
-					<p>{review.grade}</p>
-					<p>{review.content}</p>
+					{review.review_id === isEditable ? (
+						<ReviewCreateForm
+							setUpdateReviews={setUpdateReviews}
+							oldContent={review.content}
+							reviewId={review.review_id}
+							setIsEditable={setIsEditable}
+							oldGrade={review.grade}
+						/>
+					) : (
+						<div>
+							<p>
+								{[...Array(review.grade)].map(() => (
+									<FontAwesomeIcon icon={star} />
+								))}
+							</p>
+							<p>{review.content}</p>
+						</div>
+					)}
+
 					{token && <LikeButton reviewId={review.review_id} />}
 					<FontAwesomeIcon icon={heart} />
 					<span>{review.likes}</span>
