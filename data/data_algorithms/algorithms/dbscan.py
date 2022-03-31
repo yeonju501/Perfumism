@@ -68,7 +68,10 @@ def recommend_survey(answer_list):
     accord_list = []
     accord_list += mapping_table[0][answer_list[0]] + mapping_table[1][answer_list[1]]
 
-    filename = word_cloud(accord_list)
+    wc_result = word_cloud(accord_list)
+
+    filename = wc_result[0][1:]
+    accords = wc_result[1]
 
     accord_list = ' '.join(accord_list)
   
@@ -122,7 +125,7 @@ def recommend_survey(answer_list):
 
     result = new_df.iloc[sim_index][:3].to_dict('list')['id']
 
-    return [result, filename]
+    return [result, filename, accords]
 
 if __name__ == '__main__':
     # arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"

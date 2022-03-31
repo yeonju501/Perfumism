@@ -8,7 +8,7 @@ def word_cloud(word_list):
     counts = Counter(word_list)
     main_accords = [counts.most_common(3)[0][0], counts.most_common(3)[1][0], counts.most_common(3)[2][0]]
 
-    wc = WordCloud(font_path="./tvN 즐거운이야기 Bold.ttf", width=300, height=300, background_color="white", max_font_size=250)
+    wc = WordCloud(font_path="./data_algorithms/algorithms/tvN 즐거운이야기 Bold.ttf", width=300, height=300, background_color="white", max_font_size=250)
     cloud = wc.generate_from_frequencies(counts)
 
     filename = '%s' %(

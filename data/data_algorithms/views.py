@@ -21,7 +21,11 @@ def like_based(request, member_pk, format=None):
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
 
-    filename = word_cloud(accord_list)[1:]
+    wc_result = word_cloud(accord_list)
+
+    filename = wc_result[0][1:]
+    accords = wc_result[1]
+
     accord_list = ' '.join(accord_list)
     result = recommend_like_based(accord_list)
     perfumes = []
@@ -31,6 +35,7 @@ def like_based(request, member_pk, format=None):
 
     serializer = PerfumeListSerializer(perfumes, many=True)
     return Response({
+        'accords' : accords,
         'filename' : filename,
         'perfume_list' : serializer.data
     })
@@ -41,7 +46,9 @@ def survey(request, a1, a2, a3, a4, a5):
     
     result = recommend_survey(answer_list)
     perfume_list = result[0]
-    filename = result[1][1:]
+    filename = result[1]
+    accords = result[2]
+
     perfumes = []
     for i in range(3):
         perfume = get_object_or_404(Perfume, perfume_id = perfume_list[i])
@@ -50,6 +57,7 @@ def survey(request, a1, a2, a3, a4, a5):
     serializer = PerfumeListSerializer(perfumes, many=True)
 
     return Response({
+        'accords' : accords,
         'filename' : filename,
         'perfume_list' : serializer.data
     })
