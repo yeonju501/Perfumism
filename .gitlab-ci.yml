@@ -27,7 +27,7 @@ build-back:
   after_script:
     - cd $CI_PROJECT_DIR/backend
     - sudo rm -rf /home/ubuntu/S06P22D105/backend/build
-    - sudo cp ./build /home/ubuntu/S06P22D105/backend/build
+    - sudo cp -rf build /home/ubuntu/S06P22D105/backend
 
   tags:
     - prd
