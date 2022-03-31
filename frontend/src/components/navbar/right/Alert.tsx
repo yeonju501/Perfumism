@@ -17,7 +17,7 @@ function Alert() {
 
 	useEffect(() => {
 		token && getNumOfUnread();
-	}, [numOfUnread]);
+	}, [numOfUnread, isOn]);
 
 	const getNumOfUnread = async () => {
 		const num = await alertApi.getNumOfUnread();
