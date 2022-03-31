@@ -15,14 +15,11 @@ function Profile() {
 		<Container>
 			<Sidebar />
 			<Section>
-				<UserInfo></UserInfo>
-				{username && <UserName value={username}></UserName>}
+				<UserInfo />
+				{username && <UserName value={username} gender={gender}></UserName>}
 
 				{/* 추가정보 */}
-				<p>성별</p>
-				<p>알림 설정</p>
 				<Button>회원 탈퇴</Button>
-				<Button>제출</Button>
 			</Section>
 		</Container>
 	);

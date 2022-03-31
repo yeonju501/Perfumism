@@ -23,7 +23,7 @@ function UserName({ value, gender }: Props) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		// profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
 	};
 
 	useEffect(() => {
@@ -68,6 +68,7 @@ function UserName({ value, gender }: Props) {
 				/>
 				여자
 			</Label>
+			<button>제출</button>
 		</FormContainer>
 	);
 }
