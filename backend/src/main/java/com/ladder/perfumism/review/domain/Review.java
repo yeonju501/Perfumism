@@ -53,6 +53,15 @@ public class Review extends BaseEntity {
     public Review() {
     }
 
+    public Review(Long id, Perfume perfumeId, Member memberId, Integer grade, String content, Integer totalLike) {
+        this.id = id;
+        this.perfumeId = perfumeId;
+        this.memberId = memberId;
+        this.grade = grade;
+        this.content = content;
+        this.totalLike = totalLike;
+    }
+
     @Builder
     public Review(Perfume perfumeId, Member memberId, Integer grade, String content, Integer totalLike) {
         this.perfumeId = perfumeId;

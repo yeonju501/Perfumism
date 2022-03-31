@@ -82,9 +82,7 @@ public class ReviewService {
 
         if (!request.getGrade().equals(review.getGrade())) {
             review.changeGrade(request.getGrade());
-
             averageGrade(review.getPerfumeId());
-
         }
 
         review.changeContent(request.getContent());
