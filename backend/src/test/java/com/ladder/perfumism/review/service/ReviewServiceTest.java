@@ -17,6 +17,7 @@ import com.ladder.perfumism.review.domain.Review;
 import com.ladder.perfumism.review.domain.ReviewRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -127,5 +128,18 @@ public class ReviewServiceTest {
         //then
         assertThatExceptionOfType(BusinessException.class)
             .isThrownBy(() -> reviewService.writeReview(email, perfume.getId(), request));
+    }
+
+    @Test
+    @DisplayName("리뷰 수정")
+    public void changeReviewTest() {
+        String email = "test@test.com";
+        given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
+        ReviewWriteRequest request = new ReviewWriteRequest(0, "testChangedContent");
+        given(reviewRepository.save(any())).willReturn(review);
+
+        Review result = reviewService.changeReview(email, review.getId(), request);
+
+        assertThat(result.getContent()).isEqualTo(request.getContent());
     }
 }

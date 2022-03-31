@@ -74,7 +74,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void changeReview(String email, Long reviewId, ReviewWriteRequest request) {
+    public Review changeReview(String email, Long reviewId, ReviewWriteRequest request) {
         Review review = reviewRepository.findById(reviewId)
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
 
@@ -87,7 +87,7 @@ public class ReviewService {
 
         review.changeContent(request.getContent());
 
-        reviewRepository.save(review);
+        return reviewRepository.save(review);
     }
 
     private void isYourReview(String email, Review review) {
