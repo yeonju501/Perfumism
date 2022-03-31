@@ -49,7 +49,7 @@ public class ReviewLikeService {
     }
 
     private void doNotLikeYourReview(Member member, Review review) {
-        if (member.getId().equals(review.getMemberId().getId())) {
+        if (member.getEmail().equals(review.getMemberId().getEmail())) {
             throw new BusinessException(ErrorCode.REVIEW_NO_LIKE_YOURSELF);
         }
     }
@@ -60,19 +60,19 @@ public class ReviewLikeService {
         Review review = reviewRepository.findById(reviewId)
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
 
-        Boolean liked = reviewLikeRepository.existsByMemberIdAndReviewId(member,review);
+        Boolean liked = reviewLikeRepository.existsByMemberIdAndReviewId(member, review);
 
         return ReviewLikeResponse.from(liked);
     }
 
     @Transactional
-    public void notLikeThisReviewAnymore(String email, Long reviewId){
+    public void notLikeThisReviewAnymore(String email, Long reviewId) {
         Member member = memberService.findByEmail(email);
         Review review = reviewRepository.findById(reviewId)
             .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_FOUND_BY_ID));
 
         ReviewLike reviewLike = reviewLikeRepository.findByMemberIdAndReviewId(member, review)
-            .orElseThrow(()-> new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_BEFORE));
+            .orElseThrow(() -> new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_BEFORE));
 
         reviewLike.saveDeletedTime();
 
