@@ -14,6 +14,7 @@ const Button = styled(Link)`
 	&:hover {
 		background-color: #000;
 		color: #fff;
+		transition: 0.5s;
 	}
 `;
 
