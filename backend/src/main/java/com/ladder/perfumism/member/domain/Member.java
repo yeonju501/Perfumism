@@ -104,7 +104,9 @@ public class Member extends BaseEntity {
         }
     }
 
-    public void changeGender(int gender) {
-        this.gender = gender;
+    public void changeGender(Integer gender) {
+        if(!Objects.isNull(gender)){
+            this.gender = gender;
+        }
     }
 }
