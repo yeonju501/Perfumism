@@ -67,10 +67,11 @@ function Community() {
 
 const Container = styled.div`
 	height: 80vh;
+	width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 50rem;
+	margin: 0 25%;
 `;
 
 export default Community;
