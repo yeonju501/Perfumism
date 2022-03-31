@@ -10,7 +10,7 @@ public class MemberUpdateRequest {
     @ApiModelProperty(name = "유저네임", example = "연주")
     private String username;
 
-    @ApiModelProperty(name = "성별", example = "1")
+    @ApiModelProperty(name = "성별", position = 1, example = "1")
     @JsonProperty("gender")
     private Integer gender;
 
