@@ -23,20 +23,22 @@ function CommunityList({ articleData }: ArticleProps) {
 	return (
 		<Container>
 			<table>
-				<tr>
-					<th>번호</th>
-					<th>말머리</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>
-				{articleData.length > 0 ? (
-					articleData.map((articleItem, idx) => (
-						<CommunityListItem articleItem={articleItem} key={idx} />
-					))
-				) : (
-					<td>작성한 글이 없습니다.</td>
-				)}
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>말머리</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+					{articleData.length > 0 ? (
+						articleData.map((articleItem, idx) => (
+							<CommunityListItem articleItem={articleItem} key={idx} />
+						))
+					) : (
+						<td>작성한 글이 없습니다.</td>
+					)}
+				</thead>
 			</table>
 		</Container>
 	);
