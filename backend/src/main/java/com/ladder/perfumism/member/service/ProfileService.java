@@ -50,8 +50,9 @@ public class ProfileService {
     }
 
     @Transactional
-    public void changeGender(String email, MemberUpdateRequest request) {
+    public void changeMemberInfo(String email, MemberUpdateRequest request) {
         Member member = memberService.findByEmail(email);
+        member.changeUsername(request.getUsername());
         member.changeGender(request.getGender());
     }
 }

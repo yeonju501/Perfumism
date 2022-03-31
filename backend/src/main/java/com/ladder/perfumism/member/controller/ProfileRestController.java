@@ -74,19 +74,19 @@ public class ProfileRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/auth/members/username")
-    @ApiOperation(value = "닉네임 변경", notes = "(로그인 필요) 닉네임 변경 api")
-    public ResponseEntity<Void> changeUsername(@ApiParam(hidden = true) @AuthenticationPrincipal String email, @RequestBody
-        CheckDuplicateRequest request) {
-        profileService.changeUsername(email, request);
-        return ResponseEntity.noContent().build();
-    }
+//    @PutMapping("/auth/members/username")
+//    @ApiOperation(value = "닉네임 변경", notes = "(로그인 필요) 닉네임 변경 api")
+//    public ResponseEntity<Void> changeUsername(@ApiParam(hidden = true) @AuthenticationPrincipal String email, @RequestBody
+//        CheckDuplicateRequest request) {
+//        profileService.changeUsername(email, request);
+//        return ResponseEntity.noContent().build();
+//    }
 
-    @PutMapping("/auth/members/gender")
-    @ApiOperation(value = "성별 변경", notes = "(로그인 필요) 성별 변경 api")
-    public ResponseEntity<Void> changeGender(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
+    @PutMapping("/auth/members/info")
+    @ApiOperation(value = "회원정보 변경", notes = "(로그인 필요) 닉네임, 성별 api")
+    public ResponseEntity<Void> changeMemberInfo(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestBody MemberUpdateRequest request) {
-        profileService.changeGender(email, request);
+        profileService.changeMemberInfo(email, request);
         return ResponseEntity.noContent().build();
     }
 }

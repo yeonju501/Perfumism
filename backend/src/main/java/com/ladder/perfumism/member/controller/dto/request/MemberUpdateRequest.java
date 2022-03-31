@@ -7,14 +7,18 @@ import lombok.Getter;
 @Getter
 public class MemberUpdateRequest {
 
-    @ApiModelProperty(name = "성별", example = "0")
+    @ApiModelProperty(name = "유저네임", example = "연주")
+    private String username;
+
+    @ApiModelProperty(name = "성별", position = 1, example = "1")
     @JsonProperty("gender")
-    private int gender;
+    private Integer gender;
 
     public MemberUpdateRequest() {
     }
 
-    public MemberUpdateRequest(int gender) {
+    public MemberUpdateRequest(String username, Integer gender) {
+        this.username = username;
         this.gender = gender;
     }
 }
