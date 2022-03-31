@@ -14,6 +14,7 @@ interface ReviewApiType {
 	deleteReview: (reviewId: number) => Promise<AxiosResponse>;
 	getLatestReviews: () => Promise<AxiosResponse<{ reviews: [] }>>;
 	isReviewLiked: (reviewId: number | string) => Promise<AxiosResponse>;
+	addReviewLike: (reviewId: number) => Promise<AxiosResponse>;
 }
 
 const reviewApi: ReviewApiType = {
@@ -24,6 +25,7 @@ const reviewApi: ReviewApiType = {
 	deleteReview: (reviewId) => request.delete(`auth/reviews/${reviewId}`),
 	getLatestReviews: () => request.get("reviews/latest"),
 	isReviewLiked: (reviewId) => request.get(`auth/reviews/likes/${reviewId}`),
+	addReviewLike: (reviewId) => request.post(`auth/reviews/likes/${reviewId}`),
 };
 
 export default reviewApi;
