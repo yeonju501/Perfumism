@@ -23,7 +23,7 @@ function UserName({ value, gender }: Props) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		profileApi.changeUserInfo(userName, userGender);
+		profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
 	};
 
 	useEffect(() => {
