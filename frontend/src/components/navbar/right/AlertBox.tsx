@@ -1,7 +1,7 @@
 import { alertApi } from "apis";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Notifications from "./Notifications";
+import AlertContent from "./AlertContent";
 
 export interface NotificationProp {
 	notification_id: number;
@@ -13,6 +13,7 @@ export interface NotificationProp {
 	created_at: string;
 	read_at: string;
 }
+
 interface Button {
 	selected: boolean;
 }
@@ -43,7 +44,11 @@ function AlertBox() {
 			<SelectedButton onClick={() => setIsAll(!isAll)} selected={!isAll}>
 				Unread
 			</SelectedButton>
-			<Notifications notifications={notifications} />
+			{notifications.length > 0 ? (
+				notifications.map((notification) => <AlertContent notification={notification} />)
+			) : (
+				<NoAlert>알림이 없습니다</NoAlert>
+			)}
 		</Container>
 	);
 }
@@ -84,4 +89,9 @@ const SelectedButton = styled.button<Button>`
 	border: none;
 	border-radius: 0.4rem;
 	cursor: pointer;
+`;
+
+const NoAlert = styled.p`
+	text-align: center;
+	font-size: 1.5rem;
 `;
