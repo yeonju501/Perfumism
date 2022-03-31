@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.ladder.perfumism.auth.domain.Authority;
 import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.perfume.domain.Brand;
@@ -149,5 +150,20 @@ public class ReviewLikeServiceTest {
 
         //then
         assertThat(reviewLike.getDeletedAt()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("ERROR 좋아요 하지 않은 리뷰")
+    void youDontLikeThisReviewTest() {
+        //given
+        String email = "test2@test.com";
+        given(memberService.findByEmail(email)).willReturn(member2);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.findByMemberIdAndReviewId(member2, review1)).willThrow(
+            new BusinessException(ErrorCode.REVIEW_NOT_LIKE_THIS_BEFORE));
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> reviewLikeService.notLikeThisReviewAnymore(email, review1.getId()));
     }
 }
