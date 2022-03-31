@@ -1,4 +1,4 @@
-import { DetailHeader, DetailContent } from "components/community";
+import { DetailHeader, DetailContent, DetailComment } from "components/community";
 import styled from "styled-components";
 
 function CommunityDetaul() {
@@ -6,6 +6,7 @@ function CommunityDetaul() {
 		<Container>
 			<DetailHeader />
 			<DetailContent />
+			<DetailComment />
 		</Container>
 	);
 }
