@@ -45,7 +45,9 @@ function AlertBox() {
 				Unread
 			</SelectedButton>
 			{notifications.length > 0 ? (
-				notifications.map((notification) => <AlertContent notification={notification} />)
+				notifications.map((notification) => (
+					<AlertContent notification={notification} key={notification.notification_id} />
+				))
 			) : (
 				<NoAlert>알림이 없습니다</NoAlert>
 			)}
