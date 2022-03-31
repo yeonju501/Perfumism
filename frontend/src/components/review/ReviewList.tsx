@@ -41,7 +41,9 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	}, [currentPage]);
 
 	useEffect(() => {
-		reRenderReviews();
+		setCurrentPage(0);
+		setReviews([]);
+		getReviews(0);
 	}, [updateReviews]);
 
 	const getReviews = async (currentPage: number) => {
@@ -58,21 +60,22 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	const handleDeleteClick = async (reviewId: number) => {
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await reviewApi.deleteReview(reviewId);
-			reRenderReviews;
+			setUpdateReviews((prev) => !prev);
 		}
-	};
-
-	const reRenderReviews = () => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
 	};
 
 	const handleUpdateClick = (reviewId: number) => {
 		setIsEditable(reviewId);
 	};
 
-	console.log(userId);
+	// const handleHeartClick = async () => {
+	// 	setReviews([]);
+	// 	for (let i = 0; i < currentPage; i++) {
+	// 		const res = await reviewApi.getReviews(perfumeId, i);
+	// 		setReviews((prev) => prev.concat(res.data.reviews));
+	// 	}
+	// };
+
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
@@ -96,7 +99,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 						<div>
 							<p>
 								{[...Array(review.grade)].map(() => (
-									<FontAwesomeIcon icon={star} />
+									<FontAwesomeIcon icon={star} key={Math.random()} />
 								))}
 							</p>
 							<p>{review.content}</p>
@@ -106,6 +109,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 					{token && <LikeButton reviewId={review.review_id} />}
 					<FontAwesomeIcon icon={heart} />
 					<span>{review.likes}</span>
+
 					<hr />
 				</li>
 			))}

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import useLikeButton from "../button/hooks/useLikeButton";
+import perfumeApi from "apis/perfume";
 
 interface LikeButtonProps {
 	perfumeId: string;
@@ -9,8 +10,17 @@ interface LikeButtonProps {
 }
 
 function LikeButton({ center, perfumeId }: LikeButtonProps) {
-	const type = "perfume";
-	const { isLiked, handleHeartClick } = useLikeButton({ type, typeId: perfumeId });
+	const { isLiked, handleHeartClick } = useLikeButton({
+		getIsLiked: () => {
+			return perfumeApi.isPerfumeLiked(perfumeId);
+		},
+		addLike: () => {
+			return perfumeApi.addFavoritePerfume(perfumeId);
+		},
+		cancelLike: () => {
+			return perfumeApi.deleteFavoritePerfume(perfumeId);
+		},
+	});
 
 	return (
 		<Button center={center} isLiked={isLiked} onClick={handleHeartClick}>

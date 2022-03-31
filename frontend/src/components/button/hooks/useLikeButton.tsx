@@ -1,13 +1,12 @@
-import perfumeApi from "apis/perfume";
-import reviewApi from "apis/review";
 import { useEffect, useState } from "react";
 
 interface useLikeButtonProps {
-	type: string;
-	typeId: string | number;
+	getIsLiked: () => Promise<any>;
+	addLike: () => Promise<any>;
+	cancelLike: () => Promise<any>;
 }
 
-const useLikeButton = ({ type, typeId }: useLikeButtonProps) => {
+const useLikeButton = ({ getIsLiked, addLike, cancelLike }: useLikeButtonProps) => {
 	const [isLiked, setIsLiked] = useState(false);
 
 	useEffect(() => {
@@ -15,17 +14,12 @@ const useLikeButton = ({ type, typeId }: useLikeButtonProps) => {
 	}, []);
 
 	const isTypeLiked = async () => {
-		if (type === "perfume") {
-			await perfumeApi.isPerfumeLiked(typeId).then((res) => setIsLiked(res.data.is_liked));
-		} else if (type === "review") {
-			await reviewApi.isReviewLiked(typeId).then((res) => setIsLiked(res.data.is_liked));
-		}
+		const res = await getIsLiked();
+		setIsLiked(res.data.is_liked);
 	};
 
 	const handleHeartClick = async () => {
-		isLiked
-			? await perfumeApi.deleteFavoritePerfume(typeId)
-			: await perfumeApi.addFavoritePerfume(typeId);
+		isLiked ? await cancelLike() : await addLike();
 		setIsLiked((prev) => !prev);
 	};
 
