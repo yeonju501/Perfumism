@@ -26,9 +26,9 @@ interface ArticleProps {
 function Content({ articleData }: ArticleProps) {
 	return (
 		<Container>
-			<Title>제목</Title>
-			<SubTitle>작성자</SubTitle>
-			<Body>내용</Body>
+			<Title>{articleData.title}</Title>
+			<SubTitle>{articleData.member_name}</SubTitle>
+			<Body>{articleData.content}</Body>
 		</Container>
 	);
 }
@@ -36,7 +36,7 @@ function Content({ articleData }: ArticleProps) {
 const Container = styled.div`
 	width: 100%;
 	display: flex;
-	margin-top: 8rem;
+	margin-top: 2rem;
 	flex-direction: column;
 	border-style: inset;
 `;
