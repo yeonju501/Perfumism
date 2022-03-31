@@ -19,8 +19,8 @@ function AlertContent({ notification }: Prop) {
 			onClick={() => readNotification(notification.notification_id, notification.article_id)}
 		>
 			{notification.type === "comment"
-				? `${notification.comment_content}`
-				: `${notification.article_title}`}
+				? `${notification.article_title}`
+				: `${notification.comment_content}`}
 			에 새로운 댓글이 달렸습니다
 		</Notification>
 	);
