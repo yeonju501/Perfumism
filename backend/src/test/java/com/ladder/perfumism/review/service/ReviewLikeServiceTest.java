@@ -92,4 +92,17 @@ public class ReviewLikeServiceTest {
         assertThatExceptionOfType(BusinessException.class)
             .isThrownBy(() -> reviewLikeService.likeReview(email, review.getId()));
     }
+
+    @Test
+    @DisplayName("ERROR 자추")
+    void narcissismTest() {
+        // given
+        String email = "test1@test.com";
+        given(memberService.findByEmail(email)).willReturn(member1);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review));
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> reviewLikeService.likeReview(email, review.getId()));
+    }
 }
