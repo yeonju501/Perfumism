@@ -15,7 +15,7 @@ interface ReviewApiType {
 	getLatestReviews: () => Promise<AxiosResponse<{ reviews: [] }>>;
 	isReviewLiked: (reviewId: number | string) => Promise<AxiosResponse>;
 	addReviewLike: (reviewId: number) => Promise<AxiosResponse>;
-	cancelReviewLike: (reviewId: number) => Promise<AxiosResponse>;;
+	cancelReviewLike: (reviewId: number) => Promise<AxiosResponse>;
 }
 
 const reviewApi: ReviewApiType = {
