@@ -41,13 +41,15 @@ public class OAuthService {
     private String GOOGLE_CLIENT_ID;
     @Value("${oauth.google.client-secret}")
     private String GOOGLE_CLIENT_SECRET;
-    private static final String GOOGLE_REDIRECT_URL = "http://localhost:3000/login/oauth2/code/google";
+    @Value("${oauth.google.redirect-url}")
+    private String GOOGLE_REDIRECT_URL;
     private static final String GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
     private static final String GOOGLE_USERINFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
 
     @Value("${oauth.kakao.client-id}")
     private String KAKAO_CLIENT_ID;
-    private static final String KAKAO_REDIRECT_URL = "http://localhost:3000/login/oauth2/code/kakao";
+    @Value("${oauth.kakao.redirect-url}")
+    private String KAKAO_REDIRECT_URL;
     private static final String KAKAO_TOKEN_URL = "https://kauth.kakao.com/oauth/token";
     private static final String KAKAO_USERINFO_URL = "https://kapi.kakao.com/v2/user/me";
     private static final String GRANT_TYPE = "authorization_code";
