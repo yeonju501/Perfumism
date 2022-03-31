@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 interface Perfume {
 	content: string;
-	created_at: Array<CreatedDate>;
+	created_at: [];
 	grade: number;
 	member_id: number;
 	member_image?: string;
@@ -11,13 +13,6 @@ interface Perfume {
 	perfume_id: number;
 	perfume_name: string;
 	review_id: number;
-}
-
-interface CreatedDate {
-	0: number;
-	1: number;
-	2: number;
-	3: number;
 }
 
 interface Review {
@@ -33,6 +28,10 @@ function ReviewText({ review }: Review) {
 			<DateAndName>
 				{date} {review.member_name}
 			</DateAndName>
+			<Grade>
+				<FontAwesome icon={faStar} />
+				{review.grade}
+			</Grade>
 		</Container>
 	);
 }
@@ -69,4 +68,15 @@ const DateAndName = styled.p`
 	font-size: 1.3rem;
 	position: absolute;
 	top: 34rem;
+`;
+
+const Grade = styled.p`
+	font-size: 1.3rem;
+	position: absolute;
+	top: 37rem;
+`;
+
+const FontAwesome = styled(FontAwesomeIcon)`
+	color: rgb(244, 174, 61);
+	margin-right: 0.5rem;
 `;
