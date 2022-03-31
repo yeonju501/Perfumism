@@ -14,6 +14,7 @@ import com.ladder.perfumism.perfume.service.PerfumeService;
 import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.review.domain.Review;
+import com.ladder.perfumism.review.domain.ReviewLikeRepository;
 import com.ladder.perfumism.review.domain.ReviewRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,9 @@ public class ReviewServiceTest {
 
     @Mock
     private ReviewRepository reviewRepository;
+
+    @Mock
+    private ReviewLikeRepository reviewLikeRepository;
 
     private Member member;
     private Perfume perfume;
@@ -140,14 +144,14 @@ public class ReviewServiceTest {
         given(reviewRepository.save(any())).willReturn(review);
 
         // when
-        Review result = reviewService.changeReview(email, review.getId(), request);
+        reviewService.changeReview(email, review.getId(), request);
 
         //then
-        assertThat(result.getContent()).isEqualTo(request.getContent());
+        assertThat(review.getContent()).isEqualTo(request.getContent());
     }
 
     @Test
-    @DisplayName("ERROR (수정 시) 자신의 리뷰가 아닐 때")
+    @DisplayName("ERROR 자신의 리뷰가 아닐 때")
     public void notMyReview() {
         // given
         String email = "notmyreview@test.com";
@@ -157,5 +161,21 @@ public class ReviewServiceTest {
         // when & then
         assertThatExceptionOfType(BusinessException.class)
             .isThrownBy(() -> reviewService.changeReview(email, review.getId(), request));
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> reviewService.removeReview(email, review.getId()));
+    }
+
+    @Test
+    @DisplayName("리뷰 삭제")
+    public void deleteReview() {
+        // given
+        String email = "test@test.com";
+        given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
+
+        // when
+        reviewService.removeReview(email, review.getId());
+
+        // then
+        assertThat(review.getDeletedAt()).isNotNull();
     }
 }
