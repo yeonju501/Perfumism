@@ -35,7 +35,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public Long writeReview(String email, Long perfumeId, ReviewWriteRequest request) {
+    public Review writeReview(String email, Long perfumeId, ReviewWriteRequest request) {
         Member member = memberService.findByEmail(email);
         Perfume perfume = perfumeService.findById(perfumeId);
 
@@ -46,7 +46,7 @@ public class ReviewService {
         averageGrade(perfume);
         perfume.increaseTotalSurvey();
 
-        return review.getId();
+        return review;
     }
 
     private void averageGrade(Perfume perfume) {
