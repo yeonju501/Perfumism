@@ -24,7 +24,9 @@ function ReviewText({ review }: Review) {
 	return (
 		<Container to={`/perfume/${review.perfume_id}`}>
 			<PerfumeName>{review.perfume_name}</PerfumeName>
-			<Content>{review.content.slice(0, 170)}</Content>
+			<Content>
+				{review.content.length >= 90 ? `${review.content.slice(0, 90)}...` : review.content}
+			</Content>
 			<DateAndName>
 				{date} {review.member_name}
 			</DateAndName>
