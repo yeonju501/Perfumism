@@ -23,7 +23,6 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const nextPage = (strAnswer: string) => {
 		const nextUrl = getNextUrl() + strAnswer;
 		if (surveyListItem["질문번호"] === "5") {
-			// getRecommendData();
 			navigate({
 				pathname: "/loading",
 				search: nextUrl,
