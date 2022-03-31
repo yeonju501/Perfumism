@@ -6,10 +6,7 @@ import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
-import com.ladder.perfumism.member.controller.dto.request.MemberUpdateRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
-import com.ladder.perfumism.member.controller.dto.response.CodeResponse;
-import com.ladder.perfumism.member.controller.dto.response.MemberInfoResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.domain.PasswordCode;
@@ -61,13 +58,6 @@ public class MemberService {
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
     }
 
-    @Transactional(readOnly = true)
-    public MemberInfoResponse showMemberInfo(String email) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        return MemberInfoResponse.from(member);
-    }
-
     @Transactional
     public void findPassword(FindPasswordRequest request) {
         Member member = findByEmail(request.getEmail());
@@ -107,21 +97,6 @@ public class MemberService {
     public void changePassword(ChangePasswordRequest request) {
         Member member = findByEmail(request.getEmail());
         member.changePassword(passwordEncoder, request.getPassword());
-    }
-
-    @Transactional
-    public void changeMemberInfo(String email, MemberUpdateRequest request) {
-        Member member = memberRepository.findByEmail(email).
-            orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        member.changeUsername(request.getUsername());
-        member.changePassword(passwordEncoder, request.getPassword());
-    }
-
-    @Transactional
-    public void changeProfileImage(String email, String url) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        member.changeImage(url);
     }
 
     private void checkDuplicateEmail(String email) {

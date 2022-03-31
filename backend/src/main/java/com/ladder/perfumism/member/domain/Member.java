@@ -103,4 +103,8 @@ public class Member extends BaseEntity {
             this.image = imageUrl;
         }
     }
+
+    public void changeGender(int gender) {
+        this.gender = gender;
+    }
 }
