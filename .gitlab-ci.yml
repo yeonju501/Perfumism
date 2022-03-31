@@ -11,8 +11,8 @@ build-back:
   before_script:
     - cd $CI_PROJECT_DIR/backend
     - mkdir ./src/main/resources
-    - rm -rf build.gradle
-    - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
+    # - rm -rf build.gradle
+    # - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
     - rm -rf ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/WEBSECURITY ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
@@ -60,6 +60,28 @@ build-front:
   tags:
     - prd
 
+build-data:
+  stage: build
+  only:
+    - master
+    - develop
+
+  before_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 빌드 시작"
+    - ls
+
+  script:
+    - cd $Ci_PROJECT_DIR/data
+    - pwd
+
+  after_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 빌드 끝"
+
+  tags:
+    - prd
+
 deploy-back:
   stage: deploy
   only:
@@ -88,5 +110,27 @@ deploy-front:
     - sudo ./restart_frontend.sh
   after_script:
     - echo "프론트 배포 끝"
+  tags:
+    - prd
+
+deploy-data:
+  stage: deploy
+  only:
+    - master
+    - develop
+
+  before_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 배포 시작"
+    - ls
+
+  script:
+    - cd $Ci_PROJECT_DIR/data
+    - pwd
+
+  after_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 배포 끝"
+
   tags:
     - prd
