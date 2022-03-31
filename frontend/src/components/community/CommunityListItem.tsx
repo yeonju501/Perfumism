@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 interface ArticleProps {
 	articleItem: {
@@ -23,9 +24,16 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 		<Container>
 			<td>{articleItem["articleList"][0]["article_id"]}</td>
 			<td>{articleItem["articleList"][0]["subject"]}</td>
-			<td>{articleItem["articleList"][0]["title"]}</td>
+			<td>
+				<Link
+					to={`/community/${articleItem["articleList"][0]["article_id"]}`}
+					state={{ articleId: articleItem["articleList"][0]["article_id"] }}
+				>
+					{articleItem["articleList"][0]["title"]}
+				</Link>
+			</td>
 			<td>{articleItem["articleList"][0]["member_name"]}</td>
-			<td>{articleItem["articleList"][0]["createAt"]}</td>
+			<td>{articleItem["articleList"][0]["createAt"].slice(0, 9)}</td>
 		</Container>
 	);
 }
