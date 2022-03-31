@@ -23,13 +23,12 @@ function UserName({ value, gender }: Props) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		profileApi.changeUserInfo(userName, userGender);
 	};
 
 	useEffect(() => {
 		const get = async () => {
 			const res = await profileApi.getUserInfo();
-			console.log(res.data);
 			await dispatch(SET_USER(res.data));
 		};
 		get();
