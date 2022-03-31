@@ -2,7 +2,7 @@ from sklearn.cluster import DBSCAN
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+from .wordCloud import word_cloud
 
 mapping_table = [
     {
@@ -67,6 +67,9 @@ def recommend_like_based(accord_list):
 def recommend_survey(answer_list):
     accord_list = []
     accord_list += mapping_table[0][answer_list[0]] + mapping_table[1][answer_list[1]]
+
+    filename = word_cloud(accord_list)
+
     accord_list = ' '.join(accord_list)
   
     input_data = {
@@ -119,7 +122,7 @@ def recommend_survey(answer_list):
 
     result = new_df.iloc[sim_index][:3].to_dict('list')['id']
 
-    return result
+    return [result, filename]
 
 if __name__ == '__main__':
     # arr = "wine vanilla sweet woody aromatic leather fruity warm spicy powdery animalic fresh violet"
