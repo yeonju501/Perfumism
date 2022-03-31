@@ -15,7 +15,7 @@ const profileApi: ProfileApiType = {
 	getUserInfo: () => request.get(`auth/members`),
 	setUserImage: (formData) => imageRequest.post(`auth/members/img`, formData),
 	checkPassword: (value) => request.post("auth/members/check-pw", value),
-	changeUserInfo: (username, gender) => request.put("auth/members/username", { username, gender }),
+	changeUserInfo: (username, gender) => request.put("auth/members/info", { username, gender }),
 };
 
 export default profileApi;
