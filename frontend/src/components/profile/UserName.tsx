@@ -1,27 +1,29 @@
 import { profileApi, authApi } from "apis";
 import { FormContainer } from "components/account/Container";
 import { Input, Label } from "components/account/Index";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { SET_USER } from "store/user";
-import { RootState } from "store";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 interface Props {
 	value: string;
+	gender: number;
 }
 
-function UserName({ value }: Props) {
+function UserName({ value, gender }: Props) {
 	const [userName, setUserName] = useState(value);
+	const [userGender, setGender] = useState(gender);
 	const dispatch = useDispatch();
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setUserName(e.target.value);
+		if (e.target.type === "text") setUserName(e.target.value);
+		if (e.target.type === "radio") setGender(+e.target.value);
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		profileApi.changeUsername(userName).then(() => location.reload());
+		profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
 	};
 
 	useEffect(() => {
@@ -42,6 +44,30 @@ function UserName({ value }: Props) {
 				placeholder="변경할 닉네임을 입력해주세요"
 				value={userName}
 			/>
+			<br />
+			<Label htmlFor="gender">성별</Label>
+			<Label htmlFor="male">
+				<input
+					type="radio"
+					name="gender"
+					id="male"
+					value="0"
+					onChange={handleChange}
+					checked={userGender === 0}
+				/>
+				남자
+			</Label>
+			<Label htmlFor="female">
+				<input
+					type="radio"
+					name="gender"
+					id="female"
+					value="1"
+					onChange={handleChange}
+					checked={userGender === 1}
+				/>
+				여자
+			</Label>
 		</FormContainer>
 	);
 }
