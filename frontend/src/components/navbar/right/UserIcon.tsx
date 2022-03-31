@@ -6,6 +6,7 @@ import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { persistor } from "index";
 
 interface Props {
 	usericon?: string;
@@ -18,6 +19,7 @@ function UserIcon() {
 
 	const logout = () => {
 		authApi.logout();
+		persistor.purge();
 		location.reload();
 	};
 
