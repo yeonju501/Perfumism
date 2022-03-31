@@ -133,13 +133,29 @@ public class ReviewServiceTest {
     @Test
     @DisplayName("리뷰 수정")
     public void changeReviewTest() {
+        // given
         String email = "test@test.com";
         given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
         ReviewWriteRequest request = new ReviewWriteRequest(0, "testChangedContent");
         given(reviewRepository.save(any())).willReturn(review);
 
+        // when
         Review result = reviewService.changeReview(email, review.getId(), request);
 
+        //then
         assertThat(result.getContent()).isEqualTo(request.getContent());
+    }
+
+    @Test
+    @DisplayName("ERROR (수정 시) 자신의 리뷰가 아닐 때")
+    public void notMyReview() {
+        // given
+        String email = "notmyreview@test.com";
+        given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
+        ReviewWriteRequest request = new ReviewWriteRequest(0, "testChangedContent");
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> reviewService.changeReview(email, review.getId(), request));
     }
 }
