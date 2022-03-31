@@ -6,23 +6,27 @@ import styled from "styled-components";
 
 interface CustomizedState {
 	recommendData: {
-		perfume_id: string;
-		perfume_name: string;
-		image: string;
-	}[];
+		accords: [];
+		filename: string;
+		perfume_list: {
+			perfume_id: string;
+			perfume_name: string;
+			image: string;
+		}[];
+	};
 }
 
 function SurveyResult() {
 	const { recommendData } = useLocation().state as CustomizedState;
 	const accordData = {
-		accords: ["powdery", "woody", "violet"],
+		accords: recommendData["accords"],
 	};
 
 	return (
 		<Container>
 			<AccordRecommend accords={accordData["accords"]} />
 			<WordCloud />
-			<PerfumeRecommend perfumeData={recommendData} />
+			<PerfumeRecommend perfumeData={recommendData["perfume_list"]} />
 		</Container>
 	);
 }
