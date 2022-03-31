@@ -109,7 +109,7 @@ deploy-data:
     - ls
 
   script:
-    - cd $Ci_PROJECT_DIR/data
+    - cd $CI_PROJECT_DIR/data
     - pwd
 
   after_script:
