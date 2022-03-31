@@ -71,6 +71,9 @@ const Container = styled.div`
 	background-color: #fff;
 	padding: 1.5rem;
 	color: #000;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 	@media ${(props) => props.theme.mobile} {
 		right: 0;
 	}
