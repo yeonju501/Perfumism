@@ -36,6 +36,7 @@ public class MemberInfoResponse {
         this.id = id;
         this.email = email;
         this.username = username;
+        this.gender = gender;
         this.image = image;
         this.socialId = socialId;
     }
