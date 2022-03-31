@@ -6,6 +6,7 @@ interface ProfileApiType {
 	getUserInfo: () => Promise<AxiosResponse>;
 	setUserImage: (formData: FormData) => Promise<AxiosResponse>;
 	checkPassword: (value: string) => Promise<AxiosResponse>;
+	changePassword: (value: string) => Promise<AxiosResponse>;
 	changeUserInfo: (username: string, gender: number) => Promise<AxiosResponse>;
 }
 
@@ -15,6 +16,7 @@ const profileApi: ProfileApiType = {
 	getUserInfo: () => request.get(`auth/members`),
 	setUserImage: (formData) => imageRequest.post(`auth/members/img`, formData),
 	checkPassword: (value) => request.post("auth/members/check-pw", value),
+	changePassword: (value) => request.put("auth/members/pw", value),
 	changeUserInfo: (username, gender) => request.put("auth/members/info", { username, gender }),
 };
 
