@@ -8,6 +8,7 @@ interface ProfileApiType {
 	checkPassword: (value: string) => Promise<AxiosResponse>;
 	changePassword: (value: string) => Promise<AxiosResponse>;
 	changeUserInfo: (username: string, gender: number) => Promise<AxiosResponse>;
+	getMyArticles: (currentPage: number) => Promise<AxiosResponse>;
 }
 
 const profileApi: ProfileApiType = {
@@ -18,6 +19,7 @@ const profileApi: ProfileApiType = {
 	checkPassword: (value) => request.post("auth/members/check-pw", value),
 	changePassword: (value) => request.put("auth/members/pw", value),
 	changeUserInfo: (username, gender) => request.put("auth/members/info", { username, gender }),
+	getMyArticles: (currentPage) => request.get(`auth/articles/members?page=${currentPage}&size=10`),
 };
 
 export default profileApi;
