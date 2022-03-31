@@ -25,7 +25,7 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 			<td>{articleItem["articleList"][0]["subject"]}</td>
 			<td>{articleItem["articleList"][0]["title"]}</td>
 			<td>{articleItem["articleList"][0]["member_name"]}</td>
-			<td>{articleItem["articleList"][0]["createAt"]}</td>
+			<td>{articleItem["articleList"][0]["createAt"].slice(0, 9)}</td>
 		</Container>
 	);
 }
