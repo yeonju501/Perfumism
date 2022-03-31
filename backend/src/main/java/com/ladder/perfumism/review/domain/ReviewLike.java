@@ -35,6 +35,12 @@ public class ReviewLike extends BaseEntity {
     public ReviewLike() {
     }
 
+    public ReviewLike(Long id, Review reviewId, Member memberId) {
+        this.id = id;
+        this.reviewId = reviewId;
+        this.memberId = memberId;
+    }
+
     @Builder
     public ReviewLike(Review reviewId, Member memberId) {
         this.reviewId = reviewId;
