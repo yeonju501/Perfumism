@@ -85,7 +85,7 @@ public class ProfileRestController {
     @PutMapping("/auth/members/gender")
     @ApiOperation(value = "성별 변경", notes = "(로그인 필요) 성별 변경 api")
     public ResponseEntity<Void> changeGender(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
-        MemberUpdateRequest request) {
+        @RequestBody MemberUpdateRequest request) {
         profileService.changeGender(email, request);
         return ResponseEntity.noContent().build();
     }
