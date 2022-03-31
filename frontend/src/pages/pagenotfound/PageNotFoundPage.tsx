@@ -1,11 +1,9 @@
-import PageNotFound from "assets/pagenotfound.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function PageNotFoundPage() {
 	return (
 		<Container>
-			<Image src={PageNotFound} alt="" />
 			<Header>Page not found</Header>
 			<Button to="/">BACK HOME</Button>
 		</Container>
@@ -25,11 +23,6 @@ const Header = styled.h1`
 	text-align: center;
 	font-size: 5rem;
 	margin-top: 0;
-`;
-
-const Image = styled.img`
-	width: 50rem;
-	height: 50rem;
 `;
 
 const Button = styled(Link)`
