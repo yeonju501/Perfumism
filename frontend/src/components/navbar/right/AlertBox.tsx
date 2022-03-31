@@ -45,7 +45,9 @@ function AlertBox() {
 				Unread
 			</SelectedButton>
 			{notifications.length > 0 ? (
-				notifications.map((notification) => <AlertContent notification={notification} />)
+				notifications.map((notification) => (
+					<AlertContent notification={notification} key={notification.notification_id} />
+				))
 			) : (
 				<NoAlert>알림이 없습니다</NoAlert>
 			)}
@@ -60,8 +62,9 @@ const Container = styled.div`
 	height: 40rem;
 	overflow-y: scroll;
 	position: absolute;
-	border: 1px solid #000;
-	border-radius: 0.4rem;
+	border: none;
+	border-radius: 0.9rem;
+	box-shadow: 0 0 0.5rem gray;
 	right: -8rem;
 	margin-top: 1rem;
 	z-index: 10;
