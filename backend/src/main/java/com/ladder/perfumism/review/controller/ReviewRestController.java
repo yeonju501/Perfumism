@@ -4,6 +4,7 @@ import com.ladder.perfumism.review.controller.dto.request.ReviewWriteRequest;
 import com.ladder.perfumism.review.controller.dto.response.ReviewLatestPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewPageResponse;
 import com.ladder.perfumism.review.controller.dto.response.ReviewResponse;
+import com.ladder.perfumism.review.domain.Review;
 import com.ladder.perfumism.review.service.ReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,8 +47,8 @@ public class ReviewRestController {
     @ApiImplicitParam(name = "perfume_id", value = "리뷰를 등록할 향수 ID", required = true)
     public ResponseEntity<Void> createReview(@ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @RequestBody ReviewWriteRequest request, @PathVariable(value = "perfume_id") Long perfumeId) {
-        Long newReviewId = reviewService.writeReview(email, perfumeId, request);
-        URI uri = URI.create("/api/reviews/" + perfumeId + "/" + newReviewId);
+        Review review = reviewService.writeReview(email, perfumeId, request);
+        URI uri = URI.create("/api/reviews/" + perfumeId + "/" + review.getId());
         return ResponseEntity.created(uri).build();
     }
 

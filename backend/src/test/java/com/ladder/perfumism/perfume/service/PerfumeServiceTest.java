@@ -90,6 +90,8 @@ class PerfumeServiceTest {
     @Test
     @DisplayName("존재하지 않는 퍼퓸 ID를 조회하면 ErrorCode S01이 발생한다.")
     void notExistPerfumeId() {
+        when(perfumeRepository.findById(any())).thenThrow(new BusinessException(ErrorCode.PERFUME_NOT_FOUND_BY_ID));
+
         // when & then
         Assertions.assertThatExceptionOfType(BusinessException.class)
             .isThrownBy(() -> perfumeService.viewDetailPerfume(PERFUME_ID))
