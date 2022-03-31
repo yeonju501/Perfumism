@@ -78,7 +78,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("리뷰 저장")
-    public void writeReviewTest() {
+    void writeReviewTest() {
         // given
         String email = "test@test.com";
         // given() 은 ()속의 메서드를 테스트 진행 중에 만난다면 willReturn 의 ()속의 값을 반환해주는 메서드다.
@@ -97,7 +97,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("리뷰 조회")
-    public void getReviewPageTest() {
+    void getReviewPageTest() {
         // given
         Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE, Sort.by("id").descending());
 
@@ -121,7 +121,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("ERROR 이미 작성한 리뷰")
-    public void alreadyWrittenTest() {
+    void alreadyWrittenTest() {
         // given
         String email = "test@test.com";
         given(memberService.findByEmail(email)).willReturn(member);
@@ -136,7 +136,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("리뷰 수정")
-    public void changeReviewTest() {
+    void changeReviewTest() {
         // given
         String email = "test@test.com";
         given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
@@ -152,7 +152,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("ERROR 자신의 리뷰가 아닐 때")
-    public void notMyReview() {
+    void notMyReview() {
         // given
         String email = "notmyreview@test.com";
         given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
@@ -167,7 +167,7 @@ public class ReviewServiceTest {
 
     @Test
     @DisplayName("리뷰 삭제")
-    public void deleteReview() {
+    void deleteReview() {
         // given
         String email = "test@test.com";
         given(reviewRepository.findById(1L)).willReturn(Optional.ofNullable(review));
