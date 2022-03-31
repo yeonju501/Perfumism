@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { NotificationProp } from "./AlertBox";
 import { alertApi } from "apis";
 
@@ -7,15 +6,19 @@ interface Prop {
 	notification: NotificationProp;
 }
 
+interface NotificationProps {
+	isRead: string;
+}
+
 function AlertContent({ notification }: Prop) {
-	const navigate = useNavigate();
 	const readNotification = (notificationId: number, articleId: number) => {
 		alertApi.readNotification(notificationId);
-		navigate(`/${articleId}`);
+		location.replace(`/${articleId}`);
 	};
 
 	return (
 		<Notification
+			isRead={notification.read_at}
 			onClick={() => readNotification(notification.notification_id, notification.article_id)}
 		>
 			{notification.type === "comment"
@@ -28,10 +31,12 @@ function AlertContent({ notification }: Prop) {
 
 export default AlertContent;
 
-const Notification = styled.p`
-	margin: 0 auto;
+const Notification = styled.p<NotificationProps>`
 	display: block;
 	text-decoration: none;
-	color: #000;
+	color: ${({ isRead }) => (isRead ? "gray" : "black")};
 	margin-bottom: 1rem;
+	font-size: 1.5rem;
+	font-weight: ${({ isRead }) => (isRead ? "100" : "700")};
+	cursor: pointer;
 `;
