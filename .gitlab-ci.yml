@@ -60,6 +60,28 @@ build-front:
   tags:
     - prd
 
+build-data:
+  stage: build
+  only:
+    - master
+    - develop
+
+  before_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 빌드 시작"
+    - ls
+
+  script:
+    - cd $Ci_PROJECT_DIR/data
+    - pwd
+
+  after_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 빌드 끝"
+
+  tags:
+    - prd
+
 deploy-back:
   stage: deploy
   only:
@@ -88,5 +110,27 @@ deploy-front:
     - sudo ./restart_frontend.sh
   after_script:
     - echo "프론트 배포 끝"
+  tags:
+    - prd
+
+deploy-data:
+  stage: deploy
+  only:
+    - master
+    - develop
+
+  before_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 배포 시작"
+    - ls
+
+  script:
+    - cd $Ci_PROJECT_DIR/data
+    - pwd
+
+  after_script:
+    - cd $CI_PROJECT_DIR/data
+    - echo "데이터 배포 끝"
+
   tags:
     - prd
