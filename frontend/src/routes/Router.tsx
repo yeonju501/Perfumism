@@ -25,6 +25,7 @@ import PrivateRoute from "./PrivateRoute";
 import InputCodePage from "pages/account/find-pw/InputCodePage";
 import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
 import SuccessPage from "pages/account/find-pw/SuccessPage";
+import CheckPassword from "pages/profile/CheckPassword";
 
 function Router() {
 	return (
@@ -55,6 +56,7 @@ function Router() {
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
+				<Route path="/profile/check-password" element={<CheckPassword />} />
 			</Routes>
 		</BrowserRouter>
 	);

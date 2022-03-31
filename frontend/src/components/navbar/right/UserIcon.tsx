@@ -23,7 +23,10 @@ function UserIcon() {
 
 	return token ? (
 		<>
-			<FontAwesome icon={faUser} onClick={() => navigate(`profile/${userName}`)} />
+			<FontAwesome
+				icon={faUser}
+				onClick={() => navigate("profile/check-password", { state: userName })}
+			/>
 			<FontAwesome icon={faArrowRightFromBracket} usericon="1" onClick={logout} />
 		</>
 	) : (
