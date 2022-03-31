@@ -11,8 +11,8 @@ build-back:
   before_script:
     - cd $CI_PROJECT_DIR/backend
     - mkdir ./src/main/resources
-    - rm -rf build.gradle
-    - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
+    # - rm -rf build.gradle
+    # - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
     - rm -rf ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/WEBSECURITY ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
