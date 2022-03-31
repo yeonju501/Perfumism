@@ -10,7 +10,7 @@ import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.Perfume;
-import com.ladder.perfumism.perfume.domain.PerfumeRepository;
+import com.ladder.perfumism.review.controller.dto.response.ReviewLikeResponse;
 import com.ladder.perfumism.review.domain.Review;
 import com.ladder.perfumism.review.domain.ReviewLike;
 import com.ladder.perfumism.review.domain.ReviewLikeRepository;
@@ -39,14 +39,11 @@ public class ReviewLikeServiceTest {
     @Mock
     private ReviewRepository reviewRepository;
 
-    @Mock
-    private PerfumeRepository perfumeRepository;
-
     private Member member1;
     private Member member2;
     private Perfume perfume;
     private Brand brand;
-    private Review review;
+    private Review review1;
     private ReviewLike reviewLike;
 
     @BeforeEach
@@ -56,8 +53,8 @@ public class ReviewLikeServiceTest {
         brand = new Brand(1L, "testBrand");
         perfume = new Perfume(1L, "testPerfume", brand, "testImage", 2000, 0.0, "testTopNote",
             "testMiddleNotes", "testBaseNotes", 0L, "testLongevity", "testSillage", 0);
-        review = new Review(1L, perfume, member1, 0, "testContent", 0);
-        reviewLike = new ReviewLike(1L, review, member2);
+        review1 = new Review(1L, perfume, member1, 0, "testContent", 0);
+        reviewLike = new ReviewLike(1L, review1, member2);
         // 멤버1은 리뷰를 작성한 사람, 멤버2는 좋아요를 누르는 사람이라고 모든 데이터는 가정되어있음.
     }
 
@@ -67,16 +64,16 @@ public class ReviewLikeServiceTest {
         // given
         String email = "test2@test.com";
         given(memberService.findByEmail(email)).willReturn(member2);
-        given(reviewRepository.findById(any())).willReturn(Optional.of(review));
-        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review)).willReturn(false);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review1)).willReturn(false);
         given(reviewLikeRepository.save(any())).willReturn(reviewLike);
 
         // when
-        reviewLikeService.likeReview(email, review.getId());
+        reviewLikeService.likeReview(email, review1.getId());
 
         //then
         assertThat(reviewLike.getMemberId()).isEqualTo(member2);
-        assertThat(reviewLike.getReviewId()).isEqualTo(review);
+        assertThat(reviewLike.getReviewId()).isEqualTo(review1);
     }
 
     @Test
@@ -85,12 +82,12 @@ public class ReviewLikeServiceTest {
         // given
         String email = "test2@test.com";
         given(memberService.findByEmail(email)).willReturn(member2);
-        given(reviewRepository.findById(any())).willReturn(Optional.of(review));
-        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review)).willReturn(true);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review1)).willReturn(true);
 
         // when & then
         assertThatExceptionOfType(BusinessException.class)
-            .isThrownBy(() -> reviewLikeService.likeReview(email, review.getId()));
+            .isThrownBy(() -> reviewLikeService.likeReview(email, review1.getId()));
     }
 
     @Test
@@ -99,10 +96,42 @@ public class ReviewLikeServiceTest {
         // given
         String email = "test1@test.com";
         given(memberService.findByEmail(email)).willReturn(member1);
-        given(reviewRepository.findById(any())).willReturn(Optional.of(review));
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
 
         // when & then
         assertThatExceptionOfType(BusinessException.class)
-            .isThrownBy(() -> reviewLikeService.likeReview(email, review.getId()));
+            .isThrownBy(() -> reviewLikeService.likeReview(email, review1.getId()));
+    }
+
+    @Test
+    @DisplayName("좋아요 여부 확인 - true")
+    void ILikeThisReviewTest() {
+        //given
+        String email = "test2@test.com";
+        given(memberService.findByEmail(email)).willReturn(member2);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review1)).willReturn(true);
+
+        //when
+        ReviewLikeResponse reviewLikeResponse = reviewLikeService.isLikeThisReview(email, review1.getId());
+
+        //then
+        assertThat(reviewLikeResponse.getIsLiked()).isEqualTo(true);
+    }
+
+    @Test
+    @DisplayName("좋아요 여부 확인 - false")
+    void IDontLikeThisReviewTest() {
+        //given
+        String email = "test2@test.com";
+        given(memberService.findByEmail(email)).willReturn(member2);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.existsByMemberIdAndReviewId(member2, review1)).willReturn(false);
+
+        //when
+        ReviewLikeResponse reviewLikeResponse = reviewLikeService.isLikeThisReview(email, review1.getId());
+
+        //then
+        assertThat(reviewLikeResponse.getIsLiked()).isEqualTo(false);
     }
 }
