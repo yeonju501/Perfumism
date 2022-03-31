@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { authApi } from "apis";
+import { profileApi } from "apis";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header } from "components/account/Index";
 import { formValidator } from "utils";
@@ -15,8 +15,9 @@ function CheckPassword() {
 		},
 		onSubmit: async ({ password }) => {
 			try {
-				await authApi.findPassword(password).then((res) => {
-					res.status === 204 && navigate(`/profile${state}`);
+				await profileApi.checkPassword(password).then((res) => {
+					console.log(res);
+					res.status === 204 && navigate(`/profile/${state}`);
 				});
 			} catch (error) {
 				console.log(error);
@@ -34,7 +35,7 @@ function CheckPassword() {
 			<Header>비밀번호 확인</Header>
 			<FormContainer onSubmit={handleSubmit}>
 				<Label htmlFor="password">비밀번호</Label>
-				<Input name="password" onChange={handleChange} />
+				<Input type="password" name="password" onChange={handleChange} />
 				<ErrorText>{errors.password}</ErrorText>
 				<br />
 				<Button backgroundColor="black" color="#fff">

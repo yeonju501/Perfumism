@@ -4,6 +4,7 @@ import { Input, Radio } from "components/profile/Input";
 import Label from "components/profile/Label";
 import Sidebar from "components/profile/Sidebar";
 import UserInfo from "components/profile/UserInfo";
+import UserName from "components/profile/UserName";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import styled from "styled-components";
@@ -14,20 +15,11 @@ function Profile() {
 		<Container>
 			<Sidebar />
 			<Section>
-				<UserInfo></UserInfo>
-				<FormContainer>
-					<Label>닉네임</Label>
-					{username && <Input value={username}></Input>}
-					<Label>새로운 비밀번호</Label>
-					<Input></Input>
-					<Label>비밀번호 확인</Label>
-					<Input></Input>
-					{/* 추가정보 */}
-					<p>성별</p>
-					<p>알림 설정</p>
-					<Button>회원 탈퇴</Button>
-					<Button>제출</Button>
-				</FormContainer>
+				<UserInfo />
+				{username && <UserName value={username} gender={gender}></UserName>}
+
+				{/* 추가정보 */}
+				<Button>회원 탈퇴</Button>
 			</Section>
 		</Container>
 	);
