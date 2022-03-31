@@ -19,8 +19,8 @@ function MonthOfPerfumes() {
 			<Section>
 				<Title>이 달의 인기 향수</Title>
 				<Container>
-					{perfumes.map((perfume) => (
-						<MonthPerfume perfume={perfume} />
+					{perfumes.map((perfume, idx) => (
+						<MonthPerfume perfume={perfume} key={idx} />
 					))}
 				</Container>
 			</Section>
