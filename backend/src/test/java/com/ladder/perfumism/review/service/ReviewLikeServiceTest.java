@@ -134,4 +134,20 @@ public class ReviewLikeServiceTest {
         //then
         assertThat(reviewLikeResponse.getIsLiked()).isEqualTo(false);
     }
+
+    @Test
+    @DisplayName("좋아요 취소")
+    void notLikeThisReviewAnymoreTest() {
+        //given
+        String email = "test2@test.com";
+        given(memberService.findByEmail(email)).willReturn(member2);
+        given(reviewRepository.findById(any())).willReturn(Optional.of(review1));
+        given(reviewLikeRepository.findByMemberIdAndReviewId(member2, review1)).willReturn(Optional.of(reviewLike));
+
+        //when
+        reviewLikeService.notLikeThisReviewAnymore(email, review1.getId());
+
+        //then
+        assertThat(reviewLike.getDeletedAt()).isNotNull();
+    }
 }
