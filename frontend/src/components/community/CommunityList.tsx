@@ -30,9 +30,13 @@ function CommunityList({ articleData }: ArticleProps) {
 					<th>작성자</th>
 					<th>작성일</th>
 				</tr>
-				{articleData.map((articleItem, idx) => (
-					<CommunityListItem articleItem={articleItem} key={idx} />
-				))}
+				{articleData.length > 0 ? (
+					articleData.map((articleItem, idx) => (
+						<CommunityListItem articleItem={articleItem} key={idx} />
+					))
+				) : (
+					<td>작성한 글이 없습니다.</td>
+				)}
 			</table>
 		</Container>
 	);
