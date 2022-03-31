@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -47,12 +48,6 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		setCurrentPage(res.data.current_page_count + 1);
 	};
 
-	const reRenderReviews = () => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
-	};
-
 	const handleShowMoreClick = () => {
 		getReviews(currentPage);
 	};
@@ -64,6 +59,13 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		}
 	};
 
+	const reRenderReviews = () => {
+		setCurrentPage(0);
+		setReviews([]);
+		getReviews(0);
+	};
+
+	console.log(userId);
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
@@ -75,7 +77,11 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							<DeleteButton onClick={() => handleDeleteClick(review.review_id)}>삭제</DeleteButton>
 						</>
 					)}
-					<p>{review.grade}</p>
+					<p>
+						{[...Array(review.grade)].map(() => (
+							<FontAwesomeIcon icon={star} />
+						))}
+					</p>
 					<p>{review.content}</p>
 					{token && <LikeButton reviewId={review.review_id} />}
 					<FontAwesomeIcon icon={heart} />
