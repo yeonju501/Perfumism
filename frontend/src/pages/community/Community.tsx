@@ -1,4 +1,4 @@
-import { Header, CommunityList, Pagination } from "components/community";
+import { MainHeader, CommunityList, Pagination } from "components/community";
 import styled from "styled-components";
 
 function Community() {
@@ -58,7 +58,7 @@ function Community() {
 
 	return (
 		<Container>
-			<Header />
+			<MainHeader />
 			<CommunityList articleData={articleData} />
 			<Pagination />
 		</Container>
@@ -67,11 +67,11 @@ function Community() {
 
 const Container = styled.div`
 	height: 80vh;
-	width: 80rem;
+	width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 20rem;
+	margin: 0 25%;
 `;
 
 export default Community;

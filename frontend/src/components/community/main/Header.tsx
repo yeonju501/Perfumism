@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Dropdown } from "./index";
+import { Button, Dropdown } from "../index";
 
 function Header() {
 	return (

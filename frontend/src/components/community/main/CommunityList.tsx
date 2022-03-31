@@ -22,22 +22,24 @@ interface ArticleProps {
 function CommunityList({ articleData }: ArticleProps) {
 	return (
 		<Container>
-			<table>
-				<tr>
-					<th>번호</th>
-					<th>말머리</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>
-				{articleData.length > 0 ? (
-					articleData.map((articleItem, idx) => (
-						<CommunityListItem articleItem={articleItem} key={idx} />
-					))
-				) : (
-					<td>작성한 글이 없습니다.</td>
-				)}
-			</table>
+			<Table>
+				<Thead>
+					<tr>
+						<th>번호</th>
+						<th>말머리</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+					{articleData.length > 0 ? (
+						articleData.map((articleItem, idx) => (
+							<CommunityListItem articleItem={articleItem} key={idx} />
+						))
+					) : (
+						<td>작성한 글이 없습니다.</td>
+					)}
+				</Thead>
+			</Table>
 		</Container>
 	);
 }
@@ -45,6 +47,13 @@ function CommunityList({ articleData }: ArticleProps) {
 const Container = styled.div`
 	font-size: 2rem;
 	width: 100%;
+	text-align: center;
 `;
+
+const Table = styled.table`
+	width: 100%;
+`;
+
+const Thead = styled.thead``;
 
 export default CommunityList;
