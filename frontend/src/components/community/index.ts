@@ -5,3 +5,4 @@ export { default as CommunityList } from "./main/CommunityList";
 export { default as Pagination } from "./main/Pagination";
 export { default as CommunityListItem } from "./main/CommunityListItem";
 export { default as DetailHeader } from "./detail/Header";
+export { default as DetailContent } from "./detail/Content";
