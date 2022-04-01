@@ -4,14 +4,19 @@ import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../hooks/useForm";
+import { useState } from "react";
+import Spinner from "components/Spinner";
 
 function FindPassword() {
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
+
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			email: "",
 		},
 		onSubmit: async ({ email }) => {
+			setLoading(true);
 			try {
 				await authApi.findPassword(email).then((res) => {
 					res.status === 204 && navigate("/check-code", { state: email });
@@ -19,6 +24,7 @@ function FindPassword() {
 			} catch (error) {
 				console.log(error);
 			}
+			setLoading(false);
 		},
 		validate: ({ email }) => {
 			const errors: { [key: string]: string } = {};
@@ -26,7 +32,9 @@ function FindPassword() {
 			return errors;
 		},
 	});
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<Container>
 			<Header>비밀번호 찾기</Header>
 			<FormContainer onSubmit={handleSubmit}>
