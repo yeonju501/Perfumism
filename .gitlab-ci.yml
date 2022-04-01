@@ -109,16 +109,19 @@ deploy-data:
     - develop
 
   before_script:
-    - cd $CI_PROJECT_DIR/data
     - echo "데이터 배포 시작"
-    - ls
+    - cd /tmp
+    - ls -al | grep perfumism
 
   script:
-    - cd $CI_PROJECT_DIR/data
+    - cd
     - pwd
+    - sudo systemctl daemon-reload
+    - sudo systemctl restart uwsg
 
   after_script:
-    - cd $CI_PROJECT_DIR/data
+    - cd /tmp
+    - ls -al | grep perfumism
     - echo "데이터 배포 끝"
 
   tags:
