@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - aws
 
 build-back:
   stage: build
@@ -142,3 +143,26 @@ deploy-front:
     - echo "프론트 배포 끝"
   tags:
     - prd
+
+aws-server-confirm:
+  stage: aws
+  only:
+    - master
+    - develop
+
+  before_script:
+    - echot "aws-server-confirm 시작"
+    - sudo nginx -t
+    - sudo service nginx restart
+
+  script:
+    - echo "백엔드 실행 확인"
+    - sudo ps -ef | grep java
+    - sudo netstat -ntlp | grep java
+    - echo "데이터 실행 확인"
+    - sudo systemctl status uwsgi
+    - echo "nginx 실행 확인"
+    - sudo systemctl status nginx
+
+  after_script:
+    - echo "aws-server-confirm 끝"
