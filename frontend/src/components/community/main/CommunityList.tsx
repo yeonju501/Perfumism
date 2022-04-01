@@ -3,19 +3,15 @@ import styled from "styled-components";
 
 interface ArticleProps {
 	articleData: {
-		articleList: {
-			article_id: number;
-			member_id: number;
-			member_name: string;
-			subject: string;
-			title: string;
-			content: string;
-			createAt: string;
-			updateAt: string;
-			deleteAt: string;
-		}[];
-		total_page_count: number;
-		current_page_count: number;
+		article_id: number;
+		member_id: number;
+		member_name: string;
+		subject: string;
+		title: string;
+		content: string;
+		created_at: string;
+		updated_at: string | null;
+		deleted_at: string | null;
 	}[];
 }
 

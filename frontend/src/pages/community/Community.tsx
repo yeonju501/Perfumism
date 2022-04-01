@@ -2,64 +2,39 @@ import { MainHeader, CommunityList, Pagination } from "components/community";
 import styled from "styled-components";
 
 function Community() {
-	const articleData = [
-		{
-			articleList: [
-				{
-					article_id: 3,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 2,
-			current_page_count: 1,
-		},
-		{
-			articleList: [
-				{
-					article_id: 2,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 4,
-			current_page_count: 1,
-		},
-		{
-			articleList: [
-				{
-					article_id: 1,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 1,
-			current_page_count: 1,
-		},
-	];
+	const articleData = {
+		articleList: [
+			{
+				article_id: 2,
+				member_id: 12,
+				member_name: "asdf",
+				subject: "TALK",
+				title: "ㅎㅇ",
+				content: "ㅂㅇ",
+				created_at: "2022-03-31 14:25:42",
+				updated_at: null,
+				deleted_at: null,
+			},
+			{
+				article_id: 1,
+				member_id: 1,
+				member_name: "tata",
+				subject: "TALK",
+				title: "제목입니다",
+				content: "내용입니다",
+				created_at: "2022-03-31 12:23:09",
+				updated_at: null,
+				deleted_at: null,
+			},
+		],
+		total_page_count: 1,
+		current_page_count: 0,
+	};
 
 	return (
 		<Container>
 			<MainHeader />
-			<CommunityList articleData={articleData} />
+			<CommunityList articleData={articleData.articleList} />
 			<Pagination />
 		</Container>
 	);
