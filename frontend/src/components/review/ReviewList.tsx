@@ -8,7 +8,6 @@ import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
-import ReviewCreateForm from "./ReviewCreateForm";
 import ReviewUpdate from "./ReviewUpdate";
 
 interface ReviewListPropType {
@@ -64,7 +63,6 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await reviewApi.deleteReview(reviewId);
 			setReviews((reviews) => reviews.filter((review) => review.review_id !== reviewId));
-			// setUpdateReviews((prev) => !prev);
 		}
 	};
 
@@ -98,7 +96,6 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 					)}
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
-							setUpdateReviews={setUpdateReviews}
 							oldContent={review.content}
 							reviewId={review.review_id}
 							setIsEditable={setIsEditable}
