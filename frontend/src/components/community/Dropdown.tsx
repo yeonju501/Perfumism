@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const options = ["전체", "추천", "골라", "잡담"];
+const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
 
 function Dropdown() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +17,7 @@ function Dropdown() {
 	return (
 		<Main>
 			<DropDownContainer>
-				<DropDownHeader onClick={toggling}>{selectedOption || "전체"}</DropDownHeader>
+				<DropDownHeader onClick={toggling}>{selectedOption || "ALL"}</DropDownHeader>
 				{isOpen && (
 					<DropDownListContainer>
 						<DropDownList>

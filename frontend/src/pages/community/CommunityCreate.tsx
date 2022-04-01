@@ -14,7 +14,7 @@ function CommunityCreate() {
 
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
-			subject: "전체",
+			subject: "ALL",
 			title: "",
 			content: "",
 		},
@@ -44,11 +44,9 @@ function CommunityCreate() {
 				<Input name="title" type="text" placeholder="제목을 입력해주세요." />
 				<Label htmlFor="content">내용</Label>
 				<Textarea name="content" placeholder="내용을 입력해주세요." />
-			</FormContainer>
-			<div>
 				<Button onClick={handleListButtonClick}>목록</Button>
 				<Button>등록</Button>
-			</div>
+			</FormContainer>
 		</Container>
 	);
 }
