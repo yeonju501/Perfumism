@@ -60,7 +60,7 @@ const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
 		onIntersect,
 	});
 
-	return { setTarget, perfumes, isLoading };
+	return { setTarget, perfumes, isLoading, setPerfumes };
 };
 
 export default useInfiniteScroll;
