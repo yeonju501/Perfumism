@@ -40,9 +40,9 @@ const Button = styled.button<ButtonProps>`
 	background-color: inherit;
 	border: none;
 	cursor: pointer;
-	position: ${({ center }) => (center ? "absolute" : "static")};
-	top: 50%;
-	left: 50%;
+	position: absolute;
+	top: ${({ center }) => (center ? "50%" : "90%")};
+	left: ${({ center }) => (center ? "50%" : "90%")};
 	transform: ${({ center }) => (center ? "translate(-50%, -100%)" : "0")};
 	display: none;
 `;

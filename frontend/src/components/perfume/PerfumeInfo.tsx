@@ -40,12 +40,14 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 	return (
 		<div>
 			<PerfumeMainInfo>
-				<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
-				{token && <LikeButton perfumeId={String(perfumeData.perfume_id)} />}
+				<ImageBox>
+					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
+					{token && <LikeButton perfumeId={String(perfumeData.perfume_id)} />}
+				</ImageBox>
 				<div>
 					<h1>
 						{perfumeData.perfume_name}
-						<span>({perfumeData.launch_year})</span>
+						<Year>({perfumeData.launch_year})</Year>
 					</h1>
 					<Link to={`/perfumes/${perfumeData.brand.brand_name}`}>
 						{perfumeData.brand.brand_name}
@@ -80,10 +82,19 @@ const PerfumeMainInfo = styled.div`
 	}
 `;
 
+const ImageBox = styled.div`
+	position: relative;
+`;
+
 const Image = styled.img`
-	width: 15%;
+	width: 25rem;
 	height: auto;
 `;
 const PerfumeSubInfo = styled.div``;
 
+const Year = styled.span`
+	font-weight: 400;
+	font-size: 1.4rem;
+	margin-left: 1rem;
+`;
 export default PerfumeInfo;
