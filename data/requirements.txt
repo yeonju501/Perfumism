@@ -1,10 +1,11 @@
 asgiref==3.5.0
-backports.zoneinfo==0.2.1
+boto3==1.21.29
+botocore==1.24.29
 cycler==0.11.0
 Django==4.0.3
 django-cors-headers==3.11.0
 django-extensions==3.1.5
-django-sslserver==0.22
+django-storages==1.12.3
 djangorestframework==3.13.1
 fonttools==4.31.2
 jmespath==1.0.0
@@ -19,6 +20,7 @@ Pillow==9.0.1
 pyparsing==3.0.7
 python-dateutil==2.8.2
 pytz==2022.1
+s3transfer==0.5.2
 scikit-learn==1.0.2
 scipy==1.8.0
 six==1.16.0
@@ -26,5 +28,4 @@ sqlparse==0.4.2
 threadpoolctl==3.1.0
 tzdata==2021.5
 urllib3==1.26.9
-uWSGI==2.0.20
 wordcloud==1.8.1
