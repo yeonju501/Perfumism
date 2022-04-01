@@ -1,20 +1,16 @@
-import { profileApi, authApi } from "apis";
+import { profileApi } from "apis";
 import { FormContainer } from "components/account/Container";
 import { Input, Label } from "components/account/Index";
-import { useEffect, useState } from "react";
-import { SET_USER } from "store/user";
-
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 interface Props {
 	value: string;
 	gender: number;
 }
 
-function UserName({ value, gender }: Props) {
+function UserInfoEdit({ value, gender }: Props) {
 	const [userName, setUserName] = useState(value);
 	const [userGender, setGender] = useState(gender);
-	const dispatch = useDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === "text") setUserName(e.target.value);
@@ -23,16 +19,11 @@ function UserName({ value, gender }: Props) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		if (window.confirm("회원정보를 변경하시겠습니까?")) {
+			profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		}
 	};
 
-	useEffect(() => {
-		const get = async () => {
-			const res = await profileApi.getUserInfo();
-			await dispatch(SET_USER(res.data));
-		};
-		get();
-	}, [userName]);
 	return (
 		<FormContainer onSubmit={handleSubmit}>
 			<Label htmlFor="username">닉네임</Label>
@@ -72,4 +63,4 @@ function UserName({ value, gender }: Props) {
 	);
 }
 
-export default UserName;
+export default UserInfoEdit;
