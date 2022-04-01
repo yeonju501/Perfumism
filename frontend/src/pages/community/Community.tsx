@@ -1,66 +1,53 @@
-import { MainHeader, CommunityList, Pagination } from "components/community";
+import { useEffect, useState } from "react";
+import { MainHeader, CommunityList } from "components/community";
+import Pagination from "components/Pagination";
+import communityApi from "apis/community";
 import styled from "styled-components";
 
+interface ArticleList {
+	article_id: number;
+	member_id: number;
+	member_name: string;
+	subject: string;
+	title: string;
+	content: string;
+	created_at: string;
+	updated_at: string;
+	deleted_at: string;
+}
+
+interface ArticleDataType {
+	articleList: ArticleList[];
+	total_page_count: number;
+	current_page_count: number;
+}
+
 function Community() {
-	const articleData = [
-		{
-			articleList: [
-				{
-					article_id: 3,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 2,
-			current_page_count: 1,
-		},
-		{
-			articleList: [
-				{
-					article_id: 2,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 4,
-			current_page_count: 1,
-		},
-		{
-			articleList: [
-				{
-					article_id: 1,
-					member_id: 1,
-					member_name: "우사앙주운",
-					subject: "TALK",
-					title: "제목입니다",
-					content: "내용입니다",
-					createAt: "2022-3-13 14:59:51",
-					updateAt: "2023-4-14 14:59:51",
-					deleteAt: "2023-4-15 14:59:51",
-				},
-			],
-			total_page_count: 1,
-			current_page_count: 1,
-		},
-	];
+	const [articleData, setArticleData] = useState<ArticleDataType>({
+		articleList: [],
+		total_page_count: 0,
+		current_page_count: 0,
+	});
+	const { articleList, total_page_count, current_page_count } = articleData;
+
+	useEffect(() => {
+		getArticleData();
+	}, [current_page_count]);
+
+	const getArticleData = async () => {
+		try {
+			const res = await communityApi.getCommunityList(current_page_count);
+			setArticleData(res.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Container>
 			<MainHeader />
-			<CommunityList articleData={articleData} />
-			<Pagination />
+			<CommunityList articleList={articleList} />
+			<Pagination page={current_page_count} total={total_page_count} setData={setArticleData} />
 		</Container>
 	);
 }

@@ -2,24 +2,20 @@ import { CommunityListItem } from "components/community";
 import styled from "styled-components";
 
 interface ArticleProps {
-	articleData: {
-		articleList: {
-			article_id: number;
-			member_id: number;
-			member_name: string;
-			subject: string;
-			title: string;
-			content: string;
-			createAt: string;
-			updateAt: string;
-			deleteAt: string;
-		}[];
-		total_page_count: number;
-		current_page_count: number;
+	articleList: {
+		article_id: number;
+		member_id: number;
+		member_name: string;
+		subject: string;
+		title: string;
+		content: string;
+		created_at: string;
+		updated_at: string | null;
+		deleted_at: string | null;
 	}[];
 }
 
-function CommunityList({ articleData }: ArticleProps) {
+function CommunityList({ articleList }: ArticleProps) {
 	return (
 		<Container>
 			<Table>
@@ -31,8 +27,8 @@ function CommunityList({ articleData }: ArticleProps) {
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
-					{articleData.length > 0 ? (
-						articleData.map((articleItem, idx) => (
+					{articleList.length > 0 ? (
+						articleList.map((articleItem, idx) => (
 							<CommunityListItem articleItem={articleItem} key={idx} />
 						))
 					) : (
