@@ -117,7 +117,7 @@ deploy-data:
     - cd
     - pwd
     - sudo systemctl daemon-reload
-    - sudo systemctl restart uwsg
+    - sudo systemctl restart uwsgi
 
   after_script:
     - cd /tmp
