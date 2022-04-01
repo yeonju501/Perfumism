@@ -32,6 +32,7 @@ function useReviewForm({ sendReviewData }: useReviewFormProps) {
 		grade,
 		setGrade,
 		content,
+		setContent,
 	};
 }
 
