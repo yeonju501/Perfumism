@@ -1,7 +1,5 @@
 import reviewApi from "apis/review";
 import { CreateButton } from "components/button/Button";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
