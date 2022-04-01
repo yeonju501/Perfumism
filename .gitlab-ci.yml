@@ -93,6 +93,9 @@ deploy-back:
   only:
     - master
     - develop
+  needs:
+    - ["build-back"]
+
   before_script:
     - echo "백 배포 시작"
   script:
@@ -108,6 +111,8 @@ deploy-data:
   only:
     - master
     - develop
+  needs:
+    - ["build-data"]
 
   before_script:
     - echo "데이터 배포 시작"
@@ -133,6 +138,9 @@ deploy-front:
   only:
     - master
     - develop
+  needs:
+    - ["build-front"]
+
   before_script:
     - echo "프론트 배포 시작"
   script:
@@ -149,6 +157,8 @@ aws-server-confirm:
   only:
     - master
     - develop
+  needs:
+    - ["deploy-back", "deploy-data", "deploy-front"]
 
   before_script:
     - echo "aws-server-confirm 시작"
