@@ -107,6 +107,7 @@ const Info = styled.div`
 `;
 const PerfumeSubInfo = styled.div`
 	margin-bottom: 10rem;
+	text-align: center;
 `;
 
 const Year = styled.span`
@@ -116,6 +117,6 @@ const Year = styled.span`
 `;
 
 const Note = styled.p`
-	margin-bottom: 5rem;
+	margin-bottom: 8rem;
 `;
 export default PerfumeInfo;
