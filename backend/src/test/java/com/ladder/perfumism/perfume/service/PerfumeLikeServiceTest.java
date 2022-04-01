@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.ladder.perfumism.auth.domain.Authority;
 import com.ladder.perfumism.global.exception.BusinessException;
+import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
@@ -129,5 +130,19 @@ public class PerfumeLikeServiceTest {
         // then
         assertThat(perfumeLike.getDeletedAt()).isNotNull();
         assertThat(perfume.getTotalLike()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("ERROR 좋아요 한 적 없는 향수")
+    void notLikeThisPerfumeBefore() {
+        // given
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeService.findById(any())).willReturn(perfume);
+        given(perfumeLikeRepository.findByPerfumeIdAndMemberId(perfume, member)).willThrow(
+            new BusinessException(ErrorCode.PERFUME_NOT_LIKE_THIS_BEFORE));
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(
+            () -> perfumeLikeService.notLikeThisPerfumeAnymore(email, perfume.getId()));
     }
 }
