@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.*;
 
 import com.ladder.perfumism.auth.domain.Authority;
+import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.perfume.domain.Brand;
@@ -65,5 +66,19 @@ public class PerfumeLikeServiceTest {
         // then
         assertThat(perfumeLike.getId()).isEqualTo(result);
         assertThat(perfume.getTotalLike()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("ERROR 이미 좋아한 향수")
+    void alreadyLikePerfumeTest() {
+        // given
+        String email = "test1@test.com";
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeService.findById(any())).willReturn(perfume);
+        given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(true);
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(
+            () -> perfumeLikeService.likePerfume(email, perfume.getId()));
     }
 }
