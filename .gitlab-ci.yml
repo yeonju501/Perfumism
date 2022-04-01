@@ -166,3 +166,6 @@ aws-server-confirm:
 
   after_script:
     - echo "aws-server-confirm 끝"
+
+  tags:
+    - prd
