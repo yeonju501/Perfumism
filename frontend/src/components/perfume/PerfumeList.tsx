@@ -51,11 +51,12 @@ function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 							/>
 							<Name>{perfume.perfume_name}</Name>
 						</PerfumeItem>
-						{token && favorites ? (
-							<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
-						) : (
-							<LikeButton center perfumeId={perfume.perfume_id} />
-						)}
+						{token &&
+							(favorites ? (
+								<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
+							) : (
+								<LikeButton center perfumeId={perfume.perfume_id} />
+							))}
 					</Perfume>
 				))}
 		</Container>
