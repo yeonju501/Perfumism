@@ -1,15 +1,39 @@
+import { useEffect, useState } from "react";
 import { DetailHeader, DetailContent, DetailComment } from "components/community";
-import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+import communityApi from "apis/community";
+import styled from "styled-components";
 
 interface CustomizedState {
 	articleId: string;
 }
 
+interface ArticleDataType {
+	article_id: number;
+	member_id: number;
+	member_name: string;
+	member_image: string;
+	subject: string;
+	title: string;
+	content: string;
+	createAt: string;
+	updateAt: string;
+	deleteAt: string;
+	vote_exist: boolean;
+	image_url_list: {
+		article_image_id: number;
+		createdAt: string;
+		deletedAt: string;
+		updatedAt: string;
+		image_url: string;
+	}[];
+}
+
 function CommunityDetaul() {
 	const { articleId } = useLocation().state as CustomizedState;
+	const [articleData, setArticleData] = useState<ArticleDataType>();
 
-	const articleData = {
+	const articleDatas = {
 		article_id: 1,
 		member_id: 1,
 		member_name: "우사앙주운",
@@ -36,7 +60,7 @@ function CommunityDetaul() {
 	return (
 		<Container>
 			<DetailHeader />
-			<DetailContent articleData={articleData} />
+			<DetailContent articleData={articleDatas} />
 			<DetailComment />
 		</Container>
 	);
