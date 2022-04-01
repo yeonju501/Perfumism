@@ -29,4 +29,10 @@ public class PerfumeAccord {
 
     public PerfumeAccord() {
     }
+
+    public PerfumeAccord(Long id, Accord accordId, Perfume perfumeId) {
+        this.id = id;
+        this.accordId = accordId;
+        this.perfumeId = perfumeId;
+    }
 }

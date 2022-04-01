@@ -24,4 +24,10 @@ public class Accord {
 
     public Accord() {
     }
+
+    public Accord(Long id, String korName, String engName) {
+        this.id = id;
+        this.korName = korName;
+        this.engName = engName;
+    }
 }
