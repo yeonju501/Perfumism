@@ -69,13 +69,18 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 		setIsEditable(reviewId);
 	};
 
-	// const handleHeartClick = async () => {
-	// 	setReviews([]);
-	// 	for (let i = 0; i < currentPage; i++) {
-	// 		const res = await reviewApi.getReviews(perfumeId, i);
-	// 		setReviews((prev) => prev.concat(res.data.reviews));
-	// 	}
-	// };
+	const changeReviewLikes = async (reviewId: number) => {
+		const res = await reviewApi.isReviewLiked(reviewId);
+		console.log(res.data.is_liked);
+		setReviews((reviews) =>
+			reviews.map((review) => {
+				if (review.review_id === reviewId) {
+					res.data.is_liked ? review.likes++ : review.likes--;
+				}
+				return review;
+			}),
+		);
+	};
 
 	return reviews.length > 0 ? (
 		<ul>
@@ -107,7 +112,9 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 						</div>
 					)}
 
-					{token && <LikeButton reviewId={review.review_id} />}
+					{token && (
+						<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+					)}
 					<FontAwesomeIcon icon={heart} />
 					<span>{review.likes}</span>
 
