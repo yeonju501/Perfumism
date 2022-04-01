@@ -39,7 +39,7 @@ public class PerfumeLikeService {
 
         perfume.saveLike(perfumeLikeRepository.countByPerfumeId(perfume));
 
-        return (perfumeLike.getId());
+        return perfumeLike.getId();
     }
 
     private void alreadyLikeThisPerfume(Member member, Perfume perfume) {
