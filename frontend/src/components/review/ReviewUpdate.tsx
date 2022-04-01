@@ -1,7 +1,6 @@
 import reviewApi from "apis/review";
 import { CreateButton } from "components/button/Button";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
@@ -10,13 +9,29 @@ import useReviewForm from "./hooks/useReviewForm";
 
 interface ReviewUpdateProp {
 	reviewId: number;
-	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
-	oldContent?: string | undefined;
+	oldContent: string;
 	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
-	oldGrade?: number | undefined;
+	oldGrade: number;
+	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
 }
 
-function ReviewUpdate({ reviewId, setIsEditable, oldContent, oldGrade }: ReviewUpdateProp) {
+interface ReviewType {
+	review_id: number;
+	member_id: number;
+	member_name: string;
+	member_image: string;
+	grade: number;
+	content: string;
+	likes: number;
+}
+
+function ReviewUpdate({
+	reviewId,
+	setIsEditable,
+	oldContent,
+	oldGrade,
+	setReviews,
+}: ReviewUpdateProp) {
 	const token = cookie.load("access_token");
 
 	const {
@@ -26,17 +41,32 @@ function ReviewUpdate({ reviewId, setIsEditable, oldContent, oldGrade }: ReviewU
 		grade,
 		setGrade,
 		content,
+		setContent,
 	} = useReviewForm({
 		sendReviewData: () => {
 			return reviewApi.updateReview({ grade, content }, reviewId);
 		},
 	});
 
+	useEffect(() => {
+		setGrade(oldGrade);
+		setContent(oldContent);
+	}, []);
+
 	return (
 		<FormContainer
 			onSubmit={async (e) => {
 				await handleFormSubmit(e);
 				setIsEditable(-1);
+				setReviews((reviews) =>
+					reviews.map((review) => {
+						if (review.review_id === reviewId) {
+							review.grade = grade;
+							review.content = content;
+						}
+						return review;
+					}),
+				);
 			}}
 		>
 			<StarRating grade={grade} setGrade={setGrade} />

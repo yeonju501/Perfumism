@@ -100,6 +100,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 							reviewId={review.review_id}
 							setIsEditable={setIsEditable}
 							oldGrade={review.grade}
+							setReviews={setReviews}
 						/>
 					) : (
 						<div>
