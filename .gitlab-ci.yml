@@ -51,6 +51,7 @@ build-data:
 
   after_script:
     - cd $CI_PROJECT_DIR/data
+    - sudo chown -R ubuntu:ubuntu /home/ubuntu/S06P22D105/data/data_algorithms
     - echo "데이터 빌드 끝"
 
   tags:
