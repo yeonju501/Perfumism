@@ -5,7 +5,7 @@ import communityApi from "apis/community";
 import styled from "styled-components";
 
 interface CustomizedState {
-	articleId: string;
+	articleId: number;
 }
 
 interface ArticleDataType {
@@ -31,36 +31,46 @@ interface ArticleDataType {
 
 function CommunityDetaul() {
 	const { articleId } = useLocation().state as CustomizedState;
-	const [articleData, setArticleData] = useState<ArticleDataType>();
-
-	const articleDatas = {
-		article_id: 1,
-		member_id: 1,
-		member_name: "우사앙주운",
-		member_image: "잘생김.jpg",
-		subject: "TALK",
-		title: "제목입니다",
-		content: "내용이네요",
-		createAt: "2022-3-13 14:59:51",
-		updateAt: "2023-4-14 14:59:51",
-		deleteAt: "2023-4-15 14:59:51",
+	const [articleData, setArticleData] = useState<ArticleDataType>({
+		article_id: 0,
+		member_id: 0,
+		member_name: "",
+		member_image: "",
+		subject: "",
+		title: "",
+		content: "",
+		createAt: "",
+		updateAt: "",
+		deleteAt: "",
 		vote_exist: false,
 		image_url_list: [
 			{
-				article_image_id: 1,
-				createdAt: "2022-03-31T14:20:01.271Z",
-				deletedAt: "2022-03-31T14:20:01.271Z",
-				updatedAt: "2022-03-31T14:20:01.271Z",
-				image_url:
-					"https://perfumism-bucket.s3.ap-northeast-2.amazonaws.com/article/2c5d46e8-e91b-4e56-a3cc-7e0e1dd6a0c5gitlabrunner.png",
+				article_image_id: 0,
+				createdAt: "",
+				deletedAt: "",
+				updatedAt: "",
+				image_url: "",
 			},
 		],
+	});
+
+	useEffect(() => {
+		getArticleData();
+	}, []);
+
+	const getArticleData = async () => {
+		try {
+			const res = await communityApi.getCommunityDetail(articleId);
+			setArticleData(res.data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
 		<Container>
 			<DetailHeader />
-			<DetailContent articleData={articleDatas} />
+			<DetailContent articleData={articleData} />
 			<DetailComment />
 		</Container>
 	);
