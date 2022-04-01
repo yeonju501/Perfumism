@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.*;
 
+import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
 import com.ladder.perfumism.perfume.domain.Accord;
 import com.ladder.perfumism.perfume.domain.AccordRepository;
@@ -14,6 +15,7 @@ import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,8 +48,8 @@ public class PerfumeSearchServiceTest {
 
     private Brand brand1, brand2, brand3;
     private Perfume perfume1, perfume2, perfume3;
-    private Accord accord1, accord2, accord3;
-    private PerfumeAccord perfumeAccord1, perfumeAccord2, perfumeAccord3;
+    private Accord accord;
+    private PerfumeAccord perfumeAccord1, perfumeAccord2;
 
     @BeforeEach
     void setup() {
@@ -59,17 +61,14 @@ public class PerfumeSearchServiceTest {
             "testMiddleNotes", "testBaseNotes", 0L, "testLongevity", "testSillage", 0);
         perfume3 = new Perfume(6L, "Perfume CCC", brand2, "testImage", 2000, 0.0, "testTopNote",
             "testMiddleNotes", "testBaseNotes", 0L, "testLongevity", "testSillage", 0);
-        accord1 = new Accord(7L, "다다다", "CCC");
-        accord2 = new Accord(8L, "가가가", "AAA");
-        accord3 = new Accord(9L, "나나나", "BBB");
-        perfumeAccord1 = new PerfumeAccord(10L, accord1, perfume1);
-        perfumeAccord2 = new PerfumeAccord(11L, accord2, perfume2);
-        perfumeAccord3 = new PerfumeAccord(12L, accord3, perfume3);
+        accord = new Accord(7L, "다다다", "Accord CCC");
+        perfumeAccord1 = new PerfumeAccord(10L, accord, perfume1);
+        perfumeAccord2 = new PerfumeAccord(11L, accord, perfume3);
     }
 
     @Test
     @DisplayName("향수 검색 - 이름")
-    void perfumeSearchByName() {
+    void perfumeSearchByNameTest() {
         // given
         String type = "name";
         String keyword = "Perfume";
@@ -92,7 +91,7 @@ public class PerfumeSearchServiceTest {
 
     @Test
     @DisplayName("향수 검색 - 브랜드")
-    void perfumeSearchByBrand() {
+    void perfumeSearchByBrandTest() {
         // given
         String type = "brand";
         String keyword = "Brand AAA";
@@ -114,5 +113,29 @@ public class PerfumeSearchServiceTest {
         // then
         assertThat(result.getPerfumeSimpleResponses().get(0).getBrand().getName()).isEqualTo(keyword);
         assertThat(result.getPerfumeSimpleResponses().get(1).getBrand().getName()).isEqualTo(keyword);
+    }
+
+    @Test
+    @DisplayName("향수 검색 - 어코드")
+    void perfumeSearchByAccordTest() {
+        // given
+        String type = "accord";
+        String keyword = "Accord CCC";
+
+        given(accordRepository.findByEngNameIgnoreCaseOrKorName(keyword, keyword)).willReturn(Optional.of(accord));
+
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE);
+        List<Perfume> perfumes = new ArrayList<>();
+        perfumes.add(perfume1);
+        perfumes.add(perfume3);
+        Page<Perfume> perfumePage = new PageImpl<>(perfumes);
+        given(perfumeRepository.findByAccordId(accord, pageable)).willReturn(perfumePage);
+
+        // when
+        PerfumeListResponse result = perfumeSearchService.getPerfumeSearch(pageable, type, keyword);
+
+        // then
+        assertThat(result.getPerfumeSimpleResponses().get(0).getId()).isEqualTo(perfume1.getId());
+        assertThat(result.getPerfumeSimpleResponses().get(1).getId()).isEqualTo(perfume3.getId());
     }
 }
