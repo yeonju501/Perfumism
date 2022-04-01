@@ -151,7 +151,7 @@ aws-server-confirm:
     - develop
 
   before_script:
-    - echot "aws-server-confirm 시작"
+    - echo "aws-server-confirm 시작"
     - sudo nginx -t
     - sudo service nginx restart
 
