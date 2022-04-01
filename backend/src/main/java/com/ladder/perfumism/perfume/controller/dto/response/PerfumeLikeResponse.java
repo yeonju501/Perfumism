@@ -2,7 +2,9 @@ package com.ladder.perfumism.perfume.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 
+@Getter
 public class PerfumeLikeResponse {
 
     @JsonProperty("is_liked")

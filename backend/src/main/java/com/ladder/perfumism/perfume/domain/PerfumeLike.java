@@ -35,6 +35,12 @@ public class PerfumeLike extends BaseEntity {
     public PerfumeLike() {
     }
 
+    public PerfumeLike(Long id, Perfume perfumeId, Member memberId) {
+        this.id = id;
+        this.perfumeId = perfumeId;
+        this.memberId = memberId;
+    }
+
     @Builder
     public PerfumeLike(Perfume perfumeId, Member memberId) {
         this.perfumeId = perfumeId;
