@@ -9,10 +9,9 @@ build-back:
     - develop
 
   before_script:
+    - echo "백 빌드 시작"   
     - cd $CI_PROJECT_DIR/backend
     - mkdir ./src/main/resources
-    # - rm -rf build.gradle
-    # - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/BUILD_GRADLE ./build.gradle
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
     - rm -rf ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/WEBSECURITY ./src/main/java/com/ladder/perfumism/global/config/WebSecurityConfig.java
@@ -25,6 +24,7 @@ build-back:
     - ./gradlew build
 
   after_script:
+      - echo "백 빌드 끝"   
     - cd $CI_PROJECT_DIR/backend
     - sudo rm -rf /home/ubuntu/S06P22D105/backend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/backend
@@ -41,11 +41,13 @@ build-data:
   before_script:
     - cd $CI_PROJECT_DIR/data
     - echo "데이터 빌드 시작"
+    - sudo rm -rf /home/ubuntu/S06P22D105/data/data_algorithms
     - ls
 
   script:
     - cd $CI_PROJECT_DIR/data
     - pwd
+    - sudo cp -rf data_algorithms /home/ubuntu/S06P22D105/data
 
   after_script:
     - cd $CI_PROJECT_DIR/data
@@ -65,6 +67,7 @@ build-front:
     - develop
 
   before_script:
+    - echo "프론트 빌드 시작"   
     - cd $CI_PROJECT_DIR/frontend
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/FRONTEND_ENV ./.env
     - rm -rf package-lock.json
@@ -75,6 +78,7 @@ build-front:
     - CI=false npm run build
 
   after_script:
+    - echo "프론트 빌드 끝"   
     - cd $CI_PROJECT_DIR/frontend
     - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
