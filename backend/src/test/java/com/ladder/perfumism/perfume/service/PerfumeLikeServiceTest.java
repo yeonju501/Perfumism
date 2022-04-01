@@ -8,6 +8,7 @@ import com.ladder.perfumism.auth.domain.Authority;
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
@@ -80,5 +81,37 @@ public class PerfumeLikeServiceTest {
         // when & then
         assertThatExceptionOfType(BusinessException.class).isThrownBy(
             () -> perfumeLikeService.likePerfume(email, perfume.getId()));
+    }
+
+    @Test
+    @DisplayName("향수 좋아요 여부 - true")
+    void isLikeThisPerfumePositiveTest() {
+        // given
+        String email = "test1@test.com";
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeService.findById(any())).willReturn(perfume);
+        given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(true);
+
+        // when
+        PerfumeLikeResponse result = perfumeLikeService.isLikeThisPerfume(email, perfume.getId());
+
+        // then
+        assertThat(result.getIsLiked()).isEqualTo(true);
+    }
+
+    @Test
+    @DisplayName("향수 좋아요 여부 - false")
+    void isLikeThisPerfumeNegativeTest() {
+        // given
+        String email = "test1@test.com";
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeService.findById(any())).willReturn(perfume);
+        given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(false);
+
+        // when
+        PerfumeLikeResponse result = perfumeLikeService.isLikeThisPerfume(email, perfume.getId());
+
+        // then
+        assertThat(result.getIsLiked()).isEqualTo(false);
     }
 }
