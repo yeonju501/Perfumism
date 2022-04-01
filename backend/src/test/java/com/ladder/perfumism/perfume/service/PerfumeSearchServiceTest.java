@@ -3,7 +3,9 @@ package com.ladder.perfumism.perfume.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
 import com.ladder.perfumism.perfume.domain.Accord;
 import com.ladder.perfumism.perfume.domain.AccordRepository;
 import com.ladder.perfumism.perfume.domain.Brand;
@@ -11,14 +13,26 @@ import com.ladder.perfumism.perfume.domain.BrandRepository;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @ExtendWith(MockitoExtension.class)
 public class PerfumeSearchServiceTest {
+
+    private static final int FIRST_PAGE = 0;
+    private static final int DEFAULT_SIZE = 10;
 
     @InjectMocks
     private PerfumeSearchService perfumeSearchService;
@@ -54,5 +68,28 @@ public class PerfumeSearchServiceTest {
         perfumeAccord1 = new PerfumeAccord(10L, accord1, perfume1);
         perfumeAccord2 = new PerfumeAccord(11L, accord2, perfume2);
         perfumeAccord3 = new PerfumeAccord(12L, accord3, perfume3);
+    }
+
+    @Test
+    @DisplayName("향수 검색 - 이름")
+    void perfumeSearchByName() {
+        // given
+        String type = "name";
+        String keyword = "Perfume";
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE);
+        List<Perfume> perfumes = new ArrayList<>();
+        perfumes.add(perfume1);
+        perfumes.add(perfume2);
+        perfumes.add(perfume3);
+        Page<Perfume> perfumePage = new PageImpl<>(perfumes);
+        given(perfumeRepository.findByNameContainsIgnoreCase(keyword, pageable)).willReturn(perfumePage);
+
+        // when
+        PerfumeListResponse result = perfumeSearchService.getPerfumeSearch(pageable, type, keyword);
+
+        // then
+        assertThat(result.getPerfumeSimpleResponses().get(0).getName()).isEqualTo("Perfume AAA");
+        assertThat(result.getPerfumeSimpleResponses().get(1).getName()).isEqualTo("Perfume BBB");
+        assertThat(result.getPerfumeSimpleResponses().get(2).getName()).isEqualTo("Perfume CCC");
     }
 }
