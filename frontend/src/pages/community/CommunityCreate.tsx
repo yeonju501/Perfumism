@@ -7,7 +7,7 @@ import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
 function CommunityCreate() {
-	const { handleChange, handleSubmit, errors } = useForm({
+	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			subject: "ALL",
 			title: "",
@@ -16,7 +16,11 @@ function CommunityCreate() {
 
 		onSubmit: async () => {
 			try {
-				await communityApi.communityCreate();
+				const formData = new FormData();
+				formData.append("subject", values.subject);
+				formData.append("title", values.title);
+				formData.append("content", values.content);
+				await communityApi.communityCreate(formData);
 			} catch (error) {
 				console.log(error);
 			}
