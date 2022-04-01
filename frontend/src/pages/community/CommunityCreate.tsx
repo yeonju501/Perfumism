@@ -1,16 +1,11 @@
-import styled from "styled-components";
 import { Container, FormContainer } from "components/community/create/Container";
+import { Dropdown } from "components/community";
 
 function CommunityCreate() {
 	return (
 		<Container>
 			<FormContainer>
-				<select name="">
-					<option value="">말머리선택</option>
-					<option value="추천">추천</option>
-					<option value="골라">골라</option>
-					<option value="잡담">잡담</option>
-				</select>
+				<Dropdown />
 				<label htmlFor="title">제목</label>
 				<input name="title" type="text" />
 				<label htmlFor="content">내용</label>
