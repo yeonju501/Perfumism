@@ -71,7 +71,7 @@ const Container = styled.div`
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: column;
-	width: 70%;
+	width: 65%;
 	margin: 7rem auto;
 `;
 

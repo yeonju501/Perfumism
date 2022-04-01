@@ -42,7 +42,7 @@ const Button = styled.button<ButtonProps>`
 	cursor: pointer;
 	position: absolute;
 	top: ${({ center }) => (center ? "50%" : "90%")};
-	left: ${({ center }) => (center ? "50%" : "90%")};
+	left: ${({ center }) => (center ? "50%" : "100%")};
 	transform: ${({ center }) => (center ? "translate(-50%, -100%)" : "0")};
 	display: none;
 `;
