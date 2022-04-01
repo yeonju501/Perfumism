@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 import ReviewUpdate from "./ReviewUpdate";
+import styled from "styled-components";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -86,7 +87,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
-				<li key={review.review_id}>
+				<ReviewItem key={review.review_id}>
 					<p>{review.member_name}</p>
 					{userId === review.member_id && (
 						<>
@@ -106,7 +107,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 						<div>
 							<p>
 								{[...Array(review.grade)].map(() => (
-									<FontAwesomeIcon icon={star} key={Math.random()} />
+									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
 								))}
 							</p>
 							<p>{review.content}</p>
@@ -116,11 +117,8 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 					{token && (
 						<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
 					)}
-					<FontAwesomeIcon icon={heart} />
 					<span>{review.likes}</span>
-
-					<hr />
-				</li>
+				</ReviewItem>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
 				Show More
@@ -131,4 +129,9 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	);
 }
 
+const ReviewItem = styled.li`
+	border: 0.3px solid #dedede;
+	margin-bottom: 3rem;
+	padding: 1rem 2rem;
+`;
 export default ReviewList;

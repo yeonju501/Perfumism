@@ -1,6 +1,5 @@
 import PerfumeImage from "./PerfumeImage";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import LikeButton from "components/perfume/LikeButton";
 import cookie from "react-cookies";
 import perfumeApi from "apis/perfume";

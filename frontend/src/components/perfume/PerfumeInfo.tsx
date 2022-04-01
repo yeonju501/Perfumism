@@ -65,15 +65,15 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 				</Info>
 			</PerfumeMainInfo>
 			<PerfumeSubInfo>
-				<h1>Notes</h1>
+				<h1 style={{ marginBottom: "4rem" }}>Notes</h1>
 				{perfumeData.middle_notes && perfumeData.base_notes ? (
 					<div>
 						<h2>Top</h2>
-						<p>{perfumeData.top_notes}</p>
+						<Note>{perfumeData.top_notes}</Note>
 						<h2>Middle</h2>
-						<p>{perfumeData.middle_notes}</p>
+						<Note>{perfumeData.middle_notes}</Note>
 						<h2>Base</h2>
-						<p>{perfumeData.base_notes}</p>
+						<Note>{perfumeData.base_notes}</Note>
 					</div>
 				) : (
 					<p>{perfumeData.top_notes}</p>
@@ -113,5 +113,9 @@ const Year = styled.span`
 	font-weight: 400;
 	font-size: 1.4rem;
 	margin-left: 1rem;
+`;
+
+const Note = styled.p`
+	margin-bottom: 5rem;
 `;
 export default PerfumeInfo;

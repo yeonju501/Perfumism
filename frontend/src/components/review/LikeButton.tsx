@@ -29,6 +29,7 @@ function LikeButton({ reviewId, changeReviewLikes }: LikeButtonProps) {
 				await handleHeartClick();
 				changeReviewLikes(reviewId);
 			}}
+			reviewId={reviewId}
 		>
 			<FontAwesomeIcon icon={heart} />
 		</Button>
@@ -37,11 +38,12 @@ function LikeButton({ reviewId, changeReviewLikes }: LikeButtonProps) {
 
 interface ButtonProps {
 	isLiked?: boolean;
+	reviewId?: number;
 }
 
 const Button = styled.button<ButtonProps>`
 	color: ${({ isLiked }) => (isLiked ? "red" : "gray")};
-	font-size: 1rem;
+	font-size: ${({ reviewId }) => (reviewId ? "2rem" : "1rem")};
 	background-color: inherit;
 	border: none;
 	cursor: pointer;
