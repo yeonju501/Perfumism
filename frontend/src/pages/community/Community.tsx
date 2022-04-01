@@ -34,7 +34,7 @@ function Community() {
 	return (
 		<Container>
 			<MainHeader />
-			<CommunityList articleData={articleData.articleList} />
+			<CommunityList articleList={articleData.articleList} />
 			<Pagination />
 		</Container>
 	);

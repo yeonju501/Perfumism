@@ -2,7 +2,7 @@ import { CommunityListItem } from "components/community";
 import styled from "styled-components";
 
 interface ArticleProps {
-	articleData: {
+	articleList: {
 		article_id: number;
 		member_id: number;
 		member_name: string;
@@ -15,7 +15,7 @@ interface ArticleProps {
 	}[];
 }
 
-function CommunityList({ articleData }: ArticleProps) {
+function CommunityList({ articleList }: ArticleProps) {
 	return (
 		<Container>
 			<Table>
@@ -27,8 +27,8 @@ function CommunityList({ articleData }: ArticleProps) {
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
-					{articleData.length > 0 ? (
-						articleData.map((articleItem, idx) => (
+					{articleList.length > 0 ? (
+						articleList.map((articleItem, idx) => (
 							<CommunityListItem articleItem={articleItem} key={idx} />
 						))
 					) : (
