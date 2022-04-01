@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 import ReviewCreateForm from "./ReviewCreateForm";
+import ReviewUpdate from "./ReviewUpdate";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -49,6 +50,8 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	const getReviews = async (currentPage: number) => {
 		const res = await reviewApi.getReviews(perfumeId, currentPage);
 		setReviews((prev) => prev.concat(res.data.reviews));
+		console.log(res.data.reviews);
+
 		setTotalPage(res.data.total_page_count);
 		setCurrentPage(res.data.current_page_count + 1);
 	};
@@ -94,7 +97,7 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 						</>
 					)}
 					{review.review_id === isEditable ? (
-						<ReviewCreateForm
+						<ReviewUpdate
 							setUpdateReviews={setUpdateReviews}
 							oldContent={review.content}
 							reviewId={review.review_id}
