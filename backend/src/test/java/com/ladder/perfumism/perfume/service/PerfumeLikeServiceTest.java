@@ -10,10 +10,13 @@ import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.perfume.controller.dto.response.PerfumeLikeResponse;
+import com.ladder.perfumism.perfume.controller.dto.response.PerfumeListResponse;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import com.ladder.perfumism.perfume.domain.PerfumeLikeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,9 +25,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @ExtendWith(MockitoExtension.class)
 public class PerfumeLikeServiceTest {
+
+    private static final int FIRST_PAGE = 0;
+    private static final int DEFAULT_SIZE = 10;
 
     @InjectMocks
     private PerfumeLikeService perfumeLikeService;
@@ -134,7 +145,7 @@ public class PerfumeLikeServiceTest {
 
     @Test
     @DisplayName("ERROR 좋아요 한 적 없는 향수")
-    void notLikeThisPerfumeBefore() {
+    void notLikeThisPerfumeBeforeTest() {
         // given
         given(memberService.findByEmail(email)).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
@@ -144,5 +155,24 @@ public class PerfumeLikeServiceTest {
         // when & then
         assertThatExceptionOfType(BusinessException.class).isThrownBy(
             () -> perfumeLikeService.notLikeThisPerfumeAnymore(email, perfume.getId()));
+    }
+
+    @Test
+    @DisplayName("내가 좋아요한 향수 리스트")
+    void myFavoritePerfumeListTest() {
+        // given
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE, Sort.by("id").descending());
+        List<PerfumeLike> perfumeLikes = new ArrayList<>();
+        perfumeLikes.add(perfumeLike);
+        Page<PerfumeLike> perfumeLikePage = new PageImpl<>(perfumeLikes);
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeLikeRepository.findByMemberId(member, pageable)).willReturn(perfumeLikePage);
+
+        //when
+        PerfumeListResponse result = perfumeLikeService.myFavoritePerfumeList(email, pageable);
+
+        //then
+        assertThat(result.getPerfumeSimpleResponses().get(0).getId()).isEqualTo(perfume.getId());
+        assertThat(result.getPerfumeSimpleResponses().get(0).getName()).isEqualTo(perfume.getName());
     }
 }
