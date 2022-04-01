@@ -13,3 +13,7 @@ export const validatePassword = (password: string): boolean => {
 export const validateUsername = (nickname: string): boolean => {
 	return nickname.length > 2 && nickname.length < 10 ? true : false;
 };
+
+export const validateArticle = (article: string): boolean => {
+	return article.length === 0 ? false : true;
+};
