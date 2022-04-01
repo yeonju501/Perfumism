@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 
-@Entity
+@Entity(name = "passwordcode")
 @Getter
 public class PasswordCode {
 
