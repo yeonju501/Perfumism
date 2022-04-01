@@ -13,7 +13,7 @@ interface NotificationProps {
 function AlertContent({ notification }: Prop) {
 	const readNotification = (notificationId: number, articleId: number) => {
 		alertApi.readNotification(notificationId);
-		location.replace(`/${articleId}`);
+		location.replace(`/community/${articleId}`);
 	};
 
 	return (
