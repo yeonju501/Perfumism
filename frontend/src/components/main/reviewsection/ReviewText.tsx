@@ -5,7 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 interface Perfume {
 	content: string;
-	created_at: [];
+	created_at: string;
 	grade: number;
 	member_id: number;
 	member_image?: string;
@@ -20,7 +20,7 @@ interface Review {
 }
 
 function ReviewText({ review }: Review) {
-	const date = `${review.created_at.slice(0, 10)}`;
+	const date = `${review.created_at.slice(0, 10).replace(/-/g, ".")}`;
 	return (
 		<Container to={`/perfume/${review.perfume_id}`}>
 			<PerfumeName>{review.perfume_name}</PerfumeName>
