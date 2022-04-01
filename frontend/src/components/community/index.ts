@@ -8,3 +8,4 @@ export { default as DetailHeader } from "./detail/Header";
 export { default as DetailContent } from "./detail/Content";
 export { default as DetailComment } from "./detail/Comment";
 export { default as Label } from "./create/Label";
+export { default as Input } from "./create/Input";

@@ -1,5 +1,5 @@
 import { Container, FormContainer } from "components/community/create/Container";
-import { Dropdown, Label } from "components/community";
+import { Dropdown, Label, Input } from "components/community";
 
 function CommunityCreate() {
 	return (
@@ -8,7 +8,7 @@ function CommunityCreate() {
 				<div>
 					<Dropdown />
 					<Label htmlFor="title">제목</Label>
-					<input name="title" type="text" />
+					<Input name="title" type="text" />
 				</div>
 				<Label htmlFor="content">내용</Label>
 				<textarea name="title" />
