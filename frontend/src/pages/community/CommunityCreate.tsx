@@ -14,7 +14,7 @@ function CommunityCreate() {
 
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
-			subject: "",
+			subject: "전체",
 			title: "",
 			content: "",
 		},
@@ -29,9 +29,9 @@ function CommunityCreate() {
 
 		validate: ({ subject, title, content }) => {
 			const errors: { [key: string]: string } = {};
-			if (!formValidator.validateEmailForm(title)) errors.email = "올바른 이메일을 입력해주세요.";
-			if (!formValidator.validatePassword(content))
-				errors.password = "대문자와 특수문자를 1자 이상 포함해주세요.";
+			if (!formValidator.validateArticle(subject)) errors.email = "말머리를 선택해주세요.";
+			if (!formValidator.validateArticle(title)) errors.email = "제목을 입력해주세요.";
+			if (!formValidator.validateArticle(content)) errors.password = "내용을 입력해주세요.";
 			return errors;
 		},
 	});
