@@ -125,7 +125,9 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 			</ShowMoreButton>
 		</ul>
 	) : (
-		<p>작성된 리뷰가 없습니다</p>
+		<p style={{ color: "#555555", padding: "0 1rem", fontSize: "1.2rem" }}>
+			작성된 리뷰가 없습니다
+		</p>
 	);
 }
 
