@@ -31,10 +31,10 @@ function Community() {
 	const { articleList, total_page_count, current_page_count } = articleDataList;
 
 	useEffect(() => {
-		getArticleData();
+		getArticleDataList();
 	}, [current_page_count]);
 
-	const getArticleData = async () => {
+	const getArticleDataList = async () => {
 		try {
 			const res = await communityApi.getCommunityList(current_page_count);
 			setArticleDataList(res.data);
