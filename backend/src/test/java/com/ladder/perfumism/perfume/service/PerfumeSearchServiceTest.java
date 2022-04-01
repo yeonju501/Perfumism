@@ -150,5 +150,7 @@ public class PerfumeSearchServiceTest {
         // when & then
         assertThatExceptionOfType(BusinessException.class).isThrownBy(
             () -> perfumeSearchService.getPerfumeSearch(pageable, type, keyword));
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(
+            () -> perfumeSearchService.getPerfumeSearchAll(pageable, keyword));
     }
 }
