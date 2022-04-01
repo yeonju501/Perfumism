@@ -2,6 +2,7 @@ import perfumeApi from "apis/perfume";
 import PerfumeList from "components/perfume/PerfumeList";
 import { useParams } from "react-router-dom";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
+import styled from "styled-components";
 
 type Params = {
 	brandName: string;
@@ -17,12 +18,22 @@ function PerfumeBrand() {
 	});
 
 	return (
-		<div>
-			<h1>{brandName} 의 향수</h1>
+		<Container>
+			<Title>{brandName} 의 향수</Title>
 			<PerfumeList perfumes={perfumes} />
-			<div ref={setTarget}>{isLoading && <p>Loading..</p>}</div>
-		</div>
+			<div ref={setTarget}>{isLoading && <p></p>}</div>
+		</Container>
 	);
 }
+
+const Container = styled.div`
+	width: 80%;
+	margin: 5rem auto;
+`;
+
+const Title = styled.h1`
+	font-size: 3rem;
+	margin: 0 0 5rem 5rem;
+`;
 
 export default PerfumeBrand;
