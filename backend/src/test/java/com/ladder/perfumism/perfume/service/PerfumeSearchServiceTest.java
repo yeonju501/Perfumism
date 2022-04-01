@@ -138,4 +138,17 @@ public class PerfumeSearchServiceTest {
         assertThat(result.getPerfumeSimpleResponses().get(0).getId()).isEqualTo(perfume1.getId());
         assertThat(result.getPerfumeSimpleResponses().get(1).getId()).isEqualTo(perfume3.getId());
     }
+
+    @Test
+    @DisplayName("ERROR 2글자 미만 검색어")
+    void tooShortKeywordTest() {
+        // given
+        String type = "ㅋㅋㅋ";
+        String keyword = "ㅋ";
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE);
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(
+            () -> perfumeSearchService.getPerfumeSearch(pageable, type, keyword));
+    }
 }
