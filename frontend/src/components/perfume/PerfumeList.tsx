@@ -3,9 +3,20 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "components/perfume/LikeButton";
 import cookie from "react-cookies";
+import perfumeApi from "apis/perfume";
 
 interface PerfumeList {
 	perfumes: Perfume[];
+	favorites?: boolean;
+	setPerfumes?: React.Dispatch<React.SetStateAction<PerfumeType[]>>;
+}
+
+interface PerfumeType {
+	perfume_id: string;
+	perfume_name: string;
+	image: string;
+	average_grade: number;
+	likes: number;
 }
 
 interface Perfume {
@@ -15,11 +26,17 @@ interface Perfume {
 	image: string;
 }
 
-function PerfumeList({ perfumes }: PerfumeList) {
+function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 	const token = cookie.load("access_token");
 
 	const handlePerfumeItemClick = (perfumeId: string) => {
 		window.location.replace(`/perfume/${perfumeId}`);
+	};
+
+	const handleDeleteClick = async (perfumeId: string) => {
+		await perfumeApi.deleteFavoritePerfume(perfumeId);
+		if (setPerfumes)
+			setPerfumes((perfumes) => perfumes.filter((perfume) => perfume.perfume_id !== perfumeId));
 	};
 
 	return (
@@ -34,7 +51,11 @@ function PerfumeList({ perfumes }: PerfumeList) {
 							/>
 							<Name>{perfume.perfume_name}</Name>
 						</PerfumeItem>
-						{token && <LikeButton center perfumeId={perfume.perfume_id} />}
+						{token && favorites ? (
+							<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
+						) : (
+							<LikeButton center perfumeId={perfume.perfume_id} />
+						)}
 					</Perfume>
 				))}
 		</Container>
