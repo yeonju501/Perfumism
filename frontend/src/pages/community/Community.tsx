@@ -23,21 +23,21 @@ interface ArticleDataType {
 }
 
 function Community() {
-	const [articleData, setArticleData] = useState<ArticleDataType>({
+	const [articleDataList, setArticleDataList] = useState<ArticleDataType>({
 		articleList: [],
 		total_page_count: 0,
 		current_page_count: 0,
 	});
-	const { articleList, total_page_count, current_page_count } = articleData;
+	const { articleList, total_page_count, current_page_count } = articleDataList;
 
 	useEffect(() => {
-		getArticleData();
+		getArticleDataList();
 	}, [current_page_count]);
 
-	const getArticleData = async () => {
+	const getArticleDataList = async () => {
 		try {
 			const res = await communityApi.getCommunityList(current_page_count);
-			setArticleData(res.data);
+			setArticleDataList(res.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -47,7 +47,7 @@ function Community() {
 		<Container>
 			<MainHeader />
 			<CommunityList articleList={articleList} />
-			<Pagination page={current_page_count} total={total_page_count} setData={setArticleData} />
+			<Pagination page={current_page_count} total={total_page_count} setData={setArticleDataList} />
 		</Container>
 	);
 }
