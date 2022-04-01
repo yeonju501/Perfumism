@@ -6,9 +6,10 @@ import { reviewApi } from "apis";
 
 interface LikeButtonProps {
 	reviewId: number;
+	changeReviewLikes: (reviewId: number) => Promise<void>;
 }
 
-function LikeButton({ reviewId }: LikeButtonProps) {
+function LikeButton({ reviewId, changeReviewLikes }: LikeButtonProps) {
 	const { isLiked, handleHeartClick } = useLikeButton({
 		getIsLiked: () => {
 			return reviewApi.isReviewLiked(reviewId);
@@ -22,7 +23,13 @@ function LikeButton({ reviewId }: LikeButtonProps) {
 	});
 
 	return (
-		<Button isLiked={isLiked} onClick={handleHeartClick}>
+		<Button
+			isLiked={isLiked}
+			onClick={async () => {
+				await handleHeartClick();
+				changeReviewLikes(reviewId);
+			}}
+		>
 			<FontAwesomeIcon icon={heart} />
 		</Button>
 	);
