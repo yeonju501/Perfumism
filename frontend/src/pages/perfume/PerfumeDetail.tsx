@@ -1,9 +1,8 @@
 import perfumeApi from "apis/perfume";
-import PerfumeList from "components/perfume/PerfumeList";
 import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PerfumeInfo from "components/perfume/PerfumeInfo";
 import PerfumeDetailRecommendation from "components/perfume/PerfumeDetailRecommendation";
