@@ -1,7 +1,11 @@
 import { AxiosResponse } from "axios";
 import { request, imageRequest } from "./request";
 
-const communityApi = {
+interface CommunityApiType {
+	getCommunityList: () => Promise<AxiosResponse>;
+}
+
+const communityApi: CommunityApiType = {
 	getCommunityList: () => request.get(`auth/articles/`),
 };
 
