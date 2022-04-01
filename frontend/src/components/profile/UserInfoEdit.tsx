@@ -19,7 +19,9 @@ function UserInfoEdit({ value, gender }: Props) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		if (window.confirm("회원정보를 변경하시겠습니까?")) {
+			profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+		}
 	};
 
 	return (
