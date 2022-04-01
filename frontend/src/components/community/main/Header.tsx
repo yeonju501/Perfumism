@@ -1,11 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Dropdown } from "../index";
 
 function Header() {
+	const navigate = useNavigate();
+
+	const handleCommunityCreateClick = () => {
+		navigate("/community/create");
+	};
+
 	return (
 		<Container>
 			<Dropdown />
-			<Button>글쓰기</Button>
+			<Button onClick={handleCommunityCreateClick}>글쓰기</Button>
 		</Container>
 	);
 }
