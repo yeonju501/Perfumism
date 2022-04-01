@@ -1,10 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import { MainHeader, CommunityList, Pagination } from "components/community";
+import { useEffect, useState } from "react";
+import { MainHeader, CommunityList } from "components/community";
+import Pagination from "components/Pagination";
 import communityApi from "apis/community";
 import styled from "styled-components";
 
+interface ArticleList {
+	article_id: number;
+	member_id: number;
+	member_name: string;
+	subject: string;
+	title: string;
+	content: string;
+	created_at: string;
+	updated_at: string;
+	deleted_at: string;
+}
+
+interface ArticleDataType {
+	articleList: ArticleList[];
+	total_page_count: number;
+	current_page_count: number;
+}
+
 function Community() {
-	const [articleData, setArticleData] = useState({
+	const [articleData, setArticleData] = useState<ArticleDataType>({
 		articleList: [],
 		total_page_count: 0,
 		current_page_count: 0,
@@ -28,7 +47,7 @@ function Community() {
 		<Container>
 			<MainHeader />
 			<CommunityList articleList={articleList} />
-			<Pagination />
+			<Pagination page={current_page_count} total={total_page_count} setData={setArticleData} />
 		</Container>
 	);
 }
