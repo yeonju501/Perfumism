@@ -17,3 +17,7 @@ export const validateUsername = (nickname: string): boolean => {
 export const validateArticle = (article: string): boolean => {
 	return article.length === 0 ? false : true;
 };
+
+export const validateSubject = (subject: string): boolean => {
+	return subject === "전체" ? false : true;
+};
