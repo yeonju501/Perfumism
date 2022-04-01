@@ -60,7 +60,8 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	const handleDeleteClick = async (reviewId: number) => {
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await reviewApi.deleteReview(reviewId);
-			setUpdateReviews((prev) => !prev);
+			setReviews((reviews) => reviews.filter((review) => review.review_id !== reviewId));
+			// setUpdateReviews((prev) => !prev);
 		}
 	};
 
