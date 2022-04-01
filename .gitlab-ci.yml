@@ -9,7 +9,7 @@ build-back:
     - develop
 
   before_script:
-    - echo "백 빌드 시작"   
+    - echo "백 빌드 시작"
     - cd $CI_PROJECT_DIR/backend
     - mkdir ./src/main/resources
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/APPLICATION ./src/main/resources/application.yml
@@ -24,7 +24,7 @@ build-back:
     - ./gradlew build
 
   after_script:
-      - echo "백 빌드 끝"   
+    - echo "백 빌드 끝"
     - cd $CI_PROJECT_DIR/backend
     - sudo rm -rf /home/ubuntu/S06P22D105/backend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/backend
@@ -67,7 +67,7 @@ build-front:
     - develop
 
   before_script:
-    - echo "프론트 빌드 시작"   
+    - echo "프론트 빌드 시작"
     - cd $CI_PROJECT_DIR/frontend
     - cp /home/gitlab-runner/builds/S9GN1Npi/0/s06-bigdata-rec-sub2/S06P22D105.tmp/FRONTEND_ENV ./.env
     - rm -rf package-lock.json
@@ -78,7 +78,7 @@ build-front:
     - CI=false npm run build
 
   after_script:
-    - echo "프론트 빌드 끝"   
+    - echo "프론트 빌드 끝"
     - cd $CI_PROJECT_DIR/frontend
     - sudo rm -rf /home/ubuntu/S06P22D105/frontend/build
     - sudo cp -rf build /home/ubuntu/S06P22D105/frontend
