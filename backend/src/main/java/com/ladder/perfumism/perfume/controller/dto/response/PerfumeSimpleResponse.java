@@ -5,7 +5,9 @@ import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import com.ladder.perfumism.perfume.domain.PerfumeMonthly;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 
+@Getter
 public class PerfumeSimpleResponse {
 
     @JsonProperty("perfume_id")
