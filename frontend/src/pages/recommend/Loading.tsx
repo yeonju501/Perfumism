@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 import recommendApi from "apis/recommend";
 import styled from "styled-components";
 import Spinner from "assets/spinner.gif";
@@ -7,6 +9,7 @@ import Spinner from "assets/spinner.gif";
 function Loading() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
+	const { id } = useSelector((state: RootState) => state.user);
 
 	useEffect(() => {
 		getRecommendData();
@@ -33,7 +36,7 @@ function Loading() {
 			}
 		} else {
 			try {
-				const res = await recommendApi.likeBasedRecommend(1);
+				const res = await recommendApi.likeBasedRecommend(id);
 				navigate("/survey/result", {
 					state: {
 						recommendData: res.data,
