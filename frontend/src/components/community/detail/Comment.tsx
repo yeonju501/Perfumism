@@ -4,7 +4,7 @@ import styled from "styled-components";
 function Comment() {
 	return (
 		<Container>
-			<Textarea>댓글 입력</Textarea>
+			<Textarea></Textarea>
 			<div>댓글 1</div>
 			<div>댓글 2</div>
 		</Container>
