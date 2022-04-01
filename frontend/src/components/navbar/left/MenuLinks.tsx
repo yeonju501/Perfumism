@@ -28,7 +28,7 @@ function MenuLinks({ scrollheader, isMenu, setIsToggle }: Props) {
 			<LinkParagraph scrollheader={scrollheader} onClick={() => handleClick("/perfumes")}>
 				PERFUMES
 			</LinkParagraph>
-			<LinkParagraph scrollheader={scrollheader} onClick={() => handleClick("/recommend")}>
+			<LinkParagraph scrollheader={scrollheader} onClick={() => handleClick("/community")}>
 				COMMUNITY
 			</LinkParagraph>
 		</ListItem>
