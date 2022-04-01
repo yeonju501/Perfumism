@@ -1,17 +1,37 @@
 import reviewApi from "apis/review";
 import { CreateButton } from "components/button/Button";
+import { useEffect } from "react";
 import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
 import cookie from "react-cookies";
 import useReviewForm from "./hooks/useReviewForm";
 
-interface ReviewCreateFormProp {
-	perfumeId: string;
-	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
+interface ReviewUpdateProp {
+	reviewId: number;
+	oldContent: string;
+	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
+	oldGrade: number;
+	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
 }
 
-function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp) {
+interface ReviewType {
+	review_id: number;
+	member_id: number;
+	member_name: string;
+	member_image: string;
+	grade: number;
+	content: string;
+	likes: number;
+}
+
+function ReviewUpdate({
+	reviewId,
+	setIsEditable,
+	oldContent,
+	oldGrade,
+	setReviews,
+}: ReviewUpdateProp) {
 	const token = cookie.load("access_token");
 
 	const {
@@ -21,17 +41,32 @@ function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp)
 		grade,
 		setGrade,
 		content,
+		setContent,
 	} = useReviewForm({
 		sendReviewData: () => {
-			return reviewApi.createReview({ grade, content }, perfumeId);
+			return reviewApi.updateReview({ grade, content }, reviewId);
 		},
 	});
+
+	useEffect(() => {
+		setGrade(oldGrade);
+		setContent(oldContent);
+	}, []);
 
 	return (
 		<FormContainer
 			onSubmit={async (e) => {
 				await handleFormSubmit(e);
-				setUpdateReviews((prev) => !prev);
+				setIsEditable(-1);
+				setReviews((reviews) =>
+					reviews.map((review) => {
+						if (review.review_id === reviewId) {
+							review.grade = grade;
+							review.content = content;
+						}
+						return review;
+					}),
+				);
 			}}
 		>
 			<StarRating grade={grade} setGrade={setGrade} />
@@ -42,7 +77,7 @@ function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp)
 						onChange={handleInputChange}
 						placeholder="리뷰를 입력하세요"
 					></Textarea>
-					<CreateButton>작성</CreateButton>
+					<CreateButton>수정</CreateButton>
 				</div>
 			) : (
 				<Textarea
@@ -54,4 +89,4 @@ function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp)
 	);
 }
 
-export default ReviewCreateForm;
+export default ReviewUpdate;

@@ -8,7 +8,7 @@ import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
-import ReviewCreateForm from "./ReviewCreateForm";
+import ReviewUpdate from "./ReviewUpdate";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -49,6 +49,8 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	const getReviews = async (currentPage: number) => {
 		const res = await reviewApi.getReviews(perfumeId, currentPage);
 		setReviews((prev) => prev.concat(res.data.reviews));
+		console.log(res.data.reviews);
+
 		setTotalPage(res.data.total_page_count);
 		setCurrentPage(res.data.current_page_count + 1);
 	};
@@ -61,7 +63,6 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await reviewApi.deleteReview(reviewId);
 			setReviews((reviews) => reviews.filter((review) => review.review_id !== reviewId));
-			// setUpdateReviews((prev) => !prev);
 		}
 	};
 
@@ -94,12 +95,12 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 						</>
 					)}
 					{review.review_id === isEditable ? (
-						<ReviewCreateForm
-							setUpdateReviews={setUpdateReviews}
+						<ReviewUpdate
 							oldContent={review.content}
 							reviewId={review.review_id}
 							setIsEditable={setIsEditable}
 							oldGrade={review.grade}
+							setReviews={setReviews}
 						/>
 					) : (
 						<div>
