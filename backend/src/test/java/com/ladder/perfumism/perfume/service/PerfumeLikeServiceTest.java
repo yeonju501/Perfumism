@@ -13,6 +13,7 @@ import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.Perfume;
 import com.ladder.perfumism.perfume.domain.PerfumeLike;
 import com.ladder.perfumism.perfume.domain.PerfumeLikeRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,9 +41,11 @@ public class PerfumeLikeServiceTest {
     private Perfume perfume;
     private Brand brand;
     private PerfumeLike perfumeLike;
+    private String email;
 
     @BeforeEach
     void setUp() {
+        email = "test1@test.com";
         member = new Member("test1@test.com", "test1", "test1", Authority.ROLE_MEMBER, "");
         brand = new Brand(1L, "testBrand");
         perfume = new Perfume(2L, "testPerfume", brand, "testImage", 2000, 0.0, "testTopNote",
@@ -54,7 +57,6 @@ public class PerfumeLikeServiceTest {
     @DisplayName("향수 좋아요")
     void likePerfumeTest() {
         // given
-        String email = "test1@test.com";
         given(memberService.findByEmail(email)).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
         given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(false);
@@ -73,7 +75,6 @@ public class PerfumeLikeServiceTest {
     @DisplayName("ERROR 이미 좋아한 향수")
     void alreadyLikePerfumeTest() {
         // given
-        String email = "test1@test.com";
         given(memberService.findByEmail(email)).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
         given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(true);
@@ -87,7 +88,6 @@ public class PerfumeLikeServiceTest {
     @DisplayName("향수 좋아요 여부 - true")
     void isLikeThisPerfumePositiveTest() {
         // given
-        String email = "test1@test.com";
         given(memberService.findByEmail(email)).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
         given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(true);
@@ -103,7 +103,6 @@ public class PerfumeLikeServiceTest {
     @DisplayName("향수 좋아요 여부 - false")
     void isLikeThisPerfumeNegativeTest() {
         // given
-        String email = "test1@test.com";
         given(memberService.findByEmail(email)).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
         given(perfumeLikeRepository.existsByMemberIdAndPerfumeId(member, perfume)).willReturn(false);
@@ -113,5 +112,22 @@ public class PerfumeLikeServiceTest {
 
         // then
         assertThat(result.getIsLiked()).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("향수 좋아요 취소")
+    void notLikeThisPerfumeAnymoreTest() {
+        // given
+        given(memberService.findByEmail(email)).willReturn(member);
+        given(perfumeService.findById(any())).willReturn(perfume);
+        given(perfumeLikeRepository.findByPerfumeIdAndMemberId(perfume, member)).willReturn(Optional.of(perfumeLike));
+        given(perfumeLikeRepository.countByPerfumeId(perfume)).willReturn(0);
+
+        // when
+        perfumeLikeService.notLikeThisPerfumeAnymore(email, perfume.getId());
+
+        // then
+        assertThat(perfumeLike.getDeletedAt()).isNotNull();
+        assertThat(perfume.getTotalLike()).isEqualTo(0);
     }
 }
