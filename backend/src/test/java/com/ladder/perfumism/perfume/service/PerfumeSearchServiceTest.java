@@ -1,6 +1,5 @@
 package com.ladder.perfumism.perfume.service;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.*;
 
@@ -11,7 +10,6 @@ import com.ladder.perfumism.perfume.domain.AccordRepository;
 import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.BrandRepository;
 import com.ladder.perfumism.perfume.domain.Perfume;
-import com.ladder.perfumism.perfume.domain.PerfumeAccord;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,15 +44,14 @@ public class PerfumeSearchServiceTest {
     @Mock
     private AccordRepository accordRepository;
 
-    private Brand brand1, brand2, brand3;
+    private Brand brand1;
     private Perfume perfume1, perfume2, perfume3;
     private Accord accord;
-    private PerfumeAccord perfumeAccord1, perfumeAccord2;
 
     @BeforeEach
     void setup() {
         brand1 = new Brand(1L, "Brand AAA");
-        brand2 = new Brand(3L, "Brand BBB");
+        Brand brand2 = new Brand(3L, "Brand BBB");
         perfume1 = new Perfume(4L, "Perfume AAA", brand1, "testImage", 2000, 0.0, "testTopNote",
             "testMiddleNotes", "testBaseNotes", 0L, "testLongevity", "testSillage", 0);
         perfume2 = new Perfume(5L, "Perfume BBB", brand1, "testImage", 2000, 0.0, "testTopNote",
@@ -62,8 +59,6 @@ public class PerfumeSearchServiceTest {
         perfume3 = new Perfume(6L, "Perfume CCC", brand2, "testImage", 2000, 0.0, "testTopNote",
             "testMiddleNotes", "testBaseNotes", 0L, "testLongevity", "testSillage", 0);
         accord = new Accord(7L, "다다다", "Accord CCC");
-        perfumeAccord1 = new PerfumeAccord(10L, accord, perfume1);
-        perfumeAccord2 = new PerfumeAccord(11L, accord, perfume3);
     }
 
     @Test
@@ -152,5 +147,27 @@ public class PerfumeSearchServiceTest {
             () -> perfumeSearchService.getPerfumeSearch(pageable, type, keyword));
         assertThatExceptionOfType(BusinessException.class).isThrownBy(
             () -> perfumeSearchService.getPerfumeSearchAll(pageable, keyword));
+    }
+
+    @Test
+    @DisplayName("향수 전체 검색")
+    void perfumeSearchAll() {
+        // given
+        String keyword = "Perfume";
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE);
+        List<Perfume> perfumes = new ArrayList<>();
+        perfumes.add(perfume1);
+        perfumes.add(perfume2);
+        perfumes.add(perfume3);
+        Page<Perfume> perfumePage = new PageImpl<>(perfumes);
+        given(perfumeRepository.searchAll(keyword, pageable)).willReturn(perfumePage);
+
+        // when
+        PerfumeListResponse result = perfumeSearchService.getPerfumeSearchAll(pageable, keyword);
+
+        // then
+        assertThat(result.getPerfumeSimpleResponses().get(0).getName()).isEqualTo("Perfume AAA");
+        assertThat(result.getPerfumeSimpleResponses().get(1).getName()).isEqualTo("Perfume BBB");
+        assertThat(result.getPerfumeSimpleResponses().get(2).getName()).isEqualTo("Perfume CCC");
     }
 }
