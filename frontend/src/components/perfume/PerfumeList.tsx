@@ -1,6 +1,5 @@
 import PerfumeImage from "./PerfumeImage";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import LikeButton from "components/perfume/LikeButton";
 import cookie from "react-cookies";
 import perfumeApi from "apis/perfume";
@@ -51,11 +50,12 @@ function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 							/>
 							<Name>{perfume.perfume_name}</Name>
 						</PerfumeItem>
-						{token && favorites ? (
-							<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
-						) : (
-							<LikeButton center perfumeId={perfume.perfume_id} />
-						)}
+						{token &&
+							(favorites ? (
+								<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
+							) : (
+								<LikeButton center perfumeId={perfume.perfume_id} />
+							))}
 					</Perfume>
 				))}
 		</Container>
@@ -68,7 +68,7 @@ const Container = styled.ul`
 `;
 
 const Perfume = styled.li`
-	width: 15%;
+	width: 13%;
 	margin: 3rem;
 	height: auto;
 	list-style: none;

@@ -46,15 +46,27 @@ function PerfumeDetailRecommendation({ perfumeData }: PerfumeDataProps) {
 	return (
 		<div>
 			<Recommendation>
-				<p>{perfumeData.perfume_name}과 비슷한 향수</p>
+				<p>
+					<span style={{ fontWeight: "bold", fontSize: "2.2rem" }}>{perfumeData.perfume_name}</span>{" "}
+					과 비슷한 향수
+				</p>
 				<PerfumeList perfumes={perfumeData.similar_perfume} />
-				<p>{perfumeData.brand.brand_name}의 다른 향수</p>
+				<p>
+					<span style={{ fontWeight: "bold", fontSize: "2.2rem" }}>
+						{perfumeData.brand.brand_name}
+					</span>{" "}
+					의 다른 향수
+				</p>
 				<PerfumeList perfumes={brandBasedRecommendation} />
 			</Recommendation>
 		</div>
 	);
 }
 
-const Recommendation = styled.div``;
+const Recommendation = styled.div`
+	border-top: 0.5px solid #dedede;
+	border-bottom: 0.5px solid #dedede;
+	padding: 5rem 0;
+`;
 
 export default PerfumeDetailRecommendation;

@@ -40,34 +40,46 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 	return (
 		<div>
 			<PerfumeMainInfo>
-				<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
-				{token && <LikeButton perfumeId={String(perfumeData.perfume_id)} />}
-				<div>
-					<h1>
+				<ImageBox>
+					<Image src={`https://fimgs.net/mdimg/perfume/375x500.${perfumeData.image}`} />
+					{token && <LikeButton perfumeId={String(perfumeData.perfume_id)} />}
+				</ImageBox>
+				<Info>
+					<h1 style={{ fontSize: "4rem", margin: "0 0 1rem" }}>
 						{perfumeData.perfume_name}
-						<span>({perfumeData.launch_year})</span>
+						<Year>{perfumeData.launch_year > 0 && `(${perfumeData.launch_year})`}</Year>
 					</h1>
 					<Link to={`/perfumes/${perfumeData.brand.brand_name}`}>
 						{perfumeData.brand.brand_name}
 					</Link>
-					<h4>
+					<p>
 						<span style={{ color: "#ffcb14" }}>★</span>
 						{perfumeData.average_grade}
-					</h4>
-					<p>main accords</p>
+					</p>
+					<h3>main accords</h3>
 					<ul>
 						{perfumeData.accords.map((accord) => (
 							<li key={accord.accord_id}>{accord.eng_name}</li>
 						))}
 					</ul>
-				</div>
+				</Info>
 			</PerfumeMainInfo>
 			<PerfumeSubInfo>
-				<p>{perfumeData.top_notes}</p>
-				<p>{perfumeData.middle_notes}</p>
-				<p>{perfumeData.base_notes}</p>
-				<p>{perfumeData.longevity}</p>
-				<p>{perfumeData.sillage}</p>
+				<h1 style={{ marginBottom: "4rem" }}>Notes</h1>
+				{perfumeData.middle_notes && perfumeData.base_notes ? (
+					<div>
+						<h2>Top</h2>
+						<Note>{perfumeData.top_notes}</Note>
+						<h2>Middle</h2>
+						<Note>{perfumeData.middle_notes}</Note>
+						<h2>Base</h2>
+						<Note>{perfumeData.base_notes}</Note>
+					</div>
+				) : (
+					<p>{perfumeData.top_notes}</p>
+				)}
+				<p>지속력 : {perfumeData.longevity}</p>
+				<p>잔향 : {perfumeData.sillage}</p>
 			</PerfumeSubInfo>
 		</div>
 	);
@@ -78,12 +90,32 @@ const PerfumeMainInfo = styled.div`
 	button {
 		display: block;
 	}
+	margin-bottom: 10rem;
+`;
+
+const ImageBox = styled.div`
+	position: relative;
 `;
 
 const Image = styled.img`
-	width: 15%;
+	width: 25rem;
 	height: auto;
 `;
-const PerfumeSubInfo = styled.div``;
 
+const Info = styled.div`
+	margin-left: 20rem;
+`;
+const PerfumeSubInfo = styled.div`
+	margin-bottom: 10rem;
+`;
+
+const Year = styled.span`
+	font-weight: 400;
+	font-size: 1.4rem;
+	margin-left: 1rem;
+`;
+
+const Note = styled.p`
+	margin-bottom: 5rem;
+`;
 export default PerfumeInfo;
