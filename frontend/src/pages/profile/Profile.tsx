@@ -5,10 +5,11 @@ import { Input, Radio } from "components/profile/Input";
 import Label from "components/profile/Label";
 import Sidebar from "components/profile/Sidebar";
 import UserInfo from "components/profile/UserInfo";
-import UserName from "components/profile/UserName";
+import UserInfoEdit from "components/profile/UserInfoEdit";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { RootState } from "store";
+import { SET_USER } from "store/user";
 import styled from "styled-components";
 
 interface Data {
@@ -21,12 +22,14 @@ interface Data {
 }
 
 function Profile() {
+	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState<Data | null>(null);
 
 	useEffect(() => {
 		const getUserInfo = async () => {
 			const res = await profileApi.getUserInfo();
 			setUserInfo(res.data);
+			await dispatch(SET_USER(res.data));
 		};
 		getUserInfo();
 	}, []);
@@ -37,7 +40,7 @@ function Profile() {
 				<Sidebar />
 				<Section>
 					<UserInfo />
-					<UserName value={userInfo.username} gender={userInfo.gender as number}></UserName>
+					<UserInfoEdit value={userInfo.username} gender={userInfo.gender as number}></UserInfoEdit>
 
 					{/* 추가정보 */}
 					<Button>회원 탈퇴</Button>
