@@ -2,6 +2,7 @@ import { profileApi } from "apis";
 import Pagination from "components/Pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 interface articleList {
 	article_id: number;
@@ -42,7 +43,7 @@ function MyArticles() {
 
 	return (
 		<>
-			<table>
+			<Table>
 				<thead>
 					<tr>
 						<th>말머리</th>
@@ -53,13 +54,13 @@ function MyArticles() {
 				<tbody>
 					{articleList.length > 0 ? (
 						articleList.map((article, idx) => (
-							<tr key={idx}>
-								<td>{article.subject}</td>
-								<td>
+							<Tr key={idx}>
+								<Td>{article.subject}</Td>
+								<Td>
 									<Link to="">{article.title}</Link>
-								</td>
-								<td>{article.created_at.slice(0, 10)}</td>
-							</tr>
+								</Td>
+								<Td>{article.created_at.slice(0, 10)}</Td>
+							</Tr>
 						))
 					) : (
 						<tr>
@@ -67,14 +68,30 @@ function MyArticles() {
 						</tr>
 					)}
 				</tbody>
-			</table>
+			</Table>
 			{articleList.length > 0 && (
-				<footer>
+				<Footer>
 					<Pagination page={currentPage} total={totalPage} setData={setData} />
-				</footer>
+				</Footer>
 			)}
 		</>
 	);
 }
 
+const Table = styled.table`
+	margin: 5rem auto;
+	width: 80%;
+	font-size: 1.8rem;
+`;
+
+const Tr = styled.tr`
+	text-align: center;
+	margin-top: 2rem;
+`;
+
+const Td = styled.td``;
+
+const Footer = styled.footer`
+	text-align: center;
+`;
 export default MyArticles;
