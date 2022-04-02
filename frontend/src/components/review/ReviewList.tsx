@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import cookie from "react-cookies";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as heart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +13,6 @@ import styled from "styled-components";
 interface ReviewListPropType {
 	perfumeId: string;
 	updateReviews: boolean;
-	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ReviewType {
@@ -27,7 +25,7 @@ interface ReviewType {
 	likes: number;
 }
 
-function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPropType) {
+function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 	const [reviews, setReviews] = useState<ReviewType[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
@@ -50,8 +48,6 @@ function ReviewList({ perfumeId, updateReviews, setUpdateReviews }: ReviewListPr
 	const getReviews = async (currentPage: number) => {
 		const res = await reviewApi.getReviews(perfumeId, currentPage);
 		setReviews((prev) => prev.concat(res.data.reviews));
-		console.log(res.data.reviews);
-
 		setTotalPage(res.data.total_page_count);
 		setCurrentPage(res.data.current_page_count + 1);
 	};
