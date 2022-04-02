@@ -11,6 +11,10 @@ interface SurveyItemProps {
 	};
 }
 
+interface SectionProps {
+	nowPage: string;
+}
+
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
 
@@ -47,7 +51,7 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	return (
 		<Container>
 			<Title>{surveyListItem.question}</Title>
-			<Section>
+			<Section nowPage={surveyListItem.answerNumber}>
 				{surveyListItem.answer.map((surveyItem: { url?: string; content: string }, idx: number) => (
 					<Answer
 						key={idx}
@@ -73,8 +77,9 @@ const Title = styled.h1`
 	margin: 5% auto 2%;
 `;
 
-const Section = styled.div`
+const Section = styled.div<SectionProps>`
 	display: flex;
+	flex-direction: ${({ nowPage }) => (nowPage === "1" || nowPage === "2" ? "row" : "column")};
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 0 20rem;
