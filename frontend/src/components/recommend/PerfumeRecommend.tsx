@@ -1,27 +1,30 @@
 import styled from "styled-components";
-import PerfumeList from "components/perfume/PerfumeList";
+import RecommendList from "./RecommendList";
 
 interface RecommendProps {
 	perfumeData: {
 		perfume_id: string;
-		perfume_name: string;
+		name: string;
 		image: string;
 	}[];
 }
 
 function PerfumeRecommend({ perfumeData }: RecommendProps) {
+	console.log(perfumeData);
 	return (
-		<Container>
+		<>
 			<Header>추천 향수</Header>
-			<PerfumeList perfumes={perfumeData} />
-		</Container>
+			<Container>
+				{perfumeData.map((perfume, idx) => (
+					<RecommendList perfume={perfume} key={idx} />
+				))}
+			</Container>
+		</>
 	);
 }
 
 const Container = styled.div`
 	display: flex;
-	flex-direction: column;
-	align-items: center;
 `;
 
 const Header = styled.h1``;

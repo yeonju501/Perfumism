@@ -10,7 +10,7 @@ interface CustomizedState {
 		filename: string;
 		perfume_list: {
 			perfume_id: string;
-			perfume_name: string;
+			name: string;
 			image: string;
 		}[];
 	};

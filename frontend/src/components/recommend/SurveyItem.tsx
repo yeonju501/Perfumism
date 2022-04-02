@@ -77,7 +77,7 @@ const Title = styled.h1`
 	margin: 5% auto 2%;
 `;
 
-const Section = styled.div<SectionProps>`
+const Section = styled.section<SectionProps>`
 	display: flex;
 	flex-direction: ${({ nowPage }) => (nowPage === "1" || nowPage === "2" ? "row" : "column")};
 	flex-wrap: wrap;
