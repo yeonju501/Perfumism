@@ -1,10 +1,10 @@
 interface IProps {
-	setData: React.Dispatch<React.SetStateAction<dataType>>;
+	setData: React.Dispatch<React.SetStateAction<DataType>>;
 	idx: number;
 	text: string;
 }
 
-interface articleList {
+interface ArticleListType {
 	article_id: number;
 	member_id: number;
 	member_name: string;
@@ -16,10 +16,17 @@ interface articleList {
 	deleted_at: string;
 }
 
-interface dataType {
-	articleList: articleList[];
+interface DataType {
+	articleList?: ArticleListType[];
+	commentList?: CommentListType[];
 	total_page_count: number;
 	current_page_count: number;
+}
+
+interface CommentListType {
+	comment_id: number;
+	content: string;
+	created_at: string;
 }
 
 function PaginationButton({ setData, idx, text }: IProps) {

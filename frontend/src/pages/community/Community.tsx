@@ -17,7 +17,7 @@ interface ArticleList {
 }
 
 interface ArticleDataType {
-	articleList: ArticleList[];
+	articleList?: ArticleList[];
 	total_page_count: number;
 	current_page_count: number;
 }

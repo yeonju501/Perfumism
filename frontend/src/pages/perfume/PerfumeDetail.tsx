@@ -57,11 +57,7 @@ function PerfumeDetail() {
 				<PerfumeInfo perfumeData={perfumeData} />
 				<PerfumeDetailRecommendation perfumeData={perfumeData} />
 				<ReviewCreateForm perfumeId={perfumeId} setUpdateReviews={setUpdateReviews} />
-				<ReviewList
-					perfumeId={perfumeId}
-					updateReviews={updateReviews}
-					setUpdateReviews={setUpdateReviews}
-				/>
+				<ReviewList perfumeId={perfumeId} updateReviews={updateReviews} />
 			</Container>
 		)
 	);

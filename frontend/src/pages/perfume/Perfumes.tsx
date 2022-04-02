@@ -17,8 +17,6 @@ function Perfumes() {
 		},
 	});
 
-	console.log(1);
-
 	return (
 		<Container>
 			<PerfumeFilter />

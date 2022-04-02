@@ -3,10 +3,17 @@ import PaginationButton from "./button/PaginationButton";
 interface PaginationProps {
 	total: number;
 	page: number;
-	setData: React.Dispatch<React.SetStateAction<dataType>>;
+	setData: React.Dispatch<React.SetStateAction<DataType>>;
 }
 
-interface articleList {
+interface DataType {
+	articleList?: ArticleListType[];
+	commentList?: CommentListType[];
+	total_page_count: number;
+	current_page_count: number;
+}
+
+interface ArticleListType {
 	article_id: number;
 	member_id: number;
 	member_name: string;
@@ -18,10 +25,10 @@ interface articleList {
 	deleted_at: string;
 }
 
-interface dataType {
-	articleList: articleList[];
-	total_page_count: number;
-	current_page_count: number;
+interface CommentListType {
+	comment_id: number;
+	content: string;
+	created_at: string;
 }
 
 function Pagination({ total, page, setData }: PaginationProps) {
