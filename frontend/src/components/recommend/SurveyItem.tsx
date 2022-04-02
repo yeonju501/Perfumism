@@ -4,25 +4,29 @@ import { Answer } from "components/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
-	surveyListItem: { 질문번호: string; 질문: string; 답변: { url?: string; content: string }[] };
+	surveyListItem: {
+		answerNumber: string;
+		question: string;
+		answer: { url?: string; content: string }[];
+	};
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
 
 	const getNextUrl = () => {
-		const nextPage = Number(surveyListItem["질문번호"]) + 1;
+		const nextPage = Number(surveyListItem.answerNumber) + 1;
 		const newUrl =
-			queryString.replace(surveyListItem["질문번호"], String(nextPage)) +
+			queryString.replace(surveyListItem.answerNumber, String(nextPage)) +
 			"&a" +
-			surveyListItem["질문번호"] +
+			surveyListItem.answerNumber +
 			"=";
 		return newUrl;
 	};
 
 	const nextPage = (strAnswer: string) => {
 		const nextUrl = getNextUrl() + strAnswer;
-		if (surveyListItem["질문번호"] === "5") {
+		if (surveyListItem.answerNumber === "5") {
 			navigate({
 				pathname: "/loading",
 				search: nextUrl,
@@ -42,18 +46,16 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 
 	return (
 		<Container>
-			<Title>{surveyListItem["질문"]}</Title>
+			<Title>{surveyListItem.question}</Title>
 			<Section>
-				{surveyListItem["답변"].map(
-					(surveyItem: { url?: string; content: string }, idx: number) => (
-						<Answer
-							key={idx}
-							surveyItem={surveyItem}
-							number={idx}
-							answerHandleChange={answerHandleChange}
-						/>
-					),
-				)}
+				{surveyListItem.answer.map((surveyItem: { url?: string; content: string }, idx: number) => (
+					<Answer
+						key={idx}
+						surveyItem={surveyItem}
+						number={idx}
+						answerHandleChange={answerHandleChange}
+					/>
+				))}
 			</Section>
 		</Container>
 	);
