@@ -1,4 +1,5 @@
 from unicodedata import name
+from django.http import Http404, HttpResponseNotFound
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from data_algorithms.serializers.brand import BrandSerializer
 from rest_framework.decorators import api_view
@@ -24,32 +25,35 @@ def like_based(request, member_pk):
         accords_temp = perfume.accords.all()
         for accord in accords_temp:
             accord_list.append(accord.eng_name)
+    
+    try:
+        wc_result = word_cloud(accord_list)
 
-    wc_result = word_cloud(accord_list)
-
-    filename = wc_result[0][1:]
-    accords = wc_result[1]
-
-
-    s3r = boto3.resource('s3', aws_access_key_id = AWS_S3_ACCESS_KEY_ID, aws_secret_access_key = AWS_S3_SECRET_ACCESS_KEY)
-    data = open(AWS_IMG_DIRECTORY+filename[8:], 'rb')
-    s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key = 'static/' + filename[8:], Body=data, ContentType='jpg')
+        filename = wc_result[0][1:]
+        accords = wc_result[1]
 
 
+        s3r = boto3.resource('s3', aws_access_key_id = AWS_S3_ACCESS_KEY_ID, aws_secret_access_key = AWS_S3_SECRET_ACCESS_KEY)
+        data = open(AWS_IMG_DIRECTORY+filename[8:], 'rb')
+        s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key = 'static/' + filename[8:], Body=data, ContentType='jpg')
 
-    accord_list = ' '.join(accord_list)
-    result = recommend_like_based(accord_list)
-    perfumes = []
-    for i in range(3):
-        perfume = get_object_or_404(Perfume, perfume_id = result[i])
-        perfumes.append(perfume)
 
-    serializer = PerfumeListSerializer(perfumes, many=True)
-    return Response({
-        'accords' : accords,
-        'filename' : filename,
-        'perfume_list' : serializer.data
-    })
+
+        accord_list = ' '.join(accord_list)
+        result = recommend_like_based(accord_list)
+        perfumes = []
+        for i in range(3):
+            perfume = get_object_or_404(Perfume, perfume_id = result[i])
+            perfumes.append(perfume)
+
+        serializer = PerfumeListSerializer(perfumes, many=True)
+        return Response({
+            'accords' : accords,
+            'filename' : filename,
+            'perfume_list' : serializer.data
+        })
+    except IndexError:
+        return HttpResponseNotFound("{\n\t'code' : 404,\n\t'message' : '사용자가 좋아요한 향수가 존재하지 않습니다.'\n}")
 
 @api_view(['GET'])
 def survey(request, a1, a2, a3, a4, a5):
