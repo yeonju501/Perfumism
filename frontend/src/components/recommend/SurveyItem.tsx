@@ -4,25 +4,33 @@ import { Answer } from "components/recommend";
 
 interface SurveyItemProps {
 	queryString: string;
-	surveyListItem: { 질문번호: string; 질문: string; 답변: { url?: string; content: string }[] };
+	surveyListItem: {
+		answerNumber: string;
+		question: string;
+		answer: { url?: string; content: string }[];
+	};
+}
+
+interface SectionProps {
+	nowPage: string;
 }
 
 function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 	const navigate = useNavigate();
 
 	const getNextUrl = () => {
-		const nextPage = Number(surveyListItem["질문번호"]) + 1;
+		const nextPage = Number(surveyListItem.answerNumber) + 1;
 		const newUrl =
-			queryString.replace(surveyListItem["질문번호"], String(nextPage)) +
+			queryString.replace(surveyListItem.answerNumber, String(nextPage)) +
 			"&a" +
-			surveyListItem["질문번호"] +
+			surveyListItem.answerNumber +
 			"=";
 		return newUrl;
 	};
 
 	const nextPage = (strAnswer: string) => {
 		const nextUrl = getNextUrl() + strAnswer;
-		if (surveyListItem["질문번호"] === "5") {
+		if (surveyListItem.answerNumber === "5") {
 			navigate({
 				pathname: "/loading",
 				search: nextUrl,
@@ -42,18 +50,16 @@ function SurveyItem({ queryString, surveyListItem }: SurveyItemProps) {
 
 	return (
 		<Container>
-			<Title>{surveyListItem["질문"]}</Title>
-			<Section>
-				{surveyListItem["답변"].map(
-					(surveyItem: { url?: string; content: string }, idx: number) => (
-						<Answer
-							key={idx}
-							surveyItem={surveyItem}
-							number={idx}
-							answerHandleChange={answerHandleChange}
-						/>
-					),
-				)}
+			<Title>{surveyListItem.question}</Title>
+			<Section nowPage={surveyListItem.answerNumber}>
+				{surveyListItem.answer.map((surveyItem: { url?: string; content: string }, idx: number) => (
+					<Answer
+						key={idx}
+						surveyItem={surveyItem}
+						number={idx}
+						answerHandleChange={answerHandleChange}
+					/>
+				))}
 			</Section>
 		</Container>
 	);
@@ -71,8 +77,9 @@ const Title = styled.h1`
 	margin: 5% auto 2%;
 `;
 
-const Section = styled.div`
+const Section = styled.section<SectionProps>`
 	display: flex;
+	flex-direction: ${({ nowPage }) => (nowPage === "1" || nowPage === "2" ? "row" : "column")};
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 0 20rem;

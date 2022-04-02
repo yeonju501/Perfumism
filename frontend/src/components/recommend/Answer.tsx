@@ -11,17 +11,23 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 
 	return (
 		<Container onClick={answerHandleClick}>
-			{surveyItem["url"] ? <SurveyImg src={surveyItem["url"]} /> : null}
-			<Content>{surveyItem["content"]}</Content>
+			{surveyItem["url"] ? (
+				<>
+					<SurveyImg src={surveyItem["url"]} />
+					<Content>{surveyItem["content"]}</Content>
+				</>
+			) : (
+				<TextAnswer>{surveyItem["content"]}</TextAnswer>
+			)}
 		</Container>
 	);
 }
 
 const Container = styled.div`
-	width: 25rem;
 	display: flex;
 	flex-direction: column;
-	margin: 0 5rem;
+	justify-content: center;
+	margin: 0 auto;
 	&:hover {
 		filter: brightness(65%);
 		cursor: pointer;
@@ -39,6 +45,21 @@ const Content = styled.p`
 	font-size: 2.5rem;
 	text-align: center;
 	margin: 1.5rem;
+`;
+
+const TextAnswer = styled.button`
+	width: 70rem;
+	font-size: 2.5rem;
+	padding: 1rem;
+	border: 1px solid;
+	margin: 2rem auto;
+	cursor: pointer;
+
+	&:hover {
+		transition: 0.5s;
+		background-color: #000;
+		color: #fff;
+	}
 `;
 
 export default Answer;
