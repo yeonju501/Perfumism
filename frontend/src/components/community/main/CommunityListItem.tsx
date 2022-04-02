@@ -29,7 +29,7 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 				</Link>
 			</td>
 			<td>{articleItem.member_name}</td>
-			<td>{articleItem.created_at.slice(0, 9)}</td>
+			<td>{articleItem.created_at.slice(0, 10)}</td>
 		</Container>
 	);
 }
