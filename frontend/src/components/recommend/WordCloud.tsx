@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import test from "assets/test.jpg";
 
 interface Props {
 	url: string;
