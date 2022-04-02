@@ -6,7 +6,7 @@ interface Props {
 }
 
 function WordCloud({ url }: Props) {
-	const imageUrl = process.env.REACT_APP_SUB_URL + url;
+	const imageUrl = process.env.REACT_APP_WORDCLOUD_URL + url;
 
 	return (
 		<Container>
