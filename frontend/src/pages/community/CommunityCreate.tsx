@@ -1,27 +1,58 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
 import { Dropdown, Label, Input, Textarea, Button } from "components/community";
+import { ErrorText } from "components/account/Index";
+import { formValidator } from "utils";
+import useForm from "../account/hooks/useForm";
+import communityApi from "apis/community";
 
 function CommunityCreate() {
-	const navigate = useNavigate();
+	const [subject, setSubject] = useState("ALL");
+	const { values, handleChange, handleSubmit, errors } = useForm({
+		initialValues: {
+			title: "",
+			content: "",
+		},
 
-	const handleListButtonClick = () => {
-		navigate("/community");
-	};
+		onSubmit: async (values) => {
+			try {
+				const formData = new FormData();
+				const article = `{"subject":${subject}, "title":${values.title}, "content":${values.content}}`;
+				formData.append("article", article);
+				await communityApi.communityCreate(formData);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+
+		validate: ({ subject, title, content }) => {
+			const errors: { [key: string]: string } = {};
+			if (!formValidator.validateSubject(subject)) errors.email = "말머리를 선택해주세요.";
+			if (!formValidator.validateArticle(title)) errors.email = "제목을 입력해주세요.";
+			if (!formValidator.validateArticle(content)) errors.password = "내용을 입력해주세요.";
+			return errors;
+		},
+	});
 
 	return (
 		<Container>
-			<FormContainer>
+			<FormContainer onSubmit={handleSubmit}>
 				<Dropdown />
 				<Label htmlFor="title">제목</Label>
-				<Input name="title" type="text" placeholder="제목을 입력해주세요." />
+				<Input
+					name="title"
+					type="text"
+					onChange={handleChange}
+					placeholder="제목을 입력해주세요."
+				/>
+				<ErrorText>{errors.title}</ErrorText>
 				<Label htmlFor="content">내용</Label>
-				<Textarea name="content" placeholder="내용을 입력해주세요." />
-			</FormContainer>
-			<div>
-				<Button onClick={handleListButtonClick}>목록</Button>
+				<Input name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
+				<ErrorText>{errors.content}</ErrorText>
+				<Link to="/community">목록</Link>
 				<Button>등록</Button>
-			</div>
+			</FormContainer>
 		</Container>
 	);
 }
