@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
 import { Dropdown, Label, Input, Textarea, Button } from "components/community";
@@ -7,19 +8,18 @@ import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
 function CommunityCreate() {
+	const [subject, setSubject] = useState("ALL");
 	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
-			subject: "ALL",
 			title: "",
 			content: "",
 		},
 
-		onSubmit: async () => {
+		onSubmit: async (values) => {
 			try {
 				const formData = new FormData();
-				formData.append("subject", values.subject);
-				formData.append("title", values.title);
-				formData.append("content", values.content);
+				const article = `{"subject":${subject}, "title":${values.title}, "content":${values.content}}`;
+				formData.append("article", article);
 				await communityApi.communityCreate(formData);
 			} catch (error) {
 				console.log(error);
