@@ -24,10 +24,10 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 }
 
 const Container = styled.div`
-	width: 25rem;
 	display: flex;
 	flex-direction: column;
-	margin: 0 5rem;
+	justify-content: center;
+	margin: 0 auto;
 	&:hover {
 		filter: brightness(65%);
 		cursor: pointer;
@@ -48,12 +48,12 @@ const Content = styled.p`
 `;
 
 const TextAnswer = styled.button`
-	// width: 70rem;
+	width: 70rem;
 	font-size: 2.5rem;
-	text-align: center;
 	padding: 1rem;
-	border: 1px solid #000;
+	border: 1px solid;
 	margin: 2rem auto;
+	cursor: pointer;
 
 	&:hover {
 		transition: 0.5s;
