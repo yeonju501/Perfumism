@@ -6,8 +6,8 @@ function Sidebar() {
 		<Container>
 			<LinkItem to="">회원 정보수정</LinkItem>
 			<LinkItem to="/profile/favorites">좋아요한 향수 관리</LinkItem>
-			<LinkItem to="">내가 작성한 글</LinkItem>
-			<LinkItem to="">내가 작성한 댓글</LinkItem>
+			<LinkItem to="/profile/my-articles">내가 작성한 글</LinkItem>
+			<LinkItem to="/profile/my-comments">내가 작성한 댓글</LinkItem>
 			<LinkItem to="/profile/change-pw">비밀번호 변경</LinkItem>
 		</Container>
 	);
