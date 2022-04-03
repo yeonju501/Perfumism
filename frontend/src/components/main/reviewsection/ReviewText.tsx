@@ -43,12 +43,12 @@ export default ReviewText;
 
 const Container = styled(Link)`
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 auto;
 	position: relative;
+	justify-content: center;
 	color: #000;
-	width: 30rem;
+	width: 25rem;
+	@media ${(props) => props.theme.tabelt} {
+	}
 `;
 
 const PerfumeName = styled.p`
