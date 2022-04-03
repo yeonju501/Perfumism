@@ -20,8 +20,8 @@ public interface PerfumeMonthlyRepository extends JpaRepository<PerfumeMonthly, 
         Pageable pageable);
 
     @Modifying
-    @Query(nativeQuery = true, value = "update perfume_monthly "
-        + "set deleted_at = current_timestamp "
-        + "where deleted_at is null")
+    @Query(value = "update PerfumeMonthly "
+        + "set deletedAt = current_timestamp "
+        + "where deletedAt is null")
     Integer updateDeletedAtAll();
 }
