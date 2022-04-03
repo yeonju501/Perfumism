@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
-import { Dropdown, Label, Input, Textarea, Button } from "components/community";
+import { Dropdown, Label, Input, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
 function CommunityCreate() {
-	const [subject, setSubject] = useState("ALL");
+	const [subject, setSubject] = useState("TALK");
+	const [selectedImg, setSelectedImg] = useState();
 	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			title: "",
@@ -18,8 +19,14 @@ function CommunityCreate() {
 		onSubmit: async (values) => {
 			try {
 				const formData = new FormData();
-				const article = `{"subject":${subject}, "title":${values.title}, "content":${values.content}}`;
-				formData.append("article", article);
+				const article = { subject: subject, title: values.title, content: values.content };
+				formData.append(
+					"article",
+					new Blob([JSON.stringify(article)], { type: "application/json" }),
+				);
+				selectedImg
+					? formData.append("image", selectedImg)
+					: formData.append("image", new Blob([]));
 				await communityApi.communityCreate(formData);
 			} catch (error) {
 				console.log(error);
