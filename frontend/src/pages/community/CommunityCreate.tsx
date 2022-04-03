@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
 import { Dropdown, Label, Input, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
@@ -10,6 +10,10 @@ import communityApi from "apis/community";
 function CommunityCreate() {
 	const [subject, setSubject] = useState("TALK");
 	const [selectedImg, setSelectedImg] = useState();
+	const navigate = useNavigate();
+	const toCommunity = () => {
+		navigate("/community");
+	};
 	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			title: "",
@@ -28,6 +32,7 @@ function CommunityCreate() {
 					? formData.append("image", selectedImg)
 					: formData.append("image", new Blob([]));
 				await communityApi.communityCreate(formData);
+				navigate("/community");
 			} catch (error) {
 				console.log(error);
 			}
@@ -57,7 +62,7 @@ function CommunityCreate() {
 				<Label htmlFor="content">내용</Label>
 				<Input name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
 				<ErrorText>{errors.content}</ErrorText>
-				<Link to="/community">목록</Link>
+				<Button onClick={toCommunity}>목록</Button>
 				<Button>등록</Button>
 			</FormContainer>
 		</Container>
