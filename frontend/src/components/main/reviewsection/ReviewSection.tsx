@@ -16,11 +16,16 @@ function ReviewSection() {
 		getReview();
 	}, []);
 
+	const handleScroll = (direction?: string) => {
+		if (direction) return document.getElementById("hi")?.scrollBy(-200, 0);
+		document.getElementById("hi")?.scrollBy(200, 0);
+	};
+
 	return (
 		reviews && (
 			<Section id="hi">
-				<RightButton icon={faChevronRight} />
-				<LeftButton icon={faChevronLeft} />
+				<RightButton icon={faChevronRight} onClick={() => handleScroll()} />
+				<LeftButton icon={faChevronLeft} onClick={() => handleScroll("left")} />
 				<Container>
 					{reviews.slice(0, 4).map((review, idx) => (
 						<ReviewText review={review} key={idx} />
