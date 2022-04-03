@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReviewText from "./ReviewText";
 
+interface Button {
+	direction?: string;
+}
+
 function ReviewSection() {
 	const [reviews, setReviews] = useState([]);
 
@@ -24,8 +28,8 @@ function ReviewSection() {
 	return (
 		reviews && (
 			<Section id="hi">
-				<RightButton icon={faChevronRight} onClick={() => handleScroll()} />
-				<LeftButton icon={faChevronLeft} onClick={() => handleScroll("left")} />
+				<Button icon={faChevronRight} onClick={() => handleScroll()} direction="right" />
+				<Button icon={faChevronLeft} onClick={() => handleScroll("left")} />
 				<Container>
 					{reviews.slice(0, 4).map((review, idx) => (
 						<ReviewText review={review} key={idx} />
@@ -55,13 +59,7 @@ const Container = styled.div`
 	margin: 0 auto;
 `;
 
-const RightButton = styled(FontAwesomeIcon)`
-	font-size: 3rem;
-	z-index: 2;
-	cursor: pointer;
-`;
-
-const LeftButton = styled(FontAwesomeIcon)`
+const Button = styled(FontAwesomeIcon)<Button>`
 	font-size: 3rem;
 	z-index: 2;
 	cursor: pointer;
