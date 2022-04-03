@@ -8,20 +8,19 @@ import styled from "styled-components";
 
 function UserInfo() {
 	const dispatch = useDispatch();
-	const { email, image, social_id, username } = useSelector((state: RootState) => state.user);
+	const { email, image } = useSelector((state: RootState) => state.user);
 
 	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const imageFile = useSetImage(e);
 		const formData = new FormData();
 		if (imageFile) {
 			formData.append("img", imageFile);
-			await profileApi.setUserImage(formData).then(async () => {
-				const res = await profileApi.getUserInfo();
-				await dispatch(SET_USER(res.data));
-				setTimeout(() => {
-					alert("프로필 이미지가 변경되었습니다.");
-				}, 1000);
-			});
+			await profileApi.setUserImage(formData);
+			const res = await profileApi.getUserInfo();
+			dispatch(SET_USER(res.data));
+			setTimeout(() => {
+				alert("프로필 이미지가 변경되었습니다.");
+			}, 1000);
 		}
 	};
 
@@ -29,8 +28,8 @@ function UserInfo() {
 		<div>
 			<UserImage src={image ? image : anonymous} alt="user profile" />
 			<input type="file" onChange={handleImageChange} accept="image/*" />
-			<p>{username}</p>
-			<p>{email || social_id}</p>
+			<p>이메일</p>
+			<p>{email}</p>
 		</div>
 	);
 }
