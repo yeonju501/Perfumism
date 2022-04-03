@@ -21,12 +21,7 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 			<td>{articleItem.article_id}</td>
 			<td>{articleItem.subject}</td>
 			<td>
-				<Link
-					to={`/community/${articleItem.article_id}`}
-					state={{ articleId: articleItem.article_id }}
-				>
-					{articleItem.title}
-				</Link>
+				<Link to={`/community/${articleItem.article_id}`}>{articleItem.title}</Link>
 			</td>
 			<td>{articleItem.member_name}</td>
 			<td>{articleItem.created_at.slice(0, 10)}</td>

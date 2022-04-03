@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { DetailHeader, DetailContent, DetailComment } from "components/community";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import communityApi from "apis/community";
 import styled from "styled-components";
-
-interface CustomizedState {
-	articleId: number;
-}
 
 interface ArticleDataType {
 	article_id: number;
@@ -30,7 +26,7 @@ interface ArticleDataType {
 }
 
 function CommunityDetaul() {
-	const { articleId } = useLocation().state as CustomizedState;
+	const articleId = useParams().articleId;
 	const [articleData, setArticleData] = useState<ArticleDataType>({
 		article_id: 0,
 		member_id: 0,
