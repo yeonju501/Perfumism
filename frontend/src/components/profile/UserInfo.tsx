@@ -28,7 +28,7 @@ function UserInfo() {
 	return (
 		<div>
 			<UserImage src={image ? image : anonymous} alt="user profile" />
-			<input type="file" onChange={handleImageChange} />
+			<input type="file" onChange={handleImageChange} accept="image/*" />
 			<p>{username}</p>
 			<p>{email || social_id}</p>
 		</div>
