@@ -1,3 +1,5 @@
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import reviewApi from "apis/review";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -16,7 +18,9 @@ function ReviewSection() {
 
 	return (
 		reviews && (
-			<Section>
+			<Section id="hi">
+				<RightButton icon={faChevronRight} />
+				<LeftButton icon={faChevronLeft} />
 				<Container>
 					{reviews.slice(0, 4).map((review, idx) => (
 						<ReviewText review={review} key={idx} />
@@ -38,9 +42,22 @@ const Section = styled.section`
 	&::-webkit-scrollbar {
 		display: none;
 	}
+	position: relative;
 `;
 
 const Container = styled.div`
 	display: flex;
 	margin: 0 auto;
+`;
+
+const RightButton = styled(FontAwesomeIcon)`
+	font-size: 3rem;
+	z-index: 2;
+	cursor: pointer;
+`;
+
+const LeftButton = styled(FontAwesomeIcon)`
+	font-size: 3rem;
+	z-index: 2;
+	cursor: pointer;
 `;
