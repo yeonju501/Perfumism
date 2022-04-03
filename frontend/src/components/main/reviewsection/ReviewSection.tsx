@@ -15,6 +15,7 @@ function ReviewSection() {
 
 	window.onresize = function () {
 		setScreenSize(window.outerWidth);
+		screenSize;
 	};
 
 	useEffect(() => {
@@ -26,8 +27,8 @@ function ReviewSection() {
 	}, []);
 
 	const handleScroll = (direction?: string) => {
-		if (direction) return document.getElementById("hi")?.scrollBy(-200, 0);
-		document.getElementById("hi")?.scrollBy(200, 0);
+		if (direction) return document.getElementById("hi")?.scrollBy(-250, 0);
+		document.getElementById("hi")?.scrollBy(250, 0);
 	};
 
 	return (
