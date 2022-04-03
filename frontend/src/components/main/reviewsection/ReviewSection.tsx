@@ -11,6 +11,11 @@ interface Button {
 
 function ReviewSection() {
 	const [reviews, setReviews] = useState([]);
+	const [screenSize, setScreenSize] = useState(1);
+
+	window.onresize = function () {
+		setScreenSize(window.outerWidth);
+	};
 
 	useEffect(() => {
 		const getReview = async () => {
@@ -60,7 +65,15 @@ const Container = styled.div`
 `;
 
 const Button = styled(FontAwesomeIcon)<Button>`
+	display: none;
 	font-size: 3rem;
 	z-index: 2;
 	cursor: pointer;
+	position: sticky;
+	color: gray;
+	top: 50%;
+	left: ${(props) => (props.direction ? `${window.outerWidth - 30}px` : "0")};
+	@media ${(props) => props.theme.tabletS} {
+		display: block;
+	}
 `;
