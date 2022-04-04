@@ -33,14 +33,23 @@ function Community() {
 
 	useEffect(() => {
 		getArticleDataList();
-	}, [current_page_count]);
+	}, [current_page_count, subject]);
 
 	const getArticleDataList = async () => {
-		try {
-			const res = await communityApi.getCommunityList(current_page_count);
-			setArticleDataList(res.data);
-		} catch (error) {
-			console.log(error);
+		if (subject === "ALL") {
+			try {
+				const res = await communityApi.getCommunityList(current_page_count);
+				setArticleDataList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		} else {
+			try {
+				const res = await communityApi.getSubjectCommunityList(current_page_count, subject);
+				setArticleDataList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
