@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
+import useOutside from "components/navbar/hooks/useOutside";
 
 const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
 
@@ -10,6 +11,9 @@ interface SubjectProps {
 function Dropdown({ setSubject }: SubjectProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
+	const Ref = useRef<HTMLFormElement>(null);
+
+	useOutside({ Ref, setFunction: setIsOpen });
 
 	const toggling = () => setIsOpen(!isOpen);
 
@@ -23,7 +27,7 @@ function Dropdown({ setSubject }: SubjectProps) {
 
 	return (
 		<Main>
-			<DropDownContainer>
+			<DropDownContainer ref={Ref}>
 				<DropDownHeader onClick={toggling}>{selectedOption || "ALL"}</DropDownHeader>
 				{isOpen && (
 					<DropDownListContainer>
@@ -41,14 +45,14 @@ function Dropdown({ setSubject }: SubjectProps) {
 	);
 }
 
-const Main = styled("div")``;
+const Main = styled.div``;
 
-const DropDownContainer = styled("div")`
+const DropDownContainer = styled.form`
 	width: 8em;
 	margin: 0 auto;
 `;
 
-const DropDownHeader = styled("div")`
+const DropDownHeader = styled.div`
 	text-align: center;
 	margin-bottom: 0.8em;
 	padding: 0.4em 1em 0.4em 1em;
@@ -60,12 +64,12 @@ const DropDownHeader = styled("div")`
 	cursor: pointer;
 `;
 
-const DropDownListContainer = styled("div")`
+const DropDownListContainer = styled.div`
 	position: absolute;
 	width: 8rem;
 `;
 
-const DropDownList = styled("ul")`
+const DropDownList = styled.ul`
 	text-align: center;
 	padding: 0;
 	margin: 0;
@@ -80,7 +84,7 @@ const DropDownList = styled("ul")`
 	}
 `;
 
-const ListItem = styled("li")`
+const ListItem = styled.li`
 	list-style: none;
 	height: 2.5rem;
 	&:hover {
