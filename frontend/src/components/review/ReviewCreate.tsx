@@ -19,8 +19,8 @@ function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 		handleInputChange,
 		handleFormSubmit,
 		handleNonMemberInputClick,
-		grade,
 		setGrade,
+		grade,
 		content,
 	} = useReviewForm({
 		sendReviewData: () => {
@@ -28,13 +28,13 @@ function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 		},
 	});
 
+	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+		await handleFormSubmit(e);
+		setUpdateReviews((prev) => !prev);
+	};
+
 	return (
-		<FormContainer
-			onSubmit={async (e) => {
-				await handleFormSubmit(e);
-				setUpdateReviews((prev) => !prev);
-			}}
-		>
+		<FormContainer onSubmit={handleSubmitReview}>
 			<StarRating grade={grade} setGrade={setGrade} />
 			{token ? (
 				<FormArea>
