@@ -32,14 +32,15 @@ interface CustomizedState {
 
 function CommnuityUpdate() {
 	const { articleData } = useLocation().state as CustomizedState;
-	const [subject, setSubject] = useState("TALK");
+	const [subject, setSubject] = useState(articleData.subject);
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
+	console.log(articleData);
 
 	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
-			title: "",
-			content: "",
+			title: articleData.title,
+			content: articleData.content,
 		},
 
 		onSubmit: async (values) => {
@@ -77,11 +78,17 @@ function CommnuityUpdate() {
 					name="title"
 					type="text"
 					onChange={handleChange}
+					value={values.title}
 					placeholder="제목을 입력해주세요."
 				/>
 				<ErrorText>{errors.title}</ErrorText>
 				<Label htmlFor="content">내용</Label>
-				<Input name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
+				<Input
+					name="content"
+					onChange={handleChange}
+					value={values.content}
+					placeholder="내용을 입력해주세요."
+				/>
 				<ErrorText>{errors.content}</ErrorText>
 				<Button>수정</Button>
 			</FormContainer>
