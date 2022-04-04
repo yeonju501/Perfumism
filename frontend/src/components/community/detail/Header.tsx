@@ -52,7 +52,7 @@ function Header({ articleData }: ArticleProps) {
 		<Container>
 			<Button onClick={handleListButtonClick}>목록</Button>
 			<div>
-				<Button onClick={() => handleUpdateClick()}>수정</Button>
+				<Button onClick={handleUpdateClick}>수정</Button>
 				<Button onClick={() => handleDeleteClick(articleData.article_id)}>삭제</Button>
 			</div>
 		</Container>
