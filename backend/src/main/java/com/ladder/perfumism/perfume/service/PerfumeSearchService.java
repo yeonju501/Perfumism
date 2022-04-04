@@ -9,6 +9,7 @@ import com.ladder.perfumism.perfume.domain.Brand;
 import com.ladder.perfumism.perfume.domain.BrandRepository;
 import com.ladder.perfumism.perfume.domain.PerfumeRepository;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class PerfumeSearchService {
                 return PerfumeListResponse.from(perfumeRepository.findByBrandId(brands, pageable));
             case "accord":
                 Accord accord = accordRepository.findByEngNameIgnoreCaseOrKorName(keyword, keyword).orElseGet(() -> null);
-                if (accord == null) {
+                if (Objects.isNull(accord)) {
                     return PerfumeListResponse.createEmptyList();
                 }
                 return PerfumeListResponse.from(perfumeRepository.findByAccordId(accord, pageable));

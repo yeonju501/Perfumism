@@ -2,6 +2,7 @@ package com.ladder.perfumism.review.controller.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -18,6 +19,7 @@ public class ReviewWriteRequest {
     protected ReviewWriteRequest() {
     }
 
+    @Builder
     public ReviewWriteRequest(Integer grade, String content) {
         this.grade = grade;
         this.content = content;

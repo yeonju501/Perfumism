@@ -85,7 +85,7 @@ public class ReviewServiceTest {
         // any()는 "어떤 값이 들어오든 간에" 라는 의미를 갖고 있다.
         given(memberService.findByEmail(any())).willReturn(member);
         given(perfumeService.findById(any())).willReturn(perfume);
-        ReviewWriteRequest request = new ReviewWriteRequest(0, "testContent");
+        ReviewWriteRequest request = ReviewWriteRequest.builder().grade(0).content("testContent").build();
         given(reviewRepository.save(any())).willReturn(review);
 
         // when
