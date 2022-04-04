@@ -15,7 +15,7 @@ export const validateUsername = (nickname: string): boolean => {
 };
 
 export const validateArticle = (article: string): boolean => {
-	return article.length === 0 ? false : true;
+	return article.length ? true : false;
 };
 
 export const validateSubject = (subject: string): boolean => {
