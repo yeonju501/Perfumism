@@ -42,19 +42,19 @@ public class VoteService {
         this.voteMemberRepository = voteMemberRepository;
     }
 
-    private void VOTE_IS_NOT_YOURS_FUNC(String email, Article article){
+    private void notYourVote(String email, Article article){
         if(!article.getMember().getEmail().equals(email))
         {
             throw new BusinessException(ErrorCode.VOTE_IS_NOT_YOURS);
         }
     }
 
-    private Vote VOTE_IS_NOT_FOUND(Article article){
+    private Vote findByArticle(Article article){
         return voteRepository.findByArticle(article)
             .orElseThrow(()->new BusinessException(ErrorCode.VOTE_NOT_FOUND));
     }
 
-    private VoteItem VOTE_ITEM_IS_NOT_FOUND(Long voteItem){
+    private VoteItem findById(Long voteItem){
         return voteItemRepository.findById(voteItem)
             .orElseThrow(()->new BusinessException(ErrorCode.VOTE_ITEM_IS_NOT_FOUND));
     }
@@ -62,10 +62,8 @@ public class VoteService {
     @Transactional
     public void createVote(String email, Long articleId, VoteCreateRequest request) {
 
-        Member member = memberService.findByEmail(email);
-
-        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
-        articleService.ARTICLE_IS_NOT_YOURS_FUNC(email, article);
+        Article article = articleService.findById(articleId);
+        articleService.notYourArticle(email, article);
 
         Vote vote = Vote.builder()
             .article(article)
@@ -87,13 +85,11 @@ public class VoteService {
     }
 
     @Transactional
-    public VoteReadListResponse showVoteList(String email, Long articleId) {
+    public VoteReadListResponse showVoteList(Long articleId) {
 
-        Member member = memberService.findByEmail(email);
+        Article article = articleService.findById(articleId);
 
-        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
-
-        Vote vote = VOTE_IS_NOT_FOUND(article);
+        Vote vote = findByArticle(article);
 
         List<VoteItem> voteItem = voteItemRepository.findByVote(vote);
 
@@ -105,13 +101,11 @@ public class VoteService {
     @Transactional
     public void expireVote(String email, Long articleId) {
 
-        Member member = memberService.findByEmail(email);
+        Article article = articleService.findById(articleId);
+        articleService.notYourArticle(email, article);
 
-        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
-        articleService.ARTICLE_IS_NOT_YOURS_FUNC(email, article);
-
-        Vote vote = VOTE_IS_NOT_FOUND(article);
-        VOTE_IS_NOT_YOURS_FUNC(email,article);
+        Vote vote = findByArticle(article);
+        notYourVote(email,article);
 
 
         vote.changVoteExpiration();
@@ -121,10 +115,10 @@ public class VoteService {
     @Transactional
     public void chooseVote(String email, Long articleId, VoteChooseRequest request) {
         Member member = memberService.findByEmail(email);
-        Article article = articleService.ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = articleService.findById(articleId);
 
-        Vote vote = VOTE_IS_NOT_FOUND(article);
-        VoteItem choseVoteItem = VOTE_ITEM_IS_NOT_FOUND(request.getVoteItem());
+        Vote vote = findByArticle(article);
+        VoteItem choseVoteItem = findById(request.getVoteItem());
 
         List<VoteItem> voteItems = voteItemRepository.findByVote(vote);
 
