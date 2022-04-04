@@ -35,6 +35,9 @@ const Section = styled.section`
 	flex-direction: column;
 	width: 100%;
 	height: 50rem;
+	@media ${(props) => props.theme.mobileS} {
+		height: auto;
+	}
 `;
 
 const Title = styled.p`
@@ -46,8 +49,7 @@ const Title = styled.p`
 
 const Container = styled.div`
 	display: flex;
-	overflow-x: scroll;
-	&::-webkit-scrollbar {
-		display: none;
+	@media ${(props) => props.theme.mobileS} {
+		flex-direction: column;
 	}
 `;

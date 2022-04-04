@@ -47,8 +47,7 @@ const Container = styled(Link)`
 	justify-content: center;
 	color: #000;
 	width: 25rem;
-	@media ${(props) => props.theme.tabelt} {
-	}
+	margin: 0 2rem;
 `;
 
 const PerfumeName = styled.p`

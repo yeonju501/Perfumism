@@ -61,6 +61,8 @@ const Input = styled.input<InputProps>`
 	height: 3rem;
 	padding: 1rem;
 	position: absolute;
+	box-shadow: 0 0 0.5rem gray;
+	border: none;
 	display: ${({ isOn }) => (isOn ? "block" : "none")};
 	border-radius: 0.5rem;
 	transform: ${({ isOn }) => isOn && "translate(-19rem, -.4rem)"};
@@ -74,8 +76,8 @@ const Input = styled.input<InputProps>`
 	}
 
 	@media ${(props) => props.theme.mobileS} {
-		width: 6rem;
-		transform: ${({ isOn }) => isOn && "translate(-4rem, -.4rem)"};
+		width: 7.5rem;
+		transform: ${({ isOn }) => isOn && "translate(-6rem, -.4rem)"};
 	}
 `;
 

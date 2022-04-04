@@ -37,7 +37,7 @@ function ReviewSection() {
 				<Button icon={faChevronRight} onClick={() => handleScroll()} direction="right" />
 				<Button icon={faChevronLeft} onClick={() => handleScroll("left")} />
 				<Container>
-					{reviews.slice(0, 4).map((review, idx) => (
+					{reviews.slice(0, 10).map((review, idx) => (
 						<ReviewText review={review} key={idx} />
 					))}
 				</Container>
@@ -66,7 +66,7 @@ const Container = styled.div`
 `;
 
 const Button = styled(FontAwesomeIcon)<Button>`
-	display: none;
+	display: block;
 	font-size: 3rem;
 	z-index: 2;
 	cursor: pointer;
@@ -74,7 +74,4 @@ const Button = styled(FontAwesomeIcon)<Button>`
 	color: gray;
 	top: 50%;
 	left: ${(props) => (props.direction ? `${window.outerWidth - 30}px` : "0")};
-	@media ${(props) => props.theme.tabletS} {
-		display: block;
-	}
 `;
