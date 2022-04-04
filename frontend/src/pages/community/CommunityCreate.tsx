@@ -6,6 +6,7 @@ import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
+import PlusButton from "components/community/create/PlusButton";
 
 function CommunityCreate() {
 	const [subject, setSubject] = useState("RECOMMEND");
@@ -66,6 +67,7 @@ function CommunityCreate() {
 				<Button onClick={toCommunity}>목록</Button>
 				<Button>등록</Button>
 			</FormContainer>
+			<PlusButton />
 		</Container>
 	);
 }
