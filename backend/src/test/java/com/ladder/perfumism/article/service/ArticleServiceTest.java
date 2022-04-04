@@ -20,6 +20,7 @@ import com.ladder.perfumism.vote.domain.VoteMemberRepository;
 import com.ladder.perfumism.vote.domain.VoteRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,7 +73,7 @@ public class ArticleServiceTest {
     @BeforeEach
     void Setup(){
         member = new Member("test@test.com", "test", "test", Authority.ROLE_MEMBER, "");
-        article = new Article(member,ArticleSubject.RECOMMEND,"제목입니다","내용입니다");
+        article = new Article(1L,member,ArticleSubject.RECOMMEND,"제목입니다","내용입니다");
     }
 
     @Test
@@ -117,5 +118,21 @@ public class ArticleServiceTest {
         assertThat(result2.getArticleList().get(0).getArticleId()).isEqualTo(article.getId());
         assertThat(result2.getArticleList().get(0).getTitle()).isEqualTo(article.getTitle());
         assertThat(result2.getArticleList().get(0).getContent()).isEqualTo(article.getContent());
+    }
+
+    @Test
+    @DisplayName("게시글 수정")
+    void updateArticleTest(){
+        String email = "test@test.com";
+
+        given(articleRepository.findById(1L)).willReturn(Optional.ofNullable(article));
+        ArticleCreateRequest request = new ArticleCreateRequest(ArticleSubject.RECOMMEND,"제목변경입니다","내용변경입니다");
+
+        // when
+        articleService.updateArticle(email,article.getId(),request);
+
+        // then
+        assertThat(article.getTitle()).isEqualTo(request.getTitle());
+        assertThat(article.getContent()).isEqualTo(request.getContent());
     }
 }

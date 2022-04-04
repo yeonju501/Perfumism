@@ -51,6 +51,13 @@ public class Article extends BaseEntity {
 
     }
 
+    public Article(Long id, Member member, ArticleSubject subject, String title, String content){
+        this.id = id;
+        this.member = member;
+        this.subject = subject;
+        this.content = content;
+    }
+
     @Builder
     public Article(Member member, ArticleSubject subject, String title, String content){
         this.member = member;
