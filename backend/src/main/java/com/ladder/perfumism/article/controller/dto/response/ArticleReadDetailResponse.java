@@ -59,7 +59,7 @@ public class ArticleReadDetailResponse  {
 
     @JsonProperty("vote_exist")
     @ApiModelProperty(position = 10, notes = "투표 존재 유무 true(있음) or false(없음)", example = "false")
-    private Boolean vote_exist;
+    private Boolean voteExist;
 
     @JsonProperty("image_url_list")
     @ApiModelProperty(position = 11, notes = "이미지 URL 리스트", dataType = "List")
@@ -72,7 +72,7 @@ public class ArticleReadDetailResponse  {
     public ArticleReadDetailResponse(
         Long articleId, Long memberId, String memberName, String memberImage,
         ArticleSubject subject, String title, String content,
-        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, Boolean vote_exist,
+        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, Boolean voteExist,
         List<ArticleImageResponse> imageUrlList){
         this.articleId = articleId;
         this.memberId = memberId;
@@ -84,7 +84,7 @@ public class ArticleReadDetailResponse  {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
-        this.vote_exist = vote_exist;
+        this.voteExist = voteExist;
         this.imageUrlList = imageUrlList;
     }
 
@@ -100,7 +100,7 @@ public class ArticleReadDetailResponse  {
             article.getCreatedAt(),
             article.getUpdatedAt(),
             article.getDeletedAt(),
-            article.getVote_exist(),
+            article.getVoteExist(),
             articleImages.stream()
                 .map(ArticleImageResponse::from)
                 .collect(Collectors.toList())

@@ -57,7 +57,7 @@ public class ArticleReadResponse {
 
     public ArticleReadResponse(Long articleId, Long memberId, String memberName,
         ArticleSubject subject, String title, String content,
-        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deleteAt){
+        LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt){
         this.articleId = articleId;
         this.memberId = memberId;
         this.memberName = memberName;

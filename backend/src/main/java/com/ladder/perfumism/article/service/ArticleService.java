@@ -135,7 +135,7 @@ public class ArticleService {
             commentRepository.updateDeletedAtByArticle(articleId);
         }
 
-        if(article.getVote_exist()){
+        if(article.getVoteExist()){
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
