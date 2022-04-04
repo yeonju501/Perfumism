@@ -4,7 +4,7 @@ import styled from "styled-components";
 const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
 
 interface SubjectProps {
-	setSubject: React.Dispatch<React.SetStateAction<string>>;
+	setSubject?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function Dropdown({ setSubject }: SubjectProps) {
@@ -14,8 +14,10 @@ function Dropdown({ setSubject }: SubjectProps) {
 	const toggling = () => setIsOpen(!isOpen);
 
 	const onOptionClicked = (value: string) => () => {
+		if (setSubject) {
+			setSubject(value);
+		}
 		setSelectedOption(value);
-		setSubject(value);
 		setIsOpen(false);
 	};
 
