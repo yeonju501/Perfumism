@@ -39,7 +39,7 @@ function Header({ articleData }: ArticleProps) {
 	const handleUpdateClick = () => {
 		navigate(`/community/update/${articleData.article_id}`, {
 			state: {
-				articleData: articleData,
+				articleData,
 			},
 		});
 	};
