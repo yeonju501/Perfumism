@@ -22,6 +22,7 @@ import Loading from "pages/recommend/Loading";
 import Community from "pages/community/Community";
 import CommunityDetail from "pages/community/CommunityDetail";
 import CommunityCreate from "pages/community/CommunityCreate";
+import CommunityUpdate from "pages/community/CommunityUpdate";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import InputCodePage from "pages/account/find-pw/InputCodePage";
@@ -58,6 +59,7 @@ function Router() {
 				<Route path="/community" element={<Community />} />
 				<Route path="/community/:articleId" element={<CommunityDetail />} />
 				<Route path="/community/create" element={<CommunityCreate />} />
+				<Route path="/community/update/:articleId" element={<CommunityUpdate />} />
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
