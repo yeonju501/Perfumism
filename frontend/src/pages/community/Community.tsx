@@ -57,7 +57,13 @@ function Community() {
 		<Container>
 			<MainHeader setSubject={setSubject} />
 			<CommunityList articleList={articleList} />
-			<Pagination page={current_page_count} total={total_page_count} setData={setArticleDataList} />
+			{articleDataList.articleList?.length && (
+				<Pagination
+					page={current_page_count}
+					total={total_page_count}
+					setData={setArticleDataList}
+				/>
+			)}
 		</Container>
 	);
 }
