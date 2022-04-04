@@ -13,7 +13,7 @@ interface Props {
 }
 
 function UserIcon() {
-	const userName = useSelector((state: RootState) => state.user.username);
+	const username = useSelector((state: RootState) => state.user.username);
 	const token = cookie.load("access_token");
 	const navigate = useNavigate();
 
@@ -25,10 +25,7 @@ function UserIcon() {
 
 	return token ? (
 		<>
-			<FontAwesome
-				icon={faUser}
-				onClick={() => navigate("profile/check-password", { state: userName })}
-			/>
+			<FontAwesome icon={faUser} onClick={() => navigate(`profile/${username}`)} />
 			<FontAwesome icon={faArrowRightFromBracket} usericon="1" onClick={logout} />
 		</>
 	) : (

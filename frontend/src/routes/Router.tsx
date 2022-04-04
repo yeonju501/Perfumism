@@ -28,20 +28,28 @@ import PrivateRoute from "./PrivateRoute";
 import InputCodePage from "pages/account/find-pw/InputCodePage";
 import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
 import SuccessPage from "pages/account/find-pw/SuccessPage";
-import CheckPassword from "pages/profile/CheckPassword";
 import ChangePassword from "pages/profile/ChangePassword";
+import ProfilePrivateRoutes from "./ProfilePrivateRoute";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
+import CheckPassword from "pages/profile/CheckPassword";
 
 function Router() {
+	const username = useSelector((state: RootState) => state.user.username);
+
 	return (
 		<BrowserRouter>
 			<ScrollToTop />
 			<Navbar />
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
-				<Route path="/profile/:username" element={<Profile />} />
-				<Route path="/profile/favorites" element={<Favorites />} />
-				<Route path="/profile/my-articles" element={<MyArticles />} />
-				<Route path="/profile/my-comments" element={<MyComments />} />
+				<Route element={<ProfilePrivateRoutes />}>
+					<Route path={`/profile/${username}`} element={<Profile />} />
+					<Route path="/profile/favorites" element={<Favorites />} />
+					<Route path="/profile/my-articles" element={<MyArticles />} />
+					<Route path="/profile/my-comments" element={<MyComments />} />
+				</Route>
+				<Route path="/profile/check-password" element={<CheckPassword />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/perfumes" element={<Perfumes />} />
 				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
@@ -63,7 +71,6 @@ function Router() {
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
-				<Route path="/profile/check-password" element={<CheckPassword />} />
 				<Route path="/profile/change-pw" element={<ChangePassword />} />
 			</Routes>
 		</BrowserRouter>
