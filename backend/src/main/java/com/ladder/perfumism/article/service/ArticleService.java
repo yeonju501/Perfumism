@@ -57,13 +57,13 @@ public class ArticleService {
 
     }
 
-    public void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
+    public void notYourArticle(String email, Article article){
         if(!article.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
         }
     }
 
-    public Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
+    public Article findById(Long articleId){
         return articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
     }
@@ -103,7 +103,7 @@ public class ArticleService {
     @Transactional
     public ArticleReadDetailResponse showArticleDetail(Long articleId) {
 
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = findById(articleId);
 
         List<ArticleImage> articleImage = articleImageRepository.findByArticle(article);
 
@@ -116,8 +116,8 @@ public class ArticleService {
     @Transactional
     public void updateArticle(String email, Long articleId, ArticleCreateRequest request) {
 
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
+        Article article = findById(articleId);
+        notYourArticle(email, article);
 
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
@@ -128,8 +128,8 @@ public class ArticleService {
     @Transactional
     public void removeArticle(String email,Long articleId) {
 
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
+        Article article = findById(articleId);
+        notYourArticle(email, article);
 
         if(commentRepository.existsByArticle(article)){
             commentRepository.updateDeletedAtByArticle(articleId);
@@ -154,7 +154,7 @@ public class ArticleService {
     @Transactional
     public void createArticleImage(Long articleId, List<MultipartFile> files) {
 
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = findById(articleId);
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
             articleImageRepository.updateDeletedAtByArticle(articleId);
