@@ -7,12 +7,12 @@ import cookie from "react-cookies";
 import useReviewForm from "./hooks/useReviewForm";
 import styled from "styled-components";
 
-interface ReviewCreateFormProp {
+interface ReviewCreateProp {
 	perfumeId: string;
 	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp) {
+function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 	const token = cookie.load("access_token");
 
 	const {
@@ -59,4 +59,4 @@ const FormArea = styled.div`
 	display: flex;
 `;
 
-export default ReviewCreateForm;
+export default ReviewCreate;

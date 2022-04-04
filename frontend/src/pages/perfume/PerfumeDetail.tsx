@@ -1,11 +1,11 @@
 import perfumeApi from "apis/perfume";
-import ReviewCreateForm from "components/review/ReviewCreateForm";
 import ReviewList from "components/review/ReviewList";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PerfumeInfo from "components/perfume/PerfumeInfo";
 import PerfumeDetailRecommendation from "components/perfume/PerfumeDetailRecommendation";
+import ReviewCreate from "components/review/ReviewCreate";
 
 interface PerfumeDataType {
 	perfume_id: number;
@@ -56,7 +56,7 @@ function PerfumeDetail() {
 			<Container>
 				<PerfumeInfo perfumeData={perfumeData} />
 				<PerfumeDetailRecommendation perfumeData={perfumeData} />
-				<ReviewCreateForm perfumeId={perfumeId} setUpdateReviews={setUpdateReviews} />
+				<ReviewCreate perfumeId={perfumeId} setUpdateReviews={setUpdateReviews} />
 				<ReviewList perfumeId={perfumeId} updateReviews={updateReviews} />
 			</Container>
 		)
