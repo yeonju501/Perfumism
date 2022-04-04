@@ -33,9 +33,13 @@ function Community() {
 
 	useEffect(() => {
 		getArticleDataList();
-	}, [current_page_count, subject]);
+	}, [current_page_count]);
 
-	const getArticleDataList = async () => {
+	useEffect(() => {
+		getArticleDataList(0);
+	}, [subject]);
+
+	const getArticleDataList = async (resetCnt?: number) => {
 		if (subject === "ALL") {
 			try {
 				const res = await communityApi.getCommunityList(current_page_count);
@@ -45,8 +49,13 @@ function Community() {
 			}
 		} else {
 			try {
-				const res = await communityApi.getSubjectCommunityList(current_page_count, subject);
-				setArticleDataList(res.data);
+				if (resetCnt === 0) {
+					const res = await communityApi.getSubjectCommunityList(resetCnt, subject);
+					setArticleDataList(res.data);
+				} else {
+					const res = await communityApi.getSubjectCommunityList(current_page_count, subject);
+					setArticleDataList(res.data);
+				}
 			} catch (error) {
 				console.log(error);
 			}
