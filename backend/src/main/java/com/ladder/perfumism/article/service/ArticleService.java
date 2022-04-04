@@ -86,9 +86,8 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadListResponse showArticleList(String email,Pageable pageable, ArticleSubject subject) {
+    public ArticleReadListResponse showArticleList(Pageable pageable, ArticleSubject subject) {
 
-        Member member = memberService.findByEmail(email);
 
         Page<Article> articleList;
         if (subject != null){
@@ -102,9 +101,8 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadDetailResponse showArticleDetail(String email, Long articleId) {
+    public ArticleReadDetailResponse showArticleDetail(Long articleId) {
 
-        Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
 
         List<ArticleImage> articleImage = articleImageRepository.findByArticle(article);
@@ -118,7 +116,6 @@ public class ArticleService {
     @Transactional
     public void updateArticle(String email, Long articleId, ArticleCreateRequest request) {
 
-        Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
         ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
@@ -131,7 +128,6 @@ public class ArticleService {
     @Transactional
     public void removeArticle(String email,Long articleId) {
 
-        Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
         ARTICLE_IS_NOT_YOURS_FUNC(email, article);
 
@@ -156,9 +152,8 @@ public class ArticleService {
     }
 
     @Transactional
-    public void createArticleImage(String email, Long articleId, List<MultipartFile> files) {
+    public void createArticleImage(Long articleId, List<MultipartFile> files) {
 
-        Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
@@ -182,16 +177,11 @@ public class ArticleService {
 
                 throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
             }
-
-
-
         }
-
-
     }
 
     @Transactional
-    public ArticleReadListResponse showMyArticleList(String email, Pageable pageable, ArticleSubject subject) {
+    public ArticleReadListResponse showMyArticleList(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
 
         Page<Article> articleList = articleRepository.findByMember(member,pageable);
