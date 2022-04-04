@@ -36,7 +36,7 @@ function Pagination({ total, page, setData }: PaginationProps) {
 		<>
 			<nav>
 				<button
-					onClick={() => setData((prev) => ({ ...prev, currentPage: page - 1 }))}
+					onClick={() => setData((prev) => ({ ...prev, current_page_count: page - 1 }))}
 					disabled={page === 0}
 				>
 					&lt;
@@ -47,7 +47,7 @@ function Pagination({ total, page, setData }: PaginationProps) {
 						<PaginationButton key={i + 1} setData={setData} idx={i} text={String(i + 1)} />
 					))}
 				<button
-					onClick={() => setData((prev) => ({ ...prev, currentPage: page + 1 }))}
+					onClick={() => setData((prev) => ({ ...prev, current_page_count: page + 1 }))}
 					disabled={page === total - 1}
 				>
 					&gt;

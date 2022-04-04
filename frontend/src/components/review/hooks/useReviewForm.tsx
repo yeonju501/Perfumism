@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface useReviewFormProps {
 	sendReviewData: () => Promise<any>;
 }
 
 function useReviewForm({ sendReviewData }: useReviewFormProps) {
-	const navigate = useNavigate();
 	const [grade, setGrade] = useState(0);
 	const [content, setContent] = useState("");
 
@@ -22,17 +20,17 @@ function useReviewForm({ sendReviewData }: useReviewFormProps) {
 	};
 
 	const handleNonMemberInputClick = () => {
-		navigate("/signin");
+		window.location.replace("/signin");
 	};
 
 	return {
 		handleInputChange,
 		handleFormSubmit,
 		handleNonMemberInputClick,
-		grade,
 		setGrade,
-		content,
 		setContent,
+		grade,
+		content,
 	};
 }
 

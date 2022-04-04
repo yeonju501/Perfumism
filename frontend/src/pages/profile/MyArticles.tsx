@@ -1,6 +1,5 @@
 import { profileApi } from "apis";
 import Pagination from "components/Pagination";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import usePagination from "./hooks/usePagination";
@@ -14,7 +13,7 @@ function MyArticles() {
 	return (
 		<>
 			{articleList && (
-				<>
+				<div>
 					{articleList.length > 0 ? (
 						<>
 							<Table>
@@ -46,7 +45,7 @@ function MyArticles() {
 					) : (
 						<p>작성한 글이 없습니다</p>
 					)}
-				</>
+				</div>
 			)}
 		</>
 	);

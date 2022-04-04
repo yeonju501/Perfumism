@@ -31,7 +31,7 @@ interface CommentListType {
 
 function PaginationButton({ setData, idx, text }: IProps) {
 	const handleButtonClick = () => {
-		setData((prev) => ({ ...prev, currentPage: idx }));
+		setData((prev) => ({ ...prev, current_page_count: idx }));
 	};
 	return <button onClick={handleButtonClick}>{text}</button>;
 }

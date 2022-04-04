@@ -7,20 +7,20 @@ import cookie from "react-cookies";
 import useReviewForm from "./hooks/useReviewForm";
 import styled from "styled-components";
 
-interface ReviewCreateFormProp {
+interface ReviewCreateProp {
 	perfumeId: string;
 	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp) {
+function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 	const token = cookie.load("access_token");
 
 	const {
 		handleInputChange,
 		handleFormSubmit,
 		handleNonMemberInputClick,
-		grade,
 		setGrade,
+		grade,
 		content,
 	} = useReviewForm({
 		sendReviewData: () => {
@@ -28,13 +28,13 @@ function ReviewCreateForm({ perfumeId, setUpdateReviews }: ReviewCreateFormProp)
 		},
 	});
 
+	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+		await handleFormSubmit(e);
+		setUpdateReviews((prev) => !prev);
+	};
+
 	return (
-		<FormContainer
-			onSubmit={async (e) => {
-				await handleFormSubmit(e);
-				setUpdateReviews((prev) => !prev);
-			}}
-		>
+		<FormContainer onSubmit={handleSubmitReview}>
 			<StarRating grade={grade} setGrade={setGrade} />
 			{token ? (
 				<FormArea>
@@ -59,4 +59,4 @@ const FormArea = styled.div`
 	display: flex;
 `;
 
-export default ReviewCreateForm;
+export default ReviewCreate;

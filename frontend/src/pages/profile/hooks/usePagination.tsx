@@ -40,6 +40,8 @@ function usePagination({ requestApi }: usePaginationProps) {
 	const totalPage = data.total_page_count;
 	const currentPage = data.current_page_count;
 
+	console.log(currentPage);
+
 	useEffect(() => {
 		getData();
 	}, [currentPage]);

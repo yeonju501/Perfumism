@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
-import cookie from "react-cookies";
 import useReviewForm from "./hooks/useReviewForm";
 
 interface ReviewUpdateProp {
@@ -26,65 +25,49 @@ interface ReviewType {
 }
 
 function ReviewUpdate({
-	reviewId,
-	setIsEditable,
 	oldContent,
 	oldGrade,
+	reviewId,
+	setIsEditable,
 	setReviews,
 }: ReviewUpdateProp) {
-	const token = cookie.load("access_token");
-
-	const {
-		handleInputChange,
-		handleFormSubmit,
-		handleNonMemberInputClick,
-		grade,
-		setGrade,
-		content,
-		setContent,
-	} = useReviewForm({
-		sendReviewData: () => {
-			return reviewApi.updateReview({ grade, content }, reviewId);
-		},
-	});
+	const { handleInputChange, handleFormSubmit, setGrade, grade, content, setContent } =
+		useReviewForm({
+			sendReviewData: () => {
+				return reviewApi.updateReview({ grade, content }, reviewId);
+			},
+		});
 
 	useEffect(() => {
 		setGrade(oldGrade);
 		setContent(oldContent);
 	}, []);
 
+	const handleReviewUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+		await handleFormSubmit(e);
+		setIsEditable(-1);
+		setReviews((reviews) =>
+			reviews.map((review) => {
+				if (review.review_id === reviewId) {
+					review.grade = grade;
+					review.content = content;
+				}
+				return review;
+			}),
+		);
+	};
+
 	return (
-		<FormContainer
-			onSubmit={async (e) => {
-				await handleFormSubmit(e);
-				setIsEditable(-1);
-				setReviews((reviews) =>
-					reviews.map((review) => {
-						if (review.review_id === reviewId) {
-							review.grade = grade;
-							review.content = content;
-						}
-						return review;
-					}),
-				);
-			}}
-		>
+		<FormContainer onSubmit={handleReviewUpdate}>
 			<StarRating grade={grade} setGrade={setGrade} />
-			{token ? (
-				<div>
-					<Textarea
-						value={content}
-						onChange={handleInputChange}
-						placeholder="리뷰를 입력하세요"
-					></Textarea>
-					<CreateButton>수정</CreateButton>
-				</div>
-			) : (
+			<div>
 				<Textarea
-					placeholder="로그인 후 사용해주세요"
-					onClick={handleNonMemberInputClick}
+					value={content}
+					onChange={handleInputChange}
+					placeholder="리뷰를 수정하세요"
 				></Textarea>
-			)}
+				<CreateButton>수정</CreateButton>
+			</div>
 		</FormContainer>
 	);
 }
