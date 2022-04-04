@@ -6,6 +6,7 @@ interface CommunityApiType {
 	getCommunityDetail: (articleId: string | undefined) => Promise<AxiosResponse>;
 	createCommunity: (formData: FormData) => Promise<AxiosResponse>;
 	deleteCommunity: (articleId: string | undefined) => Promise<AxiosResponse>;
+	updateCommunity: (articleId: string | undefined) => Promise<AxiosResponse>;
 }
 
 const communityApi: CommunityApiType = {
@@ -13,6 +14,7 @@ const communityApi: CommunityApiType = {
 	getCommunityDetail: (articleId) => request.get(`auth/articles/detail/${articleId}`),
 	createCommunity: (formData) => imageRequest.post(`auth/articles`, formData),
 	deleteCommunity: (articleId) => request.delete(`auth/articles/detail/${articleId}`),
+	updateCommunity: (articleId) => request.put(`auth/articles/detail/${articleId}`),
 };
 
 export default communityApi;
