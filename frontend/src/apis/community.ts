@@ -8,7 +8,7 @@ interface CommunityApiType {
 	createCommunity: (formData: FormData) => Promise<AxiosResponse>;
 	deleteCommunity: (articleId: number) => Promise<AxiosResponse>;
 	updateCommunity: (articleId: number, formData: FormData) => Promise<AxiosResponse>;
-	createComment: (articleId: number) => Promise<AxiosResponse>;
+	createComment: (articleId: number, content: string) => Promise<AxiosResponse>;
 	getComments: (articleId: number, currentPage: number) => Promise<AxiosResponse>;
 	updateComment: (articleId: number, commentId: number) => Promise<AxiosResponse>;
 	deleteComment: (articleId: number, commentId: number) => Promise<AxiosResponse>;
@@ -23,7 +23,8 @@ const communityApi: CommunityApiType = {
 	deleteCommunity: (articleId) => request.delete(`auth/articles/detail/${articleId}`),
 	updateCommunity: (articleId, formData) =>
 		imageRequest.put(`auth/articles/detail/${articleId}`, formData),
-	createComment: (articleId: number) => request.post(`auth/comments/${articleId}`),
+	createComment: (articleId: number, content: string) =>
+		request.post(`auth/comments/${articleId}`, content),
 	getComments: (articleId: number, currentPage: number) =>
 		request.get(`auth/comments/${articleId}?page=${currentPage}&size=10`),
 	updateComment: (articleId: number, commentId: number) =>

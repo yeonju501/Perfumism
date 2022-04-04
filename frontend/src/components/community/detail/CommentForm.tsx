@@ -11,7 +11,7 @@ interface CommentFormProps {
 function CommentForm({ articleId }: CommentFormProps) {
 	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
 		sendReviewData: () => {
-			return communityApi.createComment(articleId);
+			return communityApi.createComment(articleId, content);
 		},
 	});
 
