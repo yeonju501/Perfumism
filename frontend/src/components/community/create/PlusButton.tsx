@@ -1,19 +1,33 @@
+import { useState } from "react";
 import PlusSrc from "assets/plus.png";
 import styled from "styled-components";
 
 function PlusButton() {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggling = () => setIsOpen(!isOpen);
+
 	return (
 		<Container>
-			<img src={PlusSrc} alt="" />
+			{isOpen && (
+				<div>
+					<input type="file" multiple />
+				</div>
+			)}
+			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
 		</Container>
 	);
 }
 
 const Container = styled.div`
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 5rem;
+	right: 5rem;
 	cursor: pointer;
+`;
+
+const ButtonImg = styled.img`
+	width: 12rem;
 `;
 
 export default PlusButton;
