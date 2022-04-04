@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../index";
 
-function Header() {
+interface ArticleIdType {
+	articleId: string;
+}
+
+function Header({ articleId }: ArticleIdType) {
 	const navigate = useNavigate();
 
 	const handleListButtonClick = () => {
