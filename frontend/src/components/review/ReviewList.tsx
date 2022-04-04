@@ -99,10 +99,9 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 					) : (
 						<div>
 							<p>
-								{/* {[...Array(review.grade)].map(() => (
+								{[...Array(review.grade)].map(() => (
 									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
-								))} */}
-								<FontAwesomeIcon icon={star} color="#ffcb14" /> {review.grade}
+								))}
 							</p>
 							<p>{review.content}</p>
 						</div>
