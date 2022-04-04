@@ -52,7 +52,7 @@ public class Article extends BaseEntity {
     }
 
     @Builder
-    private Article(Member member, ArticleSubject subject, String title, String content){
+    public Article(Member member, ArticleSubject subject, String title, String content){
         this.member = member;
         this.subject = subject;
         this.title = title;

@@ -3,6 +3,7 @@ package com.ladder.perfumism.article.controller;
 import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadDetailResponse;
 import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
+import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.article.service.ArticleService;
 import com.ladder.perfumism.global.exception.BusinessException;
@@ -57,10 +58,10 @@ public class ArticleRestController {
         @RequestPart(value = "article") ArticleCreateRequest request,
         @RequestPart(value = "image", required = false) List<MultipartFile> files){
 
-        Long articleId = articleService.createArticle(email,request);
+        Article article = articleService.createArticle(email,request);
 
         if (!files.get(0).isEmpty()){
-            articleService.createArticleImage(articleId,files);
+            articleService.createArticleImage(article,files);
         }
 
         return ResponseEntity.noContent().build();
@@ -106,8 +107,10 @@ public class ArticleRestController {
         @RequestPart(value = "article") ArticleCreateRequest request,
         @RequestPart(value = "image", required = false) List<MultipartFile> files){
 
+        Article article = articleService.findById(articleId);
+
         if (!files.get(0).isEmpty()){
-            articleService.createArticleImage(articleId,files);
+            articleService.createArticleImage(article,files);
         }
         articleService.updateArticle(email,articleId, request);
 

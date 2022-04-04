@@ -69,7 +69,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public Long createArticle(String email, ArticleCreateRequest request) {
+    public Article createArticle(String email, ArticleCreateRequest request) {
 
         Member member = memberService.findByEmail(email);
 
@@ -82,7 +82,7 @@ public class ArticleService {
 
         articleRepository.save(article);
 
-        return article.getId();
+        return article;
     }
 
     @Transactional
@@ -152,12 +152,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public void createArticleImage(Long articleId, List<MultipartFile> files) {
-
-        Article article = findById(articleId);
+    public void createArticleImage(Article article, List<MultipartFile> files) {
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
-            articleImageRepository.updateDeletedAtByArticle(articleId);
+            articleImageRepository.updateDeletedAtByArticle(article.getId());
         }
 
         for(MultipartFile file: files){
