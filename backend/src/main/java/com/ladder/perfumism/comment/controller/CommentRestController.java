@@ -61,11 +61,10 @@ public class CommentRestController {
     })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<CommentReadListResponse> getCommentList(
-        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC)Pageable pageable,
         @PathVariable(value = "article_id") Long articleId){
 
-        return ResponseEntity.ok().body(commentService.showCommentList(email,pageable,articleId));
+        return ResponseEntity.ok().body(commentService.showCommentList(pageable,articleId));
 
     }
 

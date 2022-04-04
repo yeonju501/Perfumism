@@ -64,9 +64,8 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentReadListResponse showCommentList(String email, Pageable pageable, Long articleId) {
+    public CommentReadListResponse showCommentList(Pageable pageable, Long articleId) {
 
-        Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
 
         Page<Comment> commentList = commentRepository.findAllByParentIdIsNullAndArticle(article, pageable);
@@ -78,8 +77,7 @@ public class CommentService {
     public void updateComment(String email, Long articleId, Long commentId,
         CommentCreateRequest request) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = articleService.findById(articleId);
+        articleService.findById(articleId);
         Comment comment = findById(commentId);
         notYourComment(email,comment);
 
@@ -90,8 +88,7 @@ public class CommentService {
     @Transactional
     public void removeComment(String email, Long articleId, Long commentId) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = articleService.findById(articleId);
+        articleService.findById(articleId);
         Comment comment = findById(commentId);
         notYourComment(email,comment);
 
