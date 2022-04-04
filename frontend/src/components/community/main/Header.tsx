@@ -15,7 +15,7 @@ function Header({ setSubject }: SubjectProps) {
 
 	return (
 		<Container>
-			<Dropdown setSubject={setSubject} />
+			<Dropdown setSubject={setSubject} defaultSubject={"ALL"} />
 			<Button onClick={handleCommunityCreateClick}>글쓰기</Button>
 		</Container>
 	);

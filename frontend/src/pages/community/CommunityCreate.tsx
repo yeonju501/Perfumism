@@ -8,7 +8,7 @@ import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
 function CommunityCreate() {
-	const [subject, setSubject] = useState("TALK");
+	const [subject, setSubject] = useState("RECOMMEND");
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
 	const toCommunity = () => {
@@ -40,17 +40,18 @@ function CommunityCreate() {
 
 		validate: ({ subject, title, content }) => {
 			const errors: { [key: string]: string } = {};
-			if (!formValidator.validateSubject(subject)) errors.email = "말머리를 선택해주세요.";
-			if (!formValidator.validateArticle(title)) errors.email = "제목을 입력해주세요.";
-			if (!formValidator.validateArticle(content)) errors.password = "내용을 입력해주세요.";
+			if (!formValidator.validateSubject(subject)) errors.subject = "말머리를 선택해주세요.";
+			if (!formValidator.validateArticle(title)) errors.title = "제목을 입력해주세요.";
+			if (!formValidator.validateArticle(content)) errors.content = "내용을 입력해주세요.";
 			return errors;
 		},
 	});
 
 	return (
 		<Container>
+			<Dropdown setSubject={setSubject} defaultSubject={"RECOMMEND"} />
+			<ErrorText>{errors.subject}</ErrorText>
 			<FormContainer onSubmit={handleSubmit}>
-				<Dropdown />
 				<Label htmlFor="title">제목</Label>
 				<Input
 					name="title"

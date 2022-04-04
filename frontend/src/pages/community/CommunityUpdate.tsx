@@ -71,7 +71,7 @@ function CommnuityUpdate() {
 	return (
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
-				<Dropdown />
+				<Dropdown defaultSubject={"RECOMMEND"} />
 				<Label htmlFor="title">제목</Label>
 				<Input
 					name="title"
