@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
 import { Dropdown, Label, Input, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
@@ -7,7 +7,31 @@ import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
+interface CustomizedState {
+	articleData: {
+		article_id: number;
+		member_id: number;
+		member_name: string;
+		member_image: string;
+		subject: string;
+		title: string;
+		content: string;
+		createAt: string;
+		updateAt: string;
+		deleteAt: string;
+		vote_exist: boolean;
+		image_url_list: {
+			article_image_id: number;
+			createdAt: string;
+			deletedAt: string;
+			updatedAt: string;
+			image_url: string;
+		}[];
+	};
+}
+
 function CommnuityUpdate() {
+	const { articleData } = useLocation().state as CustomizedState;
 	const [subject, setSubject] = useState("TALK");
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
