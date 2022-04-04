@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.*;
 
 import com.ladder.perfumism.article.controller.dto.request.ArticleCreateRequest;
+import com.ladder.perfumism.article.controller.dto.response.ArticleReadListResponse;
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleImageRepository;
 import com.ladder.perfumism.article.domain.ArticleRepository;
@@ -17,6 +18,8 @@ import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
 import com.ladder.perfumism.vote.domain.VoteMemberRepository;
 import com.ladder.perfumism.vote.domain.VoteRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +27,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @ExtendWith(MockitoExtension.class)
 public class ArticleServiceTest {
@@ -55,6 +63,9 @@ public class ArticleServiceTest {
     @Mock
     private VoteMemberRepository voteMemberRepository;
 
+    private static final int FIRST_PAGE = 0;
+    private static final int DEFAULT_SIZE = 10;
+
     private Member member;
     private Article article;
 
@@ -80,4 +91,31 @@ public class ArticleServiceTest {
         assertThat(result).isNotNull();
     }
 
+
+    @Test
+    @DisplayName("게시글 조회")
+    void showArticleListTest(){
+        // give
+        ArticleSubject subject = ArticleSubject.RECOMMEND;
+        Pageable pageable = PageRequest.of(FIRST_PAGE, DEFAULT_SIZE, Sort.by("id").descending());
+
+        List<Article> articles = new ArrayList<>();
+        articles.add(article);
+        Page<Article> articlePage = new PageImpl<>(articles);
+        given(articleRepository.findBySubject(subject,pageable)).willReturn(articlePage);
+        given(articleRepository.findAll(pageable)).willReturn(articlePage);
+
+        // when
+        ArticleReadListResponse result1 = articleService.showArticleList(pageable,subject);
+        ArticleReadListResponse result2 = articleService.showArticleList(pageable,null);
+
+        // then
+        assertThat(result1.getArticleList().get(0).getArticleId()).isEqualTo(article.getId());
+        assertThat(result1.getArticleList().get(0).getTitle()).isEqualTo(article.getTitle());
+        assertThat(result1.getArticleList().get(0).getContent()).isEqualTo(article.getContent());
+
+        assertThat(result2.getArticleList().get(0).getArticleId()).isEqualTo(article.getId());
+        assertThat(result2.getArticleList().get(0).getTitle()).isEqualTo(article.getTitle());
+        assertThat(result2.getArticleList().get(0).getContent()).isEqualTo(article.getContent());
+    }
 }
