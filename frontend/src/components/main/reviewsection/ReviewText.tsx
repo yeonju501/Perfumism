@@ -33,7 +33,7 @@ function ReviewText({ review }: Review) {
 
 			<Grade>
 				<FontAwesome icon={faStar} />
-				{review.grade}
+				{review.grade}.0
 			</Grade>
 		</Container>
 	);
@@ -59,7 +59,7 @@ const PerfumeName = styled.p`
 
 const Content = styled.p`
 	width: 26rem;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	position: absolute;
 	top: 13rem;
 	text-align: center;
