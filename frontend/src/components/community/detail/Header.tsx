@@ -8,7 +8,7 @@ interface ArticleIdType {
 }
 
 function Header({ articleId }: ArticleIdType) {
-	const handleDeleteClick = async (articleId: string) => {
+	const handleDeleteClick = async (articleId: string | undefined) => {
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await communityApi.deleteCommunity(articleId);
 			navigate("/community");

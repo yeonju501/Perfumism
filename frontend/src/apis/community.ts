@@ -5,7 +5,7 @@ interface CommunityApiType {
 	getCommunityList: (currentPage: number) => Promise<AxiosResponse>;
 	getCommunityDetail: (articleId: string | undefined) => Promise<AxiosResponse>;
 	createCommunity: (formData: FormData) => Promise<AxiosResponse>;
-	deleteCommunity: (articleId: string) => Promise<AxiosResponse>;
+	deleteCommunity: (articleId: string | undefined) => Promise<AxiosResponse>;
 }
 
 const communityApi: CommunityApiType = {
