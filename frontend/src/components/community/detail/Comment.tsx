@@ -1,10 +1,14 @@
-import Textarea from "components/review/Textarea";
 import styled from "styled-components";
+import CommentForm from "./CommentForm";
 
-function Comment() {
+interface CommentProps {
+	articleId: number;
+}
+
+function Comment({ articleId }: CommentProps) {
 	return (
 		<Container>
-			<Textarea></Textarea>
+			<CommentForm articleId={1} />
 			<div>댓글 1</div>
 			<div>댓글 2</div>
 		</Container>

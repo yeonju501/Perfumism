@@ -67,7 +67,7 @@ function CommunityDetaul() {
 		<Container>
 			<DetailHeader articleData={articleData} />
 			<DetailContent articleData={articleData} />
-			<DetailComment />
+			<DetailComment articleId={articleData.article_id} />
 		</Container>
 	);
 }
