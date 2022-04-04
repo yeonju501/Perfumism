@@ -54,7 +54,7 @@ function CommnuityUpdate() {
 					? formData.append("image", selectedImg)
 					: formData.append("image", new Blob([]));
 				await communityApi.updateCommunity(articleData.article_id, formData);
-				navigate("/community");
+				navigate(`/community/${articleData.article_id}`);
 			} catch (error) {
 				console.log(error);
 			}
