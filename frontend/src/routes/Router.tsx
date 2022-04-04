@@ -29,7 +29,7 @@ import InputCodePage from "pages/account/find-pw/InputCodePage";
 import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
 import SuccessPage from "pages/account/find-pw/SuccessPage";
 import ChangePassword from "pages/profile/ChangePassword";
-import ProfilePrivateRoutes from "./ProfilePrivateRoutes";
+import ProfilePrivateRoutes from "./ProfilePrivateRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import CheckPassword from "pages/profile/CheckPassword";
