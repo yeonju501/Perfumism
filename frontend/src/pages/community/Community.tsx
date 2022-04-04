@@ -29,6 +29,7 @@ function Community() {
 		current_page_count: 0,
 	});
 	const { articleList, total_page_count, current_page_count } = articleDataList;
+	const [subject, setSubject] = useState("ALL");
 
 	useEffect(() => {
 		getArticleDataList();
@@ -45,7 +46,7 @@ function Community() {
 
 	return (
 		<Container>
-			<MainHeader />
+			<MainHeader setSubject={setSubject} />
 			<CommunityList articleList={articleList} />
 			<Pagination page={current_page_count} total={total_page_count} setData={setArticleDataList} />
 		</Container>

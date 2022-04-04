@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
 
-function Dropdown() {
+interface SubjectProps {
+	setSubject: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Dropdown({ setSubject }: SubjectProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -11,6 +15,7 @@ function Dropdown() {
 
 	const onOptionClicked = (value: string) => () => {
 		setSelectedOption(value);
+		setSubject(value);
 		setIsOpen(false);
 	};
 
