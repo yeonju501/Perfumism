@@ -10,7 +10,7 @@ import PlusButton from "components/community/create/PlusButton";
 
 function CommunityCreate() {
 	const [subject, setSubject] = useState("RECOMMEND");
-	const [selectedImg, setSelectedImg] = useState();
+	const [selectedImg, setSelectedImg] = useState("");
 	const navigate = useNavigate();
 	const toCommunity = () => {
 		navigate("/community");
@@ -67,7 +67,7 @@ function CommunityCreate() {
 				<Button onClick={toCommunity}>목록</Button>
 				<Button>등록</Button>
 			</FormContainer>
-			<PlusButton />
+			<PlusButton setSelectedImg={setSelectedImg} />
 		</Container>
 	);
 }
