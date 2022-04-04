@@ -92,9 +92,9 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
 							oldContent={review.content}
+							oldGrade={review.grade}
 							reviewId={review.review_id}
 							setIsEditable={setIsEditable}
-							oldGrade={review.grade}
 							setReviews={setReviews}
 						/>
 					) : (
