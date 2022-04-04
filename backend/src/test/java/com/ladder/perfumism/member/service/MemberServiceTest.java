@@ -53,4 +53,20 @@ public class MemberServiceTest {
             .isThrownBy(() -> memberService.saveMember(memberSaveRequest))
             .withMessageMatching(ErrorCode.MEMBER_EMAIL_DUPLICATED.getMessage());
     }
+
+    @Test
+    @DisplayName("회원가입 시 저장된 id를 반환할 수 있다.")
+    void saveMemberTest() {
+        // setup & given
+        when(memberRepository.existsByEmail(EMAIL)).thenReturn(false);
+        Member member = memberSaveRequest.toMember();
+        ReflectionTestUtils.setField(member, "id", 1L);
+        when(memberRepository.save(any())).thenReturn(member);
+
+        // when
+        Long result = memberService.saveMember(memberSaveRequest);
+
+        // then
+        assertThat(result).isEqualTo(1L);
+    }
 }
