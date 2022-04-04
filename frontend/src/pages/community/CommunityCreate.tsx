@@ -8,7 +8,7 @@ import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 
 function CommunityCreate() {
-	const [subject, setSubject] = useState("ALL");
+	const [subject, setSubject] = useState("RECOMMEND");
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
 	const toCommunity = () => {
@@ -49,9 +49,9 @@ function CommunityCreate() {
 
 	return (
 		<Container>
+			<Dropdown setSubject={setSubject} defaultSubject={"RECOMMEND"} />
+			<ErrorText>{errors.subject}</ErrorText>
 			<FormContainer onSubmit={handleSubmit}>
-				<Dropdown setSubject={setSubject} />
-				<ErrorText>{errors.subject}</ErrorText>
 				<Label htmlFor="title">제목</Label>
 				<Input
 					name="title"

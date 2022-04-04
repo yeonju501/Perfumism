@@ -6,9 +6,10 @@ const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
 
 interface SubjectProps {
 	setSubject?: React.Dispatch<React.SetStateAction<string>>;
+	defaultSubject: string;
 }
 
-function Dropdown({ setSubject }: SubjectProps) {
+function Dropdown({ setSubject, defaultSubject }: SubjectProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
 	const Ref = useRef<HTMLFormElement>(null);
@@ -28,7 +29,7 @@ function Dropdown({ setSubject }: SubjectProps) {
 	return (
 		<Main>
 			<DropDownContainer ref={Ref}>
-				<DropDownHeader onClick={toggling}>{selectedOption || "ALL"}</DropDownHeader>
+				<DropDownHeader onClick={toggling}>{selectedOption || defaultSubject}</DropDownHeader>
 				{isOpen && (
 					<DropDownListContainer>
 						<DropDownList>
