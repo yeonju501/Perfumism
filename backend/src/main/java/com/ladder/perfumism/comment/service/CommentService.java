@@ -35,12 +35,12 @@ public class CommentService {
         this.notificationService = notificationService;
     }
 
-    private Comment COMMENT_NOT_FOUND_FUNC(Long commentId){
+    private Comment findById(Long commentId){
         return commentRepository.findById(commentId)
             .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
     }
 
-    private void COMMENT_IS_NOT_YOURS_FUNC(String email, Comment comment){
+    private void notYourComment(String email, Comment comment){
         if(!comment.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.COMMENT_IS_NOT_YOURS);
         }
@@ -80,8 +80,8 @@ public class CommentService {
 
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
-        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
-        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
+        Comment comment = findById(commentId);
+        notYourComment(email,comment);
 
         comment.changeContent(request.getContent());
 
@@ -92,8 +92,8 @@ public class CommentService {
 
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
-        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
-        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
+        Comment comment = findById(commentId);
+        notYourComment(email,comment);
 
         if(comment.getParentId() == null){
             comment.isDeletion();
@@ -118,7 +118,7 @@ public class CommentService {
 
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
-        Comment parentId = COMMENT_NOT_FOUND_FUNC(commentId);
+        Comment parentId = findById(commentId);
 
         Comment reply = Comment.builder()
             .member(member)
