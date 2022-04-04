@@ -74,7 +74,4 @@ const Button = styled(FontAwesomeIcon)<Button>`
 	color: gray;
 	top: 50%;
 	left: ${(props) => (props.direction ? `${window.outerWidth - 30}px` : "0")};
-	@media ${(props) => props.theme.tabletS} {
-		display: block;
-	}
 `;
