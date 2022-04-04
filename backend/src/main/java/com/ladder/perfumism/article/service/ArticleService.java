@@ -139,9 +139,10 @@ public class ArticleService {
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
-            voteRepository.updateDeletedAtByArticle(articleId);
+            voteMemberRepository.updateDeletedAtByVote(articleId);
             voteItemRepository.updateDeletedAtByVote(vote.get().getId());
-            voteMemberRepository.updateDeletedAtByVote(vote.get().getId());
+            voteRepository.updateDeletedAtByArticle(articleId);
+
         }
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
