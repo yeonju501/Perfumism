@@ -9,13 +9,17 @@ interface ArticleIdType {
 
 function Header({ articleId }: ArticleIdType) {
 	const handleDeleteClick = async (articleId: string | undefined) => {
-		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
+		if (window.confirm("삭제 하시겠습니까?")) {
 			await communityApi.deleteCommunity(articleId);
 			navigate("/community");
 		}
 	};
 
 	const navigate = useNavigate();
+
+	const handleUpdateClick = () => {
+		navigate(`/community/update/${articleId}`);
+	};
 
 	const handleListButtonClick = () => {
 		navigate("/community");
@@ -25,7 +29,7 @@ function Header({ articleId }: ArticleIdType) {
 		<Container>
 			<Button onClick={handleListButtonClick}>목록</Button>
 			<div>
-				<Button>수정</Button>
+				<Button onClick={() => handleUpdateClick()}>수정</Button>
 				<Button onClick={() => handleDeleteClick(articleId)}>삭제</Button>
 			</div>
 		</Container>
