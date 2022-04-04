@@ -1,13 +1,19 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { profileApi } from "apis";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "pages/account/hooks/useForm";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
-function CheckPassword() {
+interface Prop {
+	setIsCheck?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function CheckPassword({ setIsCheck }: Prop) {
 	const navigate = useNavigate();
-	const { state } = useLocation();
+	const username = useSelector((state: RootState) => state.user.username);
 
 	const { handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
@@ -16,8 +22,10 @@ function CheckPassword() {
 		onSubmit: async ({ password }) => {
 			try {
 				await profileApi.checkPassword(password).then((res) => {
-					console.log(res);
-					res.status === 204 && navigate(`/profile/${state}`);
+					if (res.status === 204) {
+						setIsCheck && setIsCheck(true);
+						navigate(`/profile/${username}`);
+					}
 				});
 			} catch (error) {
 				console.log(error);
