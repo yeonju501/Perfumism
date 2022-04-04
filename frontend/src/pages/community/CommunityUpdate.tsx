@@ -62,16 +62,16 @@ function CommnuityUpdate() {
 
 		validate: ({ subject, title, content }) => {
 			const errors: { [key: string]: string } = {};
-			if (!formValidator.validateSubject(subject)) errors.email = "말머리를 선택해주세요.";
-			if (!formValidator.validateArticle(title)) errors.email = "제목을 입력해주세요.";
-			if (!formValidator.validateArticle(content)) errors.password = "내용을 입력해주세요.";
+			if (!formValidator.validateSubject(subject)) errors.subject = "말머리를 선택해주세요.";
+			if (!formValidator.validateArticle(title)) errors.title = "제목을 입력해주세요.";
+			if (!formValidator.validateArticle(content)) errors.content = "내용을 입력해주세요.";
 			return errors;
 		},
 	});
 	return (
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
-				<Dropdown defaultSubject={"RECOMMEND"} />
+				<Dropdown defaultSubject={subject} />
 				<Label htmlFor="title">제목</Label>
 				<Input
 					name="title"
