@@ -11,11 +11,15 @@ import com.ladder.perfumism.article.domain.ArticleImageRepository;
 import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.domain.ArticleSubject;
 import com.ladder.perfumism.auth.domain.Authority;
+import com.ladder.perfumism.comment.domain.Comment;
 import com.ladder.perfumism.comment.domain.CommentRepository;
 import com.ladder.perfumism.image.ImageUploader;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.vote.domain.Vote;
+import com.ladder.perfumism.vote.domain.VoteItem;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
+import com.ladder.perfumism.vote.domain.VoteMember;
 import com.ladder.perfumism.vote.domain.VoteMemberRepository;
 import com.ladder.perfumism.vote.domain.VoteRepository;
 import java.util.ArrayList;
@@ -73,7 +77,7 @@ public class ArticleServiceTest {
     @BeforeEach
     void Setup(){
         member = new Member("test@test.com", "test", "test", Authority.ROLE_MEMBER, "");
-        article = new Article(1L,member,ArticleSubject.RECOMMEND,"제목입니다","내용입니다");
+        article = new Article(1L,member,ArticleSubject.RECOMMEND,"제목입니다","내용입니다",false);
     }
 
     @Test
@@ -123,6 +127,7 @@ public class ArticleServiceTest {
     @Test
     @DisplayName("게시글 수정")
     void updateArticleTest(){
+        // given
         String email = "test@test.com";
 
         given(articleRepository.findById(1L)).willReturn(Optional.ofNullable(article));
@@ -134,5 +139,20 @@ public class ArticleServiceTest {
         // then
         assertThat(article.getTitle()).isEqualTo(request.getTitle());
         assertThat(article.getContent()).isEqualTo(request.getContent());
+    }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    void removeArticleTest(){
+        // given
+        String email = "test@test.com";
+        given(articleRepository.findById(1L)).willReturn(Optional.ofNullable(article));
+        given(commentRepository.existsByArticle(any())).willReturn(false);
+
+        // when
+        articleService.removeArticle(email,article.getId());
+
+        // then
+        assertThat(article.getDeletedAt()).isNotNull();
     }
 }
