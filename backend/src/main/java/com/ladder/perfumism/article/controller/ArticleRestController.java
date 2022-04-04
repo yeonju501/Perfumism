@@ -105,8 +105,12 @@ public class ArticleRestController {
     public ResponseEntity<Void> putArticle(
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId,
-        @RequestBody ArticleCreateRequest request){
+        @RequestPart(value = "article") ArticleCreateRequest request,
+        @RequestPart(value = "image", required = false) List<MultipartFile> files){
 
+        if (!files.get(0).isEmpty()){
+            articleService.createArticleImage(email,articleId,files);
+        }
         articleService.updateArticle(email,articleId, request);
 
         return ResponseEntity.noContent().build();
