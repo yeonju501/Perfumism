@@ -22,26 +22,26 @@ const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { accord, sort, order } = useSelector((state: RootState) => state.filter);
-	console.log(accord, sort, order);
 
 	useEffect(() => {
-		setCurrentPage(0);
 		setPerfumes([]);
+		setCurrentPage(0);
 	}, [accord, sort, order]);
 
 	useEffect(() => {
-		console.log(currentPage, totalPage);
 		getPerfumes();
 	}, [currentPage]);
 
 	const getPerfumes = async () => {
+		console.log(accord, sort, order);
+		console.log(currentPage, totalPage);
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 500));
 		const res = await requestApi(currentPage);
-		setPerfumes((prev) => prev.concat(res.data.perfumes));
 		setTotalPage(res.data.total_page_count);
-		setCurrentPage(res.data.current_page_count);
+		setPerfumes((prev) => prev.concat(res.data.perfumes));
 		setIsLoading(false);
+		console.log(perfumes);
 	};
 
 	const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
