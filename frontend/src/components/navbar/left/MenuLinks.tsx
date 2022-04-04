@@ -41,7 +41,8 @@ const ListItem = styled.li<isMenu>`
 	display: flex;
 	align-items: center;
 	@media ${(props) => props.theme.mobile} {
-		display: ${(props) => (props.isMenu ? "flex" : "none")};
+		display: flex;
+		transform: ${(props) => (props.isMenu ? "translateX(0)" : "translateX(-30rem)")};
 		flex-direction: column;
 		position: absolute;
 		top: 0;
@@ -50,7 +51,8 @@ const ListItem = styled.li<isMenu>`
 		width: 25rem;
 		height: 100vh;
 		justify-content: center;
-		z-index: 2;
+		z-index: 1;
+		transition: all 0.35s;
 	}
 `;
 
