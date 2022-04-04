@@ -148,7 +148,9 @@ public class ArticleService {
             voteMemberRepository.updateDeletedAtByVote(vote.get().getId());
         }
 
-
+        if (!articleImageRepository.findByArticle(article).isEmpty()){
+            articleImageRepository.updateDeletedAtByArticle(articleId);
+        }
 
         article.saveDeletedTime();
     }
@@ -158,6 +160,10 @@ public class ArticleService {
 
         Member member = memberService.findByEmail(email);
         Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+
+        if (!articleImageRepository.findByArticle(article).isEmpty()){
+            articleImageRepository.updateDeletedAtByArticle(articleId);
+        }
 
         for(MultipartFile file: files){
 
