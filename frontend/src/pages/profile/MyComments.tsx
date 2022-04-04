@@ -14,7 +14,7 @@ function MyComments() {
 	return (
 		<>
 			{commentList && (
-				<>
+				<div>
 					{commentList.length > 0 ? (
 						<>
 							<Table>
@@ -46,7 +46,7 @@ function MyComments() {
 					) : (
 						<p>작성한 댓글이 없습니다</p>
 					)}
-				</>
+				</div>
 			)}
 		</>
 	);
