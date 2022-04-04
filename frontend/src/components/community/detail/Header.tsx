@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import communityApi from "apis/community";
 import styled from "styled-components";
 import { Button } from "../index";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface ArticleProps {
 	articleData: {
@@ -27,14 +29,15 @@ interface ArticleProps {
 }
 
 function Header({ articleData }: ArticleProps) {
+	const { id } = useSelector((state: RootState) => state.user);
+	const navigate = useNavigate();
+
 	const handleDeleteClick = async (articleId: number) => {
 		if (window.confirm("삭제 하시겠습니까?")) {
 			await communityApi.deleteCommunity(articleId);
 			navigate("/community");
 		}
 	};
-
-	const navigate = useNavigate();
 
 	const handleUpdateClick = () => {
 		navigate(`/community/update/${articleData.article_id}`, {
@@ -51,10 +54,12 @@ function Header({ articleData }: ArticleProps) {
 	return (
 		<Container>
 			<Button onClick={handleListButtonClick}>목록</Button>
-			<div>
-				<Button onClick={handleUpdateClick}>수정</Button>
-				<Button onClick={() => handleDeleteClick(articleData.article_id)}>삭제</Button>
-			</div>
+			{id === articleData.member_id && (
+				<div>
+					<Button onClick={handleUpdateClick}>수정</Button>
+					<Button onClick={() => handleDeleteClick(articleData.article_id)}>삭제</Button>
+				</div>
+			)}
 		</Container>
 	);
 }
