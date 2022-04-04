@@ -37,7 +37,11 @@ function Header({ articleData }: ArticleProps) {
 	const navigate = useNavigate();
 
 	const handleUpdateClick = () => {
-		navigate(`/community/update/${articleData.article_id}`);
+		navigate(`/community/update/${articleData.article_id}`, {
+			state: {
+				articleData: articleData,
+			},
+		});
 	};
 
 	const handleListButtonClick = () => {
