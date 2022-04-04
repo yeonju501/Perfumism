@@ -3,19 +3,46 @@ import communityApi from "apis/community";
 import styled from "styled-components";
 import { Button } from "../index";
 
-interface ArticleIdType {
-	articleId: string | undefined;
+interface ArticleProps {
+	articleData: {
+		article_id: number;
+		member_id: number;
+		member_name: string;
+		member_image: string;
+		subject: string;
+		title: string;
+		content: string;
+		createAt: string;
+		updateAt: string;
+		deleteAt: string;
+		vote_exist: boolean;
+		image_url_list: {
+			article_image_id: number;
+			createdAt: string;
+			deletedAt: string;
+			updatedAt: string;
+			image_url: string;
+		}[];
+	};
 }
 
-function Header({ articleId }: ArticleIdType) {
-	const handleDeleteClick = async (articleId: string | undefined) => {
-		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
+function Header({ articleData }: ArticleProps) {
+	const handleDeleteClick = async (articleId: number) => {
+		if (window.confirm("삭제 하시겠습니까?")) {
 			await communityApi.deleteCommunity(articleId);
 			navigate("/community");
 		}
 	};
 
 	const navigate = useNavigate();
+
+	const handleUpdateClick = () => {
+		navigate(`/community/update/${articleData.article_id}`, {
+			state: {
+				articleData: articleData,
+			},
+		});
+	};
 
 	const handleListButtonClick = () => {
 		navigate("/community");
@@ -25,8 +52,8 @@ function Header({ articleId }: ArticleIdType) {
 		<Container>
 			<Button onClick={handleListButtonClick}>목록</Button>
 			<div>
-				<Button>수정</Button>
-				<Button onClick={() => handleDeleteClick(articleId)}>삭제</Button>
+				<Button onClick={() => handleUpdateClick()}>수정</Button>
+				<Button onClick={() => handleDeleteClick(articleData.article_id)}>삭제</Button>
 			</div>
 		</Container>
 	);
