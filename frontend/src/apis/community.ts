@@ -3,6 +3,7 @@ import { request, imageRequest } from "./request";
 
 interface CommunityApiType {
 	getCommunityList: (currentPage: number) => Promise<AxiosResponse>;
+	getSubjectCommunityList: (currentPage: number, subject: string) => Promise<AxiosResponse>;
 	getCommunityDetail: (articleId: string | undefined) => Promise<AxiosResponse>;
 	createCommunity: (formData: FormData) => Promise<AxiosResponse>;
 	deleteCommunity: (articleId: number) => Promise<AxiosResponse>;
@@ -11,6 +12,8 @@ interface CommunityApiType {
 
 const communityApi: CommunityApiType = {
 	getCommunityList: (currentPage) => request.get(`auth/articles/?page=${currentPage}`),
+	getSubjectCommunityList: (currentPage, subject) =>
+		request.get(`auth/articles/${subject}/?page=${currentPage}`),
 	getCommunityDetail: (articleId) => request.get(`auth/articles/detail/${articleId}`),
 	createCommunity: (formData) => imageRequest.post(`auth/articles`, formData),
 	deleteCommunity: (articleId) => request.delete(`auth/articles/detail/${articleId}`),
