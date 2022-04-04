@@ -18,23 +18,23 @@ public class VoteReadResponse {
 
     @JsonProperty("vote_member_count")
     @ApiModelProperty(position = 2, notes = "해당 항목에 투표한 인원", example = "4")
-    private int vote_member_count;
+    private int voteMemberCount;
 
     public VoteReadResponse(){
 
     }
 
-    public VoteReadResponse(Long id, String content, int vote_member_count){
+    public VoteReadResponse(Long id, String content, int voteMemberCount){
         this.id = id;
         this.content = content;
-        this.vote_member_count = vote_member_count;
+        this.voteMemberCount = voteMemberCount;
     }
 
     public static VoteReadResponse from(VoteItem voteItem){
         return new VoteReadResponse(
             voteItem.getId(),
             voteItem.getContent(),
-            voteItem.getVote_member_count()
+            voteItem.getVoteMemberCount()
         );
     }
 }

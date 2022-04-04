@@ -60,7 +60,7 @@ public class ArticleRestController {
         Long articleId = articleService.createArticle(email,request);
 
         if (!files.get(0).isEmpty()){
-            articleService.createArticleImage(email,articleId,files);
+            articleService.createArticleImage(articleId,files);
         }
 
         return ResponseEntity.noContent().build();
@@ -73,11 +73,10 @@ public class ArticleRestController {
     })
     @ApiImplicitParam(name = "subject", value = "조회할 말 머리", defaultValue = "null")
     public ResponseEntity<ArticleReadListResponse> getArticleList(
-        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable,
         @PathVariable(required = false) ArticleSubject subject){
 
-        return ResponseEntity.ok().body(articleService.showArticleList(email,pageable,subject));
+        return ResponseEntity.ok().body(articleService.showArticleList(pageable,subject));
 
     }
 
@@ -88,10 +87,9 @@ public class ArticleRestController {
     })
     @ApiImplicitParam(name = "article_id", value = "게시글 ID", required = true)
     public ResponseEntity<ArticleReadDetailResponse> getArticleDetail(
-        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId) {
 
-        return ResponseEntity.ok().body(articleService.showArticleDetail(email,articleId));
+        return ResponseEntity.ok().body(articleService.showArticleDetail(articleId));
 
     }
 
@@ -109,7 +107,7 @@ public class ArticleRestController {
         @RequestPart(value = "image", required = false) List<MultipartFile> files){
 
         if (!files.get(0).isEmpty()){
-            articleService.createArticleImage(email,articleId,files);
+            articleService.createArticleImage(articleId,files);
         }
         articleService.updateArticle(email,articleId, request);
 
@@ -141,8 +139,6 @@ public class ArticleRestController {
         @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable){
 
-        ArticleSubject subject = null;
-
-        return ResponseEntity.ok().body(articleService.showMyArticleList(email,pageable,subject));
+        return ResponseEntity.ok().body(articleService.showMyArticleList(email,pageable));
     }
 }

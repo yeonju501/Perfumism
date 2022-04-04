@@ -2,6 +2,7 @@ package com.ladder.perfumism.comment.service;
 
 import com.ladder.perfumism.article.domain.Article;
 import com.ladder.perfumism.article.domain.ArticleRepository;
+import com.ladder.perfumism.article.service.ArticleService;
 import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
 import com.ladder.perfumism.comment.controller.response.CommentMyReadListResponse;
 import com.ladder.perfumism.comment.controller.response.CommentReadListResponse;
@@ -22,29 +23,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final MemberService memberService;
-    private final ArticleRepository articleRepository;
+    private final ArticleService articleService;
     private final CommentRepository commentRepository;
     private final NotificationService notificationService;
 
-    public CommentService(MemberService memberService, ArticleRepository articleRepository,
+    public CommentService(MemberService memberService, ArticleService articleService,
         CommentRepository commentRepository, NotificationService notificationService) {
         this.memberService = memberService;
-        this.articleRepository = articleRepository;
+        this.articleService = articleService;
         this.commentRepository = commentRepository;
         this.notificationService = notificationService;
     }
 
-    private Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
-        return articleRepository.findById(articleId)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
-    }
-
-    private Comment COMMENT_NOT_FOUND_FUNC(Long commentId){
+    private Comment findById(Long commentId){
         return commentRepository.findById(commentId)
             .orElseThrow(()->new BusinessException(ErrorCode.COMMENT_NOT_FOUND));
     }
 
-    private void COMMENT_IS_NOT_YOURS_FUNC(String email, Comment comment){
+    private void notYourComment(String email, Comment comment){
         if(!comment.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.COMMENT_IS_NOT_YOURS);
         }
@@ -55,7 +51,7 @@ public class CommentService {
         CommentCreateRequest request) {
 
         Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = articleService.findById(articleId);
 
         Comment comment = Comment.builder()
             .member(member)
@@ -68,10 +64,9 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentReadListResponse showCommentList(String email, Pageable pageable, Long articleId) {
+    public CommentReadListResponse showCommentList(Pageable pageable, Long articleId) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = articleService.findById(articleId);
 
         Page<Comment> commentList = commentRepository.findAllByParentIdIsNullAndArticle(article, pageable);
 
@@ -82,10 +77,9 @@ public class CommentService {
     public void updateComment(String email, Long articleId, Long commentId,
         CommentCreateRequest request) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
-        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
+        articleService.findById(articleId);
+        Comment comment = findById(commentId);
+        notYourComment(email,comment);
 
         comment.changeContent(request.getContent());
 
@@ -94,10 +88,9 @@ public class CommentService {
     @Transactional
     public void removeComment(String email, Long articleId, Long commentId) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        Comment comment = COMMENT_NOT_FOUND_FUNC(commentId);
-        COMMENT_IS_NOT_YOURS_FUNC(email,comment);
+        articleService.findById(articleId);
+        Comment comment = findById(commentId);
+        notYourComment(email,comment);
 
         if(comment.getParentId() == null){
             comment.isDeletion();
@@ -114,9 +107,6 @@ public class CommentService {
                 comment.getParentId().saveDeletedTime();
             }
         }
-
-
-//        commentRepository.delete(comment);
     }
 
     @Transactional
@@ -124,8 +114,8 @@ public class CommentService {
         CommentCreateRequest request) {
 
         Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        Comment parentId = COMMENT_NOT_FOUND_FUNC(commentId);
+        Article article = articleService.findById(articleId);
+        Comment parentId = findById(commentId);
 
         Comment reply = Comment.builder()
             .member(member)

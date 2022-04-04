@@ -32,7 +32,7 @@ public class VoteItem extends BaseEntity{
     private String content;
 
     @Column(name = "vote_member_count")
-    private int vote_member_count;
+    private int voteMemberCount;
 
     public VoteItem(){
 
@@ -42,10 +42,10 @@ public class VoteItem extends BaseEntity{
     public VoteItem(Vote vote, String content){
         this.vote = vote;
         this.content = content;
-        this.vote_member_count = 0;
+        this.voteMemberCount = 0;
     }
 
     public void saveMemberCnt(Integer vote_member_count){
-        this.vote_member_count = vote_member_count;
+        this.voteMemberCount = vote_member_count;
     }
 }

@@ -59,9 +59,8 @@ public class VoteRestController {
     })
     @ApiImplicitParam(name = "article_id", value = "투표를 생성한 게시글", required = true)
     public ResponseEntity<VoteReadListResponse> getVote(
-        @ApiParam(hidden = true) @AuthenticationPrincipal String email,
         @PathVariable(value = "article_id") Long articleId){
-        return ResponseEntity.ok().body(voteService.showVoteList(email,articleId));
+        return ResponseEntity.ok().body(voteService.showVoteList(articleId));
     }
 
     @PutMapping

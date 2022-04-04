@@ -57,13 +57,13 @@ public class ArticleService {
 
     }
 
-    public void ARTICLE_IS_NOT_YOURS_FUNC(String email, Article article){
+    public void notYourArticle(String email, Article article){
         if(!article.getMember().getEmail().equals(email)){
             throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
         }
     }
 
-    public Article ARTICLE_NOT_FOUND_FUNC(Long articleId){
+    public Article findById(Long articleId){
         return articleRepository.findById(articleId)
             .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
     }
@@ -86,9 +86,8 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadListResponse showArticleList(String email,Pageable pageable, ArticleSubject subject) {
+    public ArticleReadListResponse showArticleList(Pageable pageable, ArticleSubject subject) {
 
-        Member member = memberService.findByEmail(email);
 
         Page<Article> articleList;
         if (subject != null){
@@ -102,10 +101,9 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleReadDetailResponse showArticleDetail(String email, Long articleId) {
+    public ArticleReadDetailResponse showArticleDetail(Long articleId) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = findById(articleId);
 
         List<ArticleImage> articleImage = articleImageRepository.findByArticle(article);
 
@@ -118,9 +116,8 @@ public class ArticleService {
     @Transactional
     public void updateArticle(String email, Long articleId, ArticleCreateRequest request) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
+        Article article = findById(articleId);
+        notYourArticle(email, article);
 
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
@@ -131,15 +128,14 @@ public class ArticleService {
     @Transactional
     public void removeArticle(String email,Long articleId) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
-        ARTICLE_IS_NOT_YOURS_FUNC(email, article);
+        Article article = findById(articleId);
+        notYourArticle(email, article);
 
         if(commentRepository.existsByArticle(article)){
             commentRepository.updateDeletedAtByArticle(articleId);
         }
 
-        if(article.getVote_exist()){
+        if(article.getVoteExist()){
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
@@ -156,10 +152,9 @@ public class ArticleService {
     }
 
     @Transactional
-    public void createArticleImage(String email, Long articleId, List<MultipartFile> files) {
+    public void createArticleImage(Long articleId, List<MultipartFile> files) {
 
-        Member member = memberService.findByEmail(email);
-        Article article = ARTICLE_NOT_FOUND_FUNC(articleId);
+        Article article = findById(articleId);
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
             articleImageRepository.updateDeletedAtByArticle(articleId);
@@ -182,16 +177,11 @@ public class ArticleService {
 
                 throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
             }
-
-
-
         }
-
-
     }
 
     @Transactional
-    public ArticleReadListResponse showMyArticleList(String email, Pageable pageable, ArticleSubject subject) {
+    public ArticleReadListResponse showMyArticleList(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
 
         Page<Article> articleList = articleRepository.findByMember(member,pageable);
