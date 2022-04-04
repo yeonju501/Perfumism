@@ -8,6 +8,7 @@ import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
+import ReviewButtons from "./ReviewButtons";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -83,10 +84,11 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 				<ReviewItem key={review.review_id}>
 					<p>{review.member_name}</p>
 					{userId === review.member_id && (
-						<>
-							<UpdateButton onClick={() => handleUpdateClick(review.review_id)}>수정</UpdateButton>
-							<DeleteButton onClick={() => handleDeleteClick(review.review_id)}>삭제</DeleteButton>
-						</>
+						<ReviewButtons
+							handleDeleteClick={handleDeleteClick}
+							handleUpdateClick={handleUpdateClick}
+							reviewId={review.review_id}
+						/>
 					)}
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
@@ -97,14 +99,14 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							setReviews={setReviews}
 						/>
 					) : (
-						<div>
+						<ReviewContent>
 							<p>
 								{[...Array(review.grade)].map(() => (
 									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
 								))}
 							</p>
 							<p>{review.content}</p>
-						</div>
+						</ReviewContent>
 					)}
 
 					{userId && (
@@ -129,4 +131,6 @@ const ReviewItem = styled.li`
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
 `;
+
+const ReviewContent = styled.div``;
 export default ReviewList;
