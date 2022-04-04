@@ -42,4 +42,15 @@ public class MemberServiceTest {
     void setup() {
         memberSaveRequest = MemberFixture.createMemberSaveRequest(EMAIL, PASSWORD, USERNAME);
     }
+    @Test
+    @DisplayName("이미 존재하는 이메일이 있을 때 로그인 요청을 할 경우 exception이 발생해야 한다.")
+    void saveMemberExceptionDuplicateEmailTest() {
+        // setup & given
+        when(memberRepository.existsByEmail(EMAIL)).thenReturn(true);
+
+        // when & then
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> memberService.saveMember(memberSaveRequest))
+            .withMessageMatching(ErrorCode.MEMBER_EMAIL_DUPLICATED.getMessage());
+    }
 }
