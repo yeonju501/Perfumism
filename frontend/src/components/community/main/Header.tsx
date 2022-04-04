@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Dropdown } from "../index";
 
-function Header() {
+interface SubjectProps {
+	setSubject: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Header({ setSubject }: SubjectProps) {
 	const navigate = useNavigate();
 
 	const handleCommunityCreateClick = () => {
@@ -11,7 +15,7 @@ function Header() {
 
 	return (
 		<Container>
-			<Dropdown />
+			<Dropdown setSubject={setSubject} />
 			<Button onClick={handleCommunityCreateClick}>글쓰기</Button>
 		</Container>
 	);

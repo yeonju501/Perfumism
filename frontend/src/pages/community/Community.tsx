@@ -29,23 +29,33 @@ function Community() {
 		current_page_count: 0,
 	});
 	const { articleList, total_page_count, current_page_count } = articleDataList;
+	const [subject, setSubject] = useState("ALL");
 
 	useEffect(() => {
 		getArticleDataList();
-	}, [current_page_count]);
+	}, [current_page_count, subject]);
 
 	const getArticleDataList = async () => {
-		try {
-			const res = await communityApi.getCommunityList(current_page_count);
-			setArticleDataList(res.data);
-		} catch (error) {
-			console.log(error);
+		if (subject === "ALL") {
+			try {
+				const res = await communityApi.getCommunityList(current_page_count);
+				setArticleDataList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		} else {
+			try {
+				const res = await communityApi.getSubjectCommunityList(current_page_count, subject);
+				setArticleDataList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
 	return (
 		<Container>
-			<MainHeader />
+			<MainHeader setSubject={setSubject} />
 			<CommunityList articleList={articleList} />
 			<Pagination page={current_page_count} total={total_page_count} setData={setArticleDataList} />
 		</Container>
