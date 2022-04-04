@@ -44,15 +44,24 @@ public class Article extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "vote_exist")
+    @Column(name = "vote_exist", nullable = false)
     private Boolean voteExist;
 
     protected Article(){
 
     }
 
+    public Article(Long id, Member member, ArticleSubject subject, String title, String content, Boolean voteExist){
+        this.id = id;
+        this.member = member;
+        this.subject = subject;
+        this.title = title;
+        this.content = content;
+        this.voteExist = voteExist;
+    }
+
     @Builder
-    private Article(Member member, ArticleSubject subject, String title, String content){
+    public Article(Member member, ArticleSubject subject, String title, String content){
         this.member = member;
         this.subject = subject;
         this.title = title;

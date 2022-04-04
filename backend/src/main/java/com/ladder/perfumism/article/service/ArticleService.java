@@ -69,7 +69,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public Long createArticle(String email, ArticleCreateRequest request) {
+    public Article createArticle(String email, ArticleCreateRequest request) {
 
         Member member = memberService.findByEmail(email);
 
@@ -82,7 +82,7 @@ public class ArticleService {
 
         articleRepository.save(article);
 
-        return article.getId();
+        return article;
     }
 
     @Transactional
@@ -139,9 +139,10 @@ public class ArticleService {
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
-            voteRepository.updateDeletedAtByArticle(articleId);
+            voteMemberRepository.updateDeletedAtByVote(articleId);
             voteItemRepository.updateDeletedAtByVote(vote.get().getId());
-            voteMemberRepository.updateDeletedAtByVote(vote.get().getId());
+            voteRepository.updateDeletedAtByArticle(articleId);
+
         }
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
@@ -152,12 +153,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public void createArticleImage(Long articleId, List<MultipartFile> files) {
-
-        Article article = findById(articleId);
+    public void createArticleImage(Article article, List<MultipartFile> files) {
 
         if (!articleImageRepository.findByArticle(article).isEmpty()){
-            articleImageRepository.updateDeletedAtByArticle(articleId);
+            articleImageRepository.updateDeletedAtByArticle(article.getId());
         }
 
         for(MultipartFile file: files){

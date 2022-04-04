@@ -5,8 +5,10 @@ import com.ladder.perfumism.article.domain.Article;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 
+@Getter
 public class ArticleReadListResponse {
 
 
