@@ -67,7 +67,6 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 
 	const changeReviewLikes = async (reviewId: number) => {
 		const res = await reviewApi.isReviewLiked(reviewId);
-		console.log(res.data.is_liked);
 		setReviews((reviews) =>
 			reviews.map((review) => {
 				if (review.review_id === reviewId) {
@@ -100,9 +99,10 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 					) : (
 						<div>
 							<p>
-								{[...Array(review.grade)].map(() => (
+								{/* {[...Array(review.grade)].map(() => (
 									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
-								))}
+								))} */}
+								<FontAwesomeIcon icon={star} color="#ffcb14" /> {review.grade}
 							</p>
 							<p>{review.content}</p>
 						</div>
