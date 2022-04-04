@@ -35,7 +35,6 @@ function CommnuityUpdate() {
 	const [subject, setSubject] = useState(articleData.subject);
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
-	console.log(articleData);
 
 	const { values, handleChange, handleSubmit, errors } = useForm({
 		initialValues: {
