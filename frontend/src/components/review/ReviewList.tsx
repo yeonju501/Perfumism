@@ -2,7 +2,6 @@ import reviewApi from "apis/review";
 import { DeleteButton, ShowMoreButton, UpdateButton } from "components/button/Button";
 import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
-import cookie from "react-cookies";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
@@ -32,7 +31,6 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 	const [isLastPage, setIsLastPage] = useState(false);
 	const [isEditable, setIsEditable] = useState(-1);
 
-	const token = cookie.load("access_token");
 	const userId = useSelector((state: RootState) => state.user.id);
 
 	useEffect(() => {
@@ -110,7 +108,7 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 						</div>
 					)}
 
-					{token && (
+					{userId && (
 						<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
 					)}
 					<span>{review.likes}</span>
