@@ -13,43 +13,41 @@ function MyComments() {
 
 	return (
 		<>
-			<>
-				{commentList && (
-					<>
-						{commentList.length > 0 ? (
-							<>
-								<Table>
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>내용</th>
-											<th>작성 날짜</th>
-										</tr>
-									</thead>
-									<tbody>
-										{commentList.map((comment, idx) => (
-											<Tr key={idx}>
-												<Td>{idx}</Td>
-												<Td>
-													<Link to="">{comment.content}</Link>
-												</Td>
-												<Td>{comment.created_at.slice(0, 10)}</Td>
-											</Tr>
-										))}
-									</tbody>
-								</Table>
-								{commentList.length > 0 && (
-									<Footer>
-										<Pagination page={currentPage} total={totalPage} setData={setData} />
-									</Footer>
-								)}
-							</>
-						) : (
-							<p>작성한 댓글이 없습니다</p>
-						)}
-					</>
-				)}
-			</>
+			{commentList && (
+				<>
+					{commentList.length > 0 ? (
+						<>
+							<Table>
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>내용</th>
+										<th>작성 날짜</th>
+									</tr>
+								</thead>
+								<tbody>
+									{commentList.map((comment, idx) => (
+										<Tr key={idx}>
+											<Td>{idx}</Td>
+											<Td>
+												<Link to="">{comment.content}</Link>
+											</Td>
+											<Td>{comment.created_at.slice(0, 10)}</Td>
+										</Tr>
+									))}
+								</tbody>
+							</Table>
+							{commentList.length > 0 && (
+								<Footer>
+									<Pagination page={currentPage} total={totalPage} setData={setData} />
+								</Footer>
+							)}
+						</>
+					) : (
+						<p>작성한 댓글이 없습니다</p>
+					)}
+				</>
+			)}
 		</>
 	);
 }
