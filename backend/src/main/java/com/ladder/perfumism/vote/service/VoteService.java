@@ -120,6 +120,10 @@ public class VoteService {
         Vote vote = findByArticle(article);
         VoteItem choseVoteItem = findById(request.getVoteItem());
 
+        if (vote.getExpiration()){
+            throw new BusinessException(ErrorCode.VOTE_IS_EXPIRE);
+        }
+
         List<VoteItem> voteItems = voteItemRepository.findByVote(vote);
 
         for (VoteItem voteItem: voteItems){
