@@ -114,4 +114,17 @@ public class MemberServiceTest {
         assertThat(testMember.getUsername()).isEqualTo(USERNAME);
     }
 
+    @Test
+    @DisplayName("이메일이 중복되었을 경우 true를 반환한다.")
+    void checkDuplicateEmailTest() {
+        // setup & given
+        when(memberRepository.existsByEmail(EMAIL)).thenReturn(true);
+        CheckDuplicateRequest checkDuplicateRequest = new CheckDuplicateRequest(EMAIL);
+
+        // when
+        CheckDuplicateResponse checkDuplicateResponse = memberService.checkDuplicateEmail(checkDuplicateRequest);
+
+        // then
+        assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
+    }
 }
