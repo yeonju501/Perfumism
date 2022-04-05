@@ -49,13 +49,13 @@ function Dropdown({ setSubject, defaultSubject }: SubjectProps) {
 const Main = styled.div``;
 
 const DropDownContainer = styled.form`
-	width: 8em;
+	width: 10em;
 	margin: 0 auto;
 `;
 
 const DropDownHeader = styled.div`
 	text-align: center;
-	padding: 0.4em 1em 0.4em 1em;
+	padding: 0.4rem 1rem 0.4rem 1rem;
 	border: 2px solid #e5e5e5;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
 	font-weight: 500;
@@ -66,7 +66,7 @@ const DropDownHeader = styled.div`
 
 const DropDownListContainer = styled.div`
 	position: absolute;
-	width: 8rem;
+	width: 10rem;
 `;
 
 const DropDownList = styled.ul`
