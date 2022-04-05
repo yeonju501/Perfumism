@@ -11,7 +11,9 @@ import static org.mockito.Mockito.when;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
+import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.util.MemberFixture;
@@ -93,8 +95,23 @@ public class MemberServiceTest {
     void findByEmailMemberNotFoundByEmailExceptionTest(){
         given(memberRepository.findByEmail(any())).willThrow(new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
 
-        Assertions.assertThatExceptionOfType(BusinessException.class)
+        assertThatExceptionOfType(BusinessException.class)
             .isThrownBy(() -> memberService.findByEmail(EMAIL))
             .withMessageMatching(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL.getMessage());
     }
+
+    @Test
+    @DisplayName("이메일로 회원을 조회할 수 있다.")
+    void findByEmailTest() {
+        // setup & given
+        Member member = memberSaveRequest.toMember();
+        given(memberRepository.findByEmail(any())).willReturn(Optional.ofNullable(member));
+
+        // when
+        Member testMember = memberService.findByEmail(EMAIL);
+
+        // then
+        assertThat(testMember.getUsername()).isEqualTo(USERNAME);
+    }
+
 }
