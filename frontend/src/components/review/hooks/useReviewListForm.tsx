@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 
 interface ReviewType {
+	comment_id: number;
 	review_id: number;
 	member_id: number;
 	member_name: string;
@@ -14,13 +15,13 @@ interface ReviewType {
 
 interface useReviewListFormProps {
 	updateReviews: boolean;
-	getReviewData: (currentPage: number) => Promise<any>;
+	getReviews: (currentPage: number) => Promise<void>;
 	deleteReviewData: (reviewId: number) => Promise<any>;
 }
 
 function useReviewListForm({
 	updateReviews,
-	getReviewData,
+	getReviews,
 	deleteReviewData,
 }: useReviewListFormProps) {
 	const userId = useSelector((state: RootState) => state.user.id);
@@ -40,13 +41,6 @@ function useReviewListForm({
 		setReviews([]);
 		getReviews(0);
 	}, [updateReviews]);
-
-	const getReviews = async (currentPage: number) => {
-		const res = await getReviewData(currentPage);
-		setReviews((prev) => prev.concat(res.data.reviews));
-		setTotalPage(res.data.total_page_count);
-		setCurrentPage(res.data.current_page_count + 1);
-	};
 
 	const handleShowMoreClick = () => {
 		getReviews(currentPage);
@@ -69,6 +63,8 @@ function useReviewListForm({
 		isEditable,
 		setReviews,
 		setIsEditable,
+		setTotalPage,
+		setCurrentPage,
 		handleShowMoreClick,
 		handleDeleteClick,
 		handleUpdateClick,
