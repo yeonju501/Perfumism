@@ -2,7 +2,9 @@ package com.ladder.perfumism.member.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 
+@Getter
 public class CheckDuplicateResponse {
 
     @JsonProperty("result")
