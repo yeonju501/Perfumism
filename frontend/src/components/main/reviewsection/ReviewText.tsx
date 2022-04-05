@@ -12,6 +12,7 @@ interface Perfume {
 	member_name: string;
 	perfume_id: number;
 	perfume_name: string;
+	perfume_image: string;
 	review_id: number;
 }
 
@@ -27,6 +28,7 @@ function ReviewText({ review }: Review) {
 			<Content>
 				{review.content.length >= 90 ? `${review.content.slice(0, 90)}...` : review.content}
 			</Content>
+			<Image src={`https://fimgs.net/mdimg/perfume/375x500.${review.perfume_image}`} alt="image" />
 			<Writer>
 				<Date>{date}</Date> {review.member_name}
 			</Writer>
@@ -84,4 +86,11 @@ const Grade = styled.p`
 const FontAwesome = styled(FontAwesomeIcon)`
 	color: rgb(244, 174, 61);
 	margin-right: 0.5rem;
+`;
+
+const Image = styled.img`
+	width: 4rem;
+	height: 5rem;
+	position: absolute;
+	top: 26rem;
 `;
