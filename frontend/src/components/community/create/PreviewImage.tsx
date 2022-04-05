@@ -19,8 +19,7 @@ const Container = styled.div`
 `;
 
 const PreviewImg = styled.img`
-	width: 15rem;
-	height: 15rem;
+	width: 30%;
 	margin: 1rem;
 `;
 

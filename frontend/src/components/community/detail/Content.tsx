@@ -1,3 +1,4 @@
+import PreviewImage from "../create/PreviewImage";
 import styled from "styled-components";
 
 interface ArticleProps {
@@ -24,6 +25,11 @@ interface ArticleProps {
 }
 
 function Content({ articleData }: ArticleProps) {
+	const ImageUrl = [] as string[];
+	if (articleData.image_url_list) {
+		articleData.image_url_list.map((imageList) => ImageUrl.push(imageList.image_url));
+	}
+
 	return (
 		<Container>
 			<Header>
@@ -35,6 +41,7 @@ function Content({ articleData }: ArticleProps) {
 					<NickName>{articleData.member_name}</NickName>
 				</Profile>
 			</Header>
+			{ImageUrl && <PreviewImage previewImg={ImageUrl} />}
 			<Body>{articleData.content}</Body>
 		</Container>
 	);
@@ -52,6 +59,7 @@ const Header = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	border-top: solid;
+	border-bottom: 1px solid #c0c0c0;
 `;
 
 const Title = styled.p`
@@ -70,6 +78,7 @@ const ProfileImg = styled.img`
 	width: 5rem;
 	border: 1px solid #c0c0c0;
 	border-radius: 50%;
+	margin-top: 1rem;
 `;
 
 const NickName = styled.p`
@@ -77,10 +86,11 @@ const NickName = styled.p`
 	margin: 1rem 0;
 `;
 
-const Body = styled.p`
+const Body = styled.div`
 	min-height: 20vh;
 	font-size: 1.5rem;
 	margin: 1rem 0;
+	border-bottom: 1px solid #c0c0c0;
 `;
 
 export default Content;
