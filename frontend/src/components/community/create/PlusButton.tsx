@@ -26,18 +26,22 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	};
 
 	return (
-		<Container>
-			{isOpen && (
-				<div>
-					<input type="file" multiple accept="image/*" onChange={handleImageUpload} />
-				</div>
-			)}
-			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
-		</Container>
+		<>
+			<ButtonContainer>
+				{isOpen && (
+					<div>
+						<input type="file" multiple accept="image/*" onChange={handleImageUpload} />
+						<br />
+						<button>투표 추가</button>
+					</div>
+				)}
+				<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
+			</ButtonContainer>
+		</>
 	);
 }
 
-const Container = styled.div`
+const ButtonContainer = styled.div`
 	position: absolute;
 	bottom: 5rem;
 	right: 5rem;
