@@ -6,10 +6,12 @@ import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
+import PlusButton from "components/community/create/PlusButton";
 
 function CommunityCreate() {
 	const [subject, setSubject] = useState("RECOMMEND");
-	const [selectedImg, setSelectedImg] = useState();
+	const [selectedImg, setSelectedImg] = useState<FileList | null>();
+	const [previewImg, setPreviewImg] = useState<string[]>([]);
 	const navigate = useNavigate();
 	const toCommunity = () => {
 		navigate("/community");
@@ -29,7 +31,7 @@ function CommunityCreate() {
 					new Blob([JSON.stringify(article)], { type: "application/json" }),
 				);
 				selectedImg
-					? formData.append("image", selectedImg)
+					? [...selectedImg].forEach((file) => formData.append("image", file))
 					: formData.append("image", new Blob([]));
 				await communityApi.createCommunity(formData);
 				navigate("/community");
@@ -66,6 +68,7 @@ function CommunityCreate() {
 				<Button onClick={toCommunity}>목록</Button>
 				<Button>등록</Button>
 			</FormContainer>
+			<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 		</Container>
 	);
 }
