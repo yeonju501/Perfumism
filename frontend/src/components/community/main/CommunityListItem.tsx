@@ -17,7 +17,7 @@ interface ArticleProps {
 
 function CommunityListItem({ articleItem }: ArticleProps) {
 	return (
-		<Container>
+		<Tr>
 			<Td>{articleItem.article_id}</Td>
 			<Td>{articleItem.subject}</Td>
 			<Td>
@@ -25,14 +25,20 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 			</Td>
 			<Td>{articleItem.member_name}</Td>
 			<Td>{articleItem.created_at.slice(0, 10)}</Td>
-		</Container>
+		</Tr>
 	);
 }
 
-const Container = styled.tr`
+const Tr = styled.tr`
 	width: 100%;
+	&:hover {
+		background-color: #eceaea;
+		cursor: default;
+	}
 `;
 
-const Td = styled.td``;
+const Td = styled.td`
+	padding: 10px 5px;
+`;
 
 export default CommunityListItem;

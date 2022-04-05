@@ -33,6 +33,8 @@ function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 	);
 }
 
-const FormContainer = styled.form``;
+const FormContainer = styled.form`
+	border-style: groove;
+`;
 
 export default CommentForm;
