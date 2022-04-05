@@ -23,6 +23,7 @@ interface ReviewType {
 	grade: number;
 	content: string;
 	likes: number;
+	replyList: [];
 }
 
 function ReviewUpdate({
