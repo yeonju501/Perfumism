@@ -22,7 +22,7 @@ function SearchResultPage() {
 
 	return (
 		<Page>
-			{perfumes.length > 2 ? (
+			{perfumes.length || isLoading ? (
 				<PerfumeList perfumes={perfumes} />
 			) : (
 				<NoResult>입력하신 {state.keyword}에 대한 결과가 없습니다.</NoResult>
