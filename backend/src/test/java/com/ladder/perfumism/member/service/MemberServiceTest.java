@@ -73,4 +73,18 @@ public class MemberServiceTest {
         // then
         assertThat(result).isEqualTo(1L);
     }
+
+    @Test
+    @DisplayName("회원탈퇴 시 deleted_at이 갱신된다.")
+    void resignMemberTest() {
+        // setup & given
+        Member member = memberSaveRequest.toMember();
+        when(memberRepository.findByEmail(any())).thenReturn(Optional.ofNullable(member));
+
+        // when
+        memberService.resignMember(EMAIL);
+
+        // then
+        assertThat(member.getDeletedAt()).isNotNull();
+    }
 }
