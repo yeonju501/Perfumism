@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import NoImageSrc from "assets/noimage.gif";
 
 interface PreviewImgPorps {
-	previewImg: string[];
+	previewImg?: string[];
 }
 
 function PreviewImage({ previewImg }: PreviewImgPorps) {
 	return (
 		<Container>
-			{previewImg.map((imgUrl) => (
-				<PreviewImg src={imgUrl} alt="" />
-			))}
+			{previewImg?.length ? (
+				previewImg.map((imgUrl) => <PreviewImg src={imgUrl} alt="" />)
+			) : (
+				<PreviewImg src={NoImageSrc} alt="" />
+			)}
 		</Container>
 	);
 }
@@ -19,8 +22,7 @@ const Container = styled.div`
 `;
 
 const PreviewImg = styled.img`
-	width: 15rem;
-	height: 15rem;
+	width: 30%;
 	margin: 1rem;
 `;
 

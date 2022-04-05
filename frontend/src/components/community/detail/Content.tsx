@@ -1,3 +1,4 @@
+import PreviewImage from "../create/PreviewImage";
 import styled from "styled-components";
 
 interface ArticleProps {
@@ -24,10 +25,23 @@ interface ArticleProps {
 }
 
 function Content({ articleData }: ArticleProps) {
+	const ImageUrl = [] as string[];
+	if (articleData.image_url_list) {
+		articleData.image_url_list.map((imageList) => ImageUrl.push(imageList.image_url));
+	}
+
 	return (
 		<Container>
-			<Title>{articleData.title}</Title>
-			<SubTitle>{articleData.member_name}</SubTitle>
+			<Header>
+				<Title>
+					[{articleData.subject}]{articleData.title}
+				</Title>
+				<Profile>
+					<ProfileImg src={articleData.member_image} alt="" />
+					<NickName>{articleData.member_name}</NickName>
+				</Profile>
+			</Header>
+			{ImageUrl.length ? <PreviewImage previewImg={ImageUrl} /> : null}
 			<Body>{articleData.content}</Body>
 		</Container>
 	);
@@ -40,20 +54,43 @@ const Container = styled.div`
 	flex-direction: column;
 `;
 
+const Header = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-top: solid;
+	border-bottom: 1px solid #c0c0c0;
+`;
+
 const Title = styled.p`
 	font-size: 2rem;
 	margin: 1rem 0;
 `;
 
-const SubTitle = styled.p`
+const Profile = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+const ProfileImg = styled.img`
+	width: 5rem;
+	border: 1px solid #c0c0c0;
+	border-radius: 50%;
+	margin-top: 1rem;
+`;
+
+const NickName = styled.p`
 	font-size: 1.5rem;
 	margin: 1rem 0;
 `;
 
-const Body = styled.p`
+const Body = styled.div`
 	min-height: 20vh;
 	font-size: 1.5rem;
 	margin: 1rem 0;
+	border-bottom: 1px solid #c0c0c0;
 `;
 
 export default Content;

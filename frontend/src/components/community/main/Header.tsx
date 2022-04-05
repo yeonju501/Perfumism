@@ -15,7 +15,7 @@ function Header({ setSubject }: SubjectProps) {
 
 	return (
 		<Container>
-			<Dropdown setSubject={setSubject} defaultSubject={"전체"} />
+			<Dropdown setSubject={setSubject} defaultSubject={"ALL"} />
 			<Button onClick={handleCommunityCreateClick}>글쓰기</Button>
 		</Container>
 	);
@@ -26,6 +26,7 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 8rem;
+	margin-bottom: 1rem;
 `;
 
 export default Header;

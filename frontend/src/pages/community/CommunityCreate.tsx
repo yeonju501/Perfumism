@@ -53,7 +53,7 @@ function CommunityCreate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown setSubject={setSubject} defaultSubject={"잡담"} />
+					<Dropdown setSubject={setSubject} defaultSubject={"TALK"} />
 					<ErrorText>{errors.subject}</ErrorText>
 					<TitleInput
 						name="title"
@@ -63,7 +63,7 @@ function CommunityCreate() {
 					/>
 					<ErrorText>{errors.title}</ErrorText>
 				</Header>
-				{previewImg && <PreviewImage previewImg={previewImg} />}
+				{previewImg ? <PreviewImage previewImg={previewImg} /> : <PreviewImage />}
 				<ContentInput
 					name="content"
 					onChange={handleTextAreaChange}

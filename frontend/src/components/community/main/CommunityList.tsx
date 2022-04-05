@@ -48,6 +48,7 @@ const Container = styled.div`
 
 const Table = styled.table`
 	width: 100%;
+	table-layoutL fixed;
 `;
 
 const Thead = styled.thead``;
