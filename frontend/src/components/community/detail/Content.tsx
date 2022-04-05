@@ -26,8 +26,15 @@ interface ArticleProps {
 function Content({ articleData }: ArticleProps) {
 	return (
 		<Container>
-			<Title>{articleData.title}</Title>
-			<SubTitle>{articleData.member_name}</SubTitle>
+			<Header>
+				<Title>
+					[{articleData.subject}]{articleData.title}
+				</Title>
+				<Profile>
+					<ProfileImg src={articleData.member_image} alt="" />
+					<NickName>{articleData.member_name}</NickName>
+				</Profile>
+			</Header>
 			<Body>{articleData.content}</Body>
 		</Container>
 	);
@@ -40,12 +47,32 @@ const Container = styled.div`
 	flex-direction: column;
 `;
 
+const Header = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-top: solid;
+`;
+
 const Title = styled.p`
 	font-size: 2rem;
 	margin: 1rem 0;
 `;
 
-const SubTitle = styled.p`
+const Profile = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+const ProfileImg = styled.img`
+	width: 5rem;
+	border: 1px solid #c0c0c0;
+	border-radius: 50%;
+`;
+
+const NickName = styled.p`
 	font-size: 1.5rem;
 	margin: 1rem 0;
 `;
