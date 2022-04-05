@@ -12,16 +12,11 @@ function VoteCreate({ isModalOpen, setIsModalOpen }: Props) {
 		<>
 			<Modal show={isModalOpen} onHide={handleClose} backdrop="static" keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Modal title</Modal.Title>
+					<Modal.Title>투표 추가</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					I will not close if you click outside me. Don't even try to press escape key.
-				</Modal.Body>
+				<Modal.Body>투표 내용</Modal.Body>
 				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-					<Button variant="primary">Understood</Button>
+					<Button variant="secondary">등록</Button>
 				</Modal.Footer>
 			</Modal>
 		</>
