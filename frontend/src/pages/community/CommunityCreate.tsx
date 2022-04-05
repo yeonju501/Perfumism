@@ -53,7 +53,7 @@ function CommunityCreate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown setSubject={setSubject} defaultSubject={"RECOMMEND"} />
+					<Dropdown setSubject={setSubject} defaultSubject={"잡담"} />
 					<ErrorText>{errors.subject}</ErrorText>
 					<TitleInput
 						name="title"
