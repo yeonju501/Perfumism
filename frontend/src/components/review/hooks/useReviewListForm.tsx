@@ -31,6 +31,7 @@ function useReviewListForm({
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLastPage, setIsLastPage] = useState(false);
 	const [isEditable, setIsEditable] = useState(-1);
+	const [reply, setReply] = useState(-1);
 
 	useEffect(() => {
 		if (totalPage && currentPage >= totalPage) setIsLastPage(true);
@@ -59,8 +60,14 @@ function useReviewListForm({
 		setIsEditable(reviewId);
 	};
 
+	const handleReplyClick = (commentId: number) => {
+		reply === -1 ? setReply(commentId) : setReply(-1);
+		console.log(reply);
+	};
+
 	return {
 		userId,
+		reply,
 		reviews,
 		isEditable,
 		setReviews,
@@ -70,6 +77,7 @@ function useReviewListForm({
 		handleShowMoreClick,
 		handleDeleteClick,
 		handleUpdateClick,
+		handleReplyClick,
 		isLastPage,
 	};
 }
