@@ -16,13 +16,13 @@ function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 		},
 	});
 
-	// const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
-	// 	await handleFormSubmit(e);
-	// 	setUpdateReviews((prev) => !prev);
-	// };
+	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+		await handleFormSubmit(e);
+		setUpdateReviews((prev) => !prev);
+	};
 
 	return (
-		<FormContainer onSubmit={handleFormSubmit}>
+		<FormContainer onSubmit={handleSubmitReview}>
 			<Textarea
 				placeholder="댓글을 입력하세요"
 				value={content}
