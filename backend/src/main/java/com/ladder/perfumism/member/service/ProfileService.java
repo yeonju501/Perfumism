@@ -52,6 +52,7 @@ public class ProfileService {
     @Transactional
     public void changeMemberInfo(String email, MemberUpdateRequest request) {
         Member member = memberService.findByEmail(email);
+        memberService.checkDuplicateUsername(request.getUsername());
         member.changeUsername(request.getUsername());
         member.changeGender(request.getGender());
     }

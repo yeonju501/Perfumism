@@ -6,14 +6,19 @@ import static com.ladder.perfumism.member.util.MemberFixture.USERNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
+import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
 import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.util.MemberFixture;
+import java.util.Optional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,9 +47,10 @@ public class MemberServiceTest {
     void setup() {
         memberSaveRequest = MemberFixture.createMemberSaveRequest(EMAIL, PASSWORD, USERNAME);
     }
+
     @Test
-    @DisplayName("이미 존재하는 이메일이 있을 때 로그인 요청을 할 경우 exception이 발생해야 한다.")
-    void saveMemberExceptionDuplicateEmailTest() {
+    @DisplayName("이미 존재하는 이메일이 있을 때 로그인 요청을 할 경우 ErrorCode C04이 발생해야 한다.")
+    void saveMemberExceptionDuplicatedEmailTest() {
         // setup & given
         when(memberRepository.existsByEmail(EMAIL)).thenReturn(true);
 
@@ -68,5 +74,57 @@ public class MemberServiceTest {
 
         // then
         assertThat(result).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("회원탈퇴 시 deleted_at이 갱신된다.")
+    void resignMemberTest() {
+        // setup & given
+        Member member = memberSaveRequest.toMember();
+        when(memberRepository.findByEmail(any())).thenReturn(Optional.ofNullable(member));
+
+        // when
+        memberService.resignMember(EMAIL);
+
+        // then
+        assertThat(member.getDeletedAt()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 회원을 조회하면 ErrorCode C01이 발생한다.")
+    void findByEmailMemberNotFoundByEmailExceptionTest(){
+        given(memberRepository.findByEmail(any())).willThrow(new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> memberService.findByEmail(EMAIL))
+            .withMessageMatching(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL.getMessage());
+    }
+
+    @Test
+    @DisplayName("이메일로 회원을 조회할 수 있다.")
+    void findByEmailTest() {
+        // setup & given
+        Member member = memberSaveRequest.toMember();
+        given(memberRepository.findByEmail(any())).willReturn(Optional.ofNullable(member));
+
+        // when
+        Member testMember = memberService.findByEmail(EMAIL);
+
+        // then
+        assertThat(testMember.getUsername()).isEqualTo(USERNAME);
+    }
+
+    @Test
+    @DisplayName("이메일이 중복되었을 경우 true를 반환한다.")
+    void checkDuplicateEmailTest() {
+        // setup & given
+        when(memberRepository.existsByEmail(EMAIL)).thenReturn(true);
+        CheckDuplicateRequest checkDuplicateRequest = new CheckDuplicateRequest(EMAIL);
+
+        // when
+        CheckDuplicateResponse checkDuplicateResponse = memberService.checkDuplicateEmail(checkDuplicateRequest);
+
+        // then
+        assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
     }
 }
