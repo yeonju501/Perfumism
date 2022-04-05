@@ -63,7 +63,7 @@ function CommunityCreate() {
 					/>
 					<ErrorText>{errors.title}</ErrorText>
 				</Header>
-				<PreviewImage />
+				{previewImg && <PreviewImage previewImg={previewImg} />}
 				<ContentInput
 					name="content"
 					onChange={handleTextAreaChange}

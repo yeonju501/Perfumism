@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-function PreviewImage() {
+interface PreviewImgPorps {
+	previewImg: string[];
+}
+
+function PreviewImage({ previewImg }: PreviewImgPorps) {
 	return <Container></Container>;
 }
 
