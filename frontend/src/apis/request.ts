@@ -22,9 +22,14 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 		(error) => {
 			const index = cookie.load("index");
 			const access_token = cookie.load("access_token");
-			if (error.response.status === 403) {
+			if (error.response.data.error_code === "A01") {
 				authApi.reissue({ index, access_token });
 				return instance.request(error.config);
+			}
+			if (error.response.data.error_code === "A08") {
+				cookie.remove("access_token");
+				cookie.remove("index");
+				return;
 			}
 			toast.error(error.response.data.error_message);
 			return Promise.reject(error);
