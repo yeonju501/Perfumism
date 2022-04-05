@@ -38,17 +38,14 @@ const Container = styled.div`
 	display: flex;
 	margin-top: 2rem;
 	flex-direction: column;
-	border-style: inset;
 `;
 
 const Title = styled.p`
-	border-bottom-style: groove;
 	font-size: 2rem;
 	margin: 1rem 0;
 `;
 
 const SubTitle = styled.p`
-	border-bottom-style: groove;
 	font-size: 1.5rem;
 	margin: 1rem 0;
 `;
