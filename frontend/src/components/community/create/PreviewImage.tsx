@@ -5,7 +5,6 @@ interface PreviewImgPorps {
 }
 
 function PreviewImage({ previewImg }: PreviewImgPorps) {
-	console.log(previewImg);
 	return (
 		<Container>
 			{previewImg.map((imgUrl) => (
