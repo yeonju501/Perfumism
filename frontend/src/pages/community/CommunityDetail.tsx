@@ -25,30 +25,9 @@ interface ArticleDataType {
 	}[];
 }
 
-function CommunityDetaul() {
+function CommunityDetail() {
 	const articleId = useParams().articleId;
-	const [articleData, setArticleData] = useState<ArticleDataType>({
-		article_id: 0,
-		member_id: 0,
-		member_name: "",
-		member_image: "",
-		subject: "",
-		title: "",
-		content: "",
-		createAt: "",
-		updateAt: "",
-		deleteAt: "",
-		vote_exist: false,
-		image_url_list: [
-			{
-				article_image_id: 0,
-				createdAt: "",
-				deletedAt: "",
-				updatedAt: "",
-				image_url: "",
-			},
-		],
-	});
+	const [articleData, setArticleData] = useState<ArticleDataType>();
 
 	useEffect(() => {
 		getArticleData();
@@ -64,11 +43,15 @@ function CommunityDetaul() {
 	};
 
 	return (
-		<Container>
-			<DetailHeader articleData={articleData} />
-			<DetailContent articleData={articleData} />
-			<DetailComment articleId={articleData.article_id} />
-		</Container>
+		<>
+			{articleData && (
+				<Container>
+					<DetailHeader articleData={articleData} />
+					<DetailContent articleData={articleData} />
+					<DetailComment articleId={articleData.article_id} />
+				</Container>
+			)}
+		</>
 	);
 }
 
@@ -80,4 +63,4 @@ const Container = styled.div`
 	margin: 0 30%;
 `;
 
-export default CommunityDetaul;
+export default CommunityDetail;
