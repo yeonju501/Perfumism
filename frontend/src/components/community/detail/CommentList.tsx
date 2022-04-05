@@ -12,6 +12,19 @@ interface CommentListProp {
 	updateReviews: boolean;
 }
 
+interface replyType {
+	reply_id: number;
+	member_id: number;
+	member_name: string;
+	article_id: number;
+	parentId: number;
+	content: string;
+	created_at: string;
+	updated_at: string;
+	deleted_at: string;
+	deletion: boolean;
+}
+
 function CommentList({ updateReviews, articleId }: CommentListProp) {
 	console.log(articleId);
 
@@ -71,6 +84,29 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 							)}
 						</>
 					)}
+					{review.replyList.map((reply: replyType, idx) => (
+						<ReplyItem key={idx}>
+							<p>{reply.member_name}</p>
+							{userId === reply.member_id && (
+								<ReviewButtons
+									handleDeleteClick={handleDeleteClick}
+									handleUpdateClick={handleUpdateClick}
+									reviewId={reply.reply_id}
+								/>
+							)}
+							{review.comment_id === isEditable ? (
+								<CommentUpdate
+									oldContent={reply.content}
+									articleId={articleId}
+									commentId={reply.reply_id}
+									setIsEditable={setIsEditable}
+									setReviews={setReviews}
+								/>
+							) : (
+								<CommentContent>{reply.content}</CommentContent>
+							)}
+						</ReplyItem>
+					))}
 				</ReviewItem>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
@@ -85,6 +121,12 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 }
 
 const ReviewItem = styled.li`
+	border: 0.3px solid #dedede;
+	margin-bottom: 3rem;
+	padding: 1rem 2rem;
+`;
+
+const ReplyItem = styled.div`
 	border: 0.3px solid #dedede;
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
