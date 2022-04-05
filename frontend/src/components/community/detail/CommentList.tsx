@@ -4,6 +4,7 @@ import ReviewUpdate from "components/review/ReviewUpdate";
 import styled from "styled-components";
 import communityApi from "apis/community";
 import useReviewListForm from "components/review/hooks/useReviewListForm";
+import CommentUpdate from "./CommentUpdate";
 
 interface CommentListProp {
 	articleId: number;
@@ -51,10 +52,10 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 						/>
 					)}
 					{review.comment_id === isEditable ? (
-						<ReviewUpdate
+						<CommentUpdate
 							oldContent={review.content}
-							oldGrade={review.grade}
-							reviewId={review.review_id}
+							articleId={articleId}
+							commentId={review.comment_id}
 							setIsEditable={setIsEditable}
 							setReviews={setReviews}
 						/>
