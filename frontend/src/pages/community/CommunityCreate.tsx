@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
-import { Dropdown, Label, TitleInput, ContentInput, Button } from "components/community";
+import { Dropdown, TitleInput, ContentInput, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
