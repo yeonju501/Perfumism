@@ -87,4 +87,14 @@ public class MemberServiceTest {
         // then
         assertThat(member.getDeletedAt()).isNotNull();
     }
+
+    @Test
+    @DisplayName("존재하지 않는 회원을 조회하면 ErrorCode C01이 발생한다.")
+    void findByEmailMemberNotFoundByEmailExceptionTest(){
+        given(memberRepository.findByEmail(any())).willThrow(new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        Assertions.assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> memberService.findByEmail(EMAIL))
+            .withMessageMatching(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL.getMessage());
+    }
 }
