@@ -11,3 +11,4 @@ export { default as Label } from "./create/Label";
 export { default as TitleInput } from "./create/TitleInput";
 export { default as ContentInput } from "./create/ContentInput";
 export { default as Textarea } from "./create/Textarea";
+export { default as PreviewImage } from "./create/PreviewImage";
