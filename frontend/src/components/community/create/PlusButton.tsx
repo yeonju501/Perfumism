@@ -3,19 +3,33 @@ import PlusSrc from "assets/plus.png";
 import styled from "styled-components";
 
 interface ImgProps {
-	setSelectedImg?: React.Dispatch<React.SetStateAction<string>>;
+	setSelectedImg: React.Dispatch<React.SetStateAction<FileList | null | undefined>>;
+	setPreviewImg: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-function PlusButton({ setSelectedImg }: ImgProps) {
+function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggling = () => setIsOpen(!isOpen);
+
+	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const nowSelectImgList = e.target.files;
+		setSelectedImg(nowSelectImgList);
+		const nowImgUrlList = [];
+		if (nowSelectImgList) {
+			for (let i = 0; i < nowSelectImgList?.length; i++) {
+				const nowImgUrl = URL.createObjectURL(nowSelectImgList[i]);
+				nowImgUrlList.push(nowImgUrl);
+			}
+			setPreviewImg(nowImgUrlList);
+		}
+	};
 
 	return (
 		<Container>
 			{isOpen && (
 				<div>
-					<input type="file" multiple />
+					<input type="file" multiple accept="image/*" onChange={handleImageUpload} />
 				</div>
 			)}
 			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
