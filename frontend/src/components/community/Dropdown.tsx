@@ -55,7 +55,6 @@ const DropDownContainer = styled.form`
 
 const DropDownHeader = styled.div`
 	text-align: center;
-	margin-bottom: 0.8em;
 	padding: 0.4em 1em 0.4em 1em;
 	border: 2px solid #e5e5e5;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);

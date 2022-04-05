@@ -15,6 +15,7 @@ export const FormContainer = styled.form`
 
 export const Header = styled.header`
 	display: flex;
-	justify-content: center;
+	align-items: center;
+	border-bottom-style: solid;
 `;
 export const Footer = styled.footer``;
