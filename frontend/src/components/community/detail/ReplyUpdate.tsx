@@ -1,16 +1,16 @@
-import reviewApi from "apis/review";
+import communityApi from "apis/community";
 import { CreateButton } from "components/button/Button";
+import { FormContainer } from "components/review/Container";
+import useReviewForm from "components/review/hooks/useReviewForm";
+import Textarea from "components/review/Textarea";
 import { useEffect } from "react";
-import { FormContainer } from "./Container";
-import StarRating from "./StarRating";
-import Textarea from "./Textarea";
-import useReviewForm from "./hooks/useReviewForm";
 
 interface ReviewUpdateProp {
-	reviewId: number;
+	commentId: number;
+	articleId: number;
 	oldContent: string;
+	parentId: number;
 	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
-	oldGrade: number;
 	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
 }
 
@@ -39,22 +39,21 @@ interface replyType {
 	deletion: boolean;
 }
 
-function ReviewUpdate({
+function ReplyUpdate({
 	oldContent,
-	oldGrade,
-	reviewId,
+	commentId,
+	articleId,
+	parentId,
 	setIsEditable,
 	setReviews,
 }: ReviewUpdateProp) {
-	const { handleInputChange, handleFormSubmit, setGrade, grade, content, setContent } =
-		useReviewForm({
-			sendReviewData: () => {
-				return reviewApi.updateReview({ grade, content }, reviewId);
-			},
-		});
+	const { handleInputChange, handleFormSubmit, content, setContent } = useReviewForm({
+		sendReviewData: () => {
+			return communityApi.updateComment(articleId, commentId, { content });
+		},
+	});
 
 	useEffect(() => {
-		setGrade(oldGrade);
 		setContent(oldContent);
 	}, []);
 
@@ -63,9 +62,10 @@ function ReviewUpdate({
 		setIsEditable(-1);
 		setReviews((reviews) =>
 			reviews.map((review) => {
-				if (review.review_id === reviewId) {
-					review.grade = grade;
-					review.content = content;
+				if (review.comment_id === parentId) {
+					review.replyList.map((reply) => {
+						if (reply.comment_id === commentId) reply.content = content;
+					});
 				}
 				return review;
 			}),
@@ -74,17 +74,14 @@ function ReviewUpdate({
 
 	return (
 		<FormContainer onSubmit={handleReviewUpdate}>
-			<StarRating grade={grade} setGrade={setGrade} />
-			<div>
-				<Textarea
-					value={content}
-					onChange={handleInputChange}
-					placeholder="리뷰를 수정하세요"
-				></Textarea>
-				<CreateButton>수정</CreateButton>
-			</div>
+			<Textarea
+				value={content}
+				onChange={handleInputChange}
+				placeholder="댓글을 수정하세요"
+			></Textarea>
+			<CreateButton>수정</CreateButton>
 		</FormContainer>
 	);
 }
 
-export default ReviewUpdate;
+export default ReplyUpdate;

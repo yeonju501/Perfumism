@@ -11,7 +11,20 @@ interface ReviewType {
 	grade: number;
 	content: string;
 	likes: number;
-	replyList: [];
+	replyList: replyType[];
+}
+
+interface replyType {
+	comment_id: number;
+	member_id: number;
+	member_name: string;
+	article_id: number;
+	parentId: number;
+	content: string;
+	created_at: string;
+	updated_at: string;
+	deleted_at: string;
+	deletion: boolean;
 }
 
 interface useReviewListFormProps {
