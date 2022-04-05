@@ -7,9 +7,10 @@ import Textarea from "components/review/Textarea";
 interface ReplyFormProps {
 	articleId: number;
 	commentId: number;
+	setReply: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ReplyForm({ articleId, commentId }: ReplyFormProps) {
+function ReplyForm({ articleId, commentId, setReply }: ReplyFormProps) {
 	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
 		sendReviewData: () => {
 			return communityApi.createReply(articleId, commentId, { content });
@@ -18,7 +19,7 @@ function ReplyForm({ articleId, commentId }: ReplyFormProps) {
 
 	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
 		await handleFormSubmit(e);
-		// setUpdateReviews((prev) => !prev);
+		setReply(-1);
 	};
 
 	return (

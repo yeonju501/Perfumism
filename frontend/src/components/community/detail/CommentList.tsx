@@ -32,6 +32,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		reply,
 		isEditable,
 		setReviews,
+		setReply,
 		setTotalPage,
 		setCurrentPage,
 		setIsEditable,
@@ -78,7 +79,11 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 						<>
 							<CommentContent>{review.content}</CommentContent>
 							{review.comment_id === reply && (
-								<ReplyForm articleId={articleId} commentId={review.comment_id} />
+								<ReplyForm
+									articleId={articleId}
+									commentId={review.comment_id}
+									setReply={setReply}
+								/>
 							)}
 						</>
 					)}

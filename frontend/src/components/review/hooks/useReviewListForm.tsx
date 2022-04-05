@@ -76,7 +76,6 @@ function useReviewListForm({
 
 	const handleReplyClick = (commentId: number) => {
 		reply === -1 ? setReply(commentId) : setReply(-1);
-		console.log(reply);
 	};
 
 	return {
@@ -84,6 +83,7 @@ function useReviewListForm({
 		reply,
 		reviews,
 		isEditable,
+		setReply,
 		setReviews,
 		setIsEditable,
 		setTotalPage,
