@@ -35,7 +35,7 @@ const communityApi: CommunityApiType = {
 	createComment: (articleId: number, comment: { content: string }) =>
 		request.post(`auth/comments/${articleId}`, comment),
 	getComments: (articleId: number, currentPage: number) =>
-		request.get(`auth/comments/${articleId}?page=${currentPage}&size=10`),
+		request.get(`auth/comments/${articleId}?page=${currentPage}&size=7`),
 	updateComment: (articleId: number, commentId: number, comment: { content: string }) =>
 		request.put(`auth/comments/${articleId}/update/${commentId}`, comment),
 	deleteComment: (articleId: number, commentId: number) =>
