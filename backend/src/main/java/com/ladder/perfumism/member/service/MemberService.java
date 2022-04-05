@@ -99,7 +99,7 @@ public class MemberService {
         member.changePassword(passwordEncoder, request.getPassword());
     }
 
-    private void checkDuplicateEmail(String email) {
+    public void checkDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
         }
