@@ -7,6 +7,7 @@ import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
 import ReviewButtons from "./ReviewButtons";
 import useReviewListForm from "./hooks/useReviewListForm";
+import plusBtn from "assets/plus.png";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -55,14 +56,21 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		<ul>
 			{reviews.map((review) => (
 				<ReviewItem key={review.review_id}>
-					<p>{review.member_name}</p>
-					{userId === review.member_id && (
-						<ReviewButtons
-							handleDeleteClick={handleDeleteClick}
-							handleUpdateClick={handleUpdateClick}
-							reviewId={review.review_id}
-						/>
-					)}
+					<Grade>
+						<div>
+							{[...Array(review.grade)].map(() => (
+								<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
+							))}
+							<span>{review.grade}</span>
+						</div>
+						{userId === review.member_id && (
+							<ReviewButtons
+								handleDeleteClick={handleDeleteClick}
+								handleUpdateClick={handleUpdateClick}
+								reviewId={review.review_id}
+							/>
+						)}
+					</Grade>
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
 							oldContent={review.content}
@@ -72,20 +80,20 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							setReviews={setReviews}
 						/>
 					) : (
-						<ReviewContent>
-							<p>
-								{[...Array(review.grade)].map(() => (
-									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
-								))}
-							</p>
-							<p>{review.content}</p>
-						</ReviewContent>
+						<ReviewContent>{review.content}</ReviewContent>
 					)}
-
-					{userId && (
-						<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
-					)}
-					<span>{review.likes}</span>
+					<Footer>
+						<User>
+							<p>{review.member_name}</p>
+							<p>{review.created_at?.slice(0, 10)}</p>
+						</User>
+						<Like>
+							{userId && (
+								<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+							)}
+							{review.likes ? <span>{review.likes}</span> : null}
+						</Like>
+					</Footer>
 				</ReviewItem>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
@@ -105,5 +113,41 @@ const ReviewItem = styled.li`
 	padding: 1rem 2rem;
 `;
 
-const ReviewContent = styled.div``;
+const Grade = styled.div`
+	display: flex;
+	align-items: center;
+	span {
+		margin-left: 1rem;
+		font-size: 1.2rem;
+	}
+	justify-content: space-between;
+`;
+
+const User = styled.div`
+	display: flex;
+	font-size: 1.2rem;
+	align-items: center;
+	p {
+		margin: 0;
+	}
+	p:nth-child(2) {
+		color: #555555;
+		margin-left: 1rem;
+		font-size: 1.1rem;
+	}
+`;
+
+const Like = styled.div`
+	text-align: end;
+`;
+
+const Footer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const ReviewContent = styled.p`
+	margin: 3rem 0;
+	font-size: 1.6rem;
+`;
 export default ReviewList;

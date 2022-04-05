@@ -21,7 +21,7 @@ interface ReviewApiType {
 const reviewApi: ReviewApiType = {
 	createReview: (review, perfumeId) => request.post(`auth/reviews/perfumes/${perfumeId}`, review),
 	getReviews: (perfumeId, currentPage) =>
-		request.get(`reviews/perfumes/${perfumeId}?page=${currentPage}&size=5`),
+		request.get(`reviews/perfumes/${perfumeId}?page=${currentPage}&size=2`),
 	updateReview: (review, reviewId) => request.put(`auth/reviews/${reviewId}`, review),
 	deleteReview: (reviewId) => request.delete(`auth/reviews/${reviewId}`),
 	getLatestReviews: () => request.get("reviews/latest"),

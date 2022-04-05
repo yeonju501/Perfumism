@@ -11,6 +11,7 @@ const Textarea = styled.textarea`
 	box-shadow: none;
 	resize: none;
 	//
+	padding-top: 1.5rem;
 `;
 
 export default Textarea;

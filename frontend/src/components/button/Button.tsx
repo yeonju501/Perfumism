@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const CreateButton = styled.button`
 	color: black;
-	background-color: #cecece;
+	background-color: #f1f1f1;
 	border: none;
 	cursor: pointer;
+	width: 5%;
+	height: 3rem;
 `;
 
 interface ShowMoreButtonProps {
@@ -13,8 +15,10 @@ interface ShowMoreButtonProps {
 
 export const ShowMoreButton = styled.button<ShowMoreButtonProps>`
 	color: black;
-	background-color: #dedede;
+	margin: 0 auto;
+	background-color: #ededed;
 	border: none;
+	padding: 0.5rem 1rem;
 	cursor: pointer;
 	display: ${({ isLastPage }) => (isLastPage ? "none" : "block")};
 `;

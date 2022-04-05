@@ -45,7 +45,7 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 					{token && <LikeButton perfumeId={String(perfumeData.perfume_id)} />}
 				</ImageBox>
 				<Info>
-					<h1 style={{ fontSize: "4rem", margin: "0 0 1rem" }}>
+					<h1>
 						{perfumeData.perfume_name}
 						<Year>{perfumeData.launch_year > 0 && `(${perfumeData.launch_year})`}</Year>
 					</h1>
@@ -57,29 +57,34 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 						{perfumeData.average_grade}
 					</p>
 					<h3>main accords</h3>
-					<ul>
+					<Accords>
 						{perfumeData.accords.map((accord) => (
 							<li key={accord.accord_id}>{accord.eng_name}</li>
 						))}
-					</ul>
+					</Accords>
 				</Info>
 			</PerfumeMainInfo>
 			<PerfumeSubInfo>
-				<h1 style={{ marginBottom: "4rem" }}>Notes</h1>
+				<h1>Notes</h1>
 				{perfumeData.middle_notes && perfumeData.base_notes ? (
-					<div>
-						<h2>Top</h2>
+					<Notes>
+						<h3>Top</h3>
 						<Note>{perfumeData.top_notes}</Note>
-						<h2>Middle</h2>
+						<h3>Middle</h3>
 						<Note>{perfumeData.middle_notes}</Note>
-						<h2>Base</h2>
+						<h3>Base</h3>
 						<Note>{perfumeData.base_notes}</Note>
-					</div>
+					</Notes>
 				) : (
-					<p>{perfumeData.top_notes}</p>
+					<Notes>{perfumeData.top_notes}</Notes>
 				)}
-				<p>지속력 : {perfumeData.longevity}</p>
-				<p>잔향 : {perfumeData.sillage}</p>
+				<Duration>
+					<span>지속력</span> {perfumeData.longevity}
+				</Duration>
+				<Duration>
+					<span>잔향</span> {perfumeData.sillage}
+				</Duration>
+				{/* <p>{perfumeData.likes}명이 이 향수를 좋아합니다.</p> */}
 			</PerfumeSubInfo>
 		</div>
 	);
@@ -90,11 +95,14 @@ const PerfumeMainInfo = styled.div`
 	button {
 		display: block;
 	}
-	margin-bottom: 10rem;
+	padding-bottom: 10rem;
+	border-bottom: 0.3px solid #cecece;
+	margin-bottom: 5rem;
 `;
 
 const ImageBox = styled.div`
 	position: relative;
+	margin-left: 5rem;
 `;
 
 const Image = styled.img`
@@ -103,11 +111,23 @@ const Image = styled.img`
 `;
 
 const Info = styled.div`
-	margin-left: 20rem;
+	margin-left: 30rem;
+	h1 {
+		font-size: 4rem;
+		margin: 0 0 1rem;
+	}
 `;
+
 const PerfumeSubInfo = styled.div`
-	margin-bottom: 10rem;
+	margin: 7rem 0 10rem;
 	text-align: center;
+	h1 {
+		margin-bottom: 5rem;
+	}
+`;
+
+const Notes = styled.div`
+	margin-bottom: 15rem;
 `;
 
 const Year = styled.span`
@@ -117,6 +137,22 @@ const Year = styled.span`
 `;
 
 const Note = styled.p`
-	margin-bottom: 8rem;
+	margin-bottom: 9rem;
+`;
+
+const Accords = styled.ul`
+	display: flex;
+	flex-direction: column;
+	li {
+		margin-bottom: 0.5rem;
+	}
+`;
+
+const Duration = styled.div`
+	margin: 5rem 0;
+	span {
+		font-weight: bold;
+		margin-right: 3rem;
+	}
 `;
 export default PerfumeInfo;
