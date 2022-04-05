@@ -12,17 +12,17 @@ interface CommentFormProps {
 function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
 		sendReviewData: () => {
-			return communityApi.createComment(articleId, content);
+			return communityApi.createComment(articleId, { content });
 		},
 	});
 
-	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setUpdateReviews((prev) => !prev);
-	};
+	// const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+	// 	await handleFormSubmit(e);
+	// 	setUpdateReviews((prev) => !prev);
+	// };
 
 	return (
-		<FormContainer onSubmit={handleSubmitReview}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<Textarea
 				placeholder="댓글을 입력하세요"
 				value={content}
