@@ -105,7 +105,7 @@ public class MemberService {
         }
     }
 
-    private void checkDuplicateUsername(String username) {
+    public void checkDuplicateUsername(String username) {
         if (memberRepository.existsByUsername(username)) {
             throw new BusinessException(ErrorCode.MEMBER_USERNAME_DUPLICATED);
         }
