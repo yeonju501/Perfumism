@@ -18,4 +18,7 @@ export const Header = styled.header`
 	align-items: center;
 	border-bottom-style: solid;
 `;
-export const Footer = styled.footer``;
+export const Footer = styled.footer`
+	display: flex;
+	justify-content: space-between;
+`;
