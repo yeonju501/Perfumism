@@ -57,6 +57,7 @@ function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 
 const FormArea = styled.div`
 	display: flex;
+	align-items: center;
 `;
 
 export default ReviewCreate;

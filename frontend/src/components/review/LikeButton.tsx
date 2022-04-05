@@ -42,8 +42,8 @@ interface ButtonProps {
 }
 
 const Button = styled.button<ButtonProps>`
-	color: ${({ isLiked }) => (isLiked ? "red" : "gray")};
-	font-size: ${({ reviewId }) => (reviewId ? "2rem" : "1rem")};
+	color: ${({ isLiked }) => (isLiked ? "#d61027" : "#c7c7c7")};
+	font-size: ${({ reviewId }) => (reviewId ? "1.2rem" : "1rem")};
 	background-color: inherit;
 	border: none;
 	cursor: pointer;

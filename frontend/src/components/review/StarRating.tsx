@@ -20,7 +20,7 @@ function StarRating({ grade, setGrade }: StarRatingProps) {
 			if (i < grade) {
 				tempStarRating.push({ color: "#ffcb14", cursor: "pointer" });
 			} else {
-				tempStarRating.push({ color: "#a0a0a0", cursor: "pointer" });
+				tempStarRating.push({ color: "#cecece", cursor: "pointer" });
 			}
 		}
 		setStarRatingOnOff(tempStarRating);
