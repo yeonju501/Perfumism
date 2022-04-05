@@ -12,7 +12,7 @@ interface CommentFormProps {
 function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
 		sendReviewData: () => {
-			return communityApi.createComment(articleId, content);
+			return communityApi.createComment(articleId, { content });
 		},
 	});
 
