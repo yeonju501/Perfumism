@@ -76,6 +76,7 @@ const Profile = styled.div`
 
 const ProfileImg = styled.img`
 	width: 5rem;
+	height: 5rem;
 	border: 1px solid #c0c0c0;
 	border-radius: 50%;
 	margin-top: 1rem;
