@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-	height: 80vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 5rem 0;
 `;
 
 export const FormContainer = styled.form`
@@ -12,3 +12,9 @@ export const FormContainer = styled.form`
 	flex-direction: column;
 	justify-content: center;
 `;
+
+export const Header = styled.header`
+	display: flex;
+	justify-content: center;
+`;
+export const Footer = styled.footer``;
