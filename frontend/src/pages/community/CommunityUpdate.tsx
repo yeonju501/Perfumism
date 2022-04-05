@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Container, FormContainer } from "components/community/create/Container";
-import { Dropdown, Label, TitleInput, ContentInput, Button } from "components/community";
+import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
+import { Dropdown, TitleInput, ContentInput, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
@@ -35,6 +35,9 @@ function CommnuityUpdate() {
 	const [subject, setSubject] = useState(articleData.subject);
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
+	const goBack = () => {
+		navigate(`/community/${articleData.article_id}`);
+	};
 
 	const { values, handleChange, handleTextAreaChange, handleSubmit, errors } = useForm({
 		initialValues: {
@@ -71,17 +74,17 @@ function CommnuityUpdate() {
 	return (
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
-				<Dropdown defaultSubject={subject} />
-				<Label htmlFor="title">제목</Label>
-				<TitleInput
-					name="title"
-					type="text"
-					onChange={handleChange}
-					value={values.title}
-					placeholder="제목을 입력해주세요."
-				/>
-				<ErrorText>{errors.title}</ErrorText>
-				<Label htmlFor="content">내용</Label>
+				<Header>
+					<Dropdown defaultSubject={subject} />
+					<TitleInput
+						name="title"
+						type="text"
+						onChange={handleChange}
+						value={values.title}
+						placeholder="제목을 입력해주세요."
+					/>
+					<ErrorText>{errors.title}</ErrorText>
+				</Header>
 				<ContentInput
 					name="content"
 					onChange={handleTextAreaChange}
@@ -89,7 +92,10 @@ function CommnuityUpdate() {
 					placeholder="내용을 입력해주세요."
 				/>
 				<ErrorText>{errors.content}</ErrorText>
-				<Button>수정</Button>
+				<Footer>
+					<Button onClick={goBack}>뒤로</Button>
+					<Button>수정</Button>
+				</Footer>
 			</FormContainer>
 		</Container>
 	);
