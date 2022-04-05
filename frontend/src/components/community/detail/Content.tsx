@@ -41,7 +41,7 @@ function Content({ articleData }: ArticleProps) {
 					<NickName>{articleData.member_name}</NickName>
 				</Profile>
 			</Header>
-			{ImageUrl && <PreviewImage previewImg={ImageUrl} />}
+			{ImageUrl.length ? <PreviewImage previewImg={ImageUrl} /> : null}
 			<Body>{articleData.content}</Body>
 		</Container>
 	);

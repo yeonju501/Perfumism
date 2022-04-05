@@ -66,20 +66,30 @@ function Community() {
 		<Container>
 			<MainHeader setSubject={setSubject} />
 			<CommunityList articleList={articleList} />
-			{articleDataList.articleList?.length && (
+			{articleDataList.articleList?.length ? (
 				<Pagination
 					page={current_page_count}
 					total={total_page_count}
 					setData={setArticleDataList}
 				/>
+			) : (
+				<Content>작성된 게시글이 없습니다.</Content>
 			)}
 		</Container>
 	);
 }
 
 const Container = styled.div`
-	height: 80vh;
 	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 25%;
+`;
+
+const Content = styled.div`
+	width: 100%;
+	font-size: 3rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
