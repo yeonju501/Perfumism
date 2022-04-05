@@ -20,14 +20,19 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		isEditable,
 		setReviews,
 		setIsEditable,
+		setTotalPage,
+		setCurrentPage,
 		handleShowMoreClick,
 		handleDeleteClick,
 		handleUpdateClick,
 		isLastPage,
 	} = useReviewListForm({
 		updateReviews,
-		getReviewData: (currentPage: number) => {
-			return reviewApi.getReviews(perfumeId, currentPage);
+		getReviews: async (currentPage: number) => {
+			const res = await reviewApi.getReviews(perfumeId, currentPage);
+			setReviews((prev) => prev.concat(res.data.reviews));
+			setTotalPage(res.data.total_page_count);
+			setCurrentPage(res.data.current_page_count + 1);
 		},
 		deleteReviewData: (reviewId: number) => {
 			return reviewApi.deleteReview(reviewId);
