@@ -10,7 +10,6 @@ interface RecommendProps {
 }
 
 function PerfumeRecommend({ perfumeData }: RecommendProps) {
-	console.log(perfumeData);
 	return (
 		<>
 			<Header>추천 향수</Header>

@@ -54,6 +54,7 @@ const TextAnswer = styled.button`
 	border: 1px solid;
 	margin: 2rem auto;
 	cursor: pointer;
+	background-color: #fff;
 
 	&:hover {
 		transition: 0.5s;
