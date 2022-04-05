@@ -16,7 +16,7 @@ function CommunityCreate() {
 	const toCommunity = () => {
 		navigate("/community");
 	};
-	const { values, handleChange, handleSubmit, errors } = useForm({
+	const { values, handleChange, handleTextAreaChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			title: "",
 			content: "",
@@ -63,8 +63,11 @@ function CommunityCreate() {
 					/>
 					<ErrorText>{errors.title}</ErrorText>
 				</Header>
-				<Label htmlFor="content">내용</Label>
-				<ContentInput name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
+				<ContentInput
+					name="content"
+					onChange={handleTextAreaChange}
+					placeholder="내용을 입력해주세요."
+				/>
 				<ErrorText>{errors.content}</ErrorText>
 				<Footer>
 					<Button onClick={toCommunity}>목록</Button>

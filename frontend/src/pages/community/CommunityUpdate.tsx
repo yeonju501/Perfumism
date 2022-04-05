@@ -36,7 +36,7 @@ function CommnuityUpdate() {
 	const [selectedImg, setSelectedImg] = useState();
 	const navigate = useNavigate();
 
-	const { values, handleChange, handleSubmit, errors } = useForm({
+	const { values, handleChange, handleTextAreaChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			title: articleData.title,
 			content: articleData.content,
@@ -84,7 +84,7 @@ function CommnuityUpdate() {
 				<Label htmlFor="content">내용</Label>
 				<ContentInput
 					name="content"
-					onChange={handleChange}
+					onChange={handleTextAreaChange}
 					value={values.content}
 					placeholder="내용을 입력해주세요."
 				/>
