@@ -49,7 +49,9 @@ function useReviewListForm({
 	const handleDeleteClick = async (reviewId: number) => {
 		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
 			await deleteReviewData(reviewId);
-			setReviews((reviews) => reviews.filter((review) => review.review_id !== reviewId));
+			setReviews((reviews) =>
+				reviews.filter((review) => (review.review_id || review.comment_id) !== reviewId),
+			);
 		}
 	};
 
