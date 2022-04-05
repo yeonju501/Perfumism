@@ -23,7 +23,6 @@ const Container = styled.div`
 	flex-direction: column;
 	width: 100%;
 	min-height: 20vh;
-	border-style: inset;
 `;
 
 export default Comment;
