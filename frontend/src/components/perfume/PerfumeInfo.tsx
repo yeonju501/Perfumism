@@ -84,7 +84,7 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 				<Duration>
 					<span>잔향</span> {perfumeData.sillage}
 				</Duration>
-				{/* <p>{perfumeData.likes}명이 이 향수를 좋아합니다.</p> */}
+				<p>{perfumeData.likes}명이 이 향수를 좋아합니다.</p>
 			</PerfumeSubInfo>
 		</div>
 	);
@@ -111,9 +111,9 @@ const Image = styled.img`
 `;
 
 const Info = styled.div`
-	margin-left: 30rem;
+	margin-left: 25rem;
 	h1 {
-		font-size: 4rem;
+		font-size: 3.8rem;
 		margin: 0 0 1rem;
 	}
 `;

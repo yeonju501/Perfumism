@@ -20,8 +20,10 @@ function Perfumes() {
 	return (
 		<Container>
 			<PerfumeFilter />
-			<PerfumeList perfumes={perfumes} />
-			<div ref={setTarget}>{isLoading && <p>Loading..</p>}</div>
+			<ListContainer>
+				<PerfumeList perfumes={perfumes} />
+			</ListContainer>
+			<div ref={setTarget}>{isLoading && <p></p>}</div>
 		</Container>
 	);
 }
@@ -29,5 +31,9 @@ function Perfumes() {
 const Container = styled.div`
 	width: 80%;
 	margin: 0 auto;
+`;
+
+const ListContainer = styled.div`
+	margin-top: 4rem;
 `;
 export default Perfumes;
