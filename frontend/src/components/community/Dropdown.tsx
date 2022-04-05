@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styled from "styled-components";
 import useOutside from "components/navbar/hooks/useOutside";
 
-const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
+const options = ["전체", "잡담", "추천", "투표"];
 
 interface SubjectProps {
 	setSubject?: React.Dispatch<React.SetStateAction<string>>;
@@ -55,7 +55,6 @@ const DropDownContainer = styled.form`
 
 const DropDownHeader = styled.div`
 	text-align: center;
-	margin-bottom: 0.8em;
 	padding: 0.4em 1em 0.4em 1em;
 	border: 2px solid #e5e5e5;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);

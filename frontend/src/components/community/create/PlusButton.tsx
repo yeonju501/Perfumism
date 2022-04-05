@@ -28,9 +28,21 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	return (
 		<Container>
 			{isOpen && (
-				<div>
-					<input type="file" multiple accept="image/*" onChange={handleImageUpload} />
-				</div>
+				<DropDownListContainer>
+					<DropDownList>
+						<label htmlFor="inputFile" style={{ cursor: "pointer" }}>
+							이미지 업로드
+						</label>
+						<input
+							type="file"
+							id="inputFile"
+							multiple
+							accept="image/*"
+							style={{ display: "none" }}
+							onChange={handleImageUpload}
+						/>
+					</DropDownList>
+				</DropDownListContainer>
 			)}
 			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
 		</Container>
@@ -45,7 +57,28 @@ const Container = styled.div`
 `;
 
 const ButtonImg = styled.img`
-	width: 12rem;
+	width: 10rem;
+`;
+
+const DropDownListContainer = styled.div`
+	position: absolute;
+	bottom: 10rem;
+	width: 15rem;
+`;
+
+const DropDownList = styled.ul`
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	background: #ffffff;
+	border: 2px solid #e5e5e5;
+	box-sizing: border-box;
+	font-size: 2rem;
+	font-weight: 500;
+	cursor: pointer;
+	&:first-child {
+		padding-top: 0.8em;
+	}
 `;
 
 export default PlusButton;

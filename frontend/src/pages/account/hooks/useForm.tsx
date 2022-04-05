@@ -17,6 +17,11 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 		setValues({ ...values, [name]: value.trim() });
 	};
 
+	const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+		const { name, value } = event.target;
+		setValues({ ...values, [name]: value.trim() });
+	};
+
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const newErrors = validate(values) ? validate(values) : {};
@@ -46,6 +51,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 		values,
 		errors,
 		handleChange,
+		handleTextAreaChange,
 		handleSubmit,
 		checkDuplicate,
 		isDuplicate,

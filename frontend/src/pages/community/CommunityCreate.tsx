@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, FormContainer } from "components/community/create/Container";
-import { Dropdown, Label, Input, Button } from "components/community";
+import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
+import { Dropdown, TitleInput, ContentInput, Button, PreviewImage } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
@@ -16,7 +16,7 @@ function CommunityCreate() {
 	const toCommunity = () => {
 		navigate("/community");
 	};
-	const { values, handleChange, handleSubmit, errors } = useForm({
+	const { values, handleChange, handleTextAreaChange, handleSubmit, errors } = useForm({
 		initialValues: {
 			title: "",
 			content: "",
@@ -51,22 +51,29 @@ function CommunityCreate() {
 
 	return (
 		<Container>
-			<Dropdown setSubject={setSubject} defaultSubject={"RECOMMEND"} />
-			<ErrorText>{errors.subject}</ErrorText>
 			<FormContainer onSubmit={handleSubmit}>
-				<Label htmlFor="title">제목</Label>
-				<Input
-					name="title"
-					type="text"
-					onChange={handleChange}
-					placeholder="제목을 입력해주세요."
+				<Header>
+					<Dropdown setSubject={setSubject} defaultSubject={"잡담"} />
+					<ErrorText>{errors.subject}</ErrorText>
+					<TitleInput
+						name="title"
+						type="text"
+						onChange={handleChange}
+						placeholder="제목을 입력해주세요."
+					/>
+					<ErrorText>{errors.title}</ErrorText>
+				</Header>
+				{previewImg && <PreviewImage previewImg={previewImg} />}
+				<ContentInput
+					name="content"
+					onChange={handleTextAreaChange}
+					placeholder="내용을 입력해주세요."
 				/>
-				<ErrorText>{errors.title}</ErrorText>
-				<Label htmlFor="content">내용</Label>
-				<Input name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
 				<ErrorText>{errors.content}</ErrorText>
-				<Button onClick={toCommunity}>목록</Button>
-				<Button>등록</Button>
+				<Footer>
+					<Button onClick={toCommunity}>목록</Button>
+					<Button>등록</Button>
+				</Footer>
 			</FormContainer>
 			<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 		</Container>
