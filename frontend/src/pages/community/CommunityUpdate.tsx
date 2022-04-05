@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, FormContainer } from "components/community/create/Container";
-import { Dropdown, Label, Input, Button } from "components/community";
+import { Dropdown, Label, TitleInput, ContentInput, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
@@ -73,7 +73,7 @@ function CommnuityUpdate() {
 			<FormContainer onSubmit={handleSubmit}>
 				<Dropdown defaultSubject={subject} />
 				<Label htmlFor="title">제목</Label>
-				<Input
+				<TitleInput
 					name="title"
 					type="text"
 					onChange={handleChange}
@@ -82,7 +82,7 @@ function CommnuityUpdate() {
 				/>
 				<ErrorText>{errors.title}</ErrorText>
 				<Label htmlFor="content">내용</Label>
-				<Input
+				<ContentInput
 					name="content"
 					onChange={handleChange}
 					value={values.content}

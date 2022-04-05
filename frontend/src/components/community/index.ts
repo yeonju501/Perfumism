@@ -8,5 +8,6 @@ export { default as DetailHeader } from "./detail/Header";
 export { default as DetailContent } from "./detail/Content";
 export { default as DetailComment } from "./detail/Comment";
 export { default as Label } from "./create/Label";
-export { default as Input } from "./create/Input";
+export { default as TitleInput } from "./create/TitleInput";
+export { default as ContentInput } from "./create/ContentInput";
 export { default as Textarea } from "./create/Textarea";

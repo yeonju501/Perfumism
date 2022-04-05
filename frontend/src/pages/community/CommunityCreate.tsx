@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
-import { Dropdown, Label, Input, Button } from "components/community";
+import { Dropdown, Label, TitleInput, ContentInput, Button } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
@@ -55,7 +55,7 @@ function CommunityCreate() {
 				<Header>
 					<Dropdown setSubject={setSubject} defaultSubject={"RECOMMEND"} />
 					<ErrorText>{errors.subject}</ErrorText>
-					<Input
+					<TitleInput
 						name="title"
 						type="text"
 						onChange={handleChange}
@@ -64,7 +64,7 @@ function CommunityCreate() {
 					<ErrorText>{errors.title}</ErrorText>
 				</Header>
 				<Label htmlFor="content">내용</Label>
-				<Input name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
+				<ContentInput name="content" onChange={handleChange} placeholder="내용을 입력해주세요." />
 				<ErrorText>{errors.content}</ErrorText>
 				<Footer>
 					<Button onClick={toCommunity}>목록</Button>
