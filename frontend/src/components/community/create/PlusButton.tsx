@@ -15,11 +15,14 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const nowSelectImgList = e.target.files;
 		setSelectedImg(nowSelectImgList);
-		const nowImgUrlList = [];
+		let nowImgUrlList = [];
 		if (nowSelectImgList) {
 			for (let i = 0; i < nowSelectImgList?.length; i++) {
 				const nowImgUrl = URL.createObjectURL(nowSelectImgList[i]);
 				nowImgUrlList.push(nowImgUrl);
+			}
+			if (nowSelectImgList?.length > 3) {
+				nowImgUrlList = nowImgUrlList.slice(0, 3);
 			}
 			setPreviewImg(nowImgUrlList);
 		}
