@@ -127,4 +127,18 @@ public class MemberServiceTest {
         // then
         assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
     }
+
+    @Test
+    @DisplayName("유저네임이 중복되었을 경우 true를 반환한다.")
+    void checkDuplicateUsernameTest() {
+        // setup & given
+        when(memberRepository.existsByUsername(USERNAME)).thenReturn(true);
+        CheckDuplicateRequest checkDuplicateRequest = new CheckDuplicateRequest(USERNAME);
+
+        // when
+        CheckDuplicateResponse checkDuplicateResponse = memberService.checkDuplicateUsername(checkDuplicateRequest);
+
+        // then
+        assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
+    }
 }
