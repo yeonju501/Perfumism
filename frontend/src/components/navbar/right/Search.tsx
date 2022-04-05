@@ -5,7 +5,6 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import useOutside from "../hooks/useOutside";
-import { useDispatch } from "react-redux";
 
 interface InputProps {
 	isOn: boolean;
