@@ -29,7 +29,7 @@ function Community() {
 		current_page_count: 0,
 	});
 	const { articleList, total_page_count, current_page_count } = articleDataList;
-	const [subject, setSubject] = useState("ALL");
+	const [subject, setSubject] = useState("전체");
 
 	useEffect(() => {
 		getArticleDataList();
@@ -40,7 +40,7 @@ function Community() {
 	}, [subject]);
 
 	const getArticleDataList = async (resetCnt?: number) => {
-		if (subject === "ALL") {
+		if (subject === "전체") {
 			try {
 				const res = await communityApi.getCommunityList(current_page_count);
 				setArticleDataList(res.data);

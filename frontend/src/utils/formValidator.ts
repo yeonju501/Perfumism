@@ -19,5 +19,5 @@ export const validateArticle = (article: string): boolean => {
 };
 
 export const validateSubject = (subject: string): boolean => {
-	return subject === "ALL" ? false : true;
+	return subject === "전체" ? false : true;
 };

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styled from "styled-components";
 import useOutside from "components/navbar/hooks/useOutside";
 
-const options = ["ALL", "RECOMMEND", "CHOSE", "TALK"];
+const options = ["전체", "잡담", "추천", "투표"];
 
 interface SubjectProps {
 	setSubject?: React.Dispatch<React.SetStateAction<string>>;
