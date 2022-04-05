@@ -2,6 +2,7 @@ import Router from "routes/Router";
 import GlobalStyle from "styles/globalstyle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "components/footer/Footer";
 import styled from "styled-components";
 
