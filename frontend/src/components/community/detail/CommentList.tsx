@@ -5,6 +5,7 @@ import styled from "styled-components";
 import communityApi from "apis/community";
 import useReviewListForm from "components/review/hooks/useReviewListForm";
 import CommentUpdate from "./CommentUpdate";
+import ReplyForm from "./ReplyForm";
 
 interface CommentListProp {
 	articleId: number;
@@ -17,6 +18,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 	const {
 		userId,
 		reviews,
+		reply,
 		isEditable,
 		setReviews,
 		setTotalPage,
@@ -25,6 +27,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		handleShowMoreClick,
 		handleDeleteClick,
 		handleUpdateClick,
+		handleReplyClick,
 		isLastPage,
 	} = useReviewListForm({
 		updateReviews,
@@ -51,6 +54,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 							reviewId={review.comment_id}
 						/>
 					)}
+					<button onClick={() => handleReplyClick(review.comment_id)}>답글</button>
 					{review.comment_id === isEditable ? (
 						<CommentUpdate
 							oldContent={review.content}
@@ -60,7 +64,12 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 							setReviews={setReviews}
 						/>
 					) : (
-						<CommentContent>{review.content}</CommentContent>
+						<>
+							<CommentContent>{review.content}</CommentContent>
+							{review.comment_id === reply && (
+								<ReplyForm articleId={articleId} commentId={review.comment_id} />
+							)}
+						</>
 					)}
 				</ReviewItem>
 			))}
