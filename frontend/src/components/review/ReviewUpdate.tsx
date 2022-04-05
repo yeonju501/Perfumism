@@ -15,6 +15,7 @@ interface ReviewUpdateProp {
 }
 
 interface ReviewType {
+	comment_id: number;
 	review_id: number;
 	member_id: number;
 	member_name: string;
