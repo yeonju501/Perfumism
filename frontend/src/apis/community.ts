@@ -16,6 +16,7 @@ interface CommunityApiType {
 		comment: { content: string },
 	) => Promise<AxiosResponse>;
 	deleteComment: (articleId: number, commentId: number) => Promise<AxiosResponse>;
+	createReply: (articleId: number, commentId: number) => Promise<AxiosResponse>;
 }
 
 const communityApi: CommunityApiType = {
@@ -35,6 +36,8 @@ const communityApi: CommunityApiType = {
 		request.put(`auth/comments/${articleId}/update/${commentId}`, comment),
 	deleteComment: (articleId: number, commentId: number) =>
 		request.delete(`auth/comments/${articleId}/delete/${commentId}`),
+	createReply: (articleId: number, commentId: number) =>
+		request.post(`auth/comments/${articleId}/reply/${commentId}`),
 };
 
 export default communityApi;
