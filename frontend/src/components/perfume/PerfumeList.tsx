@@ -65,12 +65,13 @@ function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 const Container = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	margin: 0 auto;
 `;
 
 const Perfume = styled.li`
-	width: 13%;
-	margin: 3rem;
+	width: 14%;
+	margin: 4rem 3rem;
 	height: auto;
 	list-style: none;
 	font-size: 1.4rem;

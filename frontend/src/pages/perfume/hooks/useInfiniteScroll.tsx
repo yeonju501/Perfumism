@@ -26,20 +26,21 @@ const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
 	useEffect(() => {
 		setPerfumes([]);
 		setCurrentPage(0);
+		getPerfumes(0);
 	}, [accord, sort, order]);
 
 	useEffect(() => {
-		getPerfumes();
+		if (currentPage) getPerfumes(currentPage);
 	}, [currentPage]);
 
-	const getPerfumes = async () => {
+	const getPerfumes = async (currentPage: number) => {
 		console.log(accord, sort, order);
 		console.log(currentPage, totalPage);
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 500));
 		const res = await requestApi(currentPage);
 		setTotalPage(res.data.total_page_count);
-		setPerfumes((prev) => prev.concat(res.data.perfumes));
+		setPerfumes((prev) => [...prev, ...res.data.perfumes]);
 		setIsLoading(false);
 		console.log(perfumes);
 	};

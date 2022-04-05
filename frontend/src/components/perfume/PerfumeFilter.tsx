@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { SET_FILTER } from "store/filter";
 import styled from "styled-components";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TagButton from "./TagButton";
 
 const categories = [
 	"All",
@@ -29,66 +32,109 @@ const categories = [
 function PerfumeFilter() {
 	const dispatch = useDispatch();
 	const [accord, setAccord] = useState("");
+	const [selected, setSelected] = useState("totalSurvey");
+	const [clicked, setClicked] = useState(-1);
 
-	const handleCategoryClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleCategoryClick = (idx: number, e: React.MouseEvent<HTMLButtonElement>) => {
 		const category = e.target as HTMLElement;
 		const accord = category.innerText;
 		if (accord === "All") {
+			setAccord("");
 			dispatch(SET_FILTER({ accord: "", sort: "totalSurvey", order: "desc" }));
 		} else {
 			setAccord(accord);
 			dispatch(SET_FILTER({ accord, sort: "totalSurvey", order: "desc" }));
 		}
+		setSelected("totalSurvey");
+		setClicked(idx);
 	};
 
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		if (accord === "All") {
-			if (e.target.selectedIndex === 1)
+			if (e.target.value === "asc")
 				dispatch(SET_FILTER({ accord: "", sort: "name", order: "asc" }));
-			else dispatch(SET_FILTER({ accord: "", sort: "name", order: "desc" }));
+			else if (e.target.value === "desc")
+				dispatch(SET_FILTER({ accord: "", sort: "name", order: "desc" }));
+			else dispatch(SET_FILTER({ accord: "", sort: "totalSurvey", order: "desc" }));
 		}
-		if (e.target.value === "name" && e.target.selectedIndex === 1) {
+		if (e.target.value === "asc") {
 			dispatch(SET_FILTER({ accord, sort: "name", order: "asc" }));
-		} else {
-			dispatch(SET_FILTER({ accord, sort: e.target.value, order: "desc" }));
-		}
+		} else if (e.target.value === "desc") {
+			dispatch(SET_FILTER({ accord, sort: "name", order: "desc" }));
+		} else dispatch(SET_FILTER({ accord, sort: "totalSurvey", order: "desc" }));
+		setSelected(e.target.value);
+	};
+
+	const handleScroll = (direction?: string) => {
+		if (direction) return document.getElementById("filter")?.scrollBy(-250, 0);
+		document.getElementById("filter")?.scrollBy(250, 0);
 	};
 
 	return (
 		<Container>
-			<div>
-				{categories.map((category, idx) => (
-					<TagButton onClick={handleCategoryClick} key={idx}>
-						{category}
-					</TagButton>
-				))}
-			</div>
-			<Select onChange={handleSelectChange} defaultValue="totalSurvey">
-				<option value="totalSurvey">트렌딩</option>
-				<option value="name">오름차순</option>
-				<option value="name">내림차순</option>
-			</Select>
+			<TagsContainer>
+				<Button icon={faChevronLeft} onClick={() => handleScroll("left")} />
+				<Tags id="filter">
+					{categories.map((category, idx) => (
+						<TagButton
+							handleCategoryClick={handleCategoryClick}
+							key={idx}
+							category={category}
+							idx={idx}
+							clicked={clicked}
+						/>
+					))}
+				</Tags>
+				<Button icon={faChevronRight} onClick={() => handleScroll()} direction="right" />
+			</TagsContainer>
+			<SelectContainer>
+				<Select id="select" onChange={handleSelectChange} value={selected}>
+					<option value="totalSurvey">트렌딩</option>
+					<option value="asc">오름차순</option>
+					<option value="desc">내림차순</option>
+				</Select>
+			</SelectContainer>
 		</Container>
 	);
 }
 
-const Container = styled.div``;
-
-const TagButton = styled.button`
-	background-color: inherit;
-	margin-right: 1rem;
-	border: 0.1rem solid black;
-	font-size: 1.4rem;
-	font-weight: bold;
-	padding: 0.7rem 1.2rem;
-	border-radius: 1.5rem;
-	cursor: pointer;
-	&:hover {
-		background-color: black;
-		color: white;
-	}
+const Container = styled.div`
+	width: 90%;
+	margin: 3rem auto;
 `;
 
-const Select = styled.select``;
+const TagsContainer = styled.div`
+	display: flex;
+	align-items: center;
+	margin-bottom: 2rem;
+`;
+
+const Tags = styled.div`
+	overflow: auto;
+	white-space: nowrap;
+	::-webkit-scrollbar {
+		display: none;
+	}
+	margin: 0 2rem;
+`;
+
+const SelectContainer = styled.div`
+	display: flex;
+`;
+
+const Select = styled.select`
+	margin-left: auto;
+`;
+
+interface Button {
+	direction?: string;
+}
+
+const Button = styled(FontAwesomeIcon)<Button>`
+	color: #cacaca;
+	font-size: 2rem;
+	cursor: pointer;
+	left: ${(props) => (props.direction ? `${window.outerWidth - 30}px` : "0")};
+`;
 
 export default PerfumeFilter;
