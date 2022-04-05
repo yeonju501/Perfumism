@@ -6,14 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import useOutside from "../hooks/useOutside";
 import { useDispatch } from "react-redux";
-import { SET_KEYWORD } from "store/serach";
 
 interface InputProps {
 	isOn: boolean;
 }
 
 function Search() {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [toggleSearch, setToggleSearch] = useState(false);
 	const [content, setContent] = useState("");
@@ -23,7 +21,6 @@ function Search() {
 
 	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		await setContent(event.target.value);
-		dispatch(SET_KEYWORD(event.target.value));
 		runSearch(event.target.value);
 	};
 
