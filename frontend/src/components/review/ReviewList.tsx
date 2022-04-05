@@ -1,69 +1,43 @@
 import reviewApi from "apis/review";
-import { DeleteButton, ShowMoreButton, UpdateButton } from "components/button/Button";
-import { useEffect, useState } from "react";
+import { ShowMoreButton } from "components/button/Button";
 import LikeButton from "./LikeButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
+import ReviewButtons from "./ReviewButtons";
+import useReviewListForm from "./hooks/useReviewListForm";
 
 interface ReviewListPropType {
 	perfumeId: string;
 	updateReviews: boolean;
 }
 
-interface ReviewType {
-	review_id: number;
-	member_id: number;
-	member_name: string;
-	member_image: string;
-	grade: number;
-	content: string;
-	likes: number;
-}
-
 function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
-	const [reviews, setReviews] = useState<ReviewType[]>([]);
-	const [totalPage, setTotalPage] = useState(0);
-	const [currentPage, setCurrentPage] = useState(0);
-	const [isLastPage, setIsLastPage] = useState(false);
-	const [isEditable, setIsEditable] = useState(-1);
-
-	const userId = useSelector((state: RootState) => state.user.id);
-
-	useEffect(() => {
-		if (totalPage && currentPage >= totalPage) setIsLastPage(true);
-	}, [currentPage]);
-
-	useEffect(() => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
-	}, [updateReviews]);
-
-	const getReviews = async (currentPage: number) => {
-		const res = await reviewApi.getReviews(perfumeId, currentPage);
-		setReviews((prev) => prev.concat(res.data.reviews));
-		setTotalPage(res.data.total_page_count);
-		setCurrentPage(res.data.current_page_count + 1);
-	};
-
-	const handleShowMoreClick = () => {
-		getReviews(currentPage);
-	};
-
-	const handleDeleteClick = async (reviewId: number) => {
-		if (window.confirm("리뷰를 삭제 하시겠습니까?")) {
-			await reviewApi.deleteReview(reviewId);
-			setReviews((reviews) => reviews.filter((review) => review.review_id !== reviewId));
-		}
-	};
-
-	const handleUpdateClick = (reviewId: number) => {
-		setIsEditable(reviewId);
-	};
+	const {
+		userId,
+		reviews,
+		isEditable,
+		setReviews,
+		setIsEditable,
+		setTotalPage,
+		setCurrentPage,
+		handleShowMoreClick,
+		handleDeleteClick,
+		handleUpdateClick,
+		isLastPage,
+	} = useReviewListForm({
+		updateReviews,
+		getReviews: async (currentPage: number) => {
+			const res = await reviewApi.getReviews(perfumeId, currentPage);
+			setReviews((prev) => prev.concat(res.data.reviews));
+			setTotalPage(res.data.total_page_count);
+			setCurrentPage(res.data.current_page_count + 1);
+		},
+		deleteReviewData: (reviewId: number) => {
+			return reviewApi.deleteReview(reviewId);
+		},
+	});
 
 	const changeReviewLikes = async (reviewId: number) => {
 		const res = await reviewApi.isReviewLiked(reviewId);
@@ -83,10 +57,11 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 				<ReviewItem key={review.review_id}>
 					<p>{review.member_name}</p>
 					{userId === review.member_id && (
-						<>
-							<UpdateButton onClick={() => handleUpdateClick(review.review_id)}>수정</UpdateButton>
-							<DeleteButton onClick={() => handleDeleteClick(review.review_id)}>삭제</DeleteButton>
-						</>
+						<ReviewButtons
+							handleDeleteClick={handleDeleteClick}
+							handleUpdateClick={handleUpdateClick}
+							reviewId={review.review_id}
+						/>
 					)}
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
@@ -97,14 +72,14 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							setReviews={setReviews}
 						/>
 					) : (
-						<div>
+						<ReviewContent>
 							<p>
 								{[...Array(review.grade)].map(() => (
 									<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
 								))}
 							</p>
 							<p>{review.content}</p>
-						</div>
+						</ReviewContent>
 					)}
 
 					{userId && (
@@ -129,4 +104,6 @@ const ReviewItem = styled.li`
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
 `;
+
+const ReviewContent = styled.div``;
 export default ReviewList;
