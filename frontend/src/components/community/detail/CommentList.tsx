@@ -1,11 +1,11 @@
 import { ShowMoreButton } from "components/button/Button";
 import ReviewButtons from "components/review/ReviewButtons";
-import ReviewUpdate from "components/review/ReviewUpdate";
 import styled from "styled-components";
 import communityApi from "apis/community";
 import useReviewListForm from "components/review/hooks/useReviewListForm";
 import CommentUpdate from "./CommentUpdate";
 import ReplyForm from "./ReplyForm";
+import ReplyUpdate from "./ReplyUpdate";
 
 interface CommentListProp {
 	articleId: number;
@@ -13,7 +13,7 @@ interface CommentListProp {
 }
 
 interface replyType {
-	reply_id: number;
+	comment_id: number;
 	member_id: number;
 	member_name: string;
 	article_id: number;
@@ -26,8 +26,6 @@ interface replyType {
 }
 
 function CommentList({ updateReviews, articleId }: CommentListProp) {
-	console.log(articleId);
-
 	const {
 		userId,
 		reviews,
@@ -91,14 +89,15 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 								<ReviewButtons
 									handleDeleteClick={handleDeleteClick}
 									handleUpdateClick={handleUpdateClick}
-									reviewId={reply.reply_id}
+									reviewId={reply.comment_id}
 								/>
 							)}
-							{review.comment_id === isEditable ? (
-								<CommentUpdate
+							{reply.comment_id === isEditable ? (
+								<ReplyUpdate
 									oldContent={reply.content}
 									articleId={articleId}
-									commentId={reply.reply_id}
+									parentId={reply.parentId}
+									commentId={reply.comment_id}
 									setIsEditable={setIsEditable}
 									setReviews={setReviews}
 								/>
