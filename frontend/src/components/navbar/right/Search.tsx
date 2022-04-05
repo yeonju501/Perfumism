@@ -2,16 +2,18 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useRef } from "react";
-import { searchApi } from "apis";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import useOutside from "../hooks/useOutside";
+import { useDispatch } from "react-redux";
+import { SET_KEYWORD } from "store/serach";
 
 interface InputProps {
 	isOn: boolean;
 }
 
 function Search() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [toggleSearch, setToggleSearch] = useState(false);
 	const [content, setContent] = useState("");
@@ -20,7 +22,8 @@ function Search() {
 	useOutside({ Ref, setFunction: setToggleSearch, setSecondFunction: setContent });
 
 	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		setContent(event.target.value);
+		await setContent(event.target.value);
+		dispatch(SET_KEYWORD(event.target.value));
 		runSearch(event.target.value);
 	};
 
@@ -34,10 +37,11 @@ function Search() {
 
 	const runSearch = debounce(async (keyword) => {
 		if (keyword.length > 2) {
-			const perfume = await searchApi.searchPerfume(keyword);
 			navigate(`/search/${keyword}`, {
-				state: { results: perfume.data.perfumes, keyword },
+				state: { keyword },
 			});
+		} else {
+			navigate("/");
 		}
 	}, 1000);
 
