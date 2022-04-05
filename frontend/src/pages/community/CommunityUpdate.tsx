@@ -75,7 +75,7 @@ function CommnuityUpdate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown defaultSubject={subject} />
+					<Dropdown defaultSubject={subject} setSubject={setSubject} />
 					<TitleInput
 						name="title"
 						type="text"
