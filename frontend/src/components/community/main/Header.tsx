@@ -26,6 +26,7 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 8rem;
+	margin-bottom: 1rem;
 `;
 
 export default Header;

@@ -18,13 +18,13 @@ interface ArticleProps {
 function CommunityListItem({ articleItem }: ArticleProps) {
 	return (
 		<Container>
-			<td>{articleItem.article_id}</td>
-			<td>{articleItem.subject}</td>
-			<td>
+			<Td>{articleItem.article_id}</Td>
+			<Td>{articleItem.subject}</Td>
+			<Td>
 				<Link to={`/community/${articleItem.article_id}`}>{articleItem.title}</Link>
-			</td>
-			<td>{articleItem.member_name}</td>
-			<td>{articleItem.created_at.slice(0, 10)}</td>
+			</Td>
+			<Td>{articleItem.member_name}</Td>
+			<Td>{articleItem.created_at.slice(0, 10)}</Td>
 		</Container>
 	);
 }
@@ -32,5 +32,7 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 const Container = styled.tr`
 	width: 100%;
 `;
+
+const Td = styled.td``;
 
 export default CommunityListItem;
