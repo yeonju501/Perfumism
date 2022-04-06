@@ -16,15 +16,15 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     int countAllByMemberAndCreatedAtBetweenAndReadAtIsNull(Member member, LocalDateTime start, LocalDateTime end);
 
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Modifying
     @Query(nativeQuery = true, value = "update notification n set n.deleted_at = current_timestamp where n.comment_id in (select comment_id from comment c where c.article_id = (:id)) and n.deleted_at is null")
     int deleteAllByArticle(@Param("id") Long id);
 
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(nativeQuery = true, value = "update notification n set n.deleted_at = current_timestamp where n.comment_id in (select comment_id from comment c where c.parentId = (:id)) and n.comment_id = (:id) and n.deleted_at is null")
+    @Modifying
+    @Query(nativeQuery = true, value = "update notification n set n.deleted_at = current_timestamp where (n.comment_id in (select comment_id from comment c where c.parent_id = (:id) and c.deleted_at is null) or n.comment_id = (:id)) and n.deleted_at is null")
     int deleteAllByComment(@Param("id") Long id);
 
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Modifying
     @Query(nativeQuery = true, value = "update notification n set n.deleted_at = current_timestamp where n.comment_id = (:id) and n.deleted_at is null")
     int deleteAllByReply(@Param("id") Long id);
 }
