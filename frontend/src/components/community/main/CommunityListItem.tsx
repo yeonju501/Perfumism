@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import EngToKor from "../utils/EngToKor";
 
 interface ArticleProps {
 	articleItem: {
@@ -19,7 +20,7 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 	return (
 		<Tr>
 			<ArticleId>{articleItem.article_id}</ArticleId>
-			<Td>{articleItem.subject}</Td>
+			<Td>{EngToKor(articleItem.subject)}</Td>
 			<Td>
 				<Link to={`/community/${articleItem.article_id}`}>{articleItem.title}</Link>
 			</Td>
