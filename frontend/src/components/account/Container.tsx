@@ -13,4 +13,7 @@ export const FormContainer = styled.form`
 	width: 50rem;
 	flex-direction: column;
 	justify-content: center;
+	@media ${(props) => props.theme.mobileS} {
+		width: auto;
+	}
 `;

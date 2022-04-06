@@ -18,6 +18,10 @@ const Button = styled.button<ButtonProps>`
 	&:hover {
 		cursor: pointer;
 	}
+	@media ${(props) => props.theme.mobileS} {
+		width: 30rem;
+		margin: 0.5rem auto;
+	}
 `;
 
 export default Button;
