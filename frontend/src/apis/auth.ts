@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { request, authRequest } from "./request";
 import cookie from "react-cookies";
+import { persistor } from "index";
 
 interface UserApiType {
 	signup: (userInfo: {
@@ -25,8 +26,9 @@ const authApi: UserApiType = {
 	findPassword: (email) => request.post("members/find-pw", email),
 	changePassword: (email, password) => request.put("members/change-pw", { email, password }),
 	logout: () => {
-		window.location.replace("/");
 		cookie.remove("access_token", { path: "/" });
+		persistor.purge();
+		window.location.replace("/");
 	},
 	checkCode: (code) => request.put("members/code", { value: code }),
 };
