@@ -13,6 +13,7 @@ interface ReviewType {
 	likes: number;
 	created_at?: string;
 	replyList: replyType[];
+	deletion?: boolean;
 }
 
 interface replyType {
@@ -71,6 +72,22 @@ function useReviewListForm({
 		}
 	};
 
+	const handleCommentDeleteClick = async (reviewId: number, replyCount: number) => {
+		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
+			await deleteReviewData(reviewId);
+			if (replyCount) {
+				setReviews((reviews) =>
+					reviews.map((review) => {
+						if (review.comment_id === reviewId) review.deletion = true;
+						return review;
+					}),
+				);
+			} else {
+				setReviews((reviews) => reviews.filter((review) => review.comment_id !== reviewId));
+			}
+		}
+	};
+
 	const handleUpdateClick = (reviewId: number) => {
 		setIsEditable(reviewId);
 	};
@@ -90,6 +107,7 @@ function useReviewListForm({
 		setTotalPage,
 		setCurrentPage,
 		handleShowMoreClick,
+		handleCommentDeleteClick,
 		handleDeleteClick,
 		handleUpdateClick,
 		handleReplyClick,

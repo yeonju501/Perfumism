@@ -6,6 +6,7 @@ import useReviewListForm from "components/review/hooks/useReviewListForm";
 import CommentUpdate from "./CommentUpdate";
 import ReplyForm from "./ReplyForm";
 import ReplyUpdate from "./ReplyUpdate";
+import CommentButtons from "./CommentButtons";
 
 interface CommentListProp {
 	articleId: number;
@@ -38,6 +39,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		setIsEditable,
 		handleShowMoreClick,
 		handleDeleteClick,
+		handleCommentDeleteClick,
 		handleUpdateClick,
 		handleReplyClick,
 		isLastPage,
@@ -48,6 +50,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 			setReviews((prev) => prev.concat(res.data.commentList));
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
+			console.log(res.data);
 		},
 		deleteReviewData: (commentId: number) => {
 			return communityApi.deleteComment(articleId, commentId);
@@ -59,33 +62,40 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 			{reviews.map((review) => (
 				<li key={review.comment_id}>
 					<ReviewItem>
-						<User>
-							<div>
-								<span>{review.member_name}</span>
-								<span>{review.created_at?.slice(5, 10)}</span>
-							</div>
-							{userId === review.member_id && (
-								<ReviewButtons
-									handleDeleteClick={handleDeleteClick}
-									handleUpdateClick={handleUpdateClick}
-									reviewId={review.comment_id}
-								/>
-							)}
-						</User>
-						{review.comment_id === isEditable ? (
-							<CommentUpdate
-								oldContent={review.content}
-								articleId={articleId}
-								commentId={review.comment_id}
-								setIsEditable={setIsEditable}
-								setReviews={setReviews}
-							/>
+						{review.deletion ? (
+							<DeletedComment>삭제된 댓글 입니다</DeletedComment>
 						) : (
-							<>
-								<CommentContent>{review.content}</CommentContent>
-							</>
+							<ExistComment>
+								<User>
+									<div>
+										<span>{review.member_name}</span>
+										<span>{review.created_at?.slice(5, 10)}</span>
+									</div>
+									{userId === review.member_id && (
+										<CommentButtons
+											handleCommentDeleteClick={handleCommentDeleteClick}
+											handleUpdateClick={handleUpdateClick}
+											reviewId={review.comment_id}
+											replyCount={review.replyList.length}
+										/>
+									)}
+								</User>
+								{review.comment_id === isEditable ? (
+									<CommentUpdate
+										oldContent={review.content}
+										articleId={articleId}
+										commentId={review.comment_id}
+										setIsEditable={setIsEditable}
+										setReviews={setReviews}
+									/>
+								) : (
+									<>
+										<CommentContent>{review.content}</CommentContent>
+									</>
+								)}
+								<ReplyButton onClick={() => handleReplyClick(review.comment_id)}>답글</ReplyButton>
+							</ExistComment>
 						)}
-						<ReplyButton onClick={() => handleReplyClick(review.comment_id)}>답글</ReplyButton>
 					</ReviewItem>
 					{review.comment_id === reply && (
 						<ReplyForm articleId={articleId} commentId={review.comment_id} setReply={setReply} />
@@ -136,6 +146,12 @@ const ReviewItem = styled.div`
 	border: 0.3px solid #dedede;
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
+`;
+
+const ExistComment = styled.div``;
+
+const DeletedComment = styled.p`
+	font-size: 1.4rem;
 `;
 
 const ReplyItem = styled.div`
