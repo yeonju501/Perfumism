@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { SET_USER } from "store/user";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear, faPen } from "@fortawesome/free-solid-svg-icons";
 
 function UserInfo() {
 	const dispatch = useDispatch();
@@ -39,8 +37,8 @@ function UserInfo() {
 				<ImageUpdate onClick={() => profileImage.current.click()}>수정</ImageUpdate>
 				<ImageInput ref={profileImage} type="file" onChange={handleImageChange} accept="image/*" />
 			</ImageContainer>
-			<p>이메일</p>
-			<p>{email}</p>
+			<Label>email</Label>
+			<Email>{email}</Email>
 		</div>
 	);
 }
@@ -83,4 +81,11 @@ const ImageInput = styled.input`
 	display: none;
 `;
 
+const Label = styled.p`
+	font-weight: bold;
+`;
+
+const Email = styled.p`
+	margin: 2rem 0 4rem;
+`;
 export default UserInfo;

@@ -13,15 +13,15 @@ function MyArticles() {
 	return (
 		<>
 			{articleList && (
-				<div>
+				<Container>
 					{articleList.length > 0 ? (
 						<>
 							<Table>
 								<thead>
 									<tr>
-										<th>말머리</th>
-										<th>제목</th>
-										<th>작성 날짜</th>
+										<Th width={"30%"}>말머리</Th>
+										<Th width={"40%"}>제목</Th>
+										<Th width={"30%"}>작성 날짜</Th>
 									</tr>
 								</thead>
 								<tbody>
@@ -43,26 +43,47 @@ function MyArticles() {
 							)}
 						</>
 					) : (
-						<p>작성한 글이 없습니다</p>
+						<p id="default">작성한 글이 없습니다</p>
 					)}
-				</div>
+				</Container>
 			)}
 		</>
 	);
 }
 
+const Container = styled.div`
+	width: 100%;
+	#default {
+		font-size: 1.8rem;
+		margin-top: 5rem;
+		margin-left: 5%;
+	}
+`;
+
 const Table = styled.table`
-	margin: 5rem auto;
+	margin: 6rem auto;
 	width: 80%;
-	font-size: 1.8rem;
+`;
+
+interface WidthProps {
+	width: string;
+}
+
+const Th = styled.th<WidthProps>`
+	border-bottom: 1px solid #e8e8e8;
+	padding-bottom: 1rem;
+	font-size: 2.2rem;
+	width: ${({ width }) => width};
 `;
 
 const Tr = styled.tr`
 	text-align: center;
-	margin-top: 2rem;
+	font-size: 1.6rem;
 `;
 
-const Td = styled.td``;
+const Td = styled.td`
+	padding: 0.7rem;
+`;
 
 const Footer = styled.footer`
 	text-align: center;

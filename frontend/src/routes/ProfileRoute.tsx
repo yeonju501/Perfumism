@@ -15,5 +15,6 @@ export default ProfileRoute;
 
 const Container = styled.div`
 	display: flex;
+
 	min-height: 100vh;
 `;

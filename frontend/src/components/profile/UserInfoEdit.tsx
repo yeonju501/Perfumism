@@ -1,7 +1,9 @@
 import { profileApi } from "apis";
 import { FormContainer } from "components/account/Container";
-import { Input, Label } from "components/account/Index";
+import { Input } from "components/account/Index";
+import Label from "components/profile/Label";
 import { useState } from "react";
+import styled from "styled-components";
 
 interface Props {
 	value: string;
@@ -26,7 +28,7 @@ function UserInfoEdit({ value, gender }: Props) {
 
 	return (
 		<FormContainer onSubmit={handleSubmit}>
-			<Label htmlFor="username">닉네임</Label>
+			<Label htmlFor="username">유저네임</Label>
 			<Input
 				name="username"
 				type="text"
@@ -36,31 +38,53 @@ function UserInfoEdit({ value, gender }: Props) {
 			/>
 			<br />
 			<Label htmlFor="gender">성별</Label>
-			<Label htmlFor="male">
-				<input
-					type="radio"
-					name="gender"
-					id="male"
-					value="0"
-					onChange={handleChange}
-					checked={userGender === 0}
-				/>
-				남자
-			</Label>
-			<Label htmlFor="female">
-				<input
-					type="radio"
-					name="gender"
-					id="female"
-					value="1"
-					onChange={handleChange}
-					checked={userGender === 1}
-				/>
-				여자
-			</Label>
-			<button>제출</button>
+			<GenderButtons>
+				<Label htmlFor="male">
+					<input
+						type="radio"
+						name="gender"
+						id="male"
+						value="0"
+						onChange={handleChange}
+						checked={userGender === 0}
+					/>
+					남자
+				</Label>
+				<Label htmlFor="female">
+					<input
+						type="radio"
+						name="gender"
+						id="female"
+						value="1"
+						onChange={handleChange}
+						checked={userGender === 1}
+					/>
+					여자
+				</Label>
+			</GenderButtons>
+			<Button>제출</Button>
 		</FormContainer>
 	);
 }
 
+const GenderButtons = styled.div`
+	margin-bottom: 2rem;
+	#female {
+		margin-left: 1.5rem;
+	}
+`;
+
+const Button = styled.button`
+	width: 100%;
+	background-color: inherit;
+	margin: 2rem auto;
+	border: 0.5px solid #cecece;
+	padding: 0.5rem 0;
+	color: #111111;
+	outline: none;
+	cursor: pointer;
+	&:hover {
+		background-color: #f7f7f7;
+	}
+`;
 export default UserInfoEdit;

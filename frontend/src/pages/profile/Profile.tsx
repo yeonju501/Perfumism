@@ -1,5 +1,4 @@
 import { profileApi } from "apis";
-import Button from "components/profile/Button";
 import { Container } from "components/profile/Container";
 import UserInfo from "components/profile/UserInfo";
 import UserInfoEdit from "components/profile/UserInfoEdit";
@@ -45,6 +44,21 @@ function Profile() {
 
 const Section = styled.div`
 	margin-left: 15%;
+`;
+
+const Button = styled.button`
+	background-color: inherit;
+	border: none;
+	outline: none;
+	padding: 0;
+	cursor: pointer;
+	margin-top: 10rem;
+	font-size: 1.2rem;
+	margin-left: auto;
+	color: #999999;
+	&:hover {
+		color: black;
+	}
 `;
 
 export default Profile;

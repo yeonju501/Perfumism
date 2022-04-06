@@ -14,23 +14,25 @@ function MyComments() {
 	return (
 		<>
 			{commentList && (
-				<div>
+				<Container>
 					{commentList.length > 0 ? (
 						<>
 							<Table>
 								<thead>
 									<tr>
-										<th>번호</th>
-										<th>내용</th>
-										<th>작성 날짜</th>
+										<Th width={"60%"}>내용</Th>
+										<Th width={"40%"}>작성 날짜</Th>
 									</tr>
 								</thead>
 								<tbody>
 									{commentList.map((comment, idx) => (
 										<Tr key={idx}>
-											<Td>{idx}</Td>
 											<Td>
-												<Link to="">{comment.content}</Link>
+												<Link to="">
+													{comment.content.length > 20
+														? `${comment.content.slice(0, 20)}...`
+														: comment.content}
+												</Link>
 											</Td>
 											<Td>{comment.created_at.slice(0, 10)}</Td>
 										</Tr>
@@ -44,26 +46,47 @@ function MyComments() {
 							)}
 						</>
 					) : (
-						<p>작성한 댓글이 없습니다</p>
+						<p id="default">작성한 댓글이 없습니다</p>
 					)}
-				</div>
+				</Container>
 			)}
 		</>
 	);
 }
 
+const Container = styled.div`
+	width: 100%;
+	#default {
+		font-size: 1.8rem;
+		margin-top: 5rem;
+		margin-left: 5%;
+	}
+`;
+
 const Table = styled.table`
-	margin: 5rem auto;
+	margin: 6rem auto;
 	width: 80%;
-	font-size: 1.8rem;
+`;
+
+interface WidthProps {
+	width: string;
+}
+
+const Th = styled.th<WidthProps>`
+	border-bottom: 1px solid #e8e8e8;
+	padding-bottom: 1rem;
+	font-size: 2.2rem;
+	width: ${({ width }) => width};
 `;
 
 const Tr = styled.tr`
 	text-align: center;
-	margin-top: 2rem;
+	font-size: 1.6rem;
 `;
 
-const Td = styled.td``;
+const Td = styled.td`
+	padding: 0.7rem;
+`;
 
 const Footer = styled.footer`
 	text-align: center;
