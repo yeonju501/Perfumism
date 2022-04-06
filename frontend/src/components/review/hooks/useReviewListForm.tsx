@@ -31,12 +31,14 @@ interface replyType {
 
 interface useReviewListFormProps {
 	updateReviews: boolean;
+	addReviews: (currentPage: number) => Promise<void>;
 	getReviews: (currentPage: number) => Promise<void>;
 	deleteReviewData: (reviewId: number) => Promise<any>;
 }
 
 function useReviewListForm({
 	updateReviews,
+	addReviews,
 	getReviews,
 	deleteReviewData,
 }: useReviewListFormProps) {
@@ -54,9 +56,7 @@ function useReviewListForm({
 	}, [currentPage]);
 
 	useEffect(() => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
+		addReviews(0);
 	}, [updateReviews]);
 
 	const handleShowMoreClick = () => {
@@ -88,6 +88,22 @@ function useReviewListForm({
 		}
 	};
 
+	const handleReplyDeleteClick = async (parentId: number, commentId: number) => {
+		if (window.confirm("답글을 삭제 하시겠습니까?")) {
+			await deleteReviewData(commentId);
+			setReviews((reviews) =>
+				reviews.map((review) => {
+					if (review.comment_id === parentId) {
+						review.replyList.map((reply) => {
+							if (reply.comment_id === commentId) reply.deletion = true;
+						});
+					}
+					return review;
+				}),
+			);
+		}
+	};
+
 	const handleUpdateClick = (reviewId: number) => {
 		setIsEditable(reviewId);
 	};
@@ -108,6 +124,7 @@ function useReviewListForm({
 		setCurrentPage,
 		handleShowMoreClick,
 		handleCommentDeleteClick,
+		handleReplyDeleteClick,
 		handleDeleteClick,
 		handleUpdateClick,
 		handleReplyClick,
