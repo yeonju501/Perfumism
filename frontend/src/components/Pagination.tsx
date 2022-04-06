@@ -47,6 +47,7 @@ function Pagination({ total, page, setData }: PaginationProps) {
 						<Button
 							key={i + 1}
 							onClick={() => setData((prev) => ({ ...prev, current_page_count: i }))}
+							aria-current={page === i && "true"}
 						>
 							{i + 1}
 						</Button>
@@ -68,19 +69,19 @@ const Nav = styled.nav`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 4px;
-	margin: 16px;
+	gap: 0.4rem;
+	margin: 2rem;
 `;
 
 const Button = styled.button`
 	border: none;
-	border-radius: 8px;
+	border-radius: 0.8rem;
 	width: max-content;
-	padding: 10px;
+	padding: 1rem;
 	margin: 0;
 	background: transparent;
 	color: black;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	&:hover {
 		background: tomato;
 		cursor: pointer;
@@ -93,8 +94,8 @@ const Button = styled.button`
 		cursor: revert;
 		transform: revert;
 	}
-	&[aria-current] {
-		background: #0094fd;
+	&[aria-current="true"] {
+		background: #000;
 		font-weight: bold;
 		color: white;
 		cursor: revert;
