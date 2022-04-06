@@ -88,10 +88,14 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							<p>{review.created_at?.slice(0, 10)}</p>
 						</User>
 						<Like>
-							{userId && (
-								<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+							{userId ? (
+								<>
+									<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+									{review.likes ? <span>{review.likes}</span> : null}
+								</>
+							) : (
+								<p>❤ {review.likes}</p>
 							)}
-							{review.likes ? <span>{review.likes}</span> : null}
 						</Like>
 					</Footer>
 				</ReviewItem>
