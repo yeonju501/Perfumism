@@ -1,4 +1,4 @@
-import PaginationButton from "./button/PaginationButton";
+import styled from "styled-components";
 
 interface PaginationProps {
 	total: number;
@@ -34,27 +34,74 @@ interface CommentListType {
 function Pagination({ total, page, setData }: PaginationProps) {
 	return (
 		<>
-			<nav>
-				<button
+			<Nav>
+				<Button
 					onClick={() => setData((prev) => ({ ...prev, current_page_count: page - 1 }))}
 					disabled={page === 0}
 				>
 					&lt;
-				</button>
+				</Button>
 				{Array(total)
 					.fill("")
 					.map((_, i) => (
-						<PaginationButton key={i + 1} setData={setData} idx={i} text={String(i + 1)} />
+						<Button
+							key={i + 1}
+							onClick={() => setData((prev) => ({ ...prev, current_page_count: i }))}
+							aria-current={page === i && "true"}
+						>
+							{i + 1}
+						</Button>
 					))}
-				<button
+				<Button
 					onClick={() => setData((prev) => ({ ...prev, current_page_count: page + 1 }))}
 					disabled={page === total - 1}
 				>
 					&gt;
-				</button>
-			</nav>
+				</Button>
+			</Nav>
 		</>
 	);
 }
 
 export default Pagination;
+
+const Nav = styled.nav`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 2rem;
+`;
+
+const Button = styled.button`
+	border: none;
+	border-radius: 0.8rem;
+	width: max-content;
+	padding: 1rem;
+	margin: 0;
+	background: transparent;
+	color: black;
+	font-size: 1.8rem;
+	&:hover {
+		background: tomato;
+		cursor: pointer;
+		transform: translateY(-2px);
+		height: auto;
+	}
+
+	&:disabled {
+		background: transparent;
+		cursor: revert;
+		transform: revert;
+	}
+	&[aria-current="true"] {
+		background: #000;
+		font-weight: bold;
+		color: white;
+		cursor: revert;
+		transform: revert;
+		font-size: 1.5rem;
+		width: max-content;
+		height: auto;
+	}
+`;
