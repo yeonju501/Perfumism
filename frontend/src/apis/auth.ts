@@ -16,6 +16,7 @@ interface UserApiType {
 	logout: () => void;
 	checkCode: (code: string) => Promise<AxiosResponse>;
 	changePassword: (email: string, password: string) => Promise<AxiosResponse>;
+	deleteAccount: () => Promise<AxiosResponse>;
 }
 
 const authApi: UserApiType = {
@@ -31,6 +32,7 @@ const authApi: UserApiType = {
 		window.location.replace("/");
 	},
 	checkCode: (code) => request.put("members/code", { value: code }),
+	deleteAccount: () => request.delete("auth/members"),
 };
 
 export default authApi;
