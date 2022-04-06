@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
@@ -41,6 +42,8 @@ public class MemberServiceTest {
     private MemberService memberService;
 
     private MemberSaveRequest memberSaveRequest;
+
+    private String NEW_PASSWORD = "NewPassword1!";
 
     @BeforeEach
     void setup() {
@@ -140,4 +143,19 @@ public class MemberServiceTest {
         // then
         assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
     }
+
+//    @Test
+//    @DisplayName("패스워드를 변경할 수 있다")
+//    void changePasswordTest() {
+//        // setup & given
+//        Member member = memberSaveRequest.toMember();
+//        given(memberRepository.findByEmail(any())).willReturn(Optional.ofNullable(member));
+//        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(EMAIL, NEW_PASSWORD);
+//
+//        // when
+//        memberService.changePassword(changePasswordRequest);
+//
+//        // then
+//        assertThat(member.getPassword()).isEqualTo(NEW_PASSWORD);
+//    }
 }
