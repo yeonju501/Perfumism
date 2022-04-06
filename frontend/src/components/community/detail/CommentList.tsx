@@ -7,6 +7,7 @@ import CommentUpdate from "./CommentUpdate";
 import ReplyForm from "./ReplyForm";
 import ReplyUpdate from "./ReplyUpdate";
 import CommentButtons from "./CommentButtons";
+import ReplyButtons from "./ReplyButtons";
 
 interface CommentListProp {
 	articleId: number;
@@ -36,6 +37,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		setReply,
 		setTotalPage,
 		setCurrentPage,
+		handleReplyDeleteClick,
 		setIsEditable,
 		handleShowMoreClick,
 		handleDeleteClick,
@@ -101,37 +103,41 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 					{review.comment_id === reply && (
 						<ReplyForm articleId={articleId} commentId={review.comment_id} setReply={setReply} />
 					)}
-					{review.replyList.map((reply: replyType, idx) => (
-						<ReplyItem key={idx}>
-							{reply.comment_id === isEditable ? (
-								<ReplyUpdate
-									oldContent={reply.content}
-									articleId={articleId}
-									parentId={reply.parentId}
-									commentId={reply.comment_id}
-									setIsEditable={setIsEditable}
-									setReviews={setReviews}
-								/>
-							) : (
-								<>
-									<User>
-										<div>
-											<span>{reply.member_name}</span>
-											<span>{reply.created_at.slice(5, 10)}</span>
-										</div>
-										{userId === reply.member_id && (
-											<ReviewButtons
-												handleDeleteClick={handleDeleteClick}
-												handleUpdateClick={handleUpdateClick}
-												reviewId={reply.comment_id}
-											/>
-										)}
-									</User>
-									<CommentContent>{reply.content}</CommentContent>
-								</>
-							)}
-						</ReplyItem>
-					))}
+					{review.replyList.map(
+						(reply: replyType, idx) =>
+							!reply.deletion && (
+								<ReplyItem key={idx}>
+									{reply.comment_id === isEditable ? (
+										<ReplyUpdate
+											oldContent={reply.content}
+											articleId={articleId}
+											parentId={reply.parentId}
+											commentId={reply.comment_id}
+											setIsEditable={setIsEditable}
+											setReviews={setReviews}
+										/>
+									) : (
+										<>
+											<User>
+												<div>
+													<span>{reply.member_name}</span>
+													<span>{reply.created_at.slice(5, 10)}</span>
+												</div>
+												{userId === reply.member_id && (
+													<ReplyButtons
+														handleReplyDeleteClick={handleReplyDeleteClick}
+														handleUpdateClick={handleUpdateClick}
+														parentId={reply.parentId}
+														commentId={reply.comment_id}
+													/>
+												)}
+											</User>
+											<CommentContent>{reply.content}</CommentContent>
+										</>
+									)}
+								</ReplyItem>
+							),
+					)}
 				</li>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>

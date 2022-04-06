@@ -88,6 +88,22 @@ function useReviewListForm({
 		}
 	};
 
+	const handleReplyDeleteClick = async (parentId: number, commentId: number) => {
+		if (window.confirm("답글을 삭제 하시겠습니까?")) {
+			await deleteReviewData(commentId);
+			setReviews((reviews) =>
+				reviews.map((review) => {
+					if (review.comment_id === parentId) {
+						review.replyList.map((reply) => {
+							if (reply.comment_id === commentId) reply.deletion = true;
+						});
+					}
+					return review;
+				}),
+			);
+		}
+	};
+
 	const handleUpdateClick = (reviewId: number) => {
 		setIsEditable(reviewId);
 	};
@@ -108,6 +124,7 @@ function useReviewListForm({
 		setCurrentPage,
 		handleShowMoreClick,
 		handleCommentDeleteClick,
+		handleReplyDeleteClick,
 		handleDeleteClick,
 		handleUpdateClick,
 		handleReplyClick,
