@@ -14,7 +14,7 @@ interface ProfileApiType {
 
 const profileApi: ProfileApiType = {
 	getFavorites: (currentPage: number) =>
-		request.get(`auth/perfumes/likes/my-favorite?page=${currentPage}&size=10`),
+		request.get(`auth/perfumes/likes/my-favorite?page=${currentPage}&size=15`),
 	getUserInfo: () => request.get(`auth/members`),
 	setUserImage: (formData) => imageRequest.post(`auth/members/img`, formData),
 	checkPassword: (value) => request.post("auth/members/check-pw", value),
