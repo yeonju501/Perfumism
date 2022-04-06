@@ -31,7 +31,7 @@ function Dropdown({ setSubject, defaultSubject }: SubjectProps) {
 		<Main>
 			<DropDownContainer ref={Ref}>
 				<DropDownHeader onClick={toggling}>
-					{EngToKor(selectedOption) || defaultSubject}
+					{EngToKor(selectedOption) || (defaultSubject && "전체")}
 				</DropDownHeader>
 				{isOpen && (
 					<DropDownListContainer>
