@@ -33,7 +33,6 @@ import ProfilePrivateRoutes from "./ProfilePrivateRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import CheckPassword from "pages/profile/CheckPassword";
-import ProfileRoute from "./ProfileRoute";
 
 function Router() {
 	const username = useSelector((state: RootState) => state.user.username);
@@ -45,13 +44,10 @@ function Router() {
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
 				<Route element={<ProfilePrivateRoutes />}>
-					<Route path="/profile" element={<ProfileRoute />}>
-						<Route path={`/profile/${username}`} element={<Profile />} />
-						<Route path="/profile/favorites" element={<Favorites />} />
-						<Route path="/profile/my-articles" element={<MyArticles />} />
-						<Route path="/profile/my-comments" element={<MyComments />} />
-						<Route path="/profile/change-pw" element={<ChangePassword />} />
-					</Route>
+					<Route path={`/profile/${encodeURIComponent(username)}`} element={<Profile />} />
+					<Route path="/profile/favorites" element={<Favorites />} />
+					<Route path="/profile/my-articles" element={<MyArticles />} />
+					<Route path="/profile/my-comments" element={<MyComments />} />
 				</Route>
 				<Route path="/profile/check-password" element={<CheckPassword />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
@@ -75,6 +71,7 @@ function Router() {
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
+				<Route path="/profile/change-pw" element={<ChangePassword />} />
 			</Routes>
 		</BrowserRouter>
 	);
