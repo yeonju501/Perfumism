@@ -28,7 +28,7 @@ function MyComments() {
 									{commentList.map((comment, idx) => (
 										<Tr key={idx}>
 											<Td>
-												<Link to="">
+												<Link to={`/community/${comment.article_id}`}>
 													{comment.content.length > 20
 														? `${comment.content.slice(0, 20)}...`
 														: comment.content}

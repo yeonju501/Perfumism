@@ -29,7 +29,7 @@ function MyArticles() {
 										<Tr key={idx}>
 											<Td>{article.subject}</Td>
 											<Td>
-												<Link to="">{article.title}</Link>
+												<Link to={`/community/${article.article_id}`}>{article.title}</Link>
 											</Td>
 											<Td>{article.created_at.slice(0, 10)}</Td>
 										</Tr>
