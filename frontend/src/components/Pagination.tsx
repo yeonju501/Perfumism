@@ -71,6 +71,7 @@ const Nav = styled.nav`
 	align-items: center;
 	gap: 0.4rem;
 	margin: 2rem;
+	margin-bottom: 5rem;
 `;
 
 const Button = styled.button`
@@ -81,7 +82,7 @@ const Button = styled.button`
 	margin: 0;
 	background: transparent;
 	color: black;
-	font-size: 1.8rem;
+	font-size: 2.2rem;
 	&:hover {
 		background: tomato;
 		cursor: pointer;
