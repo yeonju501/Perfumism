@@ -1,7 +1,6 @@
 import { profileApi } from "apis";
 import Button from "components/profile/Button";
 import { Container } from "components/profile/Container";
-import Sidebar from "components/profile/Sidebar";
 import UserInfo from "components/profile/UserInfo";
 import UserInfoEdit from "components/profile/UserInfoEdit";
 import { useEffect, useState } from "react";
@@ -34,7 +33,6 @@ function Profile() {
 	return (
 		userInfo && (
 			<Container>
-				<Sidebar />
 				<Section>
 					<UserInfo />
 					<UserInfoEdit value={userInfo.username} gender={userInfo.gender as number}></UserInfoEdit>
