@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-	&:hover {
-	}
+	background-color: inherit;
+	border: none;
+	outline: none;
+	cursor: pointer;
 `;
 
 export default Button;

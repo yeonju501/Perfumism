@@ -30,14 +30,16 @@ function Favorites() {
 }
 
 const Container = styled.div`
-	width: 80%;
-	margin: 5rem auto;
+	width: 100%;
+	margin: 3rem 0;
 	h1 {
+		margin-left: 5%;
 		font-size: 2.8rem;
 		margin-bottom: 4rem;
 	}
 	#default {
 		font-size: 1.8rem;
+		margin-left: 5%;
 	}
 `;
 
