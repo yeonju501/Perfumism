@@ -6,6 +6,7 @@ import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
+import EngToKor from "components/community/utils/EngToKor";
 
 interface CustomizedState {
 	articleData: {
@@ -75,7 +76,7 @@ function CommnuityUpdate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown defaultSubject={subject} setSubject={setSubject} />
+					<Dropdown defaultSubject={EngToKor(subject) as string} setSubject={setSubject} />
 					<TitleInput
 						name="title"
 						type="text"

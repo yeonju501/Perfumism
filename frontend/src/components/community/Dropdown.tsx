@@ -54,6 +54,7 @@ const Main = styled.div``;
 const DropDownContainer = styled.form`
 	width: 10em;
 	margin: 0 auto;
+	margin-bottom: 1rem;
 `;
 
 const DropDownHeader = styled.div`
