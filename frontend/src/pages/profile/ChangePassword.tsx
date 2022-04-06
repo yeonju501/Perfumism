@@ -1,9 +1,10 @@
-import { Container, FormContainer } from "components/account/Container";
+import { FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header } from "components/account/Index";
 import { profileApi } from "apis";
 import { formValidator } from "utils";
 import useForm from "pages/account/hooks/useForm";
 import { toast } from "react-toastify";
+import styled from "styled-components";
 
 function ChangePassword() {
 	const { handleChange, handleSubmit, errors } = useForm({
@@ -52,3 +53,11 @@ function ChangePassword() {
 }
 
 export default ChangePassword;
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+	height: 100vh;
+`;
