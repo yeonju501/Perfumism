@@ -1,5 +1,6 @@
-import Navbar from "components/navbar/Navbar";
-import ScrollToTop from "components/ScrollToTop";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 import {
 	InputCodePage,
 	ChangePasswordPage,
@@ -10,24 +11,25 @@ import {
 	GoogleLoginPage,
 	SuccessPage,
 } from "pages/account";
-import { Favorites, MyArticles, MyComments, Profile, ChangePassword } from "pages/profile";
+import {
+	Favorites,
+	MyArticles,
+	MyComments,
+	Profile,
+	ChangePassword,
+	CheckPassword,
+} from "pages/profile";
 import { Community, CommunityCreate, CommunityDetail, CommunityUpdate } from "pages/community";
 import { PerfumeBrand, PerfumeDetail, Perfumes } from "pages/perfume";
+import { Recommend, Survey, SurveyResult, Loading } from "pages/recommend";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
-import Recommend from "pages/recommend/Recommend";
-import Survey from "pages/recommend/Survey";
-import SurveyResult from "pages/recommend/SurveyResult";
 import SearchResultPage from "pages/search/SearchResultPage";
-import Loading from "pages/recommend/Loading";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import ProfilePrivateRoutes from "./ProfilePrivateRoute";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
-import CheckPassword from "pages/profile/CheckPassword";
 import ProfileRoute from "./ProfileRoute";
+import Navbar from "components/navbar/Navbar";
+import ScrollToTop from "components/ScrollToTop";
 
 function Router() {
 	const username = useSelector((state: RootState) => state.user.username);
