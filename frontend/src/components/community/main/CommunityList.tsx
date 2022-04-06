@@ -52,7 +52,7 @@ const Table = styled.table`
 	text-align: center;
 	width: 100%;
 	@media ${(props) => props.theme.mobileXS} {
-		width: auto;
+		width: 90vw;
 	}
 `;
 
@@ -65,25 +65,18 @@ const Th = styled.th`
 	font-size: 2rem;
 	padding: 10px 5px;
 	font-weight: bold;
-	width: 100%;
+	width: auto;
 `;
 
 const ArticleId = styled(Th)`
-	width: 10%;
 	@media ${(props) => props.theme.mobileXS} {
 		display: none;
 	}
 `;
 
-const Filter = styled(Th)`
-	width: 20%;
-`;
-const Title = styled(Th)`
-	width: 30%;
-`;
-const Writer = styled(Th)`
-	width: 15%;
-`;
+const Filter = styled(Th)``;
+const Title = styled(Th)``;
+const Writer = styled(Th)``;
 const Date = styled(Th)`
 	width: 25%;
 	@media ${(props) => props.theme.mobile} {
