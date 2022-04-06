@@ -24,7 +24,10 @@ const authApi: UserApiType = {
 	reissue: (data) => authRequest.post("members/reissue", data),
 	findPassword: (email) => request.post("members/find-pw", email),
 	changePassword: (email, password) => request.put("members/change-pw", { email, password }),
-	logout: () => cookie.remove("access_token", { path: "/" }),
+	logout: () => {
+		window.location.replace("/");
+		cookie.remove("access_token", { path: "/" });
+	},
 	checkCode: (code) => request.put("members/code", { value: code }),
 };
 
