@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
+import com.ladder.perfumism.member.controller.dto.request.ChangePasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
@@ -18,7 +19,6 @@ import com.ladder.perfumism.member.domain.Member;
 import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.util.MemberFixture;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +42,8 @@ public class MemberServiceTest {
     private MemberService memberService;
 
     private MemberSaveRequest memberSaveRequest;
+
+    private String NEW_PASSWORD = "NewPassword1!";
 
     @BeforeEach
     void setup() {
@@ -127,4 +129,33 @@ public class MemberServiceTest {
         // then
         assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
     }
+
+    @Test
+    @DisplayName("유저네임이 중복되었을 경우 true를 반환한다.")
+    void checkDuplicateUsernameTest() {
+        // setup & given
+        when(memberRepository.existsByUsername(USERNAME)).thenReturn(true);
+        CheckDuplicateRequest checkDuplicateRequest = new CheckDuplicateRequest(USERNAME);
+
+        // when
+        CheckDuplicateResponse checkDuplicateResponse = memberService.checkDuplicateUsername(checkDuplicateRequest);
+
+        // then
+        assertThat(checkDuplicateResponse.getResult()).isEqualTo(true);
+    }
+
+//    @Test
+//    @DisplayName("패스워드를 변경할 수 있다")
+//    void changePasswordTest() {
+//        // setup & given
+//        Member member = memberSaveRequest.toMember();
+//        given(memberRepository.findByEmail(any())).willReturn(Optional.ofNullable(member));
+//        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(EMAIL, NEW_PASSWORD);
+//
+//        // when
+//        memberService.changePassword(changePasswordRequest);
+//
+//        // then
+//        assertThat(member.getPassword()).isEqualTo(NEW_PASSWORD);
+//    }
 }

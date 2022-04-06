@@ -94,6 +94,7 @@ public class CommentService {
 
         if(comment.getParentId() == null){
             comment.isDeletion();
+            notificationService.deleteAllByComment(commentId);
             if(comment.getReplyList().isEmpty()){
                 comment.saveDeletedTime();
             }
