@@ -78,19 +78,19 @@ public class MemberServiceTest {
         assertThat(result).isEqualTo(1L);
     }
 
-    @Test
-    @DisplayName("회원탈퇴 시 deleted_at이 갱신된다.")
-    void resignMemberTest() {
-        // setup & given
-        Member member = memberSaveRequest.toMember();
-        when(memberRepository.findByEmail(any())).thenReturn(Optional.ofNullable(member));
-
-        // when
-        memberService.resignMember(EMAIL);
-
-        // then
-        assertThat(member.getDeletedAt()).isNotNull();
-    }
+//    @Test
+//    @DisplayName("회원탈퇴 시 deleted_at이 갱신된다.")
+//    void resignMemberTest() {
+//        // setup & given
+//        Member member = memberSaveRequest.toMember();
+//        when(memberRepository.findByEmail(any())).thenReturn(Optional.ofNullable(member));
+//
+//        // when
+//        memberService.resignMember(EMAIL);
+//
+//        // then
+//        assertThat(member.getDeletedAt()).isNotNull();
+//    }
 
     @Test
     @DisplayName("존재하지 않는 회원을 조회하면 ErrorCode C01이 발생한다.")
