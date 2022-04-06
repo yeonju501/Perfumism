@@ -11,6 +11,7 @@ import {
 	SuccessPage,
 } from "pages/account";
 import { Favorites, MyArticles, MyComments, Profile, ChangePassword } from "pages/profile";
+import { Community, CommunityCreate, CommunityDetail, CommunityUpdate } from "pages/community";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
 import PerfumeBrand from "pages/perfume/PerfumeBrand";
@@ -21,10 +22,7 @@ import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
 import SearchResultPage from "pages/search/SearchResultPage";
 import Loading from "pages/recommend/Loading";
-import Community from "pages/community/Community";
-import CommunityDetail from "pages/community/CommunityDetail";
-import CommunityCreate from "pages/community/CommunityCreate";
-import CommunityUpdate from "pages/community/CommunityUpdate";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import ProfilePrivateRoutes from "./ProfilePrivateRoute";
