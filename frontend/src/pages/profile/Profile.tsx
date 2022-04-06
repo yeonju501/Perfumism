@@ -60,7 +60,7 @@ const Button = styled.button`
 	outline: none;
 	padding: 0;
 	cursor: pointer;
-	margin-top: 10rem;
+	margin-top: 7rem;
 	font-size: 1.2rem;
 	margin-left: auto;
 	color: #999999;
