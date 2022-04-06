@@ -9,7 +9,7 @@ import communityApi from "apis/community";
 import PlusButton from "components/community/create/PlusButton";
 
 function CommunityCreate() {
-	const [subject, setSubject] = useState("RECOMMEND");
+	const [subject, setSubject] = useState("TALK");
 	const [selectedImg, setSelectedImg] = useState<FileList | null>();
 	const [previewImg, setPreviewImg] = useState<string[]>([]);
 	const navigate = useNavigate();
