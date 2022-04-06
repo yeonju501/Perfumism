@@ -56,7 +56,8 @@ const Content = styled.span`
 	@media ${(props) => props.theme.mobile} {
 		font-size: 1rem;
 	}
-	@media ${(props) => props.theme.mobile} {
+	@media ${(props) => props.theme.mobileS} {
+		text-align: center;
 		font-size: 0.8rem;
 	}
 `;
