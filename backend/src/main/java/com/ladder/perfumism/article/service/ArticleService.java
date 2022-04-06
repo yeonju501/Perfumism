@@ -57,15 +57,15 @@ public class ArticleService {
         this.notificationService = notificationService;
     }
 
-    public void notYourArticle(String email, Article article){
-        if(!article.getMember().getEmail().equals(email)){
+    public void notYourArticle(String email, Article article) {
+        if (!article.getMember().getEmail().equals(email)) {
             throw new BusinessException(ErrorCode.ARTICLE_IS_NOT_YOURS);
         }
     }
 
-    public Article findById(Long articleId){
+    public Article findById(Long articleId) {
         return articleRepository.findById(articleId)
-            .orElseThrow(()-> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
     }
 
     @Transactional
@@ -88,12 +88,11 @@ public class ArticleService {
     @Transactional
     public ArticleReadListResponse showArticleList(Pageable pageable, ArticleSubject subject) {
 
-
         Page<Article> articleList;
-        if (subject != null){
-            articleList = articleRepository.findBySubject(subject,pageable);
+        if (subject != null) {
+            articleList = articleRepository.findBySubject(subject, pageable);
 
-        } else{
+        } else {
             articleList = articleRepository.findAll(pageable);
         }
 
@@ -108,9 +107,6 @@ public class ArticleService {
         List<ArticleImage> articleImage = articleImageRepository.findByArticle(article);
 
         return ArticleReadDetailResponse.from(article, articleImage);
-
-
-
     }
 
     @Transactional
@@ -122,20 +118,19 @@ public class ArticleService {
         article.changeSubject(request.getSubject());
         article.changeTitle(request.getTitle());
         article.changeContent(request.getContent());
-
     }
 
     @Transactional
-    public void removeArticle(String email,Long articleId) {
+    public void removeArticle(String email, Long articleId) {
 
         Article article = findById(articleId);
         notYourArticle(email, article);
 
-        if(commentRepository.existsByArticle(article)){
+        if (commentRepository.existsByArticle(article)) {
             commentRepository.updateDeletedAtByArticle(articleId);
         }
 
-        if(article.getVoteExist()){
+        if (article.getVoteExist()) {
 
             Optional<Vote> vote = voteRepository.findByArticle(article);
 
@@ -145,7 +140,7 @@ public class ArticleService {
 
         }
 
-        if (!articleImageRepository.findByArticle(article).isEmpty()){
+        if (!articleImageRepository.findByArticle(article).isEmpty()) {
             articleImageRepository.updateDeletedAtByArticle(articleId);
         }
 
@@ -156,11 +151,11 @@ public class ArticleService {
     @Transactional
     public void createArticleImage(Article article, List<MultipartFile> files) {
 
-        if (!articleImageRepository.findByArticle(article).isEmpty()){
+        if (!articleImageRepository.findByArticle(article).isEmpty()) {
             articleImageRepository.updateDeletedAtByArticle(article.getId());
         }
 
-        for(MultipartFile file: files){
+        for (MultipartFile file : files) {
 
             String url = null;
             try {
@@ -184,8 +179,13 @@ public class ArticleService {
     public ArticleReadListResponse showMyArticleList(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
 
-        Page<Article> articleList = articleRepository.findByMember(member,pageable);
+        Page<Article> articleList = articleRepository.findByMember(member, pageable);
 
         return ArticleReadListResponse.from(articleList);
+    }
+
+    @Transactional
+    public Integer updateDeletedAtByMemberId(Member member) {
+        return articleRepository.updateDeletedAtByMemberId(member);
     }
 }
