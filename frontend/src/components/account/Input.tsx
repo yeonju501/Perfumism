@@ -9,6 +9,10 @@ const Input = styled.input`
 	&:focus {
 		outline: none;
 	}
+	@media ${(props) => props.theme.mobileS} {
+		width: 30rem;
+		margin: 0 auto;
+	}
 `;
 
 export default Input;
