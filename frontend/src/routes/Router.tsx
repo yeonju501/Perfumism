@@ -44,16 +44,22 @@ function Router() {
 			<Navbar />
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
-				<Route element={<ProfilePrivateRoutes />}>
-					<Route path="/profile" element={<ProfileRoute />}>
-						<Route path={`/profile/${encodeURIComponent(username)}`} element={<Profile />} />
-						<Route path="/profile/favorites" element={<Favorites />} />
-						<Route path="/profile/my-articles" element={<MyArticles />} />
-						<Route path="/profile/my-comments" element={<MyComments />} />
-						<Route path="/profile/change-pw" element={<ChangePassword />} />
+				<Route element={<PrivateRoute />}>
+					<Route path="/profile/check-password" element={<CheckPassword />} />
+					<Route path="/community" element={<Community />} />
+					<Route path="/community/:articleId" element={<CommunityDetail />} />
+					<Route path="/community/create" element={<CommunityCreate />} />
+					<Route path="/community/update/:articleId" element={<CommunityUpdate />} />
+					<Route element={<ProfilePrivateRoutes />}>
+						<Route path="/profile" element={<ProfileRoute />}>
+							<Route path={`/profile/${encodeURIComponent(username)}`} element={<Profile />} />
+							<Route path="/profile/favorites" element={<Favorites />} />
+							<Route path="/profile/my-articles" element={<MyArticles />} />
+							<Route path="/profile/my-comments" element={<MyComments />} />
+							<Route path="/profile/change-pw" element={<ChangePassword />} />
+						</Route>
 					</Route>
 				</Route>
-				<Route path="/profile/check-password" element={<CheckPassword />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/perfumes" element={<Perfumes />} />
 				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
@@ -68,10 +74,6 @@ function Router() {
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
 				<Route path="/search/:keyword" element={<SearchResultPage />} />
-				<Route path="/community" element={<Community />} />
-				<Route path="/community/:articleId" element={<CommunityDetail />} />
-				<Route path="/community/create" element={<CommunityCreate />} />
-				<Route path="/community/update/:articleId" element={<CommunityUpdate />} />
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
