@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import cookie from "react-cookies";
 import authApi from "./auth";
-import { toast } from "react-toastify";
+import errorMessage from "store/error";
 
 axios.defaults.withCredentials = true;
 
@@ -29,8 +29,7 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 			if (error.response.data.error_code === "A08") {
 				return authApi.logout();
 			}
-			toast.error(error.response.data.error_message);
-			return Promise.reject(error);
+			return errorMessage(error.response.data.error_code);
 		},
 	);
 	return instance;
