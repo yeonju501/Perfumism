@@ -5,6 +5,7 @@ import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
 import useReviewForm from "./hooks/useReviewForm";
+import styled from "styled-components";
 
 interface ReviewUpdateProp {
 	reviewId: number;
@@ -75,16 +76,20 @@ function ReviewUpdate({
 	return (
 		<FormContainer onSubmit={handleReviewUpdate}>
 			<StarRating grade={grade} setGrade={setGrade} />
-			<div>
+			<Div>
 				<Textarea
 					value={content}
 					onChange={handleInputChange}
 					placeholder="리뷰를 수정하세요"
 				></Textarea>
 				<CreateButton>수정</CreateButton>
-			</div>
+			</Div>
 		</FormContainer>
 	);
 }
+
+const Div = styled.div`
+	display: flex;
+`;
 
 export default ReviewUpdate;

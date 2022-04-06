@@ -51,12 +51,13 @@ const ImageContainer = styled.div`
 		}
 	}
 	position: relative;
+	margin-bottom: 5rem;
 `;
 
 const UserImage = styled.img`
 	border-radius: 50%;
-	width: 20rem;
-	height: 20rem;
+	width: 18rem;
+	height: 18rem;
 	display: block;
 	cursor: pointer;
 	&:hover {
@@ -71,7 +72,7 @@ const ImageUpdate = styled.div`
 	position: absolute;
 	color: white;
 	top: 55%;
-	left: 50%;
+	left: 45%;
 	transform: translate(-50%, -100%);
 	&:hover {
 	}
