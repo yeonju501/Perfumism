@@ -101,6 +101,7 @@ public class CommentService {
         } else {
 
             comment.saveDeletedTime();
+            notificationService.deleteAllByReply(commentId);
 
             if(comment.getParentId().getDeletion() &&
                 !comment.getParentId().getReplyList().stream().anyMatch(c-> Objects.isNull(c.getDeletedAt()))){
