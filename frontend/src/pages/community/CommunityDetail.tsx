@@ -56,11 +56,17 @@ function CommunityDetail() {
 }
 
 const Container = styled.div`
-	min-height: 80vh;
 	display: flex;
+	width: 60%;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 30%;
+	margin: 0 auto;
+	@media ${(props) => props.theme.mobileS} {
+		width: 80%;
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		width: 90%;
+	}
 `;
 
 export default CommunityDetail;

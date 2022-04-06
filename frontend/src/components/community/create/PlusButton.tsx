@@ -55,33 +55,29 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 const Container = styled.div`
 	position: absolute;
 	bottom: 5rem;
-	right: 5rem;
+	right: 10rem;
 	cursor: pointer;
 `;
 
 const ButtonImg = styled.img`
-	width: 10rem;
+	width: 5rem;
 `;
 
 const DropDownListContainer = styled.div`
 	position: absolute;
-	bottom: 10rem;
+	top: -7rem;
 	width: 15rem;
 `;
 
 const DropDownList = styled.ul`
 	text-align: center;
-	padding: 0;
-	margin: 0;
+	padding: 1rem;
 	background: #ffffff;
 	border: 2px solid #e5e5e5;
 	box-sizing: border-box;
 	font-size: 2rem;
 	font-weight: 500;
 	cursor: pointer;
-	&:first-child {
-		padding-top: 0.8em;
-	}
 `;
 
 export default PlusButton;

@@ -1,5 +1,6 @@
 import PreviewImage from "../create/PreviewImage";
 import styled from "styled-components";
+import EngToKor from "../utils/EngToKor";
 
 interface ArticleProps {
 	articleData: {
@@ -34,7 +35,7 @@ function Content({ articleData }: ArticleProps) {
 		<Container>
 			<Header>
 				<Title>
-					[{articleData.subject}]{articleData.title}
+					[{EngToKor(articleData.subject)}] {articleData.title}
 				</Title>
 				<Profile>
 					<ProfileImg src={articleData.member_image} alt="" />
