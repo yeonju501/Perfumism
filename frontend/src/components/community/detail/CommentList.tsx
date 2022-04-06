@@ -65,20 +65,6 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 							<DeletedComment>삭제된 댓글 입니다</DeletedComment>
 						) : (
 							<ExistComment>
-								<User>
-									<div>
-										<span>{review.member_name}</span>
-										<span>{review.created_at?.slice(5, 10)}</span>
-									</div>
-									{userId === review.member_id && (
-										<CommentButtons
-											handleCommentDeleteClick={handleCommentDeleteClick}
-											handleUpdateClick={handleUpdateClick}
-											reviewId={review.comment_id}
-											replyCount={review.replyList.length}
-										/>
-									)}
-								</User>
 								{review.comment_id === isEditable ? (
 									<CommentUpdate
 										oldContent={review.content}
@@ -89,10 +75,26 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 									/>
 								) : (
 									<>
+										<User>
+											<div>
+												<span>{review.member_name}</span>
+												<span>{review.created_at?.slice(5, 10)}</span>
+											</div>
+											{userId === review.member_id && (
+												<CommentButtons
+													handleCommentDeleteClick={handleCommentDeleteClick}
+													handleUpdateClick={handleUpdateClick}
+													reviewId={review.comment_id}
+													replyCount={review.replyList.length}
+												/>
+											)}
+										</User>
 										<CommentContent>{review.content}</CommentContent>
+										<ReplyButton onClick={() => handleReplyClick(review.comment_id)}>
+											답글
+										</ReplyButton>
 									</>
 								)}
-								<ReplyButton onClick={() => handleReplyClick(review.comment_id)}>답글</ReplyButton>
 							</ExistComment>
 						)}
 					</ReviewItem>
@@ -101,19 +103,6 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 					)}
 					{review.replyList.map((reply: replyType, idx) => (
 						<ReplyItem key={idx}>
-							<User>
-								<div>
-									<span>{reply.member_name}</span>
-									<span>{reply.created_at.slice(5, 10)}</span>
-								</div>
-								{userId === reply.member_id && (
-									<ReviewButtons
-										handleDeleteClick={handleDeleteClick}
-										handleUpdateClick={handleUpdateClick}
-										reviewId={reply.comment_id}
-									/>
-								)}
-							</User>
 							{reply.comment_id === isEditable ? (
 								<ReplyUpdate
 									oldContent={reply.content}
@@ -124,7 +113,22 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 									setReviews={setReviews}
 								/>
 							) : (
-								<CommentContent>{reply.content}</CommentContent>
+								<>
+									<User>
+										<div>
+											<span>{reply.member_name}</span>
+											<span>{reply.created_at.slice(5, 10)}</span>
+										</div>
+										{userId === reply.member_id && (
+											<ReviewButtons
+												handleDeleteClick={handleDeleteClick}
+												handleUpdateClick={handleUpdateClick}
+												reviewId={reply.comment_id}
+											/>
+										)}
+									</User>
+									<CommentContent>{reply.content}</CommentContent>
+								</>
 							)}
 						</ReplyItem>
 					))}

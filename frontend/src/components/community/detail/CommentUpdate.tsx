@@ -4,6 +4,7 @@ import { FormContainer } from "components/review/Container";
 import useReviewForm from "components/review/hooks/useReviewForm";
 import Textarea from "components/review/Textarea";
 import { useEffect } from "react";
+import styled from "styled-components";
 
 interface ReviewUpdateProp {
 	commentId: number;
@@ -70,14 +71,21 @@ function CommentUpdate({
 
 	return (
 		<FormContainer onSubmit={handleReviewUpdate}>
-			<Textarea
-				value={content}
-				onChange={handleInputChange}
-				placeholder="댓글을 수정하세요"
-			></Textarea>
-			<CreateButton>수정</CreateButton>
+			<Div>
+				<Textarea
+					value={content}
+					onChange={handleInputChange}
+					placeholder="댓글을 수정하세요"
+				></Textarea>
+				<CreateButton>수정</CreateButton>
+			</Div>
 		</FormContainer>
 	);
 }
+
+const Div = styled.div`
+	display: flex;
+	align-items: center;
+`;
 
 export default CommentUpdate;

@@ -55,21 +55,6 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		<ul>
 			{reviews.map((review) => (
 				<ReviewItem key={review.review_id}>
-					<Grade>
-						<div>
-							{[...Array(review.grade)].map(() => (
-								<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
-							))}
-							<span>{review.grade}</span>
-						</div>
-						{userId === review.member_id && (
-							<ReviewButtons
-								handleDeleteClick={handleDeleteClick}
-								handleUpdateClick={handleUpdateClick}
-								reviewId={review.review_id}
-							/>
-						)}
-					</Grade>
 					{review.review_id === isEditable ? (
 						<ReviewUpdate
 							oldContent={review.content}
@@ -79,24 +64,44 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							setReviews={setReviews}
 						/>
 					) : (
-						<ReviewContent>{review.content}</ReviewContent>
+						<>
+							<Grade>
+								<div>
+									{[...Array(review.grade)].map(() => (
+										<FontAwesomeIcon icon={star} key={Math.random()} color="#ffcb14" />
+									))}
+									<span>{review.grade}</span>
+								</div>
+								{userId === review.member_id && (
+									<ReviewButtons
+										handleDeleteClick={handleDeleteClick}
+										handleUpdateClick={handleUpdateClick}
+										reviewId={review.review_id}
+									/>
+								)}
+							</Grade>
+							<ReviewContent>{review.content}</ReviewContent>
+							<Footer>
+								<User>
+									<p>{review.member_name}</p>
+									<p>{review.created_at?.slice(0, 10)}</p>
+								</User>
+								<Like>
+									{userId ? (
+										<>
+											<LikeButton
+												reviewId={review.review_id}
+												changeReviewLikes={changeReviewLikes}
+											/>
+											{review.likes ? <span>{review.likes}</span> : null}
+										</>
+									) : (
+										<p>❤ {review.likes}</p>
+									)}
+								</Like>
+							</Footer>
+						</>
 					)}
-					<Footer>
-						<User>
-							<p>{review.member_name}</p>
-							<p>{review.created_at?.slice(0, 10)}</p>
-						</User>
-						<Like>
-							{userId ? (
-								<>
-									<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
-									{review.likes ? <span>{review.likes}</span> : null}
-								</>
-							) : (
-								<p>❤ {review.likes}</p>
-							)}
-						</Like>
-					</Footer>
 				</ReviewItem>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
