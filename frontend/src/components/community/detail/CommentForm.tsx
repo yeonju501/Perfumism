@@ -34,7 +34,11 @@ function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 }
 
 const FormContainer = styled.form`
-	border-style: groove;
+	margin: 2rem 0;
+	padding: 1rem;
+	border: 0.3px solid #dedede;
+	display: flex;
+	align-items: center;
 `;
 
 export default CommentForm;

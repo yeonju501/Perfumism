@@ -57,46 +57,54 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 	return reviews.length > 0 ? (
 		<ul>
 			{reviews.map((review) => (
-				<ReviewItem key={review.comment_id}>
-					<p>{review.member_name}</p>
-					{userId === review.member_id && (
-						<ReviewButtons
-							handleDeleteClick={handleDeleteClick}
-							handleUpdateClick={handleUpdateClick}
-							reviewId={review.comment_id}
-						/>
-					)}
-					<button onClick={() => handleReplyClick(review.comment_id)}>답글</button>
-					{review.comment_id === isEditable ? (
-						<CommentUpdate
-							oldContent={review.content}
-							articleId={articleId}
-							commentId={review.comment_id}
-							setIsEditable={setIsEditable}
-							setReviews={setReviews}
-						/>
-					) : (
-						<>
-							<CommentContent>{review.content}</CommentContent>
-							{review.comment_id === reply && (
-								<ReplyForm
-									articleId={articleId}
-									commentId={review.comment_id}
-									setReply={setReply}
-								/>
-							)}
-						</>
-					)}
-					{review.replyList.map((reply: replyType, idx) => (
-						<ReplyItem key={idx}>
-							<p>{reply.member_name}</p>
-							{userId === reply.member_id && (
+				<li key={review.comment_id}>
+					<ReviewItem>
+						<User>
+							<div>
+								<span>{review.member_name}</span>
+								<span>{review.created_at?.slice(5, 10)}</span>
+							</div>
+							{userId === review.member_id && (
 								<ReviewButtons
 									handleDeleteClick={handleDeleteClick}
 									handleUpdateClick={handleUpdateClick}
-									reviewId={reply.comment_id}
+									reviewId={review.comment_id}
 								/>
 							)}
+						</User>
+						{review.comment_id === isEditable ? (
+							<CommentUpdate
+								oldContent={review.content}
+								articleId={articleId}
+								commentId={review.comment_id}
+								setIsEditable={setIsEditable}
+								setReviews={setReviews}
+							/>
+						) : (
+							<>
+								<CommentContent>{review.content}</CommentContent>
+							</>
+						)}
+						<ReplyButton onClick={() => handleReplyClick(review.comment_id)}>답글</ReplyButton>
+					</ReviewItem>
+					{review.comment_id === reply && (
+						<ReplyForm articleId={articleId} commentId={review.comment_id} setReply={setReply} />
+					)}
+					{review.replyList.map((reply: replyType, idx) => (
+						<ReplyItem key={idx}>
+							<User>
+								<div>
+									<span>{reply.member_name}</span>
+									<span>{reply.created_at.slice(5, 10)}</span>
+								</div>
+								{userId === reply.member_id && (
+									<ReviewButtons
+										handleDeleteClick={handleDeleteClick}
+										handleUpdateClick={handleUpdateClick}
+										reviewId={reply.comment_id}
+									/>
+								)}
+							</User>
 							{reply.comment_id === isEditable ? (
 								<ReplyUpdate
 									oldContent={reply.content}
@@ -111,7 +119,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 							)}
 						</ReplyItem>
 					))}
-				</ReviewItem>
+				</li>
 			))}
 			<ShowMoreButton onClick={handleShowMoreClick} isLastPage={isLastPage}>
 				Show More
@@ -124,7 +132,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 	);
 }
 
-const ReviewItem = styled.li`
+const ReviewItem = styled.div`
 	border: 0.3px solid #dedede;
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
@@ -134,8 +142,41 @@ const ReplyItem = styled.div`
 	border: 0.3px solid #dedede;
 	margin-bottom: 3rem;
 	padding: 1rem 2rem;
+	width: 95%;
+	margin-left: auto;
 `;
 
-const CommentContent = styled.p``;
+const User = styled.div`
+	display: flex;
+	font-size: 1.2rem;
+	align-items: center;
+	justify-content: space-between;
+	div {
+		span:first-child {
+			color: #191919;
+			font-size: 1.2rem;
+			font-weight: bold;
+			margin-right: 1rem;
+		}
+		span:last-child {
+			color: #595959;
+			font-size: 0.7rem;
+		}
+	}
+`;
+
+const CommentContent = styled.p`
+	font-size: 1.5rem;
+	margin-bottom: 2.2rem;
+	word-break: break-all;
+`;
+
+const ReplyButton = styled.button`
+	background-color: inherit;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0;
+`;
 
 export default CommentList;

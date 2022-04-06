@@ -5,8 +5,8 @@ export const CreateButton = styled.button`
 	background-color: #f1f1f1;
 	border: none;
 	cursor: pointer;
-	width: 5%;
 	height: 3rem;
+	width: 6rem;
 `;
 
 interface ShowMoreButtonProps {

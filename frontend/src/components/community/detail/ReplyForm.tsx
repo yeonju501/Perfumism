@@ -1,8 +1,8 @@
 import communityApi from "apis/community";
 import { CreateButton } from "components/button/Button";
-import { FormContainer } from "components/review/Container";
 import useReviewForm from "components/review/hooks/useReviewForm";
 import Textarea from "components/review/Textarea";
+import styled from "styled-components";
 
 interface ReplyFormProps {
 	articleId: number;
@@ -33,5 +33,15 @@ function ReplyForm({ articleId, commentId, setReply }: ReplyFormProps) {
 		</FormContainer>
 	);
 }
+
+export const FormContainer = styled.form`
+	margin: 3rem 0;
+	padding: 1rem;
+	border: 0.3px solid #dedede;
+	width: 95%;
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+`;
 
 export default ReplyForm;
