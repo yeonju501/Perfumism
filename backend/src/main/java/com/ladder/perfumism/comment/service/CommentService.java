@@ -93,15 +93,14 @@ public class CommentService {
         notYourComment(email,comment);
 
         if(comment.getParentId() == null){
-            comment.isDeletion();
             notificationService.deleteAllByComment(commentId);
+            comment.isDeletion();
             if(comment.getReplyList().isEmpty()){
                 comment.saveDeletedTime();
             }
         } else {
-
-            comment.saveDeletedTime();
             notificationService.deleteAllByReply(commentId);
+            comment.saveDeletedTime();
 
             if(comment.getParentId().getDeletion() &&
                 !comment.getParentId().getReplyList().stream().anyMatch(c-> Objects.isNull(c.getDeletedAt()))){
