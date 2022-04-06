@@ -16,8 +16,8 @@ public interface ReviewLikeRepository extends JpaRepository<ReviewLike, Long> {
     Integer countByReviewId(Review review);
 
     @Modifying
-    @Query(nativeQuery = true, value = "update review_like rl "
-        + "set rl.deleted_at = current_timestamp "
-        + "where rl.review_id = :review_id")
-    Integer updateDeletedAtByReviewId(@Param("review_id") Long reviewId);
+    @Query(value = "update ReviewLike rl "
+        + "set rl.deletedAt = current_timestamp "
+        + "where rl.reviewId = :review")
+    Integer updateDeletedAtByReviewId(@Param("review") Review reviewId);
 }
