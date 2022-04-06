@@ -1,7 +1,6 @@
 package com.ladder.perfumism.comment.service;
 
 import com.ladder.perfumism.article.domain.Article;
-import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.service.ArticleService;
 import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
 import com.ladder.perfumism.comment.controller.response.CommentMyReadListResponse;
@@ -16,6 +15,7 @@ import com.ladder.perfumism.notification.service.NotificationService;
 import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -137,5 +137,10 @@ public class CommentService {
         Page<Comment> commentList = commentRepository.findByMember(member, pageable);
 
         return CommentMyReadListResponse.from(commentList);
+    }
+
+    @Transactional
+    public Integer updateDeletedAtByMemberId(Member member) {
+        return commentRepository.updateDeletedAtByMemberId(member);
     }
 }
