@@ -31,12 +31,14 @@ interface replyType {
 
 interface useReviewListFormProps {
 	updateReviews: boolean;
+	addReviews: (currentPage: number) => Promise<void>;
 	getReviews: (currentPage: number) => Promise<void>;
 	deleteReviewData: (reviewId: number) => Promise<any>;
 }
 
 function useReviewListForm({
 	updateReviews,
+	addReviews,
 	getReviews,
 	deleteReviewData,
 }: useReviewListFormProps) {
@@ -54,9 +56,7 @@ function useReviewListForm({
 	}, [currentPage]);
 
 	useEffect(() => {
-		setCurrentPage(0);
-		setReviews([]);
-		getReviews(0);
+		addReviews(0);
 	}, [updateReviews]);
 
 	const handleShowMoreClick = () => {

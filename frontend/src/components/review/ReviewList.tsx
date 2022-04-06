@@ -28,14 +28,20 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		isLastPage,
 	} = useReviewListForm({
 		updateReviews,
-		getReviews: async (currentPage: number) => {
+		addReviews: async (currentPage: number) => {
 			const res = await reviewApi.getReviews(perfumeId, currentPage);
-			setReviews((prev) => prev.concat(res.data.reviews));
+			setReviews((prev) => [...res.data.reviews, ...prev]);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
 		},
 		deleteReviewData: (reviewId: number) => {
 			return reviewApi.deleteReview(reviewId);
+		},
+		getReviews: async (currentPage: number) => {
+			const res = await reviewApi.getReviews(perfumeId, currentPage);
+			setReviews((prev) => [...prev, ...res.data.commentList]);
+			setTotalPage(res.data.total_page_count);
+			setCurrentPage(res.data.current_page_count + 1);
 		},
 	});
 

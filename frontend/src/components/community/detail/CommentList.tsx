@@ -40,28 +40,33 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		handleReplyDeleteClick,
 		setIsEditable,
 		handleShowMoreClick,
-		handleDeleteClick,
 		handleCommentDeleteClick,
 		handleUpdateClick,
 		handleReplyClick,
 		isLastPage,
 	} = useReviewListForm({
 		updateReviews,
-		getReviews: async (currentPage: number) => {
+		addReviews: async (currentPage: number) => {
 			const res = await communityApi.getComments(articleId, currentPage);
-			setReviews((prev) => prev.concat(res.data.commentList));
+			setReviews(res.data.commentList);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
 		},
 		deleteReviewData: (commentId: number) => {
 			return communityApi.deleteComment(articleId, commentId);
 		},
+		getReviews: async (currentPage: number) => {
+			const res = await communityApi.getComments(articleId, currentPage);
+			setReviews((prev) => [...prev, ...res.data.commentList]);
+			setTotalPage(res.data.total_page_count);
+			setCurrentPage(res.data.current_page_count + 1);
+		},
 	});
 
 	return reviews.length > 0 ? (
 		<ul>
-			{reviews.map((review) => (
-				<li key={review.comment_id}>
+			{reviews.map((review, idx) => (
+				<li key={idx}>
 					<ReviewItem>
 						{review.deletion ? (
 							<DeletedComment>삭제된 댓글 입니다</DeletedComment>
@@ -101,7 +106,13 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 						)}
 					</ReviewItem>
 					{review.comment_id === reply && (
-						<ReplyForm articleId={articleId} commentId={review.comment_id} setReply={setReply} />
+						<ReplyForm
+							articleId={articleId}
+							commentId={review.comment_id}
+							setReply={setReply}
+							commentIdx={idx}
+							setReviews={setReviews}
+						/>
 					)}
 					{review.replyList.map(
 						(reply: replyType, idx) =>
