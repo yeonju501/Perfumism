@@ -1,39 +1,35 @@
-import Navbar from "components/navbar/Navbar";
-import ScrollToTop from "components/ScrollToTop";
-import FindPassword from "pages/account/find-pw/FindPassword";
-import SignIn from "pages/account/signin/SignIn";
-import SignUp from "pages/account/signup/SignUp";
-import GoogleLoginPage from "pages/account/socialogin/GoogleLoginPage";
-import KaKaoLoginPage from "pages/account/socialogin/KaKaoLoginPage";
-import Main from "pages/main/Main";
-import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
-import PerfumeBrand from "pages/perfume/PerfumeBrand";
-import PerfumeDetail from "pages/perfume/PerfumeDetail";
-import Perfumes from "pages/perfume/Perfumes";
-import Favorites from "pages/profile/Favorites";
-import MyArticles from "pages/profile/MyArticles";
-import MyComments from "pages/profile/MyComments";
-import Profile from "pages/profile/Profile";
-import Recommend from "pages/recommend/Recommend";
-import Survey from "pages/recommend/Survey";
-import SurveyResult from "pages/recommend/SurveyResult";
-import SearchResultPage from "pages/search/SearchResultPage";
-import Loading from "pages/recommend/Loading";
-import Community from "pages/community/Community";
-import CommunityDetail from "pages/community/CommunityDetail";
-import CommunityCreate from "pages/community/CommunityCreate";
-import CommunityUpdate from "pages/community/CommunityUpdate";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import InputCodePage from "pages/account/find-pw/InputCodePage";
-import ChangePasswordPage from "pages/account/find-pw/ChangePasswordPage";
-import SuccessPage from "pages/account/find-pw/SuccessPage";
-import ChangePassword from "pages/profile/ChangePassword";
-import ProfilePrivateRoutes from "./ProfilePrivateRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import CheckPassword from "pages/profile/CheckPassword";
+import {
+	InputCodePage,
+	ChangePasswordPage,
+	FindPassword,
+	SignIn,
+	SignUp,
+	KaKaoLoginPage,
+	GoogleLoginPage,
+	SuccessPage,
+} from "pages/account";
+import {
+	Favorites,
+	MyArticles,
+	MyComments,
+	Profile,
+	ChangePassword,
+	CheckPassword,
+} from "pages/profile";
+import { Community, CommunityCreate, CommunityDetail, CommunityUpdate } from "pages/community";
+import { PerfumeBrand, PerfumeDetail, Perfumes } from "pages/perfume";
+import { Recommend, Survey, SurveyResult, Loading } from "pages/recommend";
+import Main from "pages/main/Main";
+import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
+import SearchResultPage from "pages/search/SearchResultPage";
+import PrivateRoute from "./PrivateRoute";
+import ProfilePrivateRoutes from "./ProfilePrivateRoute";
 import ProfileRoute from "./ProfileRoute";
+import Navbar from "components/navbar/Navbar";
+import ScrollToTop from "components/ScrollToTop";
 
 function Router() {
 	const username = useSelector((state: RootState) => state.user.username);
@@ -44,16 +40,22 @@ function Router() {
 			<Navbar />
 			<Routes>
 				<Route path="/recommend" element={<Recommend />} />
-				<Route element={<ProfilePrivateRoutes />}>
-					<Route path="/profile" element={<ProfileRoute />}>
-						<Route path={`/profile/${encodeURIComponent(username)}`} element={<Profile />} />
-						<Route path="/profile/favorites" element={<Favorites />} />
-						<Route path="/profile/my-articles" element={<MyArticles />} />
-						<Route path="/profile/my-comments" element={<MyComments />} />
-						<Route path="/profile/change-pw" element={<ChangePassword />} />
+				<Route element={<PrivateRoute />}>
+					<Route path="/profile/check-password" element={<CheckPassword />} />
+					<Route path="/community" element={<Community />} />
+					<Route path="/community/:articleId" element={<CommunityDetail />} />
+					<Route path="/community/create" element={<CommunityCreate />} />
+					<Route path="/community/update/:articleId" element={<CommunityUpdate />} />
+					<Route element={<ProfilePrivateRoutes />}>
+						<Route path="/profile" element={<ProfileRoute />}>
+							<Route path={`/profile/${encodeURIComponent(username)}`} element={<Profile />} />
+							<Route path="/profile/favorites" element={<Favorites />} />
+							<Route path="/profile/my-articles" element={<MyArticles />} />
+							<Route path="/profile/my-comments" element={<MyComments />} />
+							<Route path="/profile/change-pw" element={<ChangePassword />} />
+						</Route>
 					</Route>
 				</Route>
-				<Route path="/profile/check-password" element={<CheckPassword />} />
 				<Route path="/perfume/:perfumeId" element={<PerfumeDetail />} />
 				<Route path="/perfumes" element={<Perfumes />} />
 				<Route path="/perfumes/:brandName" element={<PerfumeBrand />} />
@@ -68,10 +70,6 @@ function Router() {
 				<Route path="/login/oauth2/code/google" element={<GoogleLoginPage />} />
 				<Route path="/*" element={<PageNotFoundPage />} />
 				<Route path="/search/:keyword" element={<SearchResultPage />} />
-				<Route path="/community" element={<Community />} />
-				<Route path="/community/:articleId" element={<CommunityDetail />} />
-				<Route path="/community/create" element={<CommunityCreate />} />
-				<Route path="/community/update/:articleId" element={<CommunityUpdate />} />
 				<Route path="/check-code" element={<InputCodePage />} />
 				<Route path="/password/change-pw" element={<ChangePasswordPage />} />
 				<Route path="/password/success" element={<SuccessPage />} />
