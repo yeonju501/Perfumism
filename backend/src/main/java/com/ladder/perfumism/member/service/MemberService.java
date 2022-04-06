@@ -95,7 +95,8 @@ public class MemberService {
 
     @Transactional
     public void changePassword(ChangePasswordRequest request) {
-        Member member = findByEmail(request.getEmail());
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.changePassword(passwordEncoder, request.getPassword());
     }
 
