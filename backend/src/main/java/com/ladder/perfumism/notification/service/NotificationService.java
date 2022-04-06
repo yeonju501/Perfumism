@@ -85,4 +85,9 @@ public class NotificationService {
         notification.checkNotificationByEmail(email);
         notification.changeReadAt();
     }
+
+    @Transactional
+    public void deleteAllByArticle(Long articleId) {
+        notificationRepository.deleteAllByArticle(articleId);
+    }
 }
