@@ -12,11 +12,9 @@ import {
 } from "pages/account";
 import { Favorites, MyArticles, MyComments, Profile, ChangePassword } from "pages/profile";
 import { Community, CommunityCreate, CommunityDetail, CommunityUpdate } from "pages/community";
+import { PerfumeBrand, PerfumeDetail, Perfumes } from "pages/perfume";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
-import PerfumeBrand from "pages/perfume/PerfumeBrand";
-import PerfumeDetail from "pages/perfume/PerfumeDetail";
-import Perfumes from "pages/perfume/Perfumes";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
