@@ -13,8 +13,8 @@ import com.ladder.perfumism.global.exception.BusinessException;
 import com.ladder.perfumism.global.exception.ErrorCode;
 import com.ladder.perfumism.image.ImageUploader;
 import com.ladder.perfumism.member.domain.Member;
-import com.ladder.perfumism.member.domain.MemberRepository;
 import com.ladder.perfumism.member.service.MemberService;
+import com.ladder.perfumism.notification.service.NotificationService;
 import com.ladder.perfumism.vote.domain.Vote;
 import com.ladder.perfumism.vote.domain.VoteItemRepository;
 import com.ladder.perfumism.vote.domain.VoteMemberRepository;
@@ -39,22 +39,22 @@ public class ArticleService {
     private final VoteRepository voteRepository;
     private final VoteItemRepository voteItemRepository;
     private final VoteMemberRepository voteMemberRepository;
+    private final NotificationService notificationService;
 
     public ArticleService(ArticleRepository articleRepository, MemberService memberService,
         ImageUploader imageUploader, ArticleImageRepository articleImageRepository,
         CommentRepository commentRepository, VoteRepository voteRepository,
-        VoteItemRepository voteItemRepository, VoteMemberRepository voteMemberRepository){
-
+        VoteItemRepository voteItemRepository, VoteMemberRepository voteMemberRepository,
+        NotificationService notificationService) {
         this.articleRepository = articleRepository;
         this.memberService = memberService;
         this.imageUploader = imageUploader;
         this.articleImageRepository = articleImageRepository;
-
         this.commentRepository = commentRepository;
         this.voteRepository = voteRepository;
         this.voteItemRepository = voteItemRepository;
         this.voteMemberRepository = voteMemberRepository;
-
+        this.notificationService = notificationService;
     }
 
     public void notYourArticle(String email, Article article){
@@ -149,6 +149,7 @@ public class ArticleService {
             articleImageRepository.updateDeletedAtByArticle(articleId);
         }
 
+        notificationService.deleteAllByArticle(articleId);
         article.saveDeletedTime();
     }
 
