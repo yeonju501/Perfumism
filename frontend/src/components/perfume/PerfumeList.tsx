@@ -47,12 +47,13 @@ function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 							<PerfumeImage
 								src={`https://fimgs.net/mdimg/perfume/375x500.${perfume.image}`}
 								alt="perfume image"
+								favorites={favorites}
 							/>
 							<Name>{perfume.perfume_name}</Name>
 						</PerfumeItem>
 						{token &&
 							(favorites ? (
-								<button onClick={() => handleDeleteClick(perfume.perfume_id)}>x</button>
+								<DelButton onClick={() => handleDeleteClick(perfume.perfume_id)}>x</DelButton>
 							) : (
 								<LikeButton center perfumeId={perfume.perfume_id} />
 							))}
@@ -91,4 +92,16 @@ const Name = styled.p`
 	text-align: center;
 `;
 
+const DelButton = styled.button`
+	background-color: inherit;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	position: absolute;
+	top: 0%;
+	left: 95%;
+	font-size: 1.8rem;
+	color: #797979;
+	display: none;
+`;
 export default PerfumeList;
