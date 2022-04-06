@@ -27,9 +27,7 @@ const setInterceptors = (instance: AxiosInstance, isReissue?: boolean) => {
 				return instance.request(error.config);
 			}
 			if (error.response.data.error_code === "A08") {
-				cookie.remove("access_token");
-				cookie.remove("index");
-				return;
+				return authApi.logout();
 			}
 			toast.error(error.response.data.error_message);
 			return Promise.reject(error);
