@@ -45,7 +45,7 @@ public class Comment extends BaseEntity {
     // 대댓글
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parentId")
+    @JoinColumn(name = "parent_id")
     private Comment parentId;
 
     @OneToMany(mappedBy = "parentId")
