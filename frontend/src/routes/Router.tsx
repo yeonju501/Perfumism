@@ -10,15 +10,12 @@ import {
 	GoogleLoginPage,
 	SuccessPage,
 } from "pages/account";
+import { Favorites, MyArticles, MyComments, Profile, ChangePassword } from "pages/profile";
 import Main from "pages/main/Main";
 import PageNotFoundPage from "pages/pagenotfound/PageNotFoundPage";
 import PerfumeBrand from "pages/perfume/PerfumeBrand";
 import PerfumeDetail from "pages/perfume/PerfumeDetail";
 import Perfumes from "pages/perfume/Perfumes";
-import Favorites from "pages/profile/Favorites";
-import MyArticles from "pages/profile/MyArticles";
-import MyComments from "pages/profile/MyComments";
-import Profile from "pages/profile/Profile";
 import Recommend from "pages/recommend/Recommend";
 import Survey from "pages/recommend/Survey";
 import SurveyResult from "pages/recommend/SurveyResult";
@@ -30,7 +27,6 @@ import CommunityCreate from "pages/community/CommunityCreate";
 import CommunityUpdate from "pages/community/CommunityUpdate";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import ChangePassword from "pages/profile/ChangePassword";
 import ProfilePrivateRoutes from "./ProfilePrivateRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
