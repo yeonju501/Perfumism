@@ -80,11 +80,11 @@ function Community() {
 }
 
 const Container = styled.div`
-	width: 50%;
+	width: 70%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 25%;
+	margin: 0 auto;
 `;
 
 const Content = styled.div`

@@ -21,12 +21,15 @@ function Header({ setSubject }: SubjectProps) {
 	);
 }
 
-const Container = styled.div`
+const Container = styled.header`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 8rem;
 	margin-bottom: 1rem;
+	@media ${(props) => props.theme.mobileXS} {
+		width: 90vw;
+	}
 `;
 
 export default Header;

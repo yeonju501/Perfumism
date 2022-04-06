@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
 import useOutside from "components/navbar/hooks/useOutside";
+import EngToKor from "./utils/EngToKor";
 
 const options = ["ALL", "TALK", "CHOSE", "RECOMMEND"];
 
@@ -29,13 +30,15 @@ function Dropdown({ setSubject, defaultSubject }: SubjectProps) {
 	return (
 		<Main>
 			<DropDownContainer ref={Ref}>
-				<DropDownHeader onClick={toggling}>{selectedOption || defaultSubject}</DropDownHeader>
+				<DropDownHeader onClick={toggling}>
+					{EngToKor(selectedOption) || defaultSubject}
+				</DropDownHeader>
 				{isOpen && (
 					<DropDownListContainer>
 						<DropDownList>
 							{options.map((option) => (
 								<ListItem onClick={onOptionClicked(option)} key={Math.random()}>
-									{option}
+									{EngToKor(option)}
 								</ListItem>
 							))}
 						</DropDownList>
