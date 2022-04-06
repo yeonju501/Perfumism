@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -24,4 +25,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
         + "and r.deleted_at is null "
         + "and r.grade > 0")
     Double avgGradeByPerfumeId(@Param("ids") Long perfumeId);
+
+    @Modifying
+    @Query(value = "update Review r "
+        + "set r.deletedAt = current_timestamp "
+        + "where r.memberId = :member")
+    Integer updateDeletedAtByMemberId(@Param("member") Member member);
 }
