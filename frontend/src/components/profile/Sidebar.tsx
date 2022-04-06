@@ -16,9 +16,12 @@ function Sidebar() {
 const Container = styled.div`
 	width: 20%;
 	border: 0.03rem solid black;
+	margin-left: 20rem;
 `;
 
 const LinkItem = styled(Link)`
 	display: block;
+	font-size: 1.5rem;
+	text-align: center;
 `;
 export default Sidebar;
