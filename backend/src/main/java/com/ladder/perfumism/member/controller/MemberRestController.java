@@ -71,7 +71,7 @@ public class MemberRestController {
         return ResponseEntity.ok().body(memberService.checkDuplicateEmail(request));
     }
 
-    @PostMapping("/exist-username")
+    @PostMapping("/members/exist-username")
     @ApiOperation(value = "유저네임 중복검사", notes = "유저네임 중복 검사 api")
     public ResponseEntity<CheckDuplicateResponse> checkDulicateUsername(@RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
