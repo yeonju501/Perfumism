@@ -6,6 +6,7 @@ import com.ladder.perfumism.member.controller.dto.request.CheckDuplicateRequest;
 import com.ladder.perfumism.member.controller.dto.request.FindPasswordRequest;
 import com.ladder.perfumism.member.controller.dto.request.MemberSaveRequest;
 import com.ladder.perfumism.member.controller.dto.response.CheckDuplicateResponse;
+import com.ladder.perfumism.member.service.MemberDeleteService;
 import com.ladder.perfumism.member.service.MemberService;
 import com.ladder.perfumism.member.service.ProfileService;
 import io.swagger.annotations.Api;
@@ -27,14 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberRestController {
 
     private final MemberService memberService;
-    private final ProfileService profileService;
-    private final ImageUploader imageUploader;
+    private final MemberDeleteService memberDeleteService;
 
-    public MemberRestController(MemberService memberService, ProfileService profileService,
-        ImageUploader imageUploader) {
+    public MemberRestController(MemberService memberService,
+        MemberDeleteService memberDeleteService) {
         this.memberService = memberService;
-        this.profileService = profileService;
-        this.imageUploader = imageUploader;
+        this.memberDeleteService = memberDeleteService;
     }
 
     @PostMapping("/members/join")
@@ -80,7 +79,7 @@ public class MemberRestController {
     @DeleteMapping("/auth/members")
     @ApiOperation(value = "회원탈퇴", notes = "회원 탈퇴 api")
     public ResponseEntity<Void> resignMember(@ApiParam(hidden = true) @AuthenticationPrincipal String email) {
-        memberService.resignMember(email);
+        memberDeleteService.resignMember(email);
         return ResponseEntity.noContent().build();
     }
 }
