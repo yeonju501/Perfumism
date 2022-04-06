@@ -5,10 +5,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReviewText from "./ReviewText";
 
-interface Button {
-	direction?: string;
-}
-
 function ReviewSection() {
 	const [reviews, setReviews] = useState([]);
 	const [screenSize, setScreenSize] = useState(1);
@@ -65,6 +61,9 @@ const Container = styled.div`
 	margin: 0 auto;
 `;
 
+interface Button {
+	direction?: string;
+}
 const Button = styled(FontAwesomeIcon)<Button>`
 	display: block;
 	font-size: 3rem;

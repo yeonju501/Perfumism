@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-const PerfumeImage = styled.img`
+interface PerfumeImageProps {
+	favorites?: boolean;
+}
+
+const PerfumeImage = styled.img<PerfumeImageProps>`
 	background-color: none;
 	border: none;
 	&:hover {
-		filter: brightness(85%);
+		filter: ${({ favorites }) => (favorites ? "brightness(100%)" : "brightness(85%)")};
 	}
 	width: 100%;
 	height: auto;
