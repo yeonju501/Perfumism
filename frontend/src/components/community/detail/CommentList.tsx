@@ -50,7 +50,6 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 			setReviews((prev) => prev.concat(res.data.commentList));
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
-			console.log(res.data);
 		},
 		deleteReviewData: (commentId: number) => {
 			return communityApi.deleteComment(articleId, commentId);

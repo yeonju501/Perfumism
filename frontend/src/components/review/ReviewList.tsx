@@ -7,7 +7,6 @@ import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
 import ReviewButtons from "./ReviewButtons";
 import useReviewListForm from "./hooks/useReviewListForm";
-import plusBtn from "assets/plus.png";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -88,10 +87,14 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 							<p>{review.created_at?.slice(0, 10)}</p>
 						</User>
 						<Like>
-							{userId && (
-								<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+							{userId ? (
+								<>
+									<LikeButton reviewId={review.review_id} changeReviewLikes={changeReviewLikes} />
+									{review.likes ? <span>{review.likes}</span> : null}
+								</>
+							) : (
+								<p>❤ {review.likes}</p>
 							)}
-							{review.likes ? <span>{review.likes}</span> : null}
 						</Like>
 					</Footer>
 				</ReviewItem>
