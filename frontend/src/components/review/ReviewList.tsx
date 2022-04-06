@@ -30,7 +30,7 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		updateReviews,
 		addReviews: async (currentPage: number) => {
 			const res = await reviewApi.getReviews(perfumeId, currentPage);
-			setReviews((prev) => [...res.data.reviews, ...prev]);
+			setReviews(res.data.reviews);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
 		},
@@ -39,7 +39,7 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 		},
 		getReviews: async (currentPage: number) => {
 			const res = await reviewApi.getReviews(perfumeId, currentPage);
-			setReviews((prev) => [...prev, ...res.data.commentList]);
+			setReviews((prev) => [...prev, ...res.data.reviews]);
 			setTotalPage(res.data.total_page_count);
 			setCurrentPage(res.data.current_page_count + 1);
 		},
