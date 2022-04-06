@@ -90,4 +90,9 @@ public class NotificationService {
     public void deleteAllByArticle(Long articleId) {
         notificationRepository.deleteAllByArticle(articleId);
     }
+
+    @Transactional
+    public void deleteAllByComment(Long commentId) {
+        notificationRepository.deleteAllByComment(commentId);
+    }
 }
