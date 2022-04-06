@@ -15,28 +15,24 @@ interface ArticleProps {
 	}[];
 }
 
-interface WidthProps {
-	width: string;
-}
-
 function CommunityList({ articleList }: ArticleProps) {
 	return (
 		<Container>
 			<Table>
 				<Thead>
 					<Tr>
-						<Th width={"10%"}>번호</Th>
-						<Th width={"25%"}>말머리</Th>
-						<Th width={"30%"}>제목</Th>
-						<Th width={"15%"}>작성자</Th>
-						<Th width={"20%"}>작성일</Th>
+						<ArticleId>번호</ArticleId>
+						<Filter>말머리</Filter>
+						<Title>제목</Title>
+						<Writer>작성자</Writer>
+						<Date>작성일</Date>
 					</Tr>
 					{articleList ? (
 						articleList.map((articleItem, idx) => (
 							<CommunityListItem articleItem={articleItem} key={idx} />
 						))
 					) : (
-						<Th width={"100%"}>작성한 글이 없습니다.</Th>
+						<Th>작성한 글이 없습니다.</Th>
 					)}
 				</Thead>
 			</Table>
@@ -47,24 +43,52 @@ function CommunityList({ articleList }: ArticleProps) {
 const Container = styled.div`
 	font-size: 2rem;
 	width: 100%;
+	@media ${(props) => props.theme.mobileXS} {
+		width: auto;
+	}
 `;
 
 const Table = styled.table`
-	width: 100%;
-	table-layoutL fixed;
 	text-align: center;
+	width: 100%;
+	@media ${(props) => props.theme.mobileXS} {
+		width: auto;
+	}
 `;
 
 const Thead = styled.thead``;
 
 const Tr = styled.tr``;
 
-const Th = styled.th<WidthProps>`
+const Th = styled.th`
 	border-bottom: 1px solid #e8e8e8;
 	font-size: 2rem;
 	padding: 10px 5px;
 	font-weight: bold;
-	width: ${({ width }) => width};
+	width: 100%;
+`;
+
+const ArticleId = styled(Th)`
+	width: 10%;
+	@media ${(props) => props.theme.mobileXS} {
+		display: none;
+	}
+`;
+
+const Filter = styled(Th)`
+	width: 20%;
+`;
+const Title = styled(Th)`
+	width: 30%;
+`;
+const Writer = styled(Th)`
+	width: 15%;
+`;
+const Date = styled(Th)`
+	width: 25%;
+	@media ${(props) => props.theme.mobile} {
+		display: none;
+	}
 `;
 
 export default CommunityList;
