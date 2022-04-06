@@ -1,7 +1,6 @@
 package com.ladder.perfumism.comment.service;
 
 import com.ladder.perfumism.article.domain.Article;
-import com.ladder.perfumism.article.domain.ArticleRepository;
 import com.ladder.perfumism.article.service.ArticleService;
 import com.ladder.perfumism.comment.controller.request.CommentCreateRequest;
 import com.ladder.perfumism.comment.controller.response.CommentMyReadListResponse;
@@ -137,5 +136,10 @@ public class CommentService {
         Page<Comment> commentList = commentRepository.findByMember(member, pageable);
 
         return CommentMyReadListResponse.from(commentList);
+    }
+
+    @Transactional
+    public Integer updateDeletedAtByMemberId(Member member) {
+        return commentRepository.updateDeletedAtByMemberId(member);
     }
 }

@@ -103,7 +103,7 @@ public class ReviewService {
 
         isYourReview(email, review);
 
-        reviewLikeRepository.updateDeletedAtByReviewId(reviewId);
+        reviewLikeRepository.updateDeletedAtByReviewId(review);
 
         review.saveDeletedTime();
         averageGrade(review.getPerfumeId());
@@ -133,5 +133,10 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public ReviewLatestPageResponse getLatestReviewPage(Pageable pageable) {
         return ReviewLatestPageResponse.from(reviewRepository.findAll(pageable));
+    }
+
+    @Transactional
+    public Integer updateDeletedAtByMemberId(Member member) {
+        return reviewRepository.updateDeletedAtByMemberId(member);
     }
 }

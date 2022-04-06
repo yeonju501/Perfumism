@@ -23,4 +23,10 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     Integer updateDeletedAtByArticle(@Param("article_id") Long article_id);
 
     Page<Comment> findByMember(Member member, Pageable pageable);
+
+    @Modifying
+    @Query(value = "update Comment c "
+        + "set c.deletedAt = current_timestamp "
+        + "where c.member = :member")
+    Integer updateDeletedAtByMemberId(@Param("member") Member member);
 }

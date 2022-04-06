@@ -45,13 +45,6 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
-    @Transactional
-    public void resignMember(String email) {
-        Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        member.saveDeletedTime();
-    }
-
     @Transactional(readOnly = true)
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
@@ -74,7 +67,8 @@ public class MemberService {
 
     @Transactional
     public CheckDuplicateResponse checkPasswordCode(CheckDuplicateRequest request) {
-        Boolean result = passwordCodeRepository.existsByIdAndExpirationDateAfterAndExpiredIsFalse(request.getValue(), LocalDateTime.now());
+        Boolean result = passwordCodeRepository.existsByIdAndExpirationDateAfterAndExpiredIsFalse(request.getValue(),
+            LocalDateTime.now());
         if (result) {
             PasswordCode passwordCode = passwordCodeRepository.findById(request.getValue())
                 .orElseThrow(() -> new BusinessException(ErrorCode.PASSWORD_CODE_NOT_FOUND_BY_ID));
@@ -96,7 +90,7 @@ public class MemberService {
     @Transactional
     public void changePassword(ChangePasswordRequest request) {
         Member member = memberRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.changePassword(passwordEncoder, request.getPassword());
     }
 
