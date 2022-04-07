@@ -10,13 +10,17 @@ interface dataType {
 	username: string;
 }
 
+interface userName {
+	username: string;
+}
+
 interface actionType {
 	type: string;
 	data: dataType;
 }
 
 export const DELETE_USER = () => ({ type: DELETE });
-export const SET_USER = (data: dataType) => ({ type: LOGIN, data });
+export const SET_USER = (data: dataType | userName) => ({ type: LOGIN, data });
 
 const initialState = {
 	email: "",
