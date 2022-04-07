@@ -18,11 +18,15 @@ function PreviewImage({ previewImg }: PreviewImgPorps) {
 }
 
 const Container = styled.div`
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	@media ${(props) => props.theme.tabletS} {
+		grid-template-columns: repeat(2, 1fr);
+	}
 `;
 
 const PreviewImg = styled.img`
-	width: 30%;
+	width: 95%;
 	margin: 1rem;
 `;
 
