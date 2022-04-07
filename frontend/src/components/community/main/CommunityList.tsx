@@ -45,6 +45,9 @@ const Container = styled.div`
 	@media ${(props) => props.theme.mobileXS} {
 		width: auto;
 	}
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 1.2rem;
+	}
 `;
 
 const Table = styled.table`
@@ -65,21 +68,17 @@ const Th = styled.th`
 	padding: 10px 5px;
 	font-weight: bold;
 	width: auto;
-`;
-
-const ArticleId = styled(Th)`
-	width: 10%;
-	@media ${(props) => props.theme.mobileXS} {
-		display: none;
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 1.5rem;
 	}
 `;
 
 const Filter = styled(Th)`
-	width: 10%;
+	width: 20%;
 `;
 const Title = styled(Th)``;
 const Writer = styled(Th)`
-	width: 15%;
+	width: 20%;
 `;
 const Date = styled(Th)`
 	width: 15%;

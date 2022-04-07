@@ -43,9 +43,4 @@ const Date = styled(Td)`
 	}
 `;
 
-const ArticleId = styled(Td)`
-	@media ${(props) => props.theme.mobileXS} {
-		display: none;
-	}
-`;
 export default CommunityListItem;
