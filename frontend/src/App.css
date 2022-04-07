@@ -1,0 +1,99 @@
+/* 메인&네브 둘다 무난...?  */
+
+@font-face {
+	font-family: "IBMPlexSansKR-Medium";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Medium.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "PurenJeonnam";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/PureunJeonnam.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Navbar */
+
+@font-face {
+	font-family: "Eoe_Zno_B";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_B.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "ROKAFSansBold";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts2201-3@1.0/ROKAFSansBold.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "GimpoGothicBold00";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/GimpoGothicBold00.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* 나머지 */
+@font-face {
+	font-family: "WandocleanseaR";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/WandocleanseaR.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Handon3gyeopsal300g";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "SUIT-Regular";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2")
+		format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Pretendard-Regular";
+	src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+		format("woff");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "MinSans-Light";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Light.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "KoPubDotumMedium";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/KoPubDotumMedium.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "GimpoGothicRegular00";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/GimpoGothicRegular00.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}

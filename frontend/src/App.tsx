@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "components/footer/Footer";
 import styled from "styled-components";
+import "./App.css";
 
 function App() {
 	return (
