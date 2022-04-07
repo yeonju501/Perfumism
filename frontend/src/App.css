@@ -1,42 +1,6 @@
-/* 메인&네브 둘다 무난...?  */
-
-@font-face {
-	font-family: "IBMPlexSansKR-Medium";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Medium.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
-
 @font-face {
 	font-family: "PurenJeonnam";
 	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/PureunJeonnam.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
-
-/* Navbar */
-
-@font-face {
-	font-family: "Eoe_Zno_B";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_B.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "ROKAFSansBold";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts2201-3@1.0/ROKAFSansBold.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: "GimpoGothicBold00";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/GimpoGothicBold00.woff")
 		format("woff");
 	font-weight: normal;
 	font-style: normal;
