@@ -1,6 +1,6 @@
 import { profileApi } from "apis";
 import anonymous from "assets/anonymous.jpg";
-import useSetImage from "hooks/useSetImage";
+import useSetImage from "components/profile/hooks/useSetImage";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -52,6 +52,9 @@ const ImageContainer = styled.div`
 	}
 	position: relative;
 	margin-bottom: 5rem;
+	@media ${(props) => props.theme.mobileS} {
+		margin-left: 20%;
+	}
 `;
 
 const UserImage = styled.img`
@@ -62,9 +65,6 @@ const UserImage = styled.img`
 	cursor: pointer;
 	&:hover {
 		filter: brightness(80%);
-	}
-	@media ${(props) => props.theme.mobileS} {
-		margin-left: 25%;
 	}
 `;
 

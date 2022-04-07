@@ -85,9 +85,6 @@ const Perfume = styled.li`
 	&:hover {
 		button {
 			display: block;
-			@media ${(props) => props.theme.mobileS} {
-				display: none;
-			}
 		}
 	}
 `;

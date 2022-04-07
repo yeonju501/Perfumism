@@ -30,7 +30,12 @@ function MyArticles() {
 										<Tr key={idx}>
 											<Td>{EngToKor(article.subject)}</Td>
 											<Td>
-												<Link to={`/community/${article.article_id}`}>{article.title}</Link>
+												<Link to={`/community/${article.article_id}`}>
+													{" "}
+													{article.title.length > 20
+														? `${article.title.slice(0, 20)}...`
+														: article.title}
+												</Link>
 											</Td>
 											<Td>{article.created_at.slice(0, 10)}</Td>
 										</Tr>

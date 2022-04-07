@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router";
-import { authApi } from "apis";
+import { authApi, profileApi } from "apis";
 import { formValidator } from "utils";
 import useForm from "../hooks/useForm";
 import { Container, FormContainer } from "components/account/Container";
 import { Button, Input, Label, ErrorText, Header, LinkParagraph } from "components/account/Index";
 import socialLogin from "apis/socialLogin";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { SET_USER } from "store/user";
 
 function SignUp() {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const { handleChange, handleSubmit, checkDuplicate, errors, isDuplicate } = useForm({
 		initialValues: {
@@ -26,7 +29,11 @@ function SignUp() {
 						username,
 					})
 					.then(() => {
-						authApi.signin({ email, password }).then(() => navigate("/"));
+						authApi.signin({ email, password }).then(async () => {
+							const res = await profileApi.getUserInfo();
+							dispatch(SET_USER(res.data));
+							navigate("/");
+						});
 						toast.success("회원가입이 완료 되었습니다");
 					});
 			} catch (error) {

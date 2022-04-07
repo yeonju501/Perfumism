@@ -20,7 +20,7 @@ function Favorites() {
 			{perfumes.length > 0 ? (
 				<>
 					<PerfumeList perfumes={perfumes} favorites setPerfumes={setPerfumes} />
-					<div ref={setTarget}>{isLoading && <p>Loading..</p>}</div>
+					<div ref={setTarget}>{isLoading && <p></p>}</div>
 				</>
 			) : (
 				<p id="default">❤를 눌러 좋아하는 향수를 추가해주세요</p>
