@@ -21,7 +21,6 @@ function CommunityList({ articleList }: ArticleProps) {
 			<Table>
 				<Thead>
 					<Tr>
-						<ArticleId>번호</ArticleId>
 						<Filter>말머리</Filter>
 						<Title>제목</Title>
 						<Writer>작성자</Writer>
