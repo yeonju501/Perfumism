@@ -17,8 +17,12 @@ function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
 	});
 
 	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setUpdateReviews((prev) => !prev);
+		if (content.trim()) {
+			await handleFormSubmit(e);
+			setUpdateReviews((prev) => !prev);
+		} else {
+			alert("댓글 내용을 입력하세요");
+		}
 	};
 
 	return (
