@@ -92,10 +92,12 @@ const NickName = styled.p`
 	margin: 1rem 0;
 `;
 
-const Body = styled.div`
+const Body = styled.textarea`
 	min-height: 20vh;
 	font-size: 1.5rem;
 	margin: 1rem 0;
+	border: none;
+	resize: none;
 `;
 
 export default Content;
