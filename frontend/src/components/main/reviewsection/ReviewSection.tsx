@@ -48,7 +48,7 @@ const Section = styled.section`
 	display: flex;
 	justify-content: space-between;
 	height: 50rem;
-	width: 100vw;
+	width: 100%;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
 		display: none;
