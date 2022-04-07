@@ -109,8 +109,8 @@ function CommnuityUpdate() {
 					<Button onClick={goBack}>뒤로</Button>
 					<Button>수정</Button>
 				</Footer>
+				<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 			</FormContainer>
-			<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 		</Container>
 	);
 }
