@@ -40,6 +40,7 @@ const PerfumeName = styled.p`
 	font-size: 2.3rem;
 	font-weight: 800;
 	margin-bottom: 0;
+	text-align: center;
 `;
 
 export default RecommendList;

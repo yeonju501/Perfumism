@@ -27,6 +27,7 @@ const Container = styled.div`
 	@media ${(props) => props.theme.mobileS} {
 		flex-direction: column;
 	}
+	margin-bottom: 3rem;
 `;
 
 const Header = styled.h1``;

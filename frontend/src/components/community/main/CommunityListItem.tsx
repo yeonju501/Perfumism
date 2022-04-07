@@ -19,7 +19,6 @@ interface ArticleProps {
 function CommunityListItem({ articleItem }: ArticleProps) {
 	return (
 		<Tr>
-			<ArticleId>{articleItem.article_id}</ArticleId>
 			<Td>{EngToKor(articleItem.subject)}</Td>
 			<Td>
 				<Link to={`/community/${articleItem.article_id}`}>{articleItem.title}</Link>
@@ -32,10 +31,6 @@ function CommunityListItem({ articleItem }: ArticleProps) {
 
 const Tr = styled.tr`
 	width: 100%;
-	&:hover {
-		background-color: #eceaea;
-		cursor: default;
-	}
 `;
 
 const Td = styled.td`
@@ -48,9 +43,4 @@ const Date = styled(Td)`
 	}
 `;
 
-const ArticleId = styled(Td)`
-	@media ${(props) => props.theme.mobileXS} {
-		display: none;
-	}
-`;
 export default CommunityListItem;
