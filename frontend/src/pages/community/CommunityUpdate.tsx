@@ -86,8 +86,7 @@ function CommnuityUpdate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown defaultSubject={EngToKor(subject) as string} setSubject={setSubject} />
-					<ErrorText>{errors.subject}</ErrorText>
+					<Dropdown defaultSubject={subject} setSubject={setSubject} />
 					<TitleInput
 						name="title"
 						type="text"
@@ -95,8 +94,9 @@ function CommnuityUpdate() {
 						value={values.title}
 						placeholder="제목을 입력해주세요."
 					/>
-					<ErrorText>{errors.title}</ErrorText>
 				</Header>
+				<ErrorText>{errors.subject}</ErrorText>
+				<ErrorText>{errors.title}</ErrorText>
 				{previewImg ? <PreviewImage previewImg={previewImg} /> : <PreviewImage />}
 				<ContentInput
 					name="content"
