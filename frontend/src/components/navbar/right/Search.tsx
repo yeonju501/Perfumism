@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import useOutside from "../hooks/useOutside";
@@ -15,8 +15,12 @@ function Search() {
 	const [toggleSearch, setToggleSearch] = useState(false);
 	const [content, setContent] = useState("");
 	const Ref = useRef<HTMLFormElement>(null);
-
+	const searchInput = useRef<HTMLInputElement>(null);
 	useOutside({ Ref, setFunction: setToggleSearch, setSecondFunction: setContent });
+
+	useEffect(() => {
+		if (searchInput.current) searchInput.current.focus();
+	}, [toggleSearch]);
 
 	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		await setContent(event.target.value);
@@ -44,10 +48,11 @@ function Search() {
 	return (
 		<SearchForm ref={Ref} onSubmit={handleSubmit}>
 			<Input
-				placeholder="향수명, 브랜드, 키워드"
+				placeholder="향수명, 브랜드, 키워드를 입력하세요"
 				onChange={handleChange}
 				isOn={toggleSearch}
 				value={content}
+				ref={searchInput}
 			/>
 			<FontAwesome icon={faMagnifyingGlass} onClick={handleSearchInput}></FontAwesome>
 		</SearchForm>
