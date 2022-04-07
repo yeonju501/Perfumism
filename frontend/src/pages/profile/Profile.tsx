@@ -51,6 +51,9 @@ function Profile() {
 
 const Section = styled.div`
 	margin-left: 15%;
+	@media ${(props) => props.theme.mobileS} {
+		margin: 0;
+	}
 `;
 
 const Button = styled.button`
