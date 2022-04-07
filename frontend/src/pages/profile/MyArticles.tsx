@@ -54,9 +54,9 @@ function MyArticles() {
 const Container = styled.div`
 	width: 100%;
 	#default {
-		font-size: 1.8rem;
-		margin-top: 5rem;
-		margin-left: 5%;
+		font-size: 3rem;
+		margin-top: 35vh;
+		text-align: center;
 	}
 `;
 
