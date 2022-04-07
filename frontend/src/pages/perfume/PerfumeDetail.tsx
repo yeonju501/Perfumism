@@ -45,10 +45,11 @@ function PerfumeDetail() {
 
 	useEffect(() => {
 		getPerfume();
-	}, [perfumeId]);
+	}, []);
 
 	const getPerfume = async () => {
-		await perfumeApi.getPerfume(perfumeId).then((res) => setPerfumeData(res.data));
+		const res = await perfumeApi.getPerfume(perfumeId);
+		setPerfumeData(res.data);
 	};
 
 	return (
