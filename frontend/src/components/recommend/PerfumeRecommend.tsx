@@ -24,6 +24,9 @@ function PerfumeRecommend({ perfumeData }: RecommendProps) {
 
 const Container = styled.div`
 	display: flex;
+	@media ${(props) => props.theme.mobileS} {
+		flex-direction: column;
+	}
 `;
 
 const Header = styled.h1``;
