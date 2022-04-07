@@ -21,6 +21,7 @@ interface PerfumeType {
 interface Perfume {
 	perfume_id: string;
 	perfume_name: string;
+	brand?: { brand_id: number; brand_name: string };
 	brand_name?: string;
 	image: string;
 }
@@ -49,6 +50,7 @@ function PerfumeList({ perfumes, favorites, setPerfumes }: PerfumeList) {
 								alt="perfume image"
 								favorites={favorites}
 							/>
+							<Brand>{perfume.brand ? perfume.brand.brand_name : perfume.brand_name}</Brand>
 							<Name>{perfume.perfume_name}</Name>
 						</PerfumeItem>
 						{token &&
@@ -94,8 +96,14 @@ const PerfumeItem = styled.div`
 	cursor: pointer;
 `;
 
+const Brand = styled.p`
+	text-align: center;
+	font-size: 1.1rem;
+`;
 const Name = styled.p`
 	text-align: center;
+	font-weight: bold;
+	font-size: 1.6rem;
 `;
 
 const DelButton = styled.button`

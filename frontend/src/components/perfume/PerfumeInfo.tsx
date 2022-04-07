@@ -84,7 +84,6 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 				<Duration>
 					<span>잔향</span> {perfumeData.sillage}
 				</Duration>
-				<p>{perfumeData.likes}명이 이 향수를 좋아합니다.</p>
 			</PerfumeSubInfo>
 		</div>
 	);
