@@ -45,6 +45,10 @@ const Button = styled.button<ButtonProps>`
 	left: ${({ center }) => (center ? "50%" : "100%")};
 	transform: ${({ center }) => (center ? "translate(-50%, -100%)" : "0")};
 	display: none;
+	@media ${(props) => props.theme.mobileS} {
+		top: ${({ center }) => (center ? "50%" : "90%")};
+		left: ${({ center }) => (center ? "50%" : "85%")};
+	}
 `;
 
 export default LikeButton;

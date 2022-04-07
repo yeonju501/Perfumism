@@ -98,11 +98,22 @@ const PerfumeMainInfo = styled.div`
 	padding-bottom: 10rem;
 	border-bottom: 0.3px solid #cecece;
 	margin-bottom: 5rem;
+	@media ${(props) => props.theme.mobileS} {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2rem;
+		padding-bottom: 5rem;
+		text-align: center;
+	}
 `;
 
 const ImageBox = styled.div`
 	position: relative;
 	margin-left: 5rem;
+	@media ${(props) => props.theme.mobileS} {
+		margin-left: 0;
+		margin-bottom: 2rem;
+	}
 `;
 
 const Image = styled.img`
@@ -115,6 +126,9 @@ const Info = styled.div`
 	h1 {
 		font-size: 3.8rem;
 		margin: 0 0 1rem;
+	}
+	@media ${(props) => props.theme.mobileS} {
+		margin-left: 0;
 	}
 `;
 

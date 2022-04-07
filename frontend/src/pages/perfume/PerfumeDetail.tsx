@@ -69,6 +69,9 @@ const Container = styled.div`
 	flex-direction: column;
 	width: 65%;
 	margin: 7rem auto;
+	@media ${(props) => props.theme.mobileS} {
+		width: 90%;
+	}
 `;
 
 export default PerfumeDetail;
