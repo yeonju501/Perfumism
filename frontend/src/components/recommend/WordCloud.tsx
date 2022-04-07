@@ -22,10 +22,13 @@ const Container = styled.div`
 	border-top-style: ridge;
 	border-bottom-style: ridge;
 	width: 50rem;
+	@media ${(props) => props.theme.mobileS} {
+		width: 100%;
+	}
 `;
 
 const WordCloudImg = styled.img`
-	margin: 2rem;
+	margin: 2rem 0;
 	background-color: none;
 	border: none;
 `;
