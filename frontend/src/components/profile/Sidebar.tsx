@@ -23,6 +23,11 @@ const Container = styled.div`
 	margin: 1rem 0;
 	border-right: 0.03rem solid #dedede;
 	text-align: center;
+	@media ${(props) => props.theme.mobileS} {
+		width: 100%;
+		border-right: 0;
+		margin: 0;
+	}
 `;
 
 const Title = styled.p`
@@ -30,11 +35,18 @@ const Title = styled.p`
 	color: #333333;
 	font-weight: bold;
 	margin-bottom: 4rem;
+	@media ${(props) => props.theme.mobileS} {
+		display: none;
+	}
 `;
 
 const LinkItem = styled(Link)`
 	display: block;
 	font-size: 1.5rem;
 	margin-top: 2rem;
+	@media ${(props) => props.theme.mobileS} {
+		border-bottom: 0.03rem solid #dedede;
+		margin: 0.6rem 0;
+	}
 `;
 export default Sidebar;

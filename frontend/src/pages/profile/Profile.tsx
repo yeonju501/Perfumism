@@ -2,7 +2,6 @@ import { authApi, profileApi } from "apis";
 import { Container } from "components/profile/Container";
 import UserInfo from "components/profile/UserInfo";
 import UserInfoEdit from "components/profile/UserInfoEdit";
-import { persistor } from "index";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SET_USER } from "store/user";
