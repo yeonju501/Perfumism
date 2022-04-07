@@ -59,7 +59,7 @@ const Header = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-top: solid;
+	border-top: 1px solid #c0c0c0;
 	border-bottom: 1px solid #c0c0c0;
 `;
 
@@ -92,7 +92,6 @@ const Body = styled.div`
 	min-height: 20vh;
 	font-size: 1.5rem;
 	margin: 1rem 0;
-	border-bottom: 1px solid #c0c0c0;
 `;
 
 export default Content;

@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 export const FormContainer = styled.form`
 	display: flex;
+	position: relative;
 	width: 100%;
 	flex-direction: column;
 	justify-content: center;
@@ -23,7 +24,6 @@ export const FormContainer = styled.form`
 export const Header = styled.header`
 	display: flex;
 	align-items: center;
-	border-bottom-style: solid;
 `;
 export const Footer = styled.footer`
 	display: flex;

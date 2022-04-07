@@ -41,7 +41,7 @@ function CommunityList({ articleList }: ArticleProps) {
 }
 
 const Container = styled.div`
-	font-size: 2rem;
+	font-size: 1.5rem;
 	width: 100%;
 	@media ${(props) => props.theme.mobileXS} {
 		width: auto;
@@ -69,16 +69,21 @@ const Th = styled.th`
 `;
 
 const ArticleId = styled(Th)`
+	width: 10%;
 	@media ${(props) => props.theme.mobileXS} {
 		display: none;
 	}
 `;
 
-const Filter = styled(Th)``;
+const Filter = styled(Th)`
+	width: 10%;
+`;
 const Title = styled(Th)``;
-const Writer = styled(Th)``;
+const Writer = styled(Th)`
+	width: 15%;
+`;
 const Date = styled(Th)`
-	width: 25%;
+	width: 15%;
 	@media ${(props) => props.theme.mobile} {
 		display: none;
 	}

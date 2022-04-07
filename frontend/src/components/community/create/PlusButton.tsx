@@ -1,6 +1,8 @@
-import { useState } from "react";
-import PlusSrc from "assets/plus.png";
+import { useState, useRef } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import useOutside from "components/navbar/hooks/useOutside";
 
 interface ImgProps {
 	setSelectedImg: React.Dispatch<React.SetStateAction<FileList | null | undefined>>;
@@ -9,7 +11,8 @@ interface ImgProps {
 
 function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	const [isOpen, setIsOpen] = useState(false);
-
+	const Ref = useRef<HTMLFormElement>(null);
+	useOutside({ Ref, setFunction: setIsOpen });
 	const toggling = () => setIsOpen(!isOpen);
 
 	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +28,7 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 				nowImgUrlList = nowImgUrlList.slice(0, 3);
 			}
 			setPreviewImg(nowImgUrlList);
+			setIsOpen(!isOpen);
 		}
 	};
 
@@ -32,7 +36,7 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 		<Container>
 			{isOpen && (
 				<DropDownListContainer>
-					<DropDownList>
+					<DropDownList ref={Ref}>
 						<label htmlFor="inputFile" style={{ cursor: "pointer" }}>
 							이미지 업로드
 						</label>
@@ -47,20 +51,22 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 					</DropDownList>
 				</DropDownListContainer>
 			)}
-			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
+			<ButtonImg icon={faPlusCircle} onClick={toggling} />
 		</Container>
 	);
 }
 
 const Container = styled.div`
 	position: absolute;
-	bottom: 5rem;
-	right: 10rem;
+	bottom: 7rem;
+	right: 0.5rem;
 	cursor: pointer;
 `;
 
-const ButtonImg = styled.img`
-	width: 5rem;
+const ButtonImg = styled(FontAwesomeIcon)`
+	width: 4rem;
+	height: 4rem;
+	color: #c7c7c7;
 `;
 
 const DropDownListContainer = styled.div`
@@ -69,13 +75,13 @@ const DropDownListContainer = styled.div`
 	width: 15rem;
 `;
 
-const DropDownList = styled.ul`
+const DropDownList = styled.form`
 	text-align: center;
 	padding: 1rem;
 	background: #ffffff;
 	border: 2px solid #e5e5e5;
 	box-sizing: border-box;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: 500;
 	cursor: pointer;
 `;
