@@ -7,6 +7,8 @@ import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
 import ReviewButtons from "./ReviewButtons";
 import useReviewListForm from "./hooks/useReviewListForm";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface ReviewListPropType {
 	perfumeId: string;
@@ -14,6 +16,8 @@ interface ReviewListPropType {
 }
 
 function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
+	const userName = useSelector((state: RootState) => state.user.username);
+
 	const {
 		userId,
 		reviews,
@@ -95,10 +99,12 @@ function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
 								<Like>
 									{userId ? (
 										<>
-											<LikeButton
-												reviewId={review.review_id}
-												changeReviewLikes={changeReviewLikes}
-											/>
+											{userId !== review.member_id && (
+												<LikeButton
+													reviewId={review.review_id}
+													changeReviewLikes={changeReviewLikes}
+												/>
+											)}
 											{review.likes ? <span>{review.likes}</span> : null}
 										</>
 									) : (
