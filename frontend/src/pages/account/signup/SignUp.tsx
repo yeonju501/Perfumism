@@ -81,7 +81,7 @@ function SignUp() {
 					name="password"
 					type="password"
 					onChange={handleChange}
-					placeholder="비밀번호를 입력해주세요"
+					placeholder="영문 대소문자, 숫자, 특수문자를 포함해주세요"
 				/>
 				<ErrorText>{errors.password}</ErrorText>
 
