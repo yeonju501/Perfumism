@@ -84,16 +84,17 @@ const Title = styled.h1`
 `;
 
 const Section = styled.section<SectionProps>`
-	display: grid;
-	grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(3, 1fr)" : "null")};
-	flex-direction: ${({ nowPage }) => (nowPage === "1" || nowPage === "2" ? "row" : "column")};
-	flex-wrap: wrap;
-	justify-content: center;
-	@media ${(props) => props.theme.mobile} {
-		grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(2, 1fr)" : "null")};
-	}
+	display: ${({ nowPage }) => (+nowPage < 3 ? "grid" : "flex")};
+	flex-direction: column;
+
+	grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(2, 1fr)" : "null")};
+	width: ${({ nowPage }) => (+nowPage < 3 ? "50%" : "100%")};
+	margin: 0 auto;
 	@media ${(props) => props.theme.mobileXS} {
 		grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(1, 1fr)" : "null")};
+	}
+	@media ${(props) => props.theme.tabletS} {
+		width: ${({ nowPage }) => (+nowPage < 3 ? "80%" : "100%")};
 	}
 `;
 
