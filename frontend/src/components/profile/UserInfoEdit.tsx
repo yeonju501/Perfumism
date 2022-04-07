@@ -3,14 +3,18 @@ import { FormContainer } from "components/account/Container";
 import { Input } from "components/account/Index";
 import Label from "components/profile/Label";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { SET_USER } from "store/user";
 import styled from "styled-components";
-
 interface Props {
 	value: string;
 	gender: number;
 }
 
 function UserInfoEdit({ value, gender }: Props) {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [userName, setUserName] = useState(value);
 	const [userGender, setGender] = useState(gender);
 
@@ -19,10 +23,13 @@ function UserInfoEdit({ value, gender }: Props) {
 		if (e.target.type === "radio") setGender(+e.target.value);
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (window.confirm("회원정보를 변경하시겠습니까?")) {
-			profileApi.changeUserInfo(userName, userGender).then(() => location.reload());
+			profileApi.changeUserInfo(userName, userGender);
+			const data = { username: userName };
+			dispatch(SET_USER(data));
+			navigate(`/profile/${userName}`);
 		}
 	};
 
