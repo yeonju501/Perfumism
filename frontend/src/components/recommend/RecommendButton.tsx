@@ -20,6 +20,9 @@ function RecommendButton({ firstSentence, secondSentence, url }: RecommendButton
 
 const Content = styled.p`
 	font-size: 2.5rem;
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 1.5rem;
+	}
 `;
 
 export default RecommendButton;
