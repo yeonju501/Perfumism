@@ -5,6 +5,9 @@ export const Container = styled.div`
 	margin: 5rem auto;
 	display: flex;
 	font-size: 1.4rem;
+	@media ${(props) => props.theme.mobileS} {
+		justify-content: center;
+	}
 `;
 
 export const FormContainer = styled.form``;

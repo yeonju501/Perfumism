@@ -98,8 +98,10 @@ const PerfumeItem = styled.div`
 
 const Brand = styled.p`
 	text-align: center;
-	font-size: 1.1rem;
+	font-size: 1.2rem;
+	font-family: "MinSans-Light";
 `;
+
 const Name = styled.p`
 	text-align: center;
 	font-weight: bold;
@@ -117,5 +119,8 @@ const DelButton = styled.button`
 	font-size: 1.8rem;
 	color: #797979;
 	display: none;
+	@media ${(props) => props.theme.mobileS} {
+		display: block;
+	}
 `;
 export default PerfumeList;

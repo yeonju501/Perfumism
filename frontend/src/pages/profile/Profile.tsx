@@ -2,7 +2,6 @@ import { authApi, profileApi } from "apis";
 import { Container } from "components/profile/Container";
 import UserInfo from "components/profile/UserInfo";
 import UserInfoEdit from "components/profile/UserInfoEdit";
-import { persistor } from "index";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SET_USER } from "store/user";
@@ -52,6 +51,9 @@ function Profile() {
 
 const Section = styled.div`
 	margin-left: 15%;
+	@media ${(props) => props.theme.mobileS} {
+		margin: 0;
+	}
 `;
 
 const Button = styled.button`

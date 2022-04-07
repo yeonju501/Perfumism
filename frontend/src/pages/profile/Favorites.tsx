@@ -36,10 +36,20 @@ const Container = styled.div`
 		margin-left: 5%;
 		font-size: 2.8rem;
 		margin-bottom: 4rem;
+		@media ${(props) => props.theme.mobileS} {
+			font-size: 2rem;
+			margin: 0;
+			text-align: center;
+		}
 	}
 	#default {
 		font-size: 1.8rem;
 		margin-left: 5%;
+		@media ${(props) => props.theme.mobileS} {
+			font-size: 1.8rem;
+			margin-top: 50%;
+			text-align: center;
+		}
 	}
 `;
 

@@ -123,7 +123,21 @@ const SelectContainer = styled.div`
 `;
 
 const Select = styled.select`
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 1.2rem;
+	padding: 0.6rem 0.5rem;
+	text-align-last: center;
+	border: 0.05rem solid #dedede;
+	border-radius: 0px;
 	margin-left: auto;
+	::-ms-expand {
+		display: none;
+	}
+	&:focus {
+		outline: none;
+	}
 `;
 
 interface Button {

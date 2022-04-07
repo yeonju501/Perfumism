@@ -14,9 +14,13 @@ function useReviewForm({ sendReviewData }: useReviewFormProps) {
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await sendReviewData();
-		setGrade(0);
-		setContent("");
+		if (grade && content.trim()) {
+			await sendReviewData();
+			setGrade(0);
+			setContent("");
+		} else {
+			alert("평점과 리뷰를 모두 등록해주세요");
+		}
 	};
 
 	const handleNonMemberInputClick = () => {

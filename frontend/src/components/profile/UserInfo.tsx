@@ -63,6 +63,9 @@ const UserImage = styled.img`
 	&:hover {
 		filter: brightness(80%);
 	}
+	@media ${(props) => props.theme.mobileS} {
+		margin-left: 25%;
+	}
 `;
 
 const ImageUpdate = styled.div`

@@ -15,6 +15,8 @@ export default ProfileRoute;
 
 const Container = styled.div`
 	display: flex;
-
 	min-height: 100vh;
+	@media ${(props) => props.theme.mobileS} {
+		flex-direction: column;
+	}
 `;
