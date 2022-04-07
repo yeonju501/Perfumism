@@ -31,6 +31,9 @@ function Perfumes() {
 const Container = styled.div`
 	width: 80%;
 	margin: 0 auto;
+	@media ${(props) => props.theme.mobileS} {
+		width: 100%;
+	}
 `;
 
 const ListContainer = styled.div`
