@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
-import { Dropdown, TitleInput, ContentInput, Button } from "components/community";
+import { Dropdown, TitleInput, ContentInput, Button, PreviewImage } from "components/community";
 import { ErrorText } from "components/account/Index";
 import { formValidator } from "utils";
 import useForm from "../account/hooks/useForm";
 import communityApi from "apis/community";
 import EngToKor from "components/community/utils/EngToKor";
+import PlusButton from "components/community/create/PlusButton";
 
 interface CustomizedState {
 	articleData: {
@@ -34,7 +35,8 @@ interface CustomizedState {
 function CommnuityUpdate() {
 	const { articleData } = useLocation().state as CustomizedState;
 	const [subject, setSubject] = useState(articleData.subject);
-	const [selectedImg, setSelectedImg] = useState();
+	const [selectedImg, setSelectedImg] = useState<FileList | null>();
+	const [previewImg, setPreviewImg] = useState<string[]>([]);
 	const navigate = useNavigate();
 	const goBack = () => {
 		navigate(`/community/${articleData.article_id}`);
@@ -55,7 +57,7 @@ function CommnuityUpdate() {
 					new Blob([JSON.stringify(article)], { type: "application/json" }),
 				);
 				selectedImg
-					? formData.append("image", selectedImg)
+					? [...selectedImg].forEach((file) => formData.append("image", file))
 					: formData.append("image", new Blob([]));
 				await communityApi.updateCommunity(articleData.article_id, formData);
 				navigate(`/community/${articleData.article_id}`);
@@ -77,6 +79,7 @@ function CommnuityUpdate() {
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
 					<Dropdown defaultSubject={EngToKor(subject) as string} setSubject={setSubject} />
+					<ErrorText>{errors.subject}</ErrorText>
 					<TitleInput
 						name="title"
 						type="text"
@@ -86,6 +89,7 @@ function CommnuityUpdate() {
 					/>
 					<ErrorText>{errors.title}</ErrorText>
 				</Header>
+				{previewImg ? <PreviewImage previewImg={previewImg} /> : <PreviewImage />}
 				<ContentInput
 					name="content"
 					onChange={handleTextAreaChange}
@@ -98,6 +102,7 @@ function CommnuityUpdate() {
 					<Button>수정</Button>
 				</Footer>
 			</FormContainer>
+			<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 		</Container>
 	);
 }
