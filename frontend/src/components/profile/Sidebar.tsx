@@ -9,7 +9,6 @@ function Sidebar() {
 	return (
 		<Container>
 			<Title>PROFILE</Title>
-			{/* <Line></Line> */}
 			<LinkItem to={`/profile/${username}`}>회원 정보수정</LinkItem>
 			<LinkItem to="/profile/favorites">좋아요한 향수 관리</LinkItem>
 			<LinkItem to="/profile/my-articles">내가 작성한 글</LinkItem>
@@ -33,10 +32,6 @@ const Title = styled.p`
 	margin-bottom: 4rem;
 `;
 
-const Line = styled.div`
-	height: 0.1rem;
-	background-color: #dedede;
-`;
 const LinkItem = styled(Link)`
 	display: block;
 	font-size: 1.5rem;
