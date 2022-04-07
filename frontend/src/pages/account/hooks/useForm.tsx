@@ -19,7 +19,7 @@ const useForm = ({ initialValues, onSubmit, onBlur, validate }: UseFormArgs) => 
 
 	const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = event.target;
-		setValues({ ...values, [name]: value.trim() });
+		setValues({ ...values, [name]: value });
 	};
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
