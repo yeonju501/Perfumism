@@ -119,5 +119,8 @@ const DelButton = styled.button`
 	font-size: 1.8rem;
 	color: #797979;
 	display: none;
+	@media ${(props) => props.theme.mobileS} {
+		display: block;
+	}
 `;
 export default PerfumeList;
