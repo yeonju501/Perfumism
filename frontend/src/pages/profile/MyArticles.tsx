@@ -1,4 +1,5 @@
 import { profileApi } from "apis";
+import EngToKor from "components/community/utils/EngToKor";
 import Pagination from "components/Pagination";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -27,7 +28,7 @@ function MyArticles() {
 								<tbody>
 									{articleList.map((article, idx) => (
 										<Tr key={idx}>
-											<Td>{article.subject}</Td>
+											<Td>{EngToKor(article.subject)}</Td>
 											<Td>
 												<Link to={`/community/${article.article_id}`}>{article.title}</Link>
 											</Td>
