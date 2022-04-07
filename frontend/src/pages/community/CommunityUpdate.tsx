@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, FormContainer, Header, Footer } from "components/community/create/Container";
 import { Dropdown, TitleInput, ContentInput, Button, PreviewImage } from "components/community";
@@ -41,6 +41,14 @@ function CommnuityUpdate() {
 	const goBack = () => {
 		navigate(`/community/${articleData.article_id}`);
 	};
+
+	useEffect(() => {
+		if (articleData.image_url_list.length) {
+			const tempList = [] as string[];
+			articleData.image_url_list.map((url) => tempList.push(url.image_url));
+			setPreviewImg(tempList);
+		}
+	}, []);
 
 	const { values, handleChange, handleTextAreaChange, handleSubmit, errors } = useForm({
 		initialValues: {
