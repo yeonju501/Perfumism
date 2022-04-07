@@ -24,9 +24,6 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 }
 
 const Container = styled.div`
-	display: grid;
-	flex-direction: column;
-	justify-content: center;
 	margin: 0 auto;
 	&:hover {
 		filter: brightness(65%);
@@ -36,7 +33,7 @@ const Container = styled.div`
 const SurveyImg = styled.img`
 	background-color: none;
 	border: none;
-	width: 25rem;
+	width: 100%;
 	height: 17rem;
 `;
 
