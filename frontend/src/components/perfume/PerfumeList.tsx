@@ -98,8 +98,10 @@ const PerfumeItem = styled.div`
 
 const Brand = styled.p`
 	text-align: center;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
+	font-family: "MinSans-Light";
 `;
+
 const Name = styled.p`
 	text-align: center;
 	font-weight: bold;
