@@ -86,7 +86,7 @@ function CommnuityUpdate() {
 		<Container>
 			<FormContainer onSubmit={handleSubmit}>
 				<Header>
-					<Dropdown defaultSubject={EngToKor(subject) as string} setSubject={setSubject} />
+					<Dropdown defaultSubject={subject} setSubject={setSubject} />
 					<ErrorText>{errors.subject}</ErrorText>
 					<TitleInput
 						name="title"
