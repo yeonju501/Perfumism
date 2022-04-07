@@ -7,6 +7,7 @@ const ContentInput = styled.textarea`
 	line-height: 3rem;
 	border: 1px solid #dde0e2;
 	padding: 1.5rem;
+	resize: none;
 	&:focus {
 		outline: none;
 	}

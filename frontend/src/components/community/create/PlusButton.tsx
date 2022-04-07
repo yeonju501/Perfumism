@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import useOutside from "components/navbar/hooks/useOutside";
 
