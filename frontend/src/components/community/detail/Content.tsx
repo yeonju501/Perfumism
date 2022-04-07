@@ -1,6 +1,7 @@
 import PreviewImage from "../create/PreviewImage";
 import styled from "styled-components";
 import EngToKor from "../utils/EngToKor";
+import anonymous from "../../../assets/anonymous.jpg";
 
 interface ArticleProps {
 	articleData: {
@@ -38,7 +39,10 @@ function Content({ articleData }: ArticleProps) {
 					[{EngToKor(articleData.subject)}] {articleData.title}
 				</Title>
 				<Profile>
-					<ProfileImg src={articleData.member_image} alt="" />
+					<ProfileImg
+						src={articleData.member_image ? articleData.member_image : anonymous}
+						alt=""
+					/>
 					<NickName>{articleData.member_name}</NickName>
 				</Profile>
 			</Header>
