@@ -75,13 +75,18 @@ const Th = styled.th<WidthProps>`
 	padding-bottom: 1rem;
 	font-size: 2.2rem;
 	width: ${({ width }) => width};
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 1.8rem;
+	}
 `;
 
 const Tr = styled.tr`
 	text-align: center;
 	font-size: 1.6rem;
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 1.4rem;
+	}
 `;
-
 const Td = styled.td`
 	padding: 0.7rem;
 `;
