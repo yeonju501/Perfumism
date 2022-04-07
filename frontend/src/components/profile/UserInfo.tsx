@@ -1,6 +1,6 @@
 import { profileApi } from "apis";
 import anonymous from "assets/anonymous.jpg";
-import useSetImage from "hooks/useSetImage";
+import useSetImage from "components/profile/hooks/useSetImage";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
