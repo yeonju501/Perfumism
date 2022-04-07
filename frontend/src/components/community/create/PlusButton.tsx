@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import useOutside from "components/navbar/hooks/useOutside";
 
 interface ImgProps {
 	setSelectedImg: React.Dispatch<React.SetStateAction<FileList | null | undefined>>;
@@ -10,7 +11,8 @@ interface ImgProps {
 
 function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 	const [isOpen, setIsOpen] = useState(false);
-
+	const Ref = useRef<HTMLFormElement>(null);
+	useOutside({ Ref, setFunction: setIsOpen });
 	const toggling = () => setIsOpen(!isOpen);
 
 	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,7 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 				nowImgUrlList = nowImgUrlList.slice(0, 3);
 			}
 			setPreviewImg(nowImgUrlList);
+			setIsOpen(!isOpen);
 		}
 	};
 
@@ -33,7 +36,7 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 		<Container>
 			{isOpen && (
 				<DropDownListContainer>
-					<DropDownList>
+					<DropDownList ref={Ref}>
 						<label htmlFor="inputFile" style={{ cursor: "pointer" }}>
 							이미지 업로드
 						</label>
@@ -72,7 +75,7 @@ const DropDownListContainer = styled.div`
 	width: 15rem;
 `;
 
-const DropDownList = styled.ul`
+const DropDownList = styled.form`
 	text-align: center;
 	padding: 1rem;
 	background: #ffffff;
