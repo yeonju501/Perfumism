@@ -72,7 +72,7 @@ const Button = styled(FontAwesomeIcon)<Button>`
 	position: sticky;
 	color: gray;
 	top: 50%;
-	left: ${(props) => (props.direction ? `${window.outerWidth - 30}px` : "0")};
+	left: ${(props) => (props.direction ? `${window.outerWidth - 40}px` : "0")};
 	@media ${(props) => props.theme.mobileS} {
 		display: none;
 	}

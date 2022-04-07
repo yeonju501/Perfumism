@@ -24,7 +24,7 @@ function Answer({ surveyItem, number, answerHandleChange }: AnswerProps) {
 }
 
 const Container = styled.div`
-	display: flex;
+	display: grid;
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
@@ -33,12 +33,11 @@ const Container = styled.div`
 		cursor: pointer;
 	}
 `;
-
 const SurveyImg = styled.img`
 	background-color: none;
 	border: none;
-	width: 250px;
-	height: 170px;
+	width: 25rem;
+	height: 17rem;
 `;
 
 const Content = styled.p`
@@ -55,6 +54,20 @@ const TextAnswer = styled.button`
 	margin: 2rem auto;
 	cursor: pointer;
 	background-color: #fff;
+
+	@media ${(props) => props.theme.mobile} {
+		width: 60rem;
+	}
+	@media ${(props) => props.theme.mobileS} {
+		margin: 1rem auto;
+		width: 45rem;
+		font-size: 1.8rem;
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		margin: 1rem auto;
+		width: 35rem;
+		font-size: 1.5rem;
+	}
 
 	&:hover {
 		transition: 0.5s;

@@ -75,14 +75,26 @@ const Title = styled.h1`
 	font-weight: 800;
 	text-align: center;
 	margin: 5% auto 2%;
+	@media ${(props) => props.theme.mobileS} {
+		font-size: 3rem;
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		font-size: 2.5rem;
+	}
 `;
 
 const Section = styled.section<SectionProps>`
-	display: flex;
+	display: grid;
+	grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(3, 1fr)" : "null")};
 	flex-direction: ${({ nowPage }) => (nowPage === "1" || nowPage === "2" ? "row" : "column")};
 	flex-wrap: wrap;
 	justify-content: center;
-	margin: 0 20rem;
+	@media ${(props) => props.theme.mobile} {
+		grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(2, 1fr)" : "null")};
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		grid-template-columns: ${({ nowPage }) => (+nowPage < 3 ? "repeat(1, 1fr)" : "null")};
+	}
 `;
 
 export default SurveyItem;

@@ -52,7 +52,7 @@ const ListItem = styled.li<isMenu>`
 		height: 100vh;
 		justify-content: center;
 		z-index: 1;
-		transition: all 0.35s;
+		transition: ${(props) => props.isMenu && "all 0.35s"};
 	}
 `;
 

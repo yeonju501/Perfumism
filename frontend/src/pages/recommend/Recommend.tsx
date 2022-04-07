@@ -45,6 +45,12 @@ const Title = styled.h1`
 	font-weight: 800;
 	text-align: center;
 	margin: 5% auto 2%;
+	@media ${(props) => props.theme.mobile} {
+		font-size: 3rem;
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		font-size: 2rem;
+	}
 `;
 
 export default Recommend;

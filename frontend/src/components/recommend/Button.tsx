@@ -15,6 +15,12 @@ const Button = styled(Link)`
 		background-color: #000;
 		color: #fff;
 	}
+	@media ${(props) => props.theme.mobile} {
+		width: 40rem;
+	}
+	@media ${(props) => props.theme.mobileXS} {
+		width: 35rem;
+	}
 `;
 
 export default Button;
