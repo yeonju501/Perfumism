@@ -34,15 +34,15 @@ const useInfiniteScroll = ({ requestApi }: useInfiniteScrollProps) => {
 	}, [currentPage]);
 
 	const getPerfumes = async (currentPage: number) => {
-		console.log(accord, sort, order);
-		console.log(currentPage, totalPage);
+		// console.log(accord, sort, order);
+		// console.log(currentPage, totalPage);
 		setIsLoading(true);
 		await new Promise((resolve) => setTimeout(resolve, 500));
 		const res = await requestApi(currentPage);
 		setTotalPage(res.data.total_page_count);
 		setPerfumes((prev) => [...prev, ...res.data.perfumes]);
 		setIsLoading(false);
-		console.log(perfumes);
+		// console.log(perfumes);
 	};
 
 	const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
