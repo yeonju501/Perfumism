@@ -54,7 +54,7 @@ function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
 					</Link>
 					<p>
 						<span style={{ color: "#ffcb14" }}>★</span>
-						{perfumeData.average_grade.toFixed(2)}
+						{perfumeData.average_grade.toFixed(1)}
 					</p>
 					<h3>main accords</h3>
 					<Accords>

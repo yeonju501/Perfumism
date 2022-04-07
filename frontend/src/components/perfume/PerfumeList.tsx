@@ -77,9 +77,15 @@ const Perfume = styled.li`
 	list-style: none;
 	font-size: 1.4rem;
 	position: relative;
+	@media ${(props) => props.theme.mobileS} {
+		width: 30%;
+	}
 	&:hover {
 		button {
 			display: block;
+			@media ${(props) => props.theme.mobileS} {
+				display: none;
+			}
 		}
 	}
 `;

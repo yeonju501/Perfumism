@@ -34,7 +34,7 @@ const perfumeApi: PerfumeApiType = {
 	deleteFavoritePerfume: (perfumeId) => request.delete(`auth/perfumes/likes/${perfumeId}`),
 	getBrandPerfumes: (brandName, currentPage, sort) =>
 		request.get(
-			`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=15&sort=${sort}%2Cdesc&type=brand`,
+			`/perfumes/search/?keyword=${brandName}&page=${currentPage}&size=10&sort=${sort}%2Cdesc&type=brand`,
 		),
 	getMonthOfPerfumes: () => request.get("perfumes/monthly"),
 };
