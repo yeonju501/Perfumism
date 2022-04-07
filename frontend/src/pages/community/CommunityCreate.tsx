@@ -74,8 +74,8 @@ function CommunityCreate() {
 					<Button onClick={toCommunity}>목록</Button>
 					<Button>등록</Button>
 				</Footer>
+				<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 			</FormContainer>
-			<PlusButton setSelectedImg={setSelectedImg} setPreviewImg={setPreviewImg} />
 		</Container>
 	);
 }

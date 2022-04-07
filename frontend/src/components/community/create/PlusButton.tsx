@@ -1,6 +1,7 @@
 import { useState } from "react";
-import PlusSrc from "assets/plus.png";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface ImgProps {
 	setSelectedImg: React.Dispatch<React.SetStateAction<FileList | null | undefined>>;
@@ -47,20 +48,22 @@ function PlusButton({ setSelectedImg, setPreviewImg }: ImgProps) {
 					</DropDownList>
 				</DropDownListContainer>
 			)}
-			<ButtonImg src={PlusSrc} alt="" onClick={toggling} />
+			<ButtonImg icon={faPlusCircle} onClick={toggling} />
 		</Container>
 	);
 }
 
 const Container = styled.div`
 	position: absolute;
-	bottom: 5rem;
-	right: 10rem;
+	bottom: 7rem;
+	right: 0.5rem;
 	cursor: pointer;
 `;
 
-const ButtonImg = styled.img`
-	width: 5rem;
+const ButtonImg = styled(FontAwesomeIcon)`
+	width: 4rem;
+	height: 4rem;
+	color: #c7c7c7;
 `;
 
 const DropDownListContainer = styled.div`
@@ -75,7 +78,7 @@ const DropDownList = styled.ul`
 	background: #ffffff;
 	border: 2px solid #e5e5e5;
 	box-sizing: border-box;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: 500;
 	cursor: pointer;
 `;
