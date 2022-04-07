@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SET_USER } from "store/user";
 import styled from "styled-components";
+
 interface Props {
 	value: string;
 	gender: number;
@@ -26,9 +27,9 @@ function UserInfoEdit({ value, gender }: Props) {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (window.confirm("회원정보를 변경하시겠습니까?")) {
-			profileApi.changeUserInfo(userName, userGender);
-			const data = { username: userName };
-			dispatch(SET_USER(data));
+			await profileApi.changeUserInfo(userName, userGender);
+			const res = await profileApi.getUserInfo();
+			dispatch(SET_USER(res.data));
 			navigate(`/profile/${userName}`);
 		}
 	};
