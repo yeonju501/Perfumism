@@ -82,6 +82,9 @@ const Container = styled.div`
 const LoadingImg = styled.img`
 	width: 50rem;
 	height: 50rem;
+	@media ${(props) => props.theme.mobileXS} {
+		width: 100%;
+	}
 `;
 
 export default Loading;
