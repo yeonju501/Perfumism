@@ -7,17 +7,13 @@ import ReviewUpdate from "./ReviewUpdate";
 import styled from "styled-components";
 import ReviewButtons from "./ReviewButtons";
 import useReviewListForm from "./hooks/useReviewListForm";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
 
-interface ReviewListPropType {
+interface Props {
 	perfumeId: string;
 	updateReviews: boolean;
 }
 
-function ReviewList({ perfumeId, updateReviews }: ReviewListPropType) {
-	const userName = useSelector((state: RootState) => state.user.username);
-
+function ReviewList({ perfumeId, updateReviews }: Props) {
 	const {
 		userId,
 		reviews,

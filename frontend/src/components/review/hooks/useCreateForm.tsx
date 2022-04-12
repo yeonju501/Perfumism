@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-interface useReviewFormProps {
-	sendReviewData: () => Promise<any>;
+interface Props {
+	onSubmit: () => Promise<void>;
 }
 
-function useReviewForm({ sendReviewData }: useReviewFormProps) {
+function useCreateForm({ onSubmit }: Props) {
 	const [grade, setGrade] = useState(0);
 	const [content, setContent] = useState("");
 
@@ -14,13 +14,7 @@ function useReviewForm({ sendReviewData }: useReviewFormProps) {
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (grade && content.trim()) {
-			await sendReviewData();
-			setGrade(0);
-			setContent("");
-		} else {
-			alert("평점과 리뷰를 모두 등록해주세요");
-		}
+		onSubmit();
 	};
 
 	const handleNonMemberInputClick = () => {
@@ -38,4 +32,4 @@ function useReviewForm({ sendReviewData }: useReviewFormProps) {
 	};
 }
 
-export default useReviewForm;
+export default useCreateForm;

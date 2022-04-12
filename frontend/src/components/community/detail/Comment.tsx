@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import CommentForm from "./CommentForm";
+import CommentForm from "./CommentCreate";
 import CommentList from "./CommentList";
 
-interface CommentProps {
+interface Props {
 	articleId: number;
 }
 
-function Comment({ articleId }: CommentProps) {
+function Comment({ articleId }: Props) {
 	const [updateComments, setUpdateComments] = useState(false);
 
 	return (

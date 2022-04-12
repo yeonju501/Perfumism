@@ -1,37 +1,21 @@
 import styled from "styled-components";
+import { Article } from "types/article";
+import { Comment } from "types/comment";
 
-interface PaginationProps {
+interface Props {
 	total: number;
 	page: number;
 	setData: React.Dispatch<React.SetStateAction<DataType>>;
 }
 
 interface DataType {
-	articleList?: ArticleListType[];
-	commentList?: CommentListType[];
+	articleList?: Article[];
+	commentList?: Comment[];
 	total_page_count: number;
 	current_page_count: number;
 }
 
-interface ArticleListType {
-	article_id: number;
-	member_id: number;
-	member_name: string;
-	subject: string;
-	title: string;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-}
-
-interface CommentListType {
-	comment_id: number;
-	content: string;
-	created_at: string;
-}
-
-function Pagination({ total, page, setData }: PaginationProps) {
+function Pagination({ total, page, setData }: Props) {
 	return (
 		<>
 			<Nav>

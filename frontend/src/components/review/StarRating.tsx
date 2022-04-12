@@ -2,12 +2,12 @@ import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as star } from "@fortawesome/free-solid-svg-icons";
 
-interface StarRatingProps {
+interface Props {
 	grade: number;
 	setGrade: Dispatch<SetStateAction<number>>;
 }
 
-function StarRating({ grade, setGrade }: StarRatingProps) {
+function StarRating({ grade, setGrade }: Props) {
 	const [starRatingOnOff, setStarRatingOnOff] = useState<{ color: string; cursor: string }[]>([]);
 
 	function handleStarClick(idx: number) {

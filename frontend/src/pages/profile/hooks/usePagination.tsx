@@ -9,11 +9,11 @@ interface DataType {
 	current_page_count: number;
 }
 
-interface usePaginationProps {
+interface Props {
 	requestApi: (currentPage: number) => Promise<any>;
 }
 
-function usePagination({ requestApi }: usePaginationProps) {
+function usePagination({ requestApi }: Props) {
 	const [data, setData] = useState<DataType>({
 		articleList: [],
 		commentList: [],

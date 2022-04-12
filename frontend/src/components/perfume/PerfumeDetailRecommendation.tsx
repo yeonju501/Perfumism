@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PerfumeList from "./PerfumeList";
 
-interface PerfumeDataProps {
+interface Props {
 	perfumeData: {
 		perfume_name: string;
 		brand: {
@@ -13,7 +13,7 @@ interface PerfumeDataProps {
 	};
 }
 
-function PerfumeDetailRecommendation({ perfumeData }: PerfumeDataProps) {
+function PerfumeDetailRecommendation({ perfumeData }: Props) {
 	const [brandBasedRecommendation, setBrandBasedRecommendation] = useState([]);
 
 	useEffect(() => {

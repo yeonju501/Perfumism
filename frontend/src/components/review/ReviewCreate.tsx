@@ -4,15 +4,15 @@ import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
 import cookie from "react-cookies";
-import useReviewForm from "./hooks/useReviewForm";
 import styled from "styled-components";
+import useCreateForm from "./hooks/useCreateForm";
 
-interface ReviewCreateProp {
+interface Props {
 	perfumeId: string;
 	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
+function ReviewCreate({ perfumeId, setUpdateReviews }: Props) {
 	const token = cookie.load("access_token");
 
 	const {
@@ -22,19 +22,22 @@ function ReviewCreate({ perfumeId, setUpdateReviews }: ReviewCreateProp) {
 		setGrade,
 		grade,
 		content,
-	} = useReviewForm({
-		sendReviewData: () => {
-			return reviewApi.createReview({ grade, content }, perfumeId);
+		setContent,
+	} = useCreateForm({
+		onSubmit: async () => {
+			if (content.trim() && grade) {
+				await reviewApi.createReview({ grade, content }, perfumeId);
+				setGrade(0);
+				setContent("");
+				setUpdateReviews((prev) => !prev);
+			} else {
+				alert("평점과 리뷰 내용을 모두 입력해주세요");
+			}
 		},
 	});
 
-	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setUpdateReviews((prev) => !prev);
-	};
-
 	return (
-		<FormContainer onSubmit={handleSubmitReview}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<StarRating grade={grade} setGrade={setGrade} />
 			{token ? (
 				<FormArea>

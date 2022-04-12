@@ -1,65 +1,41 @@
 import communityApi from "apis/community";
 import { CreateButton } from "components/button/Button";
-import useReviewForm from "components/review/hooks/useReviewForm";
+import useReviewForm from "components/review/hooks/useCreateForm";
 import Textarea from "components/review/Textarea";
 import styled from "styled-components";
+import { Review } from "types/review";
 
-interface ReplyFormProps {
+interface Props {
 	articleId: number;
 	commentId: number;
 	commentIdx: number;
 	setReply: React.Dispatch<React.SetStateAction<number>>;
-	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
+	setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
 }
 
-interface ReviewType {
-	comment_id: number;
-	review_id: number;
-	member_id: number;
-	member_name: string;
-	member_image: string;
-	grade: number;
-	content: string;
-	likes: number;
-	replyList: replyType[];
-}
-
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
-}
-
-function ReplyForm({ articleId, commentId, commentIdx, setReply, setReviews }: ReplyFormProps) {
+function ReplyForm({ articleId, commentId, commentIdx, setReply, setReviews }: Props) {
 	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
-		sendReviewData: () => {
-			return communityApi.createReply(articleId, commentId, { content });
+		onSubmit: async () => {
+			if (content.trim()) {
+				await communityApi.createReply(articleId, commentId, { content });
+				setReply(-1);
+				const res = await communityApi.getUpdatedComment(articleId, commentIdx);
+				setReviews((reviews) =>
+					reviews.map((review) => {
+						if (review.comment_id === commentId) {
+							review.replyList = res.data.commentList[0].replyList;
+						}
+						return review;
+					}),
+				);
+			} else {
+				alert("대댓글 내용을 입력해주세요");
+			}
 		},
 	});
 
-	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setReply(-1);
-		const res = await communityApi.getUpdatedComment(articleId, commentIdx);
-		setReviews((reviews) =>
-			reviews.map((review) => {
-				if (review.comment_id === commentId) {
-					review.replyList = res.data.commentList[0].replyList;
-				}
-				return review;
-			}),
-		);
-	};
-
 	return (
-		<FormContainer onSubmit={handleSubmitReview}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<Textarea
 				placeholder="답글을 입력하세요"
 				value={content}

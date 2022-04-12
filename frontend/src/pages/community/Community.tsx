@@ -3,21 +3,10 @@ import { MainHeader, CommunityList } from "components/community";
 import Pagination from "components/Pagination";
 import communityApi from "apis/community";
 import styled from "styled-components";
-
-interface ArticleList {
-	article_id: number;
-	member_id: number;
-	member_name: string;
-	subject: string;
-	title: string;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-}
+import { Article } from "types/article";
 
 interface ArticleDataType {
-	articleList?: ArticleList[];
+	articleList?: Article[];
 	total_page_count: number;
 	current_page_count: number;
 }

@@ -7,23 +7,11 @@ import ReplyForm from "./ReplyForm";
 import ReplyUpdate from "./ReplyUpdate";
 import CommentButtons from "./CommentButtons";
 import ReplyButtons from "./ReplyButtons";
+import { Reply } from "types/reply";
 
 interface CommentListProp {
 	articleId: number;
 	updateComments: boolean;
-}
-
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
 }
 
 function CommentList({ updateComments, articleId }: CommentListProp) {
@@ -114,7 +102,7 @@ function CommentList({ updateComments, articleId }: CommentListProp) {
 						/>
 					)}
 					{review.replyList.map(
-						(reply: replyType, idx) =>
+						(reply: Reply, idx) =>
 							!reply.deletion && (
 								<ReplyItem key={idx}>
 									{reply.comment_id === isEditable ? (
