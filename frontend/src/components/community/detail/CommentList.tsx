@@ -1,5 +1,4 @@
 import { ShowMoreButton } from "components/button/Button";
-import ReviewButtons from "components/review/ReviewButtons";
 import styled from "styled-components";
 import communityApi from "apis/community";
 import useReviewListForm from "components/review/hooks/useReviewListForm";
@@ -11,7 +10,7 @@ import ReplyButtons from "./ReplyButtons";
 
 interface CommentListProp {
 	articleId: number;
-	updateReviews: boolean;
+	updateComments: boolean;
 }
 
 interface replyType {
@@ -27,7 +26,7 @@ interface replyType {
 	deletion: boolean;
 }
 
-function CommentList({ updateReviews, articleId }: CommentListProp) {
+function CommentList({ updateComments, articleId }: CommentListProp) {
 	const {
 		userId,
 		reviews,
@@ -45,7 +44,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		handleReplyClick,
 		isLastPage,
 	} = useReviewListForm({
-		updateReviews,
+		updateReviews: updateComments,
 		addReviews: async (currentPage: number) => {
 			const res = await communityApi.getComments(articleId, currentPage);
 			setReviews(res.data.commentList);

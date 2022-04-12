@@ -6,20 +6,22 @@ import styled from "styled-components";
 
 interface CommentFormProps {
 	articleId: number;
-	setUpdateReviews: React.Dispatch<React.SetStateAction<boolean>>;
+	setUpdateComments: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CommentForm({ articleId, setUpdateReviews }: CommentFormProps) {
-	const { handleInputChange, handleFormSubmit, content } = useReviewForm({
+function CommentForm({ articleId, setUpdateComments }: CommentFormProps) {
+	const { handleInputChange, content, setContent } = useReviewForm({
 		sendReviewData: () => {
 			return communityApi.createComment(articleId, { content });
 		},
 	});
 
 	const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		if (content.trim()) {
-			await handleFormSubmit(e);
-			setUpdateReviews((prev) => !prev);
+			await communityApi.createComment(articleId, { content });
+			setContent("");
+			setUpdateComments((prev) => !prev);
 		} else {
 			alert("댓글 내용을 입력하세요");
 		}

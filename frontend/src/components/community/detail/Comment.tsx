@@ -8,12 +8,12 @@ interface CommentProps {
 }
 
 function Comment({ articleId }: CommentProps) {
-	const [updateReviews, setUpdateReviews] = useState(false);
+	const [updateComments, setUpdateComments] = useState(false);
 
 	return (
 		<Container>
-			<CommentForm articleId={articleId} setUpdateReviews={setUpdateReviews} />
-			<CommentList articleId={articleId} updateReviews={updateReviews} />
+			<CommentForm articleId={articleId} setUpdateComments={setUpdateComments} />
+			<CommentList articleId={articleId} updateComments={updateComments} />
 		</Container>
 	);
 }

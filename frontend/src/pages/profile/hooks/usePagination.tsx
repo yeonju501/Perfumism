@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { Article } from "types/article";
+import { Comment } from "types/comment";
 
 interface DataType {
 	articleList?: Article[];
-	commentList?: CommentListType[];
+	commentList?: Comment[];
 	total_page_count: number;
 	current_page_count: number;
-}
-
-interface CommentListType {
-	comment_id: number;
-	article_id?: number;
-	content: string;
-	created_at: string;
 }
 
 interface usePaginationProps {
 	requestApi: (currentPage: number) => Promise<any>;
 }
+
 function usePagination({ requestApi }: usePaginationProps) {
 	const [data, setData] = useState<DataType>({
 		articleList: [],
