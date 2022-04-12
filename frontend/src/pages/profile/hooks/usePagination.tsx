@@ -1,22 +1,11 @@
 import { useEffect, useState } from "react";
+import { Article } from "types/article";
 
 interface DataType {
-	articleList?: ArticleListType[];
+	articleList?: Article[];
 	commentList?: CommentListType[];
 	total_page_count: number;
 	current_page_count: number;
-}
-
-interface ArticleListType {
-	article_id: number;
-	member_id: number;
-	member_name: string;
-	subject: string;
-	title: string;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
 }
 
 interface CommentListType {
