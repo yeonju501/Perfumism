@@ -6,33 +6,7 @@ import styled from "styled-components";
 import PerfumeInfo from "components/perfume/PerfumeInfo";
 import PerfumeDetailRecommendation from "components/perfume/PerfumeDetailRecommendation";
 import ReviewCreate from "components/review/ReviewCreate";
-
-interface PerfumeDataType {
-	perfume_id: number;
-	perfume_name: string;
-	brand: {
-		brand_id: number;
-		brand_name: string;
-	};
-	image: string;
-	launch_year: number;
-	average_grade: number;
-	top_notes: string;
-	middle_notes: string | null;
-	base_notes: string | null;
-	total_survey: number;
-	longevity: string;
-	sillage: string;
-	accords: AccordType[];
-	similar_perfume: [];
-	likes: number;
-}
-
-interface AccordType {
-	accord_id: number;
-	kor_name: string;
-	eng_name: string;
-}
+import { Perfume } from "types/perfume";
 
 type Params = {
 	perfumeId: string;
@@ -40,7 +14,7 @@ type Params = {
 
 function PerfumeDetail() {
 	const { perfumeId } = useParams() as Params;
-	const [perfumeData, setPerfumeData] = useState<PerfumeDataType | null>(null);
+	const [perfumeData, setPerfumeData] = useState<Perfume | null>(null);
 	const [updateReviews, setUpdateReviews] = useState(false);
 
 	useEffect(() => {

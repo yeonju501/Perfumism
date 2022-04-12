@@ -1,19 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
-import CommentForm from "./CommentForm";
+import CommentForm from "./CommentCreate";
 import CommentList from "./CommentList";
 
-interface CommentProps {
+interface Props {
 	articleId: number;
 }
 
-function Comment({ articleId }: CommentProps) {
-	const [updateReviews, setUpdateReviews] = useState(false);
+function Comment({ articleId }: Props) {
+	const [updateComments, setUpdateComments] = useState(false);
 
 	return (
 		<Container>
-			<CommentForm articleId={articleId} setUpdateReviews={setUpdateReviews} />
-			<CommentList articleId={articleId} updateReviews={updateReviews} />
+			<CommentForm articleId={articleId} setUpdateComments={setUpdateComments} />
+			<CommentList articleId={articleId} updateComments={updateComments} />
 		</Container>
 	);
 }

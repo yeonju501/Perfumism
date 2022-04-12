@@ -2,39 +2,13 @@ import styled from "styled-components";
 import LikeButton from "components/perfume/LikeButton";
 import cookie from "react-cookies";
 import { Link } from "react-router-dom";
+import { Perfume } from "types/perfume";
 
-interface PerfumeDataProps {
-	perfumeData: PerfumeDataType;
+interface Props {
+	perfumeData: Perfume;
 }
 
-interface PerfumeDataType {
-	perfume_id: number;
-	perfume_name: string;
-	brand: {
-		brand_id: number;
-		brand_name: string;
-	};
-	image: string;
-	launch_year: number;
-	average_grade: number;
-	top_notes: string;
-	middle_notes: string | null;
-	base_notes: string | null;
-	total_survey: number;
-	longevity: string;
-	sillage: string;
-	accords: AccordType[];
-	similar_perfume: [];
-	likes: number;
-}
-
-interface AccordType {
-	accord_id: number;
-	kor_name: string;
-	eng_name: string;
-}
-
-function PerfumeInfo({ perfumeData }: PerfumeDataProps) {
+function PerfumeInfo({ perfumeData }: Props) {
 	const token = cookie.load("access_token");
 
 	return (

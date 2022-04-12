@@ -1,5 +1,4 @@
 import { ShowMoreButton } from "components/button/Button";
-import ReviewButtons from "components/review/ReviewButtons";
 import styled from "styled-components";
 import communityApi from "apis/community";
 import useReviewListForm from "components/review/hooks/useReviewListForm";
@@ -8,26 +7,14 @@ import ReplyForm from "./ReplyForm";
 import ReplyUpdate from "./ReplyUpdate";
 import CommentButtons from "./CommentButtons";
 import ReplyButtons from "./ReplyButtons";
+import { Reply } from "types/reply";
 
 interface CommentListProp {
 	articleId: number;
-	updateReviews: boolean;
+	updateComments: boolean;
 }
 
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
-}
-
-function CommentList({ updateReviews, articleId }: CommentListProp) {
+function CommentList({ updateComments, articleId }: CommentListProp) {
 	const {
 		userId,
 		reviews,
@@ -45,7 +32,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 		handleReplyClick,
 		isLastPage,
 	} = useReviewListForm({
-		updateReviews,
+		updateReviews: updateComments,
 		addReviews: async (currentPage: number) => {
 			const res = await communityApi.getComments(articleId, currentPage);
 			setReviews(res.data.commentList);
@@ -115,7 +102,7 @@ function CommentList({ updateReviews, articleId }: CommentListProp) {
 						/>
 					)}
 					{review.replyList.map(
-						(reply: replyType, idx) =>
+						(reply: Reply, idx) =>
 							!reply.deletion && (
 								<ReplyItem key={idx}>
 									{reply.comment_id === isEditable ? (

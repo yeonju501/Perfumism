@@ -1,18 +1,13 @@
 import { DeleteButton, UpdateButton } from "components/button/Button";
 
-interface ReplyButtonsProps {
+interface Props {
 	handleUpdateClick: (reviewId: number) => void;
 	handleReplyDeleteClick: (reviewId: number, commentId: number) => Promise<void>;
 	parentId: number;
 	commentId: number;
 }
 
-function ReplyButtons({
-	handleUpdateClick,
-	handleReplyDeleteClick,
-	parentId,
-	commentId,
-}: ReplyButtonsProps) {
+function ReplyButtons({ handleUpdateClick, handleReplyDeleteClick, parentId, commentId }: Props) {
 	return (
 		<div>
 			<UpdateButton onClick={() => handleUpdateClick(commentId)}>수정</UpdateButton>

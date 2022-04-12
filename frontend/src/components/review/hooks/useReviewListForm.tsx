@@ -1,50 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import { Review } from "types/review";
 
-interface ReviewType {
-	comment_id: number;
-	review_id: number;
-	member_id: number;
-	member_name: string;
-	member_image: string;
-	grade: number;
-	content: string;
-	likes: number;
-	created_at?: string;
-	replyList: replyType[];
-	deletion?: boolean;
-}
-
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
-}
-
-interface useReviewListFormProps {
+interface Props {
 	updateReviews: boolean;
 	addReviews: (currentPage: number) => Promise<void>;
 	getReviews: (currentPage: number) => Promise<void>;
 	deleteReviewData: (reviewId: number) => Promise<any>;
 }
 
-function useReviewListForm({
-	updateReviews,
-	addReviews,
-	getReviews,
-	deleteReviewData,
-}: useReviewListFormProps) {
+function useReviewListForm({ updateReviews, addReviews, getReviews, deleteReviewData }: Props) {
 	const userId = useSelector((state: RootState) => state.user.id);
 
-	const [reviews, setReviews] = useState<ReviewType[]>([]);
+	const [reviews, setReviews] = useState<Review[]>([]);
 	const [totalPage, setTotalPage] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isLastPage, setIsLastPage] = useState(false);

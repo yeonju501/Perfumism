@@ -4,53 +4,37 @@ import { useEffect } from "react";
 import { FormContainer } from "./Container";
 import StarRating from "./StarRating";
 import Textarea from "./Textarea";
-import useReviewForm from "./hooks/useReviewForm";
+import useReviewForm from "./hooks/useCreateForm";
 import styled from "styled-components";
+import { Review } from "types/review";
 
-interface ReviewUpdateProp {
+interface Props {
 	reviewId: number;
 	oldContent: string;
-	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
 	oldGrade: number;
-	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
+	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
+	setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
 }
 
-interface ReviewType {
-	comment_id: number;
-	review_id: number;
-	member_id: number;
-	member_name: string;
-	member_image: string;
-	grade: number;
-	content: string;
-	likes: number;
-	replyList: replyType[];
-}
-
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
-}
-
-function ReviewUpdate({
-	oldContent,
-	oldGrade,
-	reviewId,
-	setIsEditable,
-	setReviews,
-}: ReviewUpdateProp) {
+function ReviewUpdate({ oldContent, oldGrade, reviewId, setIsEditable, setReviews }: Props) {
 	const { handleInputChange, handleFormSubmit, setGrade, grade, content, setContent } =
 		useReviewForm({
-			sendReviewData: () => {
-				return reviewApi.updateReview({ grade, content }, reviewId);
+			onSubmit: async () => {
+				if (content.trim() && grade) {
+					await reviewApi.updateReview({ grade, content }, reviewId);
+					setIsEditable(-1);
+					setReviews((reviews) =>
+						reviews.map((review) => {
+							if (review.review_id === reviewId) {
+								review.grade = grade;
+								review.content = content;
+							}
+							return review;
+						}),
+					);
+				} else {
+					alert("평점과 리뷰 내용을 모두 입력해주세요");
+				}
 			},
 		});
 
@@ -59,22 +43,8 @@ function ReviewUpdate({
 		setContent(oldContent);
 	}, []);
 
-	const handleReviewUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setIsEditable(-1);
-		setReviews((reviews) =>
-			reviews.map((review) => {
-				if (review.review_id === reviewId) {
-					review.grade = grade;
-					review.content = content;
-				}
-				return review;
-			}),
-		);
-	};
-
 	return (
-		<FormContainer onSubmit={handleReviewUpdate}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<StarRating grade={grade} setGrade={setGrade} />
 			<Div>
 				<Textarea

@@ -1,42 +1,18 @@
 import communityApi from "apis/community";
 import { CreateButton } from "components/button/Button";
 import { FormContainer } from "components/review/Container";
-import useReviewForm from "components/review/hooks/useReviewForm";
+import useReviewForm from "components/review/hooks/useCreateForm";
 import Textarea from "components/review/Textarea";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { Review } from "types/review";
 
 interface ReviewUpdateProp {
 	commentId: number;
 	articleId: number;
 	oldContent: string;
 	setIsEditable: React.Dispatch<React.SetStateAction<number>>;
-	setReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
-}
-
-interface ReviewType {
-	comment_id: number;
-	review_id: number;
-	member_id: number;
-	member_name: string;
-	member_image: string;
-	grade: number;
-	content: string;
-	likes: number;
-	replyList: replyType[];
-}
-
-interface replyType {
-	comment_id: number;
-	member_id: number;
-	member_name: string;
-	article_id: number;
-	parentId: number;
-	content: string;
-	created_at: string;
-	updated_at: string;
-	deleted_at: string;
-	deletion: boolean;
+	setReviews: React.Dispatch<React.SetStateAction<Review[]>>;
 }
 
 function CommentUpdate({
@@ -47,8 +23,21 @@ function CommentUpdate({
 	setReviews,
 }: ReviewUpdateProp) {
 	const { handleInputChange, handleFormSubmit, content, setContent } = useReviewForm({
-		sendReviewData: () => {
-			return communityApi.updateComment(articleId, commentId, { content });
+		onSubmit: async () => {
+			if (content.trim()) {
+				await communityApi.updateComment(articleId, commentId, { content });
+				setIsEditable(-1);
+				setReviews((reviews) =>
+					reviews.map((review) => {
+						if (review.comment_id === commentId) {
+							review.content = content;
+						}
+						return review;
+					}),
+				);
+			} else {
+				alert("댓글 내용을 입력해주세요");
+			}
 		},
 	});
 
@@ -56,21 +45,8 @@ function CommentUpdate({
 		setContent(oldContent);
 	}, []);
 
-	const handleReviewUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-		await handleFormSubmit(e);
-		setIsEditable(-1);
-		setReviews((reviews) =>
-			reviews.map((review) => {
-				if (review.comment_id === commentId) {
-					review.content = content;
-				}
-				return review;
-			}),
-		);
-	};
-
 	return (
-		<FormContainer onSubmit={handleReviewUpdate}>
+		<FormContainer onSubmit={handleFormSubmit}>
 			<Div>
 				<Textarea
 					value={content}
