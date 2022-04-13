@@ -43,17 +43,17 @@ public class ArticleReadDetailResponse  {
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("createAt")
+    @JsonProperty("created_at")
     @ApiModelProperty(position = 7, notes = "생성 시간", example = "2022-3-13 14:59:51")
     private LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("updateAt")
+    @JsonProperty("updated_at")
     @ApiModelProperty(position = 8, notes = "수정 시간", example = "2023-4-14 14:59:51")
     private LocalDateTime updatedAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @JsonProperty("deleteAt")
+    @JsonProperty("deleted_at")
     @ApiModelProperty(position = 9, notes = "삭제 시간", example = "2023-4-15 14:59:51")
     private LocalDateTime deletedAt;
 
