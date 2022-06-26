@@ -80,7 +80,6 @@ Perfumism에서 당신의 가치를 더욱 빛내줄 향수를 찾아보세요.
 ### Commit Type
 ```
 $ git commit -m [#'JIRA 번호'] 타입 : 작업 설명 
-
 ```
 
 | git status | 의미 |
