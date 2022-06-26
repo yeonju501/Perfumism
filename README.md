@@ -1,4 +1,4 @@
-# 📝 Perfumism 
+# 🪄 Perfumism 
 Perfumism은 **37,000개의 데이터를 기반으로 향수를 추천해주는 서비스**입니다.
 
 여러 쇼핑몰을 돌아다닐 필요 없이, 한 눈에 모든 브랜드의 향수를 비교해보세요.
@@ -8,19 +8,23 @@ Perfumism은 **37,000개의 데이터를 기반으로 향수를 추천해주는 
 Perfumism에서 당신의 가치를 더욱 빛내줄 향수를 찾아보세요.
 
 ## 🛠 기술 스택
-![skills](https://user-images.githubusercontent.com/75344304/175805351-5074f969-575d-4ab0-9efc-dce3eae00d9d.png)
+<img src="https://user-images.githubusercontent.com/75344304/175805351-5074f969-575d-4ab0-9efc-dce3eae00d9d.png"  width="800" height="660"/>
 
 
 ## 🏗 프로젝트 아키텍쳐 
+![architecture](https://user-images.githubusercontent.com/75344304/175805906-15cb3980-b8ce-4a36-a607-767bf3d40ddc.png)
+
 
 ## ⚙️ERD
+![ERD](https://user-images.githubusercontent.com/75344304/175805877-ae32fd78-46ba-42aa-8151-18a3c80de2e3.png)
+
 
 ## ✨ 추천 알고리즘
 : 코사인 유사도를 활용한 컨텐츠 기반 필터링(Content-based Filtering)
 
 **초기 추천 시스템**
 
--   설문 및 좋아요를 바탕으로 사용자가 선호하는 향기 추출
+-   설문 및 좋아요를 바탕으로 사용자가 선호하는 향기 추출!
 -   추출한 데이터를 향수 37,000개 데이터와 함께 코사인 유사도 계산
 -   사용자 선호 향수와 가장 유사한 향수 데이터 추출
 
@@ -51,18 +55,26 @@ Perfumism에서 당신의 가치를 더욱 빛내줄 향수를 찾아보세요.
 
 ## 📌주요 기능
 
-### 추천
+### 1. 추천
+![recommendation](https://user-images.githubusercontent.com/75344304/175805927-52070d87-a105-49e5-ae11-a3a1a513bb39.png)
+
 - 설문과 좋아요 2가지 방식으로 추천을 제공
 - 워드 클라우드를 활용하여 사용자가 선호하는 향기를 보여주며, 추천 향수 3가지를 선정하여 제공
+    
+### 2. 향수 조회 및 검색
+<img src="https://user-images.githubusercontent.com/75344304/175805947-2b3ef922-3a11-4bab-a088-1f8f680ab1d7.png"  width="800" height="600"/>
 
-### 향수 조회 및 검색
 - 37,000개의 향수 목록 및 note 별 향수 필터링 제공
 - 향기, 브랜드, 향수명으로 향수 검색 제공
 - 상세 페이지에서 해당 향수 정보와 함께 유사 향수 추천 제공
+    
+### 3. 커뮤니티
+<img src="https://user-images.githubusercontent.com/75344304/175806005-d4459185-4ed2-4cfd-b24f-f6d9d1ec4630.png"  width="800" height="400"/>
 
-### 커뮤니티
 - 말머리를 통해 게시글을 분류하고 말머리 필터링 기능 제공
 - 멀티 이미지 첨부가 가능하며, 댓글과 대댓글 작성 가능
+    
+
 
 ## 💻 협업 룰
 ### Commit Type
@@ -80,7 +92,9 @@ $ git commit -m [#'JIRA 번호'] 타입 : 작업 설명
 | docs | 문서 수정 |
 | chore | 빌드 업무 수정, 패키지 매니저 수정 |
 
-## 팀 소개
+
+
+## 😊 팀 소개
 **권연주 (Backend, Data)**
 
 **박예정 (Frontend, Data)**
